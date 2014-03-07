@@ -1,0 +1,139 @@
+<?php
+namespace Incentiv\Controllers;
+
+use Incentiv\Models\EmailConfirmacao,
+    Incentiv\Models\AlteraSenha;
+
+/**
+ * UsuarioControlController
+ * Fornece ajuda aos usuários para confirmar suas senhas ou redefini-las
+ */
+class UsuarioControlController extends ControllerBase
+{
+
+    public function initialize()
+    {
+        if ($this->session->has('auth-identity')) {
+            $this->view->setTemplateBefore('private');
+        }
+    }
+
+    public function indexAction(){}
+
+    /**
+     * Confirma o e-mail, se o usuário pode alterar a senha, em seguida, altera
+     */
+    public function confirmEmailAction()
+    {
+        $code = $this->dispatcher->getParam('code');
+
+        $confirmation = EmailConfirmacao::findFirstByCode($code);
+
+        if (!$confirmation) {
+            return $this->dispatcher->forward(array(
+                'controller'    => 'index',
+                'action'        => 'index'
+            ));
+        }
+
+        if ($confirmation->confirmado != 'N') {
+            return $this->dispatcher->forward(array(
+                'controller'    => 'session',
+                'action'        => 'login'
+            ));
+        }
+
+        $confirmation->confirmado       = 'Y';
+        $confirmation->user->ativo     = 'Y';
+
+        /**
+         * Altera a confirmação para "confirmar" e atualiza o usuário para 'ativo'
+         */
+        if (!$confirmation->save()) {
+
+            foreach ($confirmation->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+
+            return $this->dispatcher->forward(array(
+                'controller'    => 'index',
+                'action'        => 'index'
+            ));
+        }
+
+        /**
+         * Identifica o usuário na aplicação
+         */
+        $this->auth->authUserById($confirmation->user->id);
+
+        /**
+         * Verifica se o usuário tem que mudar sua senha
+         */
+        if ($confirmation->user->stAlterarSenha == 'Y') {
+
+            $this->flash->success('O e-mail foi confirmado com sucesso. Agora você deve alterar sua senha');
+
+            return $this->dispatcher->forward(array(
+                'controller'    => 'usuario',
+                'action'        => 'changePassword'
+            ));
+        }
+
+        $this->flash->success('O e-mail foi confirmado com sucesso');
+
+        return $this->dispatcher->forward(array(
+            'controller'    => 'usuario',
+            'action'        => 'index'
+        ));
+    }
+
+    public function resetPasswordAction()
+    {
+        $code = $this->dispatcher->getParam('code');
+
+        $resetPassword = AlteraSenha::findFirstByCode($code);
+
+        if (!$resetPassword) {
+            return $this->dispatcher->forward(array(
+                'controller'    => 'index',
+                'action'        => 'index'
+            ));
+        }
+
+        if ($resetPassword->reset != 'N') {
+            return $this->dispatcher->forward(array(
+                'controller'    => 'session',
+                'action'        => 'login'
+            ));
+        }
+
+        $resetPassword->reset = 'Y';
+
+        /**
+         * Altera a confirmação de reset
+         */
+        if (!$resetPassword->save()) {
+
+            foreach ($resetPassword->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+
+            return $this->dispatcher->forward(array(
+                'controller'    => 'index',
+                'action'        => 'index'
+            ));
+        }
+
+        /**
+         * Identifica o usuário na aplicação
+         */
+        $this->auth->authUserById($resetPassword->usuarioId);
+
+        $this->flash->success('Por favor, redefinir sua senha');
+
+        return $this->dispatcher->forward(array(
+            'controller'    => 'usuario',
+            'action'        => 'changePassword'
+        ));
+    }
+}

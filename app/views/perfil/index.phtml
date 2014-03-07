@@ -1,0 +1,29 @@
+{{ content() }}
+
+<div align="right">
+    {{ link_to("perfil/create", "<i class='icon-plus-sign'></i> Criar Perfil", "class": "btn btn-primary") }}
+</div>
+
+<form method="post" action="{{ url("perfil/search") }}" autocomplete="off">
+
+    <div class="center scaffold">
+
+        <h2>Pesquisar Perfis</h2>
+
+        <div class="clearfix">
+            <label for="id">Id</label>
+            {{ form.render("id") }}
+        </div>
+
+        <div class="clearfix">
+            <label for="nome">Nome</label>
+            {{ form.render("nome") }}
+        </div>
+
+        <div class="clearfix">
+            {{ submit_button("Search", "class": "btn btn-primary") }}
+        </div>
+
+    </div>
+
+</form>

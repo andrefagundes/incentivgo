@@ -1,0 +1,30 @@
+
+<form method="post" autocomplete="off">
+
+    <ul class="pager">
+        <li class="previous pull-left">
+            {{ link_to("perfil", "&larr; Voltar") }}
+        </li>
+        <li class="pull-right">
+            {{ submit_button("Salvar", "class": "btn btn-success") }}
+        </li>
+    </ul>
+
+    {{ content() }}
+
+    <div class="center scaffold">
+        <h2>Criar um perfil</h2>
+
+        <div class="clearfix">
+            <label for="nome">Nome</label>
+            {{ form.render("nome") }}
+        </div>
+
+        <div class="clearfix">
+            <label for="ativo">Ativo?</label>
+            {{ form.render("ativo") }}
+        </div>
+
+    </div>
+
+</form>

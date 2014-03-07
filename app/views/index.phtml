@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Programa de incentivo a alunos de universidades, faculdades e escolas particulares" />
+        <meta name="author" content="André Maciel Fagundes">
+        <meta name="keywords" content="incentivo, universidade, faculdade, escolas particulares"/>
+        <meta name="robots" content="index,follow,noodp,noydir" />
+        <title>Bem-vindo ao Incentiv</title>
+
+        <link rel="canonical" href="http://www.incentiv.com.br/" />
+        <link rel="shortcut icon" href="" />
+
+        {{ javascript_include('js/modernizr.js') }}
+        <!-- Le styles -->
+        {{ stylesheet_link('css/bootstrap/bootstrap.min.css') }}
+        {{ stylesheet_link('css/style.css') }}
+        {{ stylesheet_link('http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', false) }}
+        {{ stylesheet_link('http://fonts.googleapis.com/css?family=Raleway:200,400', false) }}
+        <!--[if lt IE 9]>
+            <script src="js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body data-spy="scroll" data-target=".navbar" data-offset='61'>
+        
+        {{ content() }}
+        
+        {{ javascript_include('http://code.jquery.com/jquery-1.11.0.min.js', false) }}
+        {{ javascript_include('js/bootstrap.min.js') }}
+        <!--[if lte IE 8]>
+                {{ javascript_include('js/respond.min.js') }}
+	<![endif]-->
+        {{ javascript_include('js/retina.js') }}
+        {{ javascript_include('js/jquery.easing.js') }}
+        {{ javascript_include('js/jquery.fitvids.min.js') }}
+        {{ javascript_include('js/jquery.nicescroll.min.js') }}
+        {{ javascript_include('js/jquery.touchwipe.min.js') }}
+        {{ javascript_include('js/skrollr.js') }}
+        <!--[if lt IE 9]>
+            {{ javascript_include('js/skrollr.ie.min.js') }}
+        <![endif]-->
+        {{ javascript_include('js/guideline.main.js') }}
+        {{ javascript_include('js/toucheffects.js') }}
+        {{ javascript_include('js/modals.js') }}
+        {{ javascript_include('js/jquery.form.js') }}
+        <script type="text/javascript">
+            if ($('.navbar-toggle:visible').length) {
+                    $('.navbar a').click(function () { $(".nav-collapse").collapse("hide"); });
+            }
+        </script>
+        {{ javascript_include('js/custom.js') }}
+    </body>
+</html>

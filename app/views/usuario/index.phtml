@@ -1,0 +1,39 @@
+{{ content() }}
+
+<div align="right">
+    {{ link_to("usuario/create", "<i class='icon-plus-sign'></i> Criar Usuário", "class": "btn btn-primary") }}
+</div>
+
+<form method="post" action="{{ url("usuario/search") }}" autocomplete="off">
+
+    <div class="center scaffold">
+
+        <h2>Pesquisar usuário</h2>
+
+        <div class="clearfix">
+            <label for="id">Id</label>
+            {{ form.render("id") }}
+        </div>
+
+        <div class="clearfix">
+            <label for="nome">Nome</label>
+            {{ form.render("nome") }}
+        </div>
+
+        <div class="clearfix">
+            <label for="email">E-Mail</label>
+            {{ form.render("email") }}
+        </div>
+
+        <div class="clearfix">
+            <label for="perfilId">Perfil</label>
+            {{ form.render("perfilId") }}
+        </div>
+
+        <div class="clearfix">
+            {{ submit_button("Pesquisar", "class": "btn btn-primary") }}
+        </div>
+
+    </div>
+
+</form>
