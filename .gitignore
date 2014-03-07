@@ -1,0 +1,7 @@
+/.phalcon/
+/.settings/
+/.project
+/.buildpath
+/nbproject/private/
+/nbproject/
+/app/cache/
