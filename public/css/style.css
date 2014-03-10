@@ -603,11 +603,8 @@ input[type="password"] {
     border-radius: 3px;
     font-size: 14px;
     height: 45px;
-    width: 280px;
     outline: none;
     padding: 10px 10px;
-  -webkit-appearance:none;
-  -moz-appearance: none;
 }
 
 .form-cadastro select {
@@ -615,13 +612,11 @@ input[type="password"] {
     -moz-border-radius: 3px;
     font-size: 16px;
     height: 45px;
-    width: 280px;
     padding: 10px 10px;
 }
 
 .form-esqueceu input[type="submit"], .form-login input[type="submit"], .form-cadastro input[type="submit"] {
     height: 45px;
-    width: 280px;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;

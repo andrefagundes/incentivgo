@@ -135,7 +135,7 @@ class CadastroForm extends Form
 
         // Sign Up
         $this->add(new Submit('go', array(
-            'class' => 'btn btn-syndicate squared',
+            'class' => 'btn btn-syndicate squared form-control',
             'Cadastrar'
         )));
     }

@@ -2,7 +2,8 @@
 namespace Incentiv\Models;
 
 use Phalcon\Mvc\Model,
-    Phalcon\Mvc\Model\Validator\Uniqueness;
+    Phalcon\Mvc\Model\Validator\Uniqueness,
+    Phalcon\Mvc\Model\Behavior\SoftDelete;
 
 /**
  * Incentiv\Models\Usuario
@@ -10,6 +11,10 @@ use Phalcon\Mvc\Model,
  */
 class Usuario extends Model
 {
+    const DELETED       = 'N';
+
+    const NOT_DELETED   = 'Y';
+    
     public static $_instance;
    
     /**
@@ -177,6 +182,13 @@ class Usuario extends Model
             'alias' => 'alteraSenha',
             'foreignKey' => array(
                 'message' => 'O usuário não pode ser excluído porque ele tem atividade no sistema'
+            )
+        ));
+        
+        $this->addBehavior(new SoftDelete(
+            array(
+                'field' => 'ativo',
+                'value' => Usuario::DELETED
             )
         ));
     }

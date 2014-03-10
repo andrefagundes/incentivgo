@@ -22,6 +22,10 @@ class EmailConfirmacao extends Model
      */
     public $usuarioId;
 
+    /**
+     *
+     * @var string
+     */
     public $codigo;
 
     /**

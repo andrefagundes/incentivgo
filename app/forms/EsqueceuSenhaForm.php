@@ -30,7 +30,7 @@ class EsqueceuSenhaForm extends Form
         $this->add($email);
 
         $this->add(new Submit('go', array(
-            'class' => 'btn btn-syndicate squared',
+            'class' => 'btn btn-syndicate squared form-control',
             'Enviar'
         )));
     }

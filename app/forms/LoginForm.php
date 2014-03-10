@@ -49,7 +49,7 @@ class LoginForm extends Form
 
         // Remember
         $remember = new Check('remember', array(
-            'value' => 'yes'
+            'value'         => 'no'
         ));
 
         $remember->setLabel('Lembrar');
@@ -70,7 +70,7 @@ class LoginForm extends Form
         $this->add($csrf);
 
         $this->add(new Submit('go', array(
-            'class' => 'btn btn-syndicate squared',
+            'class' => 'btn btn-syndicate squared form-control',
             'Login'
         )));
     }

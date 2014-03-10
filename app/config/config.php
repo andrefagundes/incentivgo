@@ -17,7 +17,7 @@ return new \Phalcon\Config(array(
         'pluginsDir'     => __DIR__ . '/../../app/plugins/',
         'baseImage'      => __DIR__ . '/../../public/img/',
         'baseUrl'        => '/incentiv/',
-        'publicUrl'      => 'localhost',
+        'publicUrl'      => 'localhost/incentiv',
         'cryptSalt'      => 'G-KY^vSK@:(jW_+gvLU:HeRVi!ZK(KV{bDp=T%l.oGaWZ?mjht<N#7 _E#2]O_8^'
     ),
     'mail' => array(
@@ -28,7 +28,7 @@ return new \Phalcon\Config(array(
             'port'      => 465,
             'security'  => 'ssl',
             'username'  => 'amfcom@gmail.com',
-            'password'  => 'tthlozmqnqrascwh'
+            'password'  => 'wivwgjkkvcksombb'
         )
     ),
     'amazon' => array(

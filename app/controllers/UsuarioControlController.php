@@ -25,10 +25,10 @@ class UsuarioControlController extends ControllerBase
      */
     public function confirmEmailAction()
     {
-        $code = $this->dispatcher->getParam('code');
+        $codigo = $this->dispatcher->getParam('code');
 
-        $confirmation = EmailConfirmacao::findFirstByCode($code);
-
+        $confirmation = EmailConfirmacao::findFirstByCodigo( $codigo );
+        
         if (!$confirmation) {
             return $this->dispatcher->forward(array(
                 'controller'    => 'index',
@@ -43,11 +43,10 @@ class UsuarioControlController extends ControllerBase
             ));
         }
 
-        $confirmation->confirmado       = 'Y';
-        $confirmation->user->ativo     = 'Y';
+        $confirmation->confirmado      = 'Y';
 
         /**
-         * Altera a confirmação para "confirmar" e atualiza o usuário para 'ativo'
+         * Altera a confirmação para "confirmar"
          */
         if (!$confirmation->save()) {
 
@@ -60,38 +59,20 @@ class UsuarioControlController extends ControllerBase
                 'action'        => 'index'
             ));
         }
-
-        /**
-         * Identifica o usuário na aplicação
-         */
-        $this->auth->authUserById($confirmation->user->id);
-
-        /**
-         * Verifica se o usuário tem que mudar sua senha
-         */
-        if ($confirmation->user->stAlterarSenha == 'Y') {
-
-            $this->flash->success('O e-mail foi confirmado com sucesso. Agora você deve alterar sua senha');
-
-            return $this->dispatcher->forward(array(
-                'controller'    => 'usuario',
-                'action'        => 'changePassword'
-            ));
-        }
-
-        $this->flash->success('O e-mail foi confirmado com sucesso');
+        
+        $this->flash->success('O seu e-mail foi confirmado com sucesso, aguarde o e-mail de aprovação de sua Instituição');
 
         return $this->dispatcher->forward(array(
-            'controller'    => 'usuario',
-            'action'        => 'index'
+            'controller'    => 'session',
+            'action'        => 'mensagem'
         ));
     }
 
     public function resetPasswordAction()
     {
-        $code = $this->dispatcher->getParam('code');
+        $codigo = $this->dispatcher->getParam('code');
 
-        $resetPassword = AlteraSenha::findFirstByCode($code);
+        $resetPassword = AlteraSenha::findFirstByCodigo($codigo);
 
         if (!$resetPassword) {
             return $this->dispatcher->forward(array(

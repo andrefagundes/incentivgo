@@ -121,6 +121,7 @@ $di->set('flash', function(){
         'error'     => 'alert alert-danger',
         'success'   => 'alert alert-success',
         'notice'    => 'alert alert-info',
+        'warning'   => 'alert'
     ));
 });
 
@@ -131,7 +132,8 @@ $di->set('flashSession', function(){
     return new FlashSession(array(
         'error'     => 'alert alert-danger',
         'success'   => 'alert alert-success',
-        'notice'    => 'alert alert-info',
+        'notice'      => 'alert alert-info',
+        'warning'   => 'alert' 
     ));
 });
 

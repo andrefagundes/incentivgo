@@ -37,9 +37,9 @@ class Auth extends Component
             throw new Exception('E-mail ou senha errada');
         }
 
-        // Verifique se o usuário foi marcado
+        // Verifique se o usuário está ativo
         $this->checkUserFlags($user);
-
+        
         // Registra o login bem-sucedido
         $this->saveSuccessLogin($user);
 
@@ -83,11 +83,11 @@ class Auth extends Component
         $failedLogin            = new FalhaLogin();
         $failedLogin->usuarioId   = $userId;
         $failedLogin->ipAddress = $this->request->getClientAddress();
-        $failedLogin->attempted = time();
+        $failedLogin->tentativa = time();
         $failedLogin->save();
 
         $attempts = FalhaLogin::count(array(
-            'ipAddress = ?0 AND attempted >= ?1',
+            'ipAddress = ?0 AND tentativa >= ?1',
             'bind' => array(
                 $this->request->getClientAddress(),
                 time() - 3600 * 6

@@ -40,8 +40,8 @@ class SessionController extends ControllerBase
                
                 if ($user->save()) {
                     return $this->dispatcher->forward(array(
-                        'controller' => 'index',
-                        'action'     => 'index'
+                        'controller' => 'session',
+                        'action'     => 'mensagem'
                     ));
                 }
  
@@ -107,17 +107,22 @@ class SessionController extends ControllerBase
 
                 $user = Usuario::findFirstByEmail($this->request->getPost('email'));
                 if (!$user) {
-                    $this->flash->success('Não há nenhuma conta associada a este e-mail');
+                    $this->flash->error('Não há nenhuma conta associada a este e-mail');
                 } else {
-
-                    $alteraSenha = new AlteraSenha();
-                    $alteraSenha->usuarioId = $user->id;
-                    if ($alteraSenha->save()) {
-                        $this->flash->success('Sucesso! Por favor, verifique as suas mensagens para uma redefinição de senha');
-                    } else {
-                        foreach ($alteraSenha->getMessages() as $message) {
-                            $this->flash->error($message);
+                    //só faz alteração de senha se usuário estiver ativo
+                    if($user->ativo == 'Y')
+                    {
+                        $alteraSenha = new AlteraSenha();
+                        $alteraSenha->usuarioId = $user->id;
+                        if ($alteraSenha->save()) {
+                            $this->flash->success('Sucesso! Por favor, verifique seu e-mail para redefinição de senha');
+                        } else {
+                            foreach ($alteraSenha->getMessages() as $message) {
+                                $this->flash->error($message);
+                            }
                         }
+                    } else {
+                       $this->flash->notice('Usuário inativo'); 
                     }
                 }
             }
@@ -126,7 +131,12 @@ class SessionController extends ControllerBase
         $this->view->form = $form;
     }
 
-    /**
+     /**
+     * Tela de mensagem de cadastro de usuário
+     */
+    public function mensagemAction(){}
+
+     /**
      * Fechar sessão
      */
     public function logoutAction()

@@ -12,7 +12,7 @@ use Incentiv\Forms\AlteraSenhaForm,
 
 /**
  * Incentiv\Controllers\UsuarioController
- * CRUD para gerenciar usuários
+ * CRUD para gerenciar usuários(alunos)
  */
 class UsuarioController extends ControllerBase
 {

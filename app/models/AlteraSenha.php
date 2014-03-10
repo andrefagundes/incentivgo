@@ -79,8 +79,8 @@ class AlteraSenha extends Model
             ->getMail()
             ->send(array(
             $this->user->email => $this->user->nome
-        ), "Redefinir sua senha", 'reset', array(
-            'resetUrl' => '/altera-senha/' . $this->code . '/' . $this->user->email
+        ), "Redefinir senha", 'reset', array(
+            'resetUrl' => '/altera-senha/' . $this->codigo . '/' . $this->user->email
         ));
     }
 
