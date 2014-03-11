@@ -4,6 +4,8 @@
  */
 $router = new Phalcon\Mvc\Router();
 
+$router->setDefaultModule("publico");
+
 $router->add('/confirm/{code}/{email}', array(
     'controller' => 'usuario_control',
     'action' => 'confirmEmail'

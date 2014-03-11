@@ -8,13 +8,9 @@ return new \Phalcon\Config(array(
         'dbname'    => 'incentiv_amf'
     ),
     'application' => array(
-        'controllersDir' => '/../../app/controllers/',
         'modelsDir'      => '/../../app/models/',
-        'viewsDir'       => '/../../app/views/',
         'cacheDir'       => '/../../app/cache/',
         'libraryDir'     => '/../../app/library/',
-        'formsDir'       => '/../../app/forms/',
-        'pluginsDir'     => __DIR__ . '/../../app/plugins/',
         'baseImage'      => __DIR__ . '/../../public/img/',
         'baseUrl'        => '/incentiv/',
         'publicUrl'      => 'localhost/incentiv',

@@ -1,14 +1,18 @@
 <?php
 
-namespace Incentiv\Controllers;
+namespace Publico\Controllers;
 
 use Incentiv\Models\Usuario,
-    Incentiv\Forms\LoginForm,
-    Incentiv\Forms\CadastroForm,
-    Incentiv\Forms\EsqueceuSenhaForm,
+    Incentiv\Models\AlteraSenha,
     Incentiv\Auth\Exception as AuthException,
-    Incentiv\Models\AlteraSenha;
-
+    Publico\Forms\LoginForm,
+    Publico\Forms\CadastroForm,
+    Publico\Forms\EsqueceuSenhaForm;
+    
+/**
+ * Publico\Controllers\SessionController
+ * Métodos publicos para cadastro, login, esqueceu senha, logout
+ */
 class SessionController extends ControllerBase
 {
     public function initialize()

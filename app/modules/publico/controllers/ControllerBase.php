@@ -1,5 +1,5 @@
 <?php
-namespace Incentiv\Controllers;
+namespace Publico\Controllers;
 
 use Phalcon\Mvc\Controller,
     Phalcon\Mvc\Dispatcher;

@@ -1,5 +1,5 @@
 <?php
-namespace Incentiv\Forms;
+namespace Publico\Forms;
 
 use Phalcon\Forms\Form,
     Phalcon\Forms\Element\Text,

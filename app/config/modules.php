@@ -1,14 +1,23 @@
 <?php
-
-$loader = new \Phalcon\Loader();
-
 /**
- * Registra um conjunto de diretórios retirados do arquivo de configuração
+ * Register application modules
  */
-$loader->registerNamespaces(array(
-    'Incentiv\Models' => __DIR__ .$config->application->modelsDir,
-    'Incentiv\Controllers' => __DIR__ .$config->application->controllersDir,
-    'Incentiv\Forms' => __DIR__ .$config->application->formsDir,
-    'Incentiv' => __DIR__ .$config->application->libraryDir
-)
-)->register();
+
+$application->registerModules(array(
+    'publico' => array(
+        'className' => 'Publico\Module',
+        'path' => __DIR__ . '/../modules/publico/Module.php'
+    ), 
+    'admin' => array(
+        'className' => 'Admin\Module',
+        'path' => __DIR__ . '/../modules/admin/Module.php'
+    ), 
+    'instituicao' => array(
+        'className' => 'Instituicao\Module',
+        'path' => __DIR__ . '/../modules/instituicao/Module.php'
+    ),
+    'aluno' => array(
+        'className' => 'Aluno\Module',
+        'path' => __DIR__ . '/../modules/aluno/Module.php'
+    )
+));

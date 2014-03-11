@@ -1,5 +1,5 @@
 <?php
-namespace Incentiv\Controllers;
+namespace Publico\Controllers;
 
 use Incentiv\Models\Perfil,
     Incentiv\Models\Permissao;

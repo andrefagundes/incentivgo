@@ -1,8 +1,8 @@
 <?php
 
-namespace Incentiv\Controllers;
+namespace Publico\Controllers;
 
-use Incentiv\Forms\ContatoForm;
+use Publico\Forms\ContatoForm;
 
 class IndexController extends ControllerBase
 {
@@ -16,9 +16,6 @@ class IndexController extends ControllerBase
         $form = new ContatoForm();
         
         $this->view->form = $form;
-    }
-    public function componentesAction(){
-        $this->view->setTemplateBefore('public_session');
     }
     
     public function contatoAction()

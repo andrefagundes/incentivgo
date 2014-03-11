@@ -14,7 +14,7 @@ try {
         */
         $config = include APP_DIR .'/config/config.php';
         
-	/**
+        /**
 	 * Read auto-loader
 	 */
 	include APP_DIR .'/config/loader.php';
@@ -29,6 +29,12 @@ try {
 	 */
 	$application = new \Phalcon\Mvc\Application();
 	$application->setDI($di);
+        
+        /**
+	 * Read modules
+	 */
+	include APP_DIR .'/config/modules.php';
+        
 	echo $application->handle()->getContent();
 
 } catch (Phalcon\Exception $e) {

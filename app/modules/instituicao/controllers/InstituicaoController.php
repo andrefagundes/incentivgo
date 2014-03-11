@@ -1,12 +1,9 @@
 <?php
-namespace Incentiv\Controllers;
+namespace Instituicao\Controllers;
 
-use Phalcon\Tag,
-    Phalcon\Mvc\Model\Criteria,
-    Phalcon\Paginator\Adapter\Model as Paginator;
-
+use Instituicao\Controllers\ControllerBase;
 /**
- * Incentiv\Controllers\InstituicaoController
+ * Instituicao\Controllers\InstituicaoController
  * CRUD para gerenciar usuários
  */
 class InstituicaoController extends ControllerBase

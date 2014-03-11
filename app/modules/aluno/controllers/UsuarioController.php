@@ -1,17 +1,17 @@
 <?php
-namespace Incentiv\Controllers;
+namespace Aluno\Controllers;
 
 use Phalcon\Tag,
     Phalcon\Mvc\Model\Criteria,
     Phalcon\Paginator\Adapter\Model as Paginator;
 
-use Incentiv\Forms\AlteraSenhaForm,
-    Incentiv\Forms\UsuarioForm,
+use Publico\Forms\AlteraSenhaForm,
+    Publico\Forms\UsuarioForm,
     Incentiv\Models\Usuario,
     Incentiv\Models\AlteracaoSenha;
 
 /**
- * Incentiv\Controllers\UsuarioController
+ * Aluno\Controllers\UsuarioController
  * CRUD para gerenciar usuários(alunos)
  */
 class UsuarioController extends ControllerBase

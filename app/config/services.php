@@ -1,12 +1,9 @@
 <?php
 
 use Phalcon\DI\FactoryDefault,
-    Phalcon\Mvc\View,
     Phalcon\Crypt,
-    Phalcon\Mvc\Dispatcher as Dispatcher,
     Phalcon\Mvc\Url as UrlResolver,
     Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter,
-    Phalcon\Mvc\View\Engine\Volt as VoltEngine,
     Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter,
     Phalcon\Session\Adapter\Files as SessionAdapter,
     Phalcon\Flash\Direct as Flash,
@@ -35,28 +32,6 @@ $di->set('url', function() use ($config) {
 	$url->setBaseUri($config->application->baseUrl);
 	return $url;
 });
-
-/**
- * Setting up the view component
- */
-$di->set('view', function() use ($config) {
-
-	$view = new View();
-	$view->setViewsDir(__DIR__.$config->application->viewsDir);
-
-	$view->registerEngines(array(
-            '.phtml' => function($view, $di) use ($config) {
-                $volt = new VoltEngine($view, $di);
-                $volt->setOptions(array(
-                    'compiledPath' => __DIR__.$config->application->cacheDir . 'volt/',
-                    'compiledSeparator' => '_'
-                ));
-                return $volt;
-            }
-	));
-
-	return $view;
-}, true);
 
 /**
  * Database connection is created based in the parameters defined in the configuration file
@@ -95,15 +70,6 @@ $di->set('crypt', function () use ($config) {
     $crypt = new Crypt();
     $crypt->setKey($config->application->cryptSalt);
     return $crypt;
-});
-
-/**
- * Dispatcher use a default namespace
- */
-$di->set('dispatcher', function () {
-    $dispatcher = new Dispatcher();
-    $dispatcher->setDefaultNamespace('Incentiv\Controllers');
-    return $dispatcher;
 });
 
 /**

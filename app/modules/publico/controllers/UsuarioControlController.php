@@ -1,5 +1,5 @@
 <?php
-namespace Incentiv\Controllers;
+namespace Publico\Controllers;
 
 use Incentiv\Models\EmailConfirmacao,
     Incentiv\Models\AlteraSenha;
@@ -113,6 +113,7 @@ class UsuarioControlController extends ControllerBase
         $this->flash->success('Por favor, redefinir sua senha');
 
         return $this->dispatcher->forward(array(
+            'module'        => 'aluno',
             'controller'    => 'usuario',
             'action'        => 'changePassword'
         ));
