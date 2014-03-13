@@ -1,5 +1,5 @@
 <?php
-namespace Publico\Controllers;
+namespace Aluno\Controllers;
 
 use Incentiv\Models\Perfil,
     Incentiv\Models\Permissao;

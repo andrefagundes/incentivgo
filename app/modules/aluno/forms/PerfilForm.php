@@ -1,5 +1,5 @@
 <?php
-namespace Publico\Forms;
+namespace Aluno\Forms;
 
 use Phalcon\Forms\Form,
     Phalcon\Forms\Element\Text,

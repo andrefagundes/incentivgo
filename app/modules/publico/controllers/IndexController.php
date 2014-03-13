@@ -27,7 +27,17 @@ class IndexController extends ControllerBase
         if ($this->request->isPost()) {
 
             if ($form->isValid($this->request->getPost()) != false) {
-                var_dump($this->request->getPost());die;
+                $this->getDI()
+                    ->getMail()
+                    ->send(array(
+                    'amfcom@gmail.com' => 'Incentiv Educ'
+                ), "Contatos", 'contato', array(
+                    'nome'      => $this->request->getPost('nome', 'striptags'),
+                    'email'     => $this->request->getPost('email', 'email'),
+                    'mensagem'  => $this->request->getPost('description', 'striptags')  
+                ));
+                
+                $this->flash->success('Mensagem enviada com sucesso, aguarde contato');
             } 
         }
 

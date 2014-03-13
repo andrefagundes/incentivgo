@@ -2,9 +2,9 @@
 
 namespace Publico\Controllers;
 
-use Incentiv\Models\Usuario,
+use Incentiv\Auth\Exception as AuthException,
+    Incentiv\Models\Usuario,
     Incentiv\Models\AlteraSenha,
-    Incentiv\Auth\Exception as AuthException,
     Publico\Forms\LoginForm,
     Publico\Forms\CadastroForm,
     Publico\Forms\EsqueceuSenhaForm;
@@ -134,7 +134,7 @@ class SessionController extends ControllerBase
 
         $this->view->form = $form;
     }
-
+    
      /**
      * Tela de mensagem de cadastro de usuário
      */

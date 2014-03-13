@@ -40,7 +40,7 @@ class Acl extends Component
             'edit',
             'create',
             'delete',
-            'changePassword'
+            'alteraSenha'
         ),
         'perfil' => array(
             'index',
@@ -65,7 +65,7 @@ class Acl extends Component
         'create'            => 'Criar',
         'edit'              => 'Editar',
         'delete'            => 'Deletar',
-        'changePassword'    => 'Alterar Senha'
+        'alteraSenha'       => 'Alterar Senha'
     );
 
     /**

@@ -115,7 +115,7 @@ class UsuarioControlController extends ControllerBase
         return $this->dispatcher->forward(array(
             'module'        => 'aluno',
             'controller'    => 'usuario',
-            'action'        => 'changePassword'
+            'action'        => 'alteraSenha'
         ));
     }
 }

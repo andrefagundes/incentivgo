@@ -5,8 +5,8 @@ use Phalcon\Tag,
     Phalcon\Mvc\Model\Criteria,
     Phalcon\Paginator\Adapter\Model as Paginator;
 
-use Publico\Forms\AlteraSenhaForm,
-    Publico\Forms\UsuarioForm,
+use Aluno\Forms\UsuarioForm,
+    Aluno\Forms\AlteraSenhaForm,
     Incentiv\Models\Usuario,
     Incentiv\Models\AlteracaoSenha;
 
@@ -160,11 +160,11 @@ class UsuarioController extends ControllerBase
             'action' => 'index'
         ));
     }
-
+    
     /**
-     * Usuário deve usar essa ação para alterar sua senha
+     * Método para alterar senha de usuário
      */
-    public function changePasswordAction()
+    public function alteraSenhaAction()
     {
         $form = new AlteraSenhaForm();
 
@@ -179,16 +179,16 @@ class UsuarioController extends ControllerBase
 
                 $user = $this->auth->getUser();
 
-                $user->senha = $this->security->hash($this->request->getPost('senha'));
-                $user->stAlterarSenha = 'N';
+                $user->senha            = $this->security->hash($this->request->getPost('senha'));
+                $user->stAlterarSenha   = 'N';
 
-                $passwordChange             = new AlteracaoSenha();
-                $passwordChange->user       = $user;
-                $passwordChange->ipAddress  = $this->request->getClientAddress();
-                $passwordChange->userAgent  = $this->request->getUserAgent();
+                $alteracaoSenha             = new AlteracaoSenha();
+                $alteracaoSenha->user       = $user;
+                $alteracaoSenha->ipAddress  = $this->request->getClientAddress();
+                $alteracaoSenha->userAgent  = $this->request->getUserAgent();
 
-                if (!$passwordChange->save()) {
-                    $this->flash->error($passwordChange->getMessages());
+                if (!$alteracaoSenha->save()) {
+                    $this->flash->error($alteracaoSenha->getMessages());
                 } else {
 
                     $this->flash->success('Sua senha foi alterada com sucesso');

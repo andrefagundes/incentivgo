@@ -33,10 +33,7 @@ class ControllerBase extends Controller
 
                 $this->flash->notice('Você não têm acesso a este módulo: privado');
 
-                $dispatcher->forward(array(
-                    'controller' => 'index',
-                    'action' => 'index'
-                ));
+                $this->response->redirect('');
                 return false;
             }
 

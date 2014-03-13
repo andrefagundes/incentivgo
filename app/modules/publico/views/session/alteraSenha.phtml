@@ -1,25 +1,30 @@
-{{ content() }}
-{{ form('usuario/changePassword', 'class': 'form-horizontal form-login','role': 'form', 'autocomplete': 'off') }}
-<form method="post" autocomplete="off" action="{{ url('usuario/changePassword') }}">
-
-    <div class="center scaffold">
-
-        <h2>Alterar senha</h2>
-
-        <div class="clearfix">
-            <label for="senha">Senha</label>
-            {{ form.render("senha") }}
+<section class="components">
+    <div class="container margin">
+        <div class="row col-offset-4">
+            <h6><strong> Alterar Senha.</strong></h6>
+            {{ form('session/alteraSenha','class': 'form-horizontal form-login','role': 'form', 'autocomplete': 'off') }}
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                        {{ content() }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                        {{ form.render('password') }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                         {{ form.render("confirmPassword") }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                        {{ form.render('go') }}
+                    </div>
+                </div>
+                {{ form.render('csrf') }}
+            </form>
         </div>
-
-        <div class="clearfix">
-            <label for="confirmPassword">Confirmar senha</label>
-            {{ form.render("confirmPassword") }}
-        </div>
-
-        <div class="clearfix">
-            {{ submit_button("Alterar senha", "class": "btn btn-primary") }}
-        </div>
-
     </div>
-
-</form>
+</section>

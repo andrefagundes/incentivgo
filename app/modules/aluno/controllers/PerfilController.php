@@ -1,11 +1,11 @@
 <?php
-namespace Publico\Controllers;
+namespace Aluno\Controllers;
 
 use Phalcon\Tag,
     Phalcon\Mvc\Model\Criteria,
     Phalcon\Paginator\Adapter\Model as Paginator;
 
-use Publico\Forms\PerfilForm,
+use Aluno\Forms\PerfilForm,
     Incentiv\Models\Perfil;
 
 /**
