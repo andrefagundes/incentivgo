@@ -2,6 +2,7 @@
 namespace Publico\Forms;
     
 use Phalcon\Forms\Form,
+    Phalcon\Forms\Element\Select,
     Phalcon\Forms\Element\Text,
     Phalcon\Forms\Element\Password,
     Phalcon\Forms\Element\Submit,
@@ -11,11 +12,32 @@ use Phalcon\Forms\Form,
     Phalcon\Validation\Validator\Email,
     Phalcon\Validation\Validator\Identical;
 
+use Incentiv\Models\Empresa;
+
 class LoginForm extends Form
 {
 
     public function initialize()
     {
+        $select = new Select('empresaId', Empresa::find("ativo = 'Y'"), array(
+            'using' => array(
+                'id',
+                'nome'
+            ),
+            'useEmpty'      => true,
+            'emptyText'     => '--Selecione sua empresa--',
+            'emptyValue'    => '',
+            'class'         => 'required form-control',
+            'required'      => ''
+        ));
+        
+         $select->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'A empresa é obrigatória'
+            ))
+        ));
+         
+        $this->add($select);
         // Email
         $email = new Text('email', array(
             'placeholder'   => 'Informe seu e-mail',

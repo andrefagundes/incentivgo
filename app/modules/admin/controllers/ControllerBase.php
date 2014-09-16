@@ -30,13 +30,7 @@ class ControllerBase extends Controller
 
             // Se não há identidade disponível o usuário é redirecionado para index/index
             if (!is_array($identity)) {
-
-                $this->flash->notice('Você não têm acesso a este módulo: privado');
-
-                $dispatcher->forward(array(
-                    'controller' => 'index',
-                    'action' => 'index'
-                ));
+                $this->response->redirect('');
                 return false;
             }
 

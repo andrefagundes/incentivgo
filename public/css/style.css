@@ -1,35 +1,3 @@
-/*
-
-Template Name: Syndicate
-Template Demo: http://awerest.com/demo/syndicate
-Author: Awerest
-Author website: http://awerest.com
-Version: 1.0
-
----------------
-
-Table of Contents:
-
-1) Typography
-2) Intro slider images
-3) Section Headers
-4) Services / Details / Customers
-5) Sections
-6) Team
-7) Blog
-8) Components
-9) Footer
-10) Contact
-11) Navigation
-12) Carousel
-13) Preloader
-14) Buttons
-15) Pricing tables
-16) Gallery/Blog hover effect
-17) Guideline
-
-*/
-
 body {
 	padding: 0;
 	font-family: 'Raleway', sans-serif;
@@ -607,7 +575,7 @@ input[type="password"] {
     padding: 10px 10px;
 }
 
-.form-cadastro select {
+.form-login select {
     border-radius: 3px;
     -moz-border-radius: 3px;
     font-size: 16px;
@@ -624,7 +592,7 @@ input[type="password"] {
 
 /* ==== Navigation ==== */
 
-.navbar {
+.navbar, .navbar-default {
 	background: #fff;
         background-image: none;
         -webkit-box-shadow:rgba(0, 0, 0, 0.498039) 0 1px 5px;

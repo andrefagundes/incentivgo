@@ -12,12 +12,12 @@ $application->registerModules(array(
         'className' => 'Admin\Module',
         'path' => __DIR__ . '/../modules/admin/Module.php'
     ), 
-    'instituicao' => array(
-        'className' => 'Instituicao\Module',
-        'path' => __DIR__ . '/../modules/instituicao/Module.php'
+    'empresa' => array(
+        'className' => 'Empresa\Module',
+        'path' => __DIR__ . '/../modules/empresa/Module.php'
     ),
-    'aluno' => array(
-        'className' => 'Aluno\Module',
-        'path' => __DIR__ . '/../modules/aluno/Module.php'
+    'colaborador' => array(
+        'className' => 'Colaborador\Module',
+        'path' => __DIR__ . '/../modules/colaborador/Module.php'
     )
 ));

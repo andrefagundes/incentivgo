@@ -12,7 +12,8 @@ use Phalcon\DI\FactoryDefault,
 
 use Incentiv\Auth\Auth,
     Incentiv\Acl\Acl,
-    Incentiv\Mail\Mail;
+    Incentiv\Mail\Mail,
+    Incentiv\Funcoes\Funcoes;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -98,7 +99,7 @@ $di->set('flashSession', function(){
     return new FlashSession(array(
         'error'     => 'alert alert-danger',
         'success'   => 'alert alert-success',
-        'notice'      => 'alert alert-info',
+        'notice'    => 'alert alert-info',
         'warning'   => 'alert' 
     ));
 });
@@ -132,4 +133,11 @@ $di->set('mail', function () {
  */
 $di->set('acl', function () {
     return new Acl();
+});
+
+/**
+ * Funcoes diversas
+ */
+$di->set('funcoes', function () {
+    return new Funcoes();
 });

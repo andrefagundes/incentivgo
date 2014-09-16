@@ -26,7 +26,7 @@ class Acl extends Component
      *
      * @var string
      */
-    private $filePath = '/cache/acl/data.txt';
+    private $filePath = '/cache/acl/dummy.txt';
 
     /**
      * Defini os recursos que são considerados "privados". Estes controllers => actions exigem autenticação.
@@ -34,6 +34,9 @@ class Acl extends Component
      * @var array
      */
     private $privateResources = array(
+//        'empresa' => array(
+//           'index' 
+//        ),
         'usuario' => array(
             'index',
             'search',
@@ -51,7 +54,7 @@ class Acl extends Component
         ),
         'permissao' => array(
             'index'
-        )
+        ),
     );
 
     /**

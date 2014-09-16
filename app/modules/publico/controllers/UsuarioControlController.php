@@ -113,7 +113,7 @@ class UsuarioControlController extends ControllerBase
         $this->flash->success('Por favor, redefinir sua senha');
 
         return $this->dispatcher->forward(array(
-            'module'        => 'aluno',
+            'module'        => 'colaborador',
             'controller'    => 'usuario',
             'action'        => 'alteraSenha'
         ));

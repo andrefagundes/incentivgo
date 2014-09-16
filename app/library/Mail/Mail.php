@@ -1,15 +1,15 @@
 <?php
 /**
  * Incentiv
- * Plataforma online de para incentivo a alunos de universidades, faculdades e escolas particulares
+ * Plataforma online de incentivo para colaboradores de empresas
  *
  * Componente para envio de email
  *
  * @package     Incentiv
- * @category    Educacao
+ * @category    Empresas
  * @name        Mail.php
  * @author      André Maciel Fagundes <amfcom@gmail.com>
- * @copyright   Â© 2014 - Incentiv Educ - All Rights Reserved
+ * @copyright   Â© 2014 - Incentiv - All Rights Reserved
  * @link        ...
  * @version     1.0.0 
  * @since       2014-03-05

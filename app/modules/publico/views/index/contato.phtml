@@ -1,16 +1,16 @@
 <!--start contact section-->
 <section id="contact">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-offset-2 margin">
+        <div class="row margin">
+            <div class="col-lg-8 col-sm-offset-2">
                 <h1 class="text-center">Contatos</h1>
                 <p class="text-center">Olá, se tiver alguma dúvida ou sugestão, entre em contato conosco.</p>
             </div>
-            <div class="col-lg-6 col-offset-3">
+            <div class="col-lg-6 col-sm-offset-3">
                 <div class="row">
                     {{ form('class':'form-horizontal','role': 'form') }}
                         <div class="form-group">
-                            <div class="col-sm-8 col-lg-8 col-offset-2">
+                            <div class="col-sm-8 col-lg-8 col-sm-offset-2">
                                 {{ content() }}
                             </div>
                         </div>
@@ -36,11 +36,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-offset-2 col-sm-8 col-lg-8">
+                            <div class="col-sm-offset-2 col-sm-8 col-lg-8">
                               {{ form.render('go') }}
                             </div>
                         </div>
-                    </form>
+                    {{endForm()}}
                 </div>
             </div>
         </div>
@@ -51,10 +51,10 @@
 <section id="footer">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-sm-6 margin copy">
+            <div class="col-lg-6 col-sm-6 margin">
                 <p>2014 &copy; Incentiv</p>
             </div>
-            <div class="col-lg-4 col-sm-6 col-offset-2 margin social">
+            <div class="col-lg-4 col-sm-6 col-sm-offset-2 margin social">
                 <a class="facebook" href="http://www.facebook.com/awerest" target="_blank">Facebook</a> / 
                 <a class="twitter" href="http://www.twitter.com/awerest" target="_blank">Twitter</a> / 
                 <a class="google" href="https://plus.google.com/u/0/104533843132286032110/posts" target="_blank">Google+</a>

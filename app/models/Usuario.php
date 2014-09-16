@@ -12,10 +12,11 @@ use Phalcon\Mvc\Model,
 class Usuario extends Model
 {
     const DELETED       = 'N';
-
     const NOT_DELETED   = 'Y';
     
-    public static $_instance;
+    const COLABORADOR   = 2;
+    
+    private static $_instance;
    
     /**
      * @var integer
@@ -26,11 +27,6 @@ class Usuario extends Model
      * @var string
      */
     public $nome;
-    
-    /**
-     * @var string
-     */
-    public $matricula;
 
     /**
      * @var string
@@ -50,7 +46,7 @@ class Usuario extends Model
     /**
      * @var integer
      */
-    public $instituicaoId;
+    public $empresaId;
 
     /**
      * @var integer
@@ -143,11 +139,6 @@ class Usuario extends Model
             "field"     => "email",
             "message"   => "O e-mail já está registrado"
         )));
-        
-        $this->validate(new Uniqueness(array(
-            "field"     => "email",
-            "message"   => "Esta matrícula já está registrada"
-        )));
 
         return $this->validationHasFailed() != true;
     }
@@ -159,8 +150,8 @@ class Usuario extends Model
             'reusable' => true
         ));
         
-        $this->belongsTo('instituicaoId', 'Incentiv\Models\Instituicao', 'id', array(
-            'alias' => 'instituicao',
+        $this->belongsTo('empresaId', 'Incentiv\Models\Empresa', 'id', array(
+            'alias' => 'empresa',
             'reusable' => true
         ));
 
@@ -185,11 +176,68 @@ class Usuario extends Model
             )
         ));
         
+        $this->hasMany('id', 'Incentiv\Models\DesafioUsuario', 'usuarioId', array(
+            'alias' => 'desafioUsuario',
+            'foreignKey' => array(
+                'message' => 'O usuario não pode ser excluído porque ele possui desafios.'
+            )
+        ));
+        
         $this->addBehavior(new SoftDelete(
             array(
                 'field' => 'ativo',
                 'value' => Usuario::DELETED
             )
         ));
+    }
+    
+    public function fetchAllUsuarios(\stdClass $objUsuario){
+        
+        $usuario = Usuario::query()->columns(array('id','nome','email', 'status' => 'ativo'));
+        
+        if($objUsuario->perfil)
+        {
+            $usuario->where("perfilId = {$objUsuario->perfil}");
+        }
+        
+        if($objUsuario->filter)
+        {
+           $usuario->andwhere( "nome LIKE('%{$objUsuario->filter}%') OR 
+                                email LIKE ('%{$objUsuario->filter}%')");
+        }
+        if(isset($objUsuario->ativo) && $objUsuario->ativo != 'T' )
+        {
+            $usuario->andwhere("ativo = '{$objUsuario->ativo}'");
+        }
+
+        $usuario->order('nome');
+   
+        return $usuario->execute();
+    }
+    
+    public function fetchAllUsuariosDesafio(\stdClass $objUsuario){
+        
+        $usuario = Usuario::query()->columns(array('id','nome','email'));
+        if($objUsuario->perfil)
+        {
+            $usuario->where("perfilId = {$objUsuario->perfil}");
+        }
+        if($objUsuario->filter)
+        {
+           $usuario->andwhere( "nome LIKE('%{$objUsuario->filter}%') OR 
+                                email LIKE ('%{$objUsuario->filter}%')");
+        }
+        if($objUsuario->colaboradores)
+        {
+            $usuario->andwhere("id IN ({$objUsuario->colaboradores})");
+        }
+        if(isset($objUsuario->ativo) && $objUsuario->ativo != 'T' )
+        {
+            $usuario->andwhere("ativo = '{$objUsuario->ativo}'");
+        }
+  
+        $usuario->order('nome');
+
+        return $usuario->execute()->toArray();
     }
 }

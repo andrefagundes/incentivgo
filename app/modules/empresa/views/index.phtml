@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Programa de incentivo a colaboradores de empresas" />
+        <meta name="author" content="André Maciel Fagundes">
+        <meta name="keywords" content="incentivo, empresas, business, corporações, corporation"/>
+        <meta name="robots" content="index,follow,noodp,noydir" />
+        <title>Bem-vindo ao Incentiv</title>
+
+        <link rel="canonical" href="http://www.incentiv.com.br/" />
+        <link rel="shortcut icon" href="" />
+        
+        {{ javascript_include('js/modernizr.js') }}
+        <!-- Le styles -->
+        {{ stylesheet_link('css/bootstrap/bootstrap.min.css') }}
+        
+        {{ stylesheet_link('css/empresa/style-empresa.css') }}
+        {{ stylesheet_link('css/empresa/font.css') }}
+        {{ stylesheet_link('css/empresa/font-awesome.min.css') }}
+        {{ stylesheet_link('css/empresa/select2.css') }}
+        {{ stylesheet_link('css/empresa/plugin.css') }}
+        
+        {{ stylesheet_link('http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', false) }}
+<!--        {{ stylesheet_link('http://fonts.googleapis.com/css?family=Raleway:200,400', false) }}-->
+        
+        {{ javascript_include('js/jquery.min.js') }}
+        {{ javascript_include('js/bootstrap.min.js') }}
+        <!--[if lt IE 9]>
+            {{ javascript_include('js/empresa/js-library/ie/respond.min.js') }}
+            {{ javascript_include('js/empresa/js-library/ie/html5.js') }}
+            {{ javascript_include('js/empresa/js-library/ie/excanvas.js') }}
+        <![endif]-->
+        <!--[if lte IE 8]>
+                {{ javascript_include('js/empresa/js-library/ie/respond.min.js') }}
+	<![endif]-->
+    </head>
+
+    <body  data-spy="scroll" data-target=".navbar" data-offset='61' >
+       
+        {{ content() }} 
+        
+        {{ javascript_include('js/retina.min.js') }}
+        {{ javascript_include('js/jquery.easing.js') }}
+        {{ javascript_include('js/jquery.fitvids.min.js') }}
+        {{ javascript_include('js/jquery.nicescroll.min.js') }}
+        {{ javascript_include('js/jquery.touchwipe.min.js') }}
+        {{ javascript_include('js/skrollr.js') }}
+        <!--{{ javascript_include('js/guideline.main.js') }}-->
+        <!--{{ javascript_include('js/toucheffects.js') }}-->
+        <!--{{ javascript_include('js/modals.js') }}-->
+        <!--{{ javascript_include('js/jquery.form.js') }}-->
+        {{ javascript_include('js/jquery.validate.min.js') }}
+        {{ javascript_include('js/additional-methods.min.js') }}
+
+ 
+         <!--app--> 
+        {{ javascript_include('js/empresa/js-library/app.js') }}
+        {{ javascript_include('js/empresa/js-library/app.plugin.js') }}
+        {{ javascript_include('js/empresa/js-library/app.data.js') }}
+        <!--charts-->
+        {{ javascript_include('js/empresa/js-library/charts/easypiechart/jquery.easy-pie-chart.js') }}
+        {{ javascript_include('js/empresa/js-library/charts/easypiechart/jquery.sparkline.min.js') }}
+        <!--fuelux--> 
+        {{ javascript_include('js/empresa/js-library/fuelux/fuelux.js') }}
+         <!--datepicker--> 
+        {{ javascript_include('js/empresa/js-library/datepicker/bootstrap-datepicker.js') }}
+        {{ javascript_include('js/empresa/js-library/datepicker/locales/bootstrap-datepicker.pt-BR.js') }}
+         <!--slider--> 
+        {{ javascript_include('js/empresa/js-library/slider/bootstrap-slider.js') }}
+         <!--file input-->   
+        {{ javascript_include('js/empresa/js-library/file-input/bootstrap.file-input.js') }}
+         <!--combodate--> 
+        {{ javascript_include('js/empresa/js-library/combodate/moment.min.js') }}
+        {{ javascript_include('js/empresa/js-library/combodate/combodate.js') }}
+         <!--parsley--> 
+<!--        {{ javascript_include('js/empresa/parsley/parsley.min.js') }}
+        {{ javascript_include('js/empresa/parsley/i18n/pt-br.js') }}-->
+         <!--select2--> 
+        {{ javascript_include('js/empresa/js-library/select2/select2.min.js') }}
+        {{ javascript_include('js/empresa/js-library/select2/select2_locale_pt-BR.js') }}
+        <!--dataTables -->
+        {{ javascript_include('js/empresa/js-library/datatables/jquery.dataTables.min.js') }}
+        
+        {{ javascript_include('js/custom.js') }}
+
+    </body>
+</html>

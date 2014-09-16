@@ -1,11 +1,23 @@
 <section class="components">
     <div class="container margin">
-        <div class="row col-offset-4">
-            <h6><strong> Bem vindo.</strong></h6>
+        
+        <div class="row col-sm-offset-4 col-lg-offset-4">
+            
             {{ form('class': 'form-horizontal form-login','role': 'form') }}
+            <div class="form-group">
+                <div class="col-sm-5 col-lg-5">
+                    {{ link_to("session/enviarSugestao", 'class':'btn btn-link',
+                    "Sua empresa não está no combo abaixo?<p> Envie uma sugestão para participar!!!</p>") }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-5 col-lg-5">
+                    {{ content() }}
+                </div>
+            </div>
                 <div class="form-group">
                     <div class="col-sm-5 col-lg-5">
-                        {{ content() }}
+                        {{ form.render('empresaId') }}
                     </div>
                 </div>
                 <div class="form-group">
@@ -16,6 +28,7 @@
                 <div class="form-group">
                     <div class="col-sm-5 col-lg-5">
                         {{ form.render('password') }}
+                        {{ form.messages('password') }}
                     </div>
                 </div>
                 <div class="form-group">

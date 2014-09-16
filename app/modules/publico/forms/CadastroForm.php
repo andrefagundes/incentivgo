@@ -2,46 +2,23 @@
 namespace Publico\Forms;
 
 use Phalcon\Forms\Form,
-    Phalcon\Forms\Element\Select,
     Phalcon\Forms\Element\Text,
     Phalcon\Forms\Element\Hidden,
-    Phalcon\Forms\Element\Password,
+//    Phalcon\Forms\Element\Password,
     Phalcon\Forms\Element\Submit,
-    Phalcon\Forms\Element\Check,
+//    Phalcon\Forms\Element\Check,
     Phalcon\Validation\Validator\PresenceOf,
     Phalcon\Validation\Validator\Email,
-    Phalcon\Validation\Validator\Identical,
-    Phalcon\Validation\Validator\Confirmation;
-
-use Incentiv\Models\Instituicao;
+    Phalcon\Validation\Validator\Identical;
+//    Phalcon\Validation\Validator\Confirmation;
 
 class CadastroForm extends Form
 {
-
     public function initialize()
     {
-        $select = new Select('instituicaoId', Instituicao::find('ativo = "S"'), array(
-            'using' => array(
-                'id',
-                'nome'
-            ),
-            'useEmpty'      => true,
-            'emptyText'     => '--Selecionar Instituição--',
-            'emptyValue'    => '',
-            'class'         => 'required form-control',
-            'required'      => ''
-        ));
-        
-         $select->addValidators(array(
-            new PresenceOf(array(
-                'message' => 'A instituição é obrigatória'
-            ))
-        ));
-         
-        $this->add($select);
         
         $nome = new Text('nome', array(
-            'placeholder'   => 'Informe seu nome',
+            'placeholder'   => 'Informe o nome da empresa',
             'class'         => 'required form-control',
             'required'      => ''
         ));
@@ -56,7 +33,7 @@ class CadastroForm extends Form
 
         // Email
         $email = new Text('email', array(
-            'placeholder'   => 'Informe seu e-mail',
+            'placeholder'   => 'Informe um e-mail de contato',
             'class'         => 'required form-control',
             'required'      => ''
         ));
@@ -72,53 +49,20 @@ class CadastroForm extends Form
 
         $this->add($email);
 
-        // matricula
-        $password = new Password('matricula', array(
-            'placeholder'   => 'Informe sua matrícula',
+        // telefone
+        $telefone = new Text('telefone', array(
+            'placeholder'   => 'Informe o telefone de contato',
             'class'         => 'required form-control',
             'required'      => ''
         ));
 
-        $password->addValidators(array(
+        $telefone->addValidators(array(
             new PresenceOf(array(
-                'message' => 'A matrícula é obrigatória'
-            )),
-            new Confirmation(array(
-                'message' => 'A matrícula não está conferindo',
-                'with' => 'confirmMatricula'
-            ))
+                'message' => 'O telefone é obrigatório'
+            ))  
         ));
 
-        $this->add($password);
-
-        // Confirma Matrícula
-        $confirmMatricula = new Password('confirmMatricula', array(
-            'placeholder'   => 'Confirme sua matrícula',
-            'class'         => 'required form-control',
-            'required'      => ''
-        ));
-
-        $confirmMatricula->addValidators(array(
-            new PresenceOf(array(
-                'message' => 'A confirmação de senha é obrigatória'
-            ))
-        ));
-
-        $this->add($confirmMatricula);
-
-        // Remember
-        $terms = new Check('terms', array(
-            'value' => 'yes'
-        ));
-
-        $terms->setLabel('Aceite os termos e condições');
-
-        $terms->addValidator(new Identical(array(
-            'value'     => 'yes',
-            'message'   => 'Termos e condições devem ser aceitos'
-        )));
-
-        $this->add($terms);
+        $this->add($telefone);
         
         // CSRF
         $csrf = new Hidden('csrf',array(

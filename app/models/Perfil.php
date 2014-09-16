@@ -17,7 +17,7 @@ class Perfil extends Model
     public $id;
 
     /**
-     * Name
+     * Nome
      * @var string
      */
     public $nome;

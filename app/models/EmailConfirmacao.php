@@ -24,7 +24,7 @@ class EmailConfirmacao extends Model
 
     /**
      *
-     * @var string
+     * @var integer
      */
     public $codigo;
 
@@ -67,7 +67,7 @@ class EmailConfirmacao extends Model
     }
 
     /**
-     * Envia um e-mail para o usuário após criar a conta
+     * Envia um e-mail de confirmação para o usuário, após criar a conta
      */
     public function afterCreate()
     {

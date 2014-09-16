@@ -1,0 +1,36 @@
+<section class="components">
+    <div class="container margin">
+        <div class="row col-sm-offset-4">
+           
+            <p class="text-left" >Enviar sugestão à empresa em que trabalho.</p>
+          
+            {{ form('class': 'form-horizontal form-login','role': 'form') }}
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                        {{ form.render('nome') }}
+                        {{ form.messages('nome') }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                        {{ form.render('email') }}
+                        {{ form.messages('email') }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                        {{ form.render('email_empresa') }}
+                        {{ form.messages('email_empresa') }}
+                    </div>
+                   
+                </div>
+             
+                <div class="form-group">
+                    <div class="col-sm-5  col-lg-5">
+                        {{ form.render('go') }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

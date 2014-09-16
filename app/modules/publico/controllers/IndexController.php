@@ -25,7 +25,7 @@ class IndexController extends ControllerBase
         $form = new ContatoForm();
 
         if ($this->request->isPost()) {
-
+            //valida formulário de contato e envia email para Incentiv Educ
             if ($form->isValid($this->request->getPost()) != false) {
                 $this->getDI()
                     ->getMail()
@@ -42,5 +42,9 @@ class IndexController extends ControllerBase
         }
 
         $this->view->form = $form;
+    }
+    
+    public function route404Action(){
+        echo 'Ops, deu errado';
     }
 }

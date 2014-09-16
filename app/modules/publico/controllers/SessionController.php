@@ -3,11 +3,12 @@
 namespace Publico\Controllers;
 
 use Incentiv\Auth\Exception as AuthException,
-    Incentiv\Models\Usuario,
+    Incentiv\Models\Empresa,
     Incentiv\Models\AlteraSenha,
     Publico\Forms\LoginForm,
     Publico\Forms\CadastroForm,
-    Publico\Forms\EsqueceuSenhaForm;
+    Publico\Forms\EsqueceuSenhaForm,
+    Publico\Forms\EnviarSugestaoForm;
     
 /**
  * Publico\Controllers\SessionController
@@ -30,15 +31,14 @@ class SessionController extends ControllerBase
         $form = new CadastroForm();
 
         if ($this->request->isPost()) {
-            
+            die($this->request->getPost('telefone','int'));
             if ($form->isValid($this->request->getPost()) != false) {
-                $user = Usuario::build();
+                $user = Empresa::build();
 
                 $user->assign(array(
                     'nome'          => $this->request->getPost('nome', 'striptags'),
                     'email'         => $this->request->getPost('email', 'email'),
-                    'instituicaoId' => (int) $this->request->getPost('instituicaoId','int'),
-                    'matricula'     => $this->request->getPost('matricula', 'striptags'),
+                    'email'         => $this->request->getPost('telefone','int'),
                     'perfilId'      => 3
                 ));
                
@@ -100,6 +100,47 @@ class SessionController extends ControllerBase
     public function esqueceuSenhaAction()
     {
         $form = new EsqueceuSenhaForm();
+
+        if ($this->request->isPost()) {
+
+            if ($form->isValid($this->request->getPost()) == false) {
+                foreach ($form->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
+            } else {
+
+                $user = Usuario::findFirstByEmail($this->request->getPost('email'));
+                if (!$user) {
+                    $this->flash->error('Não há nenhuma conta associada a este e-mail');
+                } else {
+                    //só faz alteração de senha se usuário estiver ativo
+                    if($user->ativo == 'Y')
+                    {
+                        $alteraSenha = new AlteraSenha();
+                        $alteraSenha->usuarioId = $user->id;
+                        if ($alteraSenha->save()) {
+                            $this->flash->success('Sucesso! Por favor, verifique seu e-mail para redefinição de senha');
+                        } else {
+                            foreach ($alteraSenha->getMessages() as $message) {
+                                $this->flash->error($message);
+                            }
+                        }
+                    } else {
+                       $this->flash->notice('Usuário inativo'); 
+                    }
+                }
+            }
+        }
+
+        $this->view->form = $form;
+    }
+    
+    /**
+     * Mostra o formulário enviar sugestão
+     */
+    public function enviarSugestaoAction()
+    {
+        $form = new EnviarSugestaoForm();
 
         if ($this->request->isPost()) {
 

@@ -4,8 +4,7 @@
 $(document).ready(function() {
   'use strict';
 
-  $('.navbar a, .navbar li a, .brand, #footer li a, .more a, a.go-top')
-  .bind('click', function(event) {
+  $('.navbar a, .navbar li a, .brand, #footer li a, .more a, a.go-top').on('click', function(event) {
     var $anchor = $(this),
     scrollVal = $($anchor.attr('href')).offset().top - 60;
 
@@ -37,6 +36,16 @@ $(document).ready(function() {
     cursorcolor: '#e3e4e5',
     cursorborderradius: '3px',
     autohidemode: false,
+    horizrailenabled: false
+  });
+  
+  //custom scrollbar
+  $('.scrollbar').niceScroll({
+    cursorwidth: 10,
+    cursorborder: 0,
+    cursorcolor: '#e3e4e5',
+    cursorborderradius: '3px',
+    autohidemode: true,
     horizrailenabled: false
   });
 
@@ -91,55 +100,13 @@ $(window).load(function() {
   'use strict';
   //preloader
   $(window).scrollTop(0);
-  $('#status').fadeOut();
-  $('#preloader').delay(350).fadeOut('slow');
-
-  //tour trigger
- // Guideline.setCurrentPage('tour');
- // Guideline.getGuide('welcome').start();
 
   //modal trigger
-  $('.modal').bigmodal('hide');
+  //$('.modal').bigmodal('hide');
+  $.fn.modal.Constructor.prototype.enforceFocus = function() {};
 
   //tooltip and popover trigger
   $('[data-thumb=tooltip]').tooltip();
   $('[data-thumb=popover]').popover();
-
-  //if link points to nowhere (aka #) then don't go to top of page
-  $('a[href="#"]').click(function() {
-    return false;
-  });
-
-  //contact form
-  $(document).ready(function() {
-    var options = {
-      target: '.message .alert',
-      beforeSubmit: showRequest,
-      success: showResponse
-    };
-    $('#contactForm').ajaxForm(options);
-  });
-
-  function showRequest(formData, jqForm, options) {
-    var queryString = $.param(formData);
-    return true;
-  }
-  function showResponse(responseText, statusText)  {
-  }
-  $.fn.clearForm = function() {
-    return this.each(function() {
-      var type = this.type, tag = this.tagName.toLowerCase();
-      if (tag === 'form') {
-        $(':input', this).clearForm();
-      }
-      if (type === 'text' || type === 'password' || tag === 'textarea') {
-        this.value = '';
-      } else if (type === 'checkbox' || type === 'radio') {
-        this.checked = false;
-      } else if (tag === 'select') {
-        this.selectedIndex = -1;
-      }
-    });
-  };
 
 });
