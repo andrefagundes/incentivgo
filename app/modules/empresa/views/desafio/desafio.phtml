@@ -1,0 +1,63 @@
+<section id="content">
+    <section class="main padder">
+        <div class="clearfix">
+            <h4><i class="fa fa-edit"></i>Desafios</h4>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- .breadcrumb -->
+                <ul class="breadcrumb">
+                    <li><a href="#">Desafios</a></li>
+                </ul>
+                <!-- / .breadcrumb -->
+            </div>
+            <div class="col-lg-10 col-lg-offset-1" id="mensagem-modal-desafio"><?php echo $this->flashSession->output(); ?></div>
+            <div class="col-lg-10 col-lg-offset-1">
+                <!-- scrollable inbox widget -->
+                <section class="panel">
+                    <header class="panel-heading">
+                        <div class="pull-left">
+                            <button type="button" class="btn btn-sm btn-white squared" id="btnCriarDesafio">Criar Desafio</button>
+                        </div>
+                        <div class="col-sm-4 col-lg-offset-3">
+                            <div class="input-group">
+                                <input type="text" id="filterDesafio" class="input-sm form-control" placeholder="Pesquisar por desafios">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-white" id="btnPesquisarDesafio">Pesquisar</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <span class="label label-large bg-default" id="quantidade-desafio">0</span> Desafios 
+                        </div>
+                    </header>
+                    <div id="pesquisarDesafio"></div>
+                </section>
+            </div>
+    </section>
+</section>
+<!-- Início Modal Criar Desafio -->
+<div class="modal fade" id="modalCriarDesafio" tabindex="-5" role="dialog" aria-labelledby="modalCriarDesafioLabel" aria-hidden="true">
+   {{ form('empresa/desafio/salvar-desafio', 'class':'form-horizontal', 'id':'form-desafio', 'method': 'post') }}
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body" id="modal-body-desafio"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnSalvarDesafio">Salvar desafio</button>
+                </div>
+            </div>
+        </div>
+   {{endForm()}}
+</div>
+<!-- Fim Modal Criar Desafio -->
+{{ javascript_include('js/empresa/desafio/desafio.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        Desafio.init();
+    });
+</script>

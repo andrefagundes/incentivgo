@@ -5,7 +5,7 @@
             <tr class="row">
                 <td class="td-responsive">
                     <div class="pull-right text-muted">
-                        <strong class="h3 text-info text-center text-">{{campanha.pontuacao}}</strong> pts<br>
+                        <strong class="h3 text-info text-center">{{campanha.pontuacao}}</strong> pts<br>
                         <small>
                             {% if(campanha.ativo == 'N') %}
                             {% set status = 'danger' %} 
@@ -58,14 +58,14 @@
                     <li><a href="#" class="fa btnPaginacaoDesafio" id="{{page.next}}"><i class="icons icon-step-forward"></i> Próximo</a></li>
                     <li><a href="#" class="fa btnPaginacaoDesafio" id="{{page.last}}">Último <i class="icons icon-fast-forward"></i> </a></li>
                 </ul>
-                {{hidden_field("quantDesafios","value":page.total_items )}}
+                {{hidden_field("quantDesafio","value":page.total_items )}}
             </div>
         </div>
     </footer>
 </section>
-{{ javascript_include('js/empresa/desafios/pesquisar-desafios.js') }}
+{{ javascript_include('js/empresa/desafio/pesquisar-desafio.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        pesquisarDesafios.init();
+        pesquisarDesafio.init();
     });
 </script>

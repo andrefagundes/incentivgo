@@ -3,6 +3,7 @@ namespace Incentiv\Models;
 
 use Phalcon\Mvc\Model,
     Phalcon\Mvc\Model\Validator\Uniqueness,
+    Phalcon\Mvc\Model\Validator\Email,
     Phalcon\Mvc\Model\Behavior\SoftDelete;
 
 /**
@@ -13,8 +14,6 @@ class Usuario extends Model
 {
     const DELETED       = 'N';
     const NOT_DELETED   = 'Y';
-    
-    const COLABORADOR   = 2;
     
     private static $_instance;
    
@@ -47,6 +46,11 @@ class Usuario extends Model
      * @var integer
      */
     public $empresaId;
+    
+    /**
+     * @var integer
+     */
+    public $criacaoDt;
 
     /**
      * @var integer
@@ -99,6 +103,8 @@ class Usuario extends Model
             //O usuário não deve alterar sua senha no primeiro login 
             $this->stAlterarSenha = 'N';
         }
+        
+        $this->criacaoDt = time();
 
         //A conta deve ser confirmada via e-mail
         $this->ativo = 'N';
@@ -131,13 +137,18 @@ class Usuario extends Model
     }
 
     /**
-     * Validar que e-mails e matrículas são únicos entre os usuários 
+     * Validar que e-mails são únicos entre os usuários 
      */
     public function validation()
     {
+        $this->validate(new Email(array(
+            "field"     => "email",
+            "message"   => "O e-mail é inválido!!!"
+        )));
+        
         $this->validate(new Uniqueness(array(
             "field"     => "email",
-            "message"   => "O e-mail já está registrado"
+            "message"   => "O e-mail já está registrado!!!"
         )));
 
         return $this->validationHasFailed() != true;
@@ -239,5 +250,39 @@ class Usuario extends Model
         $usuario->order('nome');
 
         return $usuario->execute()->toArray();
+    }
+    
+    public function salvarUsuario(\stdClass $dados){
+
+        try {
+            
+        if($dados->id){
+           $usuario = $this->findFirst("id = ".$dados->id);
+        }else{
+           $usuario = $this;
+        }
+
+        $usuario->assign(array(
+            'empresaId'     => 1,
+            'perfilId'      => $dados->perfilId,
+            'nome'          => $dados->nome,
+            'email'         => $dados->email
+        ));
+        
+        if (!$usuario->save()) {
+
+            foreach ($this->getMessages() as $mensagem) {
+              $message =  $mensagem;
+              break;
+            }
+            
+            return array('status' => 'error', 'message'=> $message );
+        }
+
+        return array('status' => 'ok','message'=>'Usuário salvo com sucesso!!!');
+        
+        } catch (Exception $e) {
+            echo $e->getTraceAsString();
+        }
     }
 }

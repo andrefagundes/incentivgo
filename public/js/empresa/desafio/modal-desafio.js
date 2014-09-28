@@ -95,7 +95,7 @@ function formataSelectColaboradores() {
         multiple: true,
         openOnEnter:true,
         ajax: {
-            url: "/incentiv/empresa/pesquisar-colaboradores/filter/",
+            url: "desafio/pesquisar-colaborador/filter/",
             dataType: 'json',
             quietMillis: 100,
             data: function(term,page) {
@@ -115,7 +115,7 @@ function formataSelectColaboradores() {
             var id_colaboradores = $(element).val();
             if (id_colaboradores !== "")
             {
-                $.ajax("/incentiv/empresa/pesquisar-colaboradores/filter/?colaboradores=" + id_colaboradores, {
+                $.ajax("desafio/pesquisar-colaborador/filter/?colaboradores=" + id_colaboradores, {
                     dataType: "json",
                     results: function(data) {
                         return {results: data};

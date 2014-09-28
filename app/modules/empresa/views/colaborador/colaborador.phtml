@@ -1,64 +1,64 @@
-<!-- / nav -->
+
 <section id="content">
     <section class="main padder">
         <div class="clearfix">
-            <h4><i class="fa fa-edit"></i>Desafios</h4>
+            <h4><i class="fa fa-edit"></i>Colaboradores</h4>
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <!-- .breadcrumb -->
                 <ul class="breadcrumb">
-                    <li><a href="#">Desafios</a></li>
+                    <li><a href="#">Colaboradores</a></li>
                 </ul>
                 <!-- / .breadcrumb -->
             </div>
-            <div class="col-lg-10 col-lg-offset-1" id="mensagem-modal-desafio"><?php echo $this->flashSession->output(); ?></div>
+            <div class="col-lg-10 col-lg-offset-1" id="mensagem-modal-colaborador"><?php echo $this->flashSession->output(); ?></div>
             <div class="col-lg-10 col-lg-offset-1">
                 <!-- scrollable inbox widget -->
                 <section class="panel">
                     <header class="panel-heading">
                         <div class="pull-left">
-                            <button type="button" class="btn btn-sm btn-white squared" id="btnCriarDesafio">Criar Desafio</button>
+                            <button type="button" class="btn btn-sm btn-white squared" id="btnCriarColaborador">Criar Colaborador</button>
                         </div>
                         <div class="col-sm-4 col-lg-offset-3">
                             <div class="input-group">
-                                <input type="text" id="filterDesafios" class="input-sm form-control" placeholder="Pesquisar por desafios">
+                                <input type="text" id="filterColaboradores" class="input-sm form-control" placeholder="Pesquisar por colaboradores">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-white" id="btnPesquisarDesafios">Pesquisar</button>
+                                    <button type="button" class="btn btn-sm btn-white" id="btnPesquisarColaboradores">Pesquisar</button>
                                 </span>
                             </div>
                         </div>
                         <div class="pull-right">
-                            <span class="label label-large bg-default" id="quantidade-desafios">0</span> Desafios 
+                            <span class="label label-large bg-default" id="quantidade-colaborador">0</span> Colaboradores 
                         </div>
                     </header>
-                    <div id="pesquisarDesafios"></div>
+                    <div id="pesquisarColaborador"></div>
                 </section>
             </div>
     </section>
 </section>
-<!-- Início Modal Criar Desafio -->
-<div class="modal fade" id="modalCriarDesafio" tabindex="-5" role="dialog" aria-labelledby="modalCriarDesafioLabel" aria-hidden="true">
-   {{ form('empresa/salvar-desafio', 'class':'form-horizontal', 'id':'form-desafio', 'method': 'post') }}
+<!-- Início Modal Criar Colaborador -->
+<div class="modal fade" id="modalCriarColaborador" tabindex="-5" role="dialog" aria-labelledby="modalCriarColaboradorLabel" aria-hidden="true">
+   {{ form('empresa/colaborador/salvar-colaborador', 'class':'form-horizontal', 'id':'form-colaborador', 'method': 'post') }}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
                     <h4 class="modal-title" id="myModalLabel"></h4>
                 </div>
-                <div class="modal-body" id="modal-body-desafio"></div>
+                <div class="modal-body" id="modal-body-colaborador"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnSalvarDesafio">Salvar desafio</button>
+                    <button type="submit" class="btn btn-sm btn-syndicate squared">Salvar colaborador</button>
                 </div>
             </div>
         </div>
    {{endForm()}}
 </div>
-<!-- Fim Modal Criar Desafio -->
-{{ javascript_include('js/empresa/desafios/desafios.js') }}
-<script type="text/javascript">
-    $(document).ready(function() {
-        Desafios.init();
-    });
+<!-- Fim Modal Cadastro colaborador -->
+{{ javascript_include('js/empresa/colaborador/colaborador.js') }}
+<script type="text/javascript">  
+    $(document).ready(function(){
+        Colaborador.init();
+    });   
 </script>

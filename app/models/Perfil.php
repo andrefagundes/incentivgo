@@ -9,6 +9,11 @@ use Phalcon\Mvc\Model;
  */
 class Perfil extends Model
 {
+    const ADMINISTRADOR             = 1;
+    const COLABORADOR               = 2;
+    const ADMINISTRADOR_INCENTIV    = 3;
+    
+    public static $_instance;
 
     /**
      * ID
@@ -21,6 +26,16 @@ class Perfil extends Model
      * @var string
      */
     public $nome;
+    
+    public static function build()
+    {
+        if( !isset( self::$_instance ) )
+        {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
+    }
 
     /**
      * Defini relações com usuários e permissões

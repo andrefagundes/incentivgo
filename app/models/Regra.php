@@ -19,11 +19,6 @@ class Regra extends Model
      * @var integer
      */
     public $id;
-    
-    /**
-     * @var integer
-     */
-    public $tipoRegra;
 
     /**
      * @var integer
@@ -119,8 +114,6 @@ class Regra extends Model
                          array( 'id',
                                 'regra',
                                 'pontuacao', 
-                                'inicioDt' => "DATE_FORMAT( inicioDt , '%d/%c/%Y' )",
-                                'fimDt' => "DATE_FORMAT( fimDt , '%d/%c/%Y' )",
                                 'observacao',
                                 'ativo'));
         

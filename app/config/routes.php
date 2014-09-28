@@ -49,14 +49,6 @@ $router->add('/contato', array(
     'action' => 'contato'
 ));
 
-/******Rotas módulo colaborador**********/
-
-$router->add('/colaborador/usuario/alteraSenha', array(
-    'module' => 'colaborador',
-    'controller' => 'usuario',
-    'action' => 'alteraSenha'
-));
-
 /******Rotas módulo empresa**********/
 
 $router->add('/empresa', array(
@@ -65,22 +57,18 @@ $router->add('/empresa', array(
     'action' => 'index'
 ));
 
-$router->add('/empresa/campanhas', array(
+/******Rotas módulo empresa/desafio**********/
+
+$router->add('/empresa/desafio', array(
     'module' => 'empresa',
-    'controller' => 'empresa',
-    'action' => 'campanhas'
+    'controller' => 'desafio',
+    'action' => 'desafio'
 ));
 
-$router->add('/empresa/desafios', array(
+$router->add('/empresa/desafio/pesquisar-desafio', array(
     'module' => 'empresa',
-    'controller' => 'empresa',
-    'action' => 'desafios'
-));
-
-$router->add('/empresa/pesquisar-desafios', array(
-    'module' => 'empresa',
-    'controller' => 'empresa',
-    'action' => 'pesquisarDesafios'
+    'controller' => 'desafio',
+    'action' => 'pesquisarDesafio'
 ))->beforeMatch(function() {
     //Verifica se a requisição é Ajax
     if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
@@ -89,9 +77,9 @@ $router->add('/empresa/pesquisar-desafios', array(
     return false;
 });
 
-$router->add('/empresa/modal-desafio/{code}', array(
+$router->add('/empresa/desafio/modal-desafio/{code}', array(
     'module' => 'empresa',
-    'controller' => 'empresa',
+    'controller' => 'desafio',
     'action' => 'modalDesafio'
 ))->beforeMatch(function() {
     //Verifica se a requisição é Ajax
@@ -102,33 +90,9 @@ $router->add('/empresa/modal-desafio/{code}', array(
     return false;
 });
 
-$router->add('/empresa/salvar-desafio', array(
+$router->add('/empresa/desafio/pesquisar-colaborador/filter/{get}', array(
     'module' => 'empresa',
-    'controller' => 'empresa',
-    'action' => 'salvarDesafio'
-));
-
-$router->add('/empresa/colaboradores', array(
-    'module' => 'empresa',
-    'controller' => 'empresa',
-    'action' => 'colaboradores'
-));
-
-$router->add('/empresa/pesquisar-colaboradores', array(
-    'module' => 'empresa',
-    'controller' => 'empresa',
-    'action' => 'pesquisarColaboradores'
-))->beforeMatch(function() {
-    //Verifica se a requisição é Ajax
-    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
-        return true;
-    }
-    return false;
-});
-
-$router->add('/empresa/pesquisar-colaboradores/filter/{get}', array(
-    'module' => 'empresa',
-    'controller' => 'empresa',
+    'controller' => 'desafio',
     'action' => 'pesquisarColaboradoresDesafio',
     'get' => 1
 ))->beforeMatch(function() {
@@ -139,22 +103,24 @@ $router->add('/empresa/pesquisar-colaboradores/filter/{get}', array(
     return false;
 });
 
-$router->add('/empresa/campanhas', array(
+$router->add('/empresa/desafio/salvar-desafio', array(
     'module' => 'empresa',
-    'controller' => 'empresa',
-    'action' => 'campanhas'
+    'controller' => 'desafio',
+    'action' => 'salvarDesafio'
 ));
 
-$router->add('/empresa/criar-campanha', array(
+/******Rotas módulo empresa/regra**********/
+
+$router->add('/empresa/regra', array(
     'module' => 'empresa',
-    'controller' => 'empresa',
-    'action' => 'criarCampanha'
+    'controller' => 'regra',
+    'action' => 'regra'
 ));
 
-$router->add('/empresa/pesquisar-campanhas', array(
+$router->add('/empresa/regra/pesquisar-regra', array(
     'module' => 'empresa',
-    'controller' => 'empresa',
-    'action' => 'pesquisarCampanhas'
+    'controller' => 'regra',
+    'action' => 'pesquisarRegra'
 ))->beforeMatch(function() {
     //Verifica se a requisição é Ajax
     if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
@@ -163,10 +129,62 @@ $router->add('/empresa/pesquisar-campanhas', array(
     return false;
 });
 
-$router->add('/empresa/eventos/{code}', array(
+$router->add('/empresa/regra/modal-regra/{code}', array(
     'module' => 'empresa',
-    'controller' => 'empresa',
-    'action' => 'eventos'
+    'controller' => 'regra',
+    'action' => 'modalRegra'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
+$router->add('/empresa/regra/salvar-regra', array(
+    'module' => 'empresa',
+    'controller' => 'regra',
+    'action' => 'salvarRegra'
+));
+
+/******Rotas módulo empresa/colaborador**********/
+
+$router->add('/empresa/colaborador', array(
+    'module' => 'empresa',
+    'controller' => 'colaborador',
+    'action' => 'colaborador'
+));
+
+$router->add('/empresa/colaborador/pesquisar-colaborador', array(
+    'module' => 'empresa',
+    'controller' => 'colaborador',
+    'action' => 'pesquisarColaborador'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+
+$router->add('/empresa/colaborador/modal-colaborador/{code}', array(
+    'module' => 'empresa',
+    'controller' => 'colaborador',
+    'action' => 'modalColaborador'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
+$router->add('/empresa/colaborador/salvar-colaborador', array(
+    'module' => 'empresa',
+    'controller' => 'colaborador',
+    'action' => 'salvarColaborador'
 ));
 
 return $router;
