@@ -7,7 +7,7 @@ var Desafio = {
         });
         
         if($("#mensagem-modal-desafio")){
-            $("#mensagem-modal-desafio").slideUp({duration: 3000});
+            $("#mensagem-modal-desafio").slideUp({start:3000,duration: 5000});
         }
         
         //evento do botão de criar desafio

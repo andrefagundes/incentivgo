@@ -109,6 +109,12 @@ $router->add('/empresa/desafio/salvar-desafio', array(
     'action' => 'salvarDesafio'
 ));
 
+$router->add('/empresa/desafio/ativar-inativar-desafio/{status}/{id}', array(
+    'module' => 'empresa',
+    'controller' => 'desafio',
+    'action' => 'ativarInativarDesafio'
+));
+
 /******Rotas módulo empresa/regra**********/
 
 $router->add('/empresa/regra', array(
@@ -148,6 +154,11 @@ $router->add('/empresa/regra/salvar-regra', array(
     'action' => 'salvarRegra'
 ));
 
+$router->add('/empresa/regra/ativar-inativar-regra/{status}/{id}', array(
+    'module' => 'empresa',
+    'controller' => 'regra',
+    'action' => 'ativarInativarRegra'
+));
 /******Rotas módulo empresa/colaborador**********/
 
 $router->add('/empresa/colaborador', array(
@@ -185,6 +196,12 @@ $router->add('/empresa/colaborador/salvar-colaborador', array(
     'module' => 'empresa',
     'controller' => 'colaborador',
     'action' => 'salvarColaborador'
+));
+
+$router->add('/empresa/colaborador/ativar-inativar-colaborador/{status}/{id}', array(
+    'module' => 'empresa',
+    'controller' => 'colaborador',
+    'action' => 'ativarInativarColaborador'
 ));
 
 return $router;

@@ -169,28 +169,28 @@ class Usuario extends Model
         $this->hasMany('id', 'Incentiv\Models\SucessoLogin', 'usuarioId', array(
             'alias' => 'sucessoLogin',
             'foreignKey' => array(
-                'message' => 'O usuário não pode ser excluído porque ele tem atividade no sistema'
+                'message' => 'O colaborador não pode ser excluído porque ele tem atividade no sistema'
             )
         ));
 
         $this->hasMany('id', 'Incentiv\Models\AlteracaoSenha', 'usuarioId', array(
             'alias' => 'passwordChanges',
             'foreignKey' => array(
-                'message' => 'O usuário não pode ser excluído porque ele tem atividade no sistema'
+                'message' => 'O colaborador não pode ser excluído porque ele tem atividade no sistema'
             )
         ));
 
         $this->hasMany('id', 'Incentiv\Models\AlteraSenha', 'usuarioId', array(
             'alias' => 'alteraSenha',
             'foreignKey' => array(
-                'message' => 'O usuário não pode ser excluído porque ele tem atividade no sistema'
+                'message' => 'O colaborador não pode ser excluído porque ele tem atividade no sistema'
             )
         ));
         
         $this->hasMany('id', 'Incentiv\Models\DesafioUsuario', 'usuarioId', array(
             'alias' => 'desafioUsuario',
             'foreignKey' => array(
-                'message' => 'O usuario não pode ser excluído porque ele possui desafios.'
+                'message' => 'O colaborador não pode ser excluído porque ele possui desafios.'
             )
         ));
         
@@ -279,10 +279,33 @@ class Usuario extends Model
             return array('status' => 'error', 'message'=> $message );
         }
 
-        return array('status' => 'ok','message'=>'Usuário salvo com sucesso!!!');
+        return array('status' => 'ok','message'=>'Colaborador salvo com sucesso!!!');
         
         } catch (Exception $e) {
             echo $e->getTraceAsString();
+        }
+    }
+    
+    public function ativarInativarUsuario(\stdClass $dados){
+
+        $colaborador = $this->findFirst("id = ".$dados->id);
+        
+        $colaborador->assign(array(
+            'ativo'         => $dados->status
+        ));
+
+        if (!$colaborador->save()) {
+            foreach ($colaborador->getMessages() as $mensagem) {
+              $message =  $mensagem;
+              break;
+            }
+            return array('status' => 'error', 'message' => $message);
+        } else {
+            if($dados->status == 'N'){
+                return array('status' => 'ok', 'message' => 'Colaborador inativado com sucesso!!!');
+            }else{
+                return array('status' => 'ok', 'message' => 'Colaborador ativado com sucesso!!!');
+            }  
         }
     }
 }

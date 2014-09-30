@@ -1,39 +1,40 @@
 
 <table class="table table-responsive text-small">
     <tbody>
-        {% for campanha in page.items %}
+        {% for desafio in page.items %}
             <tr class="row">
                 <td class="td-responsive">
                     <div class="pull-right text-muted">
-                        <strong class="h3 text-info text-center">{{campanha.pontuacao}}</strong> pts<br>
+                        <strong class="h3 text-info text-center" data-placement="left" data-toggle="tooltip" data-original-title="Pontos válidos">{{desafio.pontuacao}}</strong> pts<br>
                         <small>
-                            {% if(campanha.ativo == 'N') %}
+                            {% if(desafio.status == 'N') %}
                             {% set status = 'danger' %} 
                             {% set status_label = 'Inativo' %}
                             {% else  %}
                             {% set status = 'success' %} 
                             {% set status_label = 'Ativo' %}
                             {% endif %}
-                            <span class="label label-{{status}}">
+                            <span class="label label-{{status}}" data-placement="left" data-toggle="tooltip" data-original-title="Status">
                                 {{status_label}}
                             </span>
                         </small>
                     </div>
-                    <a href="#">{{campanha.inicioDt}} a {{campanha.fimDt}} </a> 
-                    <div class="btn-group">
-                        <button class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
+                    <span data-placement="left" data-toggle="tooltip" data-original-title="Período Válido" >{{desafio.inicioDt}} a {{desafio.fimDt}} </span> 
+                    <div class="btn-group" data-placement="right" data-toggle="tooltip" data-original-title="Ações">
+                        <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
                         <ul class="dropdown-menu pull-left">
-                            {% if(campanha.ativo == 'N') %}
-                            <li class="text-left">{{linkTo('empresa/ativar-inativar-desafio/ativo/Y/id/'~campanha.id, '<i class="icon-plus-sign"></i> Ativar')}}
+                            <li class="text-left"><a href="#" class="btnAlterarDesafio" id="{{desafio.id}}"><i class="icon-pencil"></i> Alterar</a></li>
+                             <li class="divider"></li>
+                            {% if(desafio.status == 'N') %}
+                            <li class="text-left">{{linkTo('empresa/desafio/ativar-inativar-desafio/Y/'~desafio.id, '<i class="icon-plus-sign"></i> Ativar')}}
                                 {% else %}
-                            <li class="text-left">{{linkTo('empresa/ativar-inativar-desafio/ativo/N/id/'~campanha.id, '<i class="fa fa-minus-square-o"></i> Inativar')}}</li>
+                            <li class="text-left">{{linkTo('empresa/desafio/ativar-inativar-desafio/N/'~desafio.id, '<i class="fa fa-minus-square-o"></i> Inativar')}}</li>
                                 {% endif %}
-                                <li class="text-left"><a href="#" class="btnAlterar" id="{{campanha.id}}"><i class="icon-pencil"></i> Alterar</a></li>
-                            <li class="divider"></li>
-                            <li class="text-left"><a href="#" id="btnDeletar_{{campanha.id}}"><i class="icon-remove"></i> Deletar</a> </li>
+<!--                           
+                            <li class="text-left"><a href="#" id="{{desafio.id}}"><i class="icon-remove"></i> Deletar</a> </li>-->
                         </ul>
                     </div>
-                    <h6>{{campanha.desafio}}</h6>
+                    <h6>{{desafio.desafio}}</h6>
                 </td>
             </tr>
         {% elsefor %}

@@ -86,6 +86,30 @@ class Desafio extends Model
         // Seta status do desafio para ativo
         $this->ativo = 'S';
     }
+    
+    /**
+     * Valida campos obrigatórios
+     */
+    public function validation()
+    {
+        $this->validate('desafio', new PresenceOf(array(
+            'message' => 'A descrição do desafio é obrigatória!!!'
+        )));
+        
+        $this->validate('pontuacao', new PresenceOf(array(
+            'message' => 'A pontuação do desafio é obrigatória!!!'
+        )));
+        
+        $this->validate('inicioDt', new PresenceOf(array(
+            'message' => 'A data de início do desafio é obrigatória!!!'
+        )));
+        
+        $this->validate('fimDt', new PresenceOf(array(
+            'message' => 'A data de fim do desafio é obrigatória!!!'
+        )));
+
+        return $this->validationHasFailed() != true;
+    }
 
     /**
      * Define a data e hora antes de atualizar o desafio
@@ -134,7 +158,7 @@ class Desafio extends Model
                                 'inicioDt' => "DATE_FORMAT( inicioDt , '%d/%c/%Y' )",
                                 'fimDt' => "DATE_FORMAT( fimDt , '%d/%c/%Y' )",
                                 'premiacao',
-                                'ativo'));
+                                'status' => 'ativo'));
         
         if($objDesafio->filter)
         {
@@ -194,5 +218,28 @@ class Desafio extends Model
         $db->commit();
         return array('status' => 'ok','message'=>'Desafio salvo com sucesso!!!');
         
+    }
+    
+    public function ativarInativarDesafio(\stdClass $dados){
+
+        $desafio = $this->findFirst("id = ".$dados->id);
+        
+        $desafio->assign(array(
+            'ativo'         => $dados->status
+        ));
+
+        if (!$desafio->save()) {
+            foreach ($desafio->getMessages() as $mensagem) {
+              $message =  $mensagem;
+              break;
+            }
+            return array('status' => 'error', 'message' => $message);
+        } else {
+            if($dados->status == 'N'){
+                return array('status' => 'ok', 'message' => 'Desafio inativado com sucesso!!!');
+            }else{
+                return array('status' => 'ok', 'message' => 'Desafio ativado com sucesso!!!');
+            }  
+        }
     }
 }

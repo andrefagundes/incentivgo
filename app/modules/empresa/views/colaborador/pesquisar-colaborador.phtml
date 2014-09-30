@@ -21,14 +21,14 @@
                     <div class="btn-group pull-right" data-placement="top" data-toggle="tooltip" data-original-title="Ações">
                         <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
                         <ul class="dropdown-menu pull-right">
-                            {% if(colaborador.status == 'N') %}
-                            <li class="text-left">{{linkTo('colaborador/ativar-inativar-colaborador/ativo/Y/id/'~colaborador.id, '<i class="icon-plus-sign"></i> Ativar')}}
-                                {% else %}
-                            <li class="text-left">{{linkTo('colaborador/ativar-inativar-colaborador/ativo/N/id/'~colaborador.id, '<i class="fa fa-minus-square-o"></i> Inativar')}}</li>
-                                {% endif %}
-                                <li class="text-left"><a href="#" class="btnAlterarColaborador" id="{{colaborador.id}}"><i class="icon-pencil"></i> Alterar</a></li>
+                            <li class="text-left"><a href="#" class="btnAlterarColaborador" id="{{colaborador.id}}"><i class="icon-pencil"></i> Alterar</a></li>
                             <li class="divider"></li>
-                            <li class="text-left"><a href="#" id="{{colaborador.id}}"><i class="icon-remove"></i> Deletar</a> </li>
+                            {% if(colaborador.status == 'N') %}
+                            <li class="text-left">{{linkTo('empresa/colaborador/ativar-inativar-colaborador/Y/'~colaborador.id, '<i class="icon-plus-sign"></i> Ativar')}}
+                                {% else %}
+                            <li class="text-left">{{linkTo('empresa/colaborador/ativar-inativar-colaborador/N/'~colaborador.id, '<i class="fa fa-minus-square-o"></i> Inativar')}}</li>
+                                {% endif %}
+                            <!--<li class="text-left"><a href="#" id="{{colaborador.id}}"><i class="icon-remove"></i> Deletar</a> </li>-->
                         </ul>
                     </div>
                     <h5>{{colaborador.nome}}<br/><h6>{{colaborador.email}}</h6></h5>  

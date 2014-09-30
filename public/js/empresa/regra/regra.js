@@ -1,7 +1,7 @@
 var Regra = {
     init: function(){
         //evento do botão de pesquisar desafio
-        $("#btnPesquisarRegra").click(function(){
+        $("#btnPesquisarRegras").click(function(){
             Regra.pesquisarRegra(1);
         });
         
@@ -20,7 +20,7 @@ var Regra = {
     },
     pesquisarRegra: function(page){
         var ativo   = 'T';
-        var filter  = $("#filterRegra").val();
+        var filter  = $("#filterRegras").val();
        
         $('input:checkbox[name=status]').each(function() {	                
             if ($(this).is(':checked'))

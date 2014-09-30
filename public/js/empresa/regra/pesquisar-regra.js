@@ -1,5 +1,6 @@
 var pesquisarRegra = {
     init: function(){
+        $("[data-toggle=tooltip]").tooltip();
         $('.btnPaginacaoRegra').on('click', function() {
             Regra.pesquisarRegra(this.id);
         }); 

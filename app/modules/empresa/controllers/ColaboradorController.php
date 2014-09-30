@@ -70,7 +70,7 @@ class ColaboradorController extends ControllerBase {
             
             $dados  = new \stdClass();
             
-            $dados->id       = $this->request->getPost('id', 'int');
+            $dados->id       = $this->request->getPost('id');
             $dados->nome     = $this->request->getPost('nome', 'striptags');
             $dados->email    = $this->request->getPost('email', 'email');
             $dados->perfilId = (int) $this->request->getPost('perfilId', 'int');
@@ -88,6 +88,25 @@ class ColaboradorController extends ControllerBase {
         }else{
             $this->response->redirect('empresa/colaborador');
         }
+    }
+    
+    public function ativarInativarColaboradorAction() {
+        $this->view->disable();
+        
+        $dados = new \stdClass();
+        $dados->status  = $this->dispatcher->getParam('status');
+        $dados->id      = $this->dispatcher->getParam('id');
+
+        $result = Usuario::build()->ativarInativarUsuario($dados);
+
+        if($result['status'] == 'ok')
+        {
+            $this->flashSession->success($result['message']);
+        }else{
+            $this->flashSession->error($result['message']);
+        }
+
+        $this->response->redirect('empresa/colaborador');
     }
 
 }

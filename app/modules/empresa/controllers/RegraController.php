@@ -53,8 +53,9 @@ class RegraController extends ControllerBase {
         $resultRegra = Regra::build()->findFirst($this->dispatcher->getParam('code'));
 
         $this->view->setVar("id",       $resultRegra->id);
-        $this->view->setVar("regra",    $resultRegra->desafio);
-        $this->view->setVar("pontuacao",$resultRegra->pontuacao);
+        $this->view->setVar("regra",    $resultRegra->regra);
+        $this->view->setVar("pontuacao",    $resultRegra->pontuacao);
+        $this->view->setVar("observacao",$resultRegra->observacao);
     }
     
     public function salvarRegraAction() {
@@ -64,7 +65,7 @@ class RegraController extends ControllerBase {
             $dados  = $this->request->getPost('dados');
 
             $resultCadastro = Regra::build()->salvarRegra($dados);
-          
+      
             if($resultCadastro['status'] == 'ok')
             {
                 $this->flashSession->success($resultCadastro['message']);
@@ -76,5 +77,24 @@ class RegraController extends ControllerBase {
         }else{
             $this->response->redirect('empresa/regra');
         }
+    }
+    
+    public function ativarInativarRegraAction() {
+        $this->view->disable();
+        
+        $dados = new \stdClass();
+        $dados->status  = $this->dispatcher->getParam('status');
+        $dados->id      = $this->dispatcher->getParam('id');
+
+        $resultCadastro = Regra::build()->ativarInativarRegra($dados);
+
+        if($resultCadastro['status'] == 'ok')
+        {
+            $this->flashSession->success($resultCadastro['message']);
+        }else{
+            $this->flashSession->error($resultCadastro['message']);
+        }
+
+        $this->response->redirect('empresa/regra');
     }
 }

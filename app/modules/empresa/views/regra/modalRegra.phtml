@@ -26,6 +26,12 @@
                      <label id="pontuacao-error" class="error" style="display: none;" for="pontuacao">Campo obrigatório</label>
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Observação</label>
+                <div class="col-lg-9">
+                    {{ text_area("dados[observacao]", 'id':'observacao', 'placeholder': 'Observações','value':observacao,'rows':'3', 'class':'bg-focus form-control') }}
+                </div>
+            </div>
         </div>
     </div>
 </section>

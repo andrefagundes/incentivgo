@@ -5,33 +5,35 @@
             <tr class="row">
                 <td class="td-responsive">
                     <div class="pull-right text-muted">
-                        <strong class="h3 text-info text-center text-">{{regra.pontuacao}}</strong> pts<br>
+                        <strong class="h3 text-info text-center" data-placement="left" data-toggle="tooltip" data-original-title="Pontos válidos">{{regra.pontuacao}}</strong> pts<br>
                         <small>
-                            {% if(regra.ativo == 'N') %}
-                                {% set status = 'danger' %} 
-                                {% set status_label = 'Inativo' %}
+                            {% if(regra.status == 'N') %}
+                            {% set status = 'danger' %} 
+                            {% set status_label = 'Inativo' %}
                             {% else  %}
-                                {% set status = 'success' %} 
-                                {% set status_label = 'Ativo' %}
+                            {% set status = 'success' %} 
+                            {% set status_label = 'Ativo' %}
                             {% endif %}
-                            <span class="label label-{{status}}"> {{status_label}}</span>
+                            <span class="label label-{{status}}" data-placement="left" data-toggle="tooltip" data-original-title="Status">
+                                {{status_label}}
+                            </span>
                         </small>
                     </div>
-                    <a href="#">{{regra.inicioDt}} a {{regra.fimDt}} </a> 
-                    <div class="btn-group">
-                        <button class="dropdown-toggle" role="button" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
-                        <ul class="dropdown-menu pull-left">
-                            {% if(regra.ativo == 'N') %}
-                            <li class="text-left">{{linkTo('empresa/ativar-inativar-desafio/ativo/Y/id/'~regra.id, '<i class="icon-plus-sign"></i> Ativar')}}
-                                {% else %}
-                            <li class="text-left">{{linkTo('empresa/ativar-inativar-desafio/ativo/N/id/'~regra.id, '<i class="fa fa-minus-square-o"></i> Inativar')}}</li>
-                                {% endif %}
-                                <li class="text-left"><a href="#" class="btnAlterarRegra" id="{{regra.id}}"><i class="icon-pencil"></i> Alterar</a></li>
+                    <span data-placement="left" data-toggle="tooltip" data-original-title="Data de Cadastro" >{{date('d/m/Y',regra.criacaoDt)}} </span> 
+                    <div class="btn-group" data-placement="top" data-toggle="tooltip" data-original-title="Ações">
+                        <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
+                        <ul class="dropdown-menu">
+                            <li class="text-left"><a href="#" class="btnAlterarRegra" id="{{regra.id}}"><i class="icon-pencil"></i> Alterar</a></li>
                             <li class="divider"></li>
-                            <li class="text-left"><a href="#" id="{{regra.id}}"><i class="icon-remove"></i> Deletar</a> </li>
+                            {% if(regra.status == 'N') %}
+                            <li class="text-left">{{linkTo('empresa/regra/ativar-inativar-regra/Y/'~regra.id, '<i class="icon-plus-sign"></i> Ativar')}}
+                                {% else %}
+                            <li class="text-left">{{linkTo('empresa/regra/ativar-inativar-regra/N/'~regra.id, '<i class="fa fa-minus-square-o"></i> Inativar')}}</li>
+                                {% endif %}
+                            <!--<li class="text-left"><a href="#" id="{{regra.id}}"><i class="icon-remove"></i> Deletar</a> </li>-->
                         </ul>
                     </div>
-                    <h6>{{regra.desafio}}</h6>
+                    <h5>{{regra.regra}}</h5>  
                 </td>
             </tr>
         {% elsefor %}

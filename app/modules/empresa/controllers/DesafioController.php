@@ -107,5 +107,24 @@ class DesafioController extends ControllerBase {
             $this->response->redirect('empresa/desafio');
         }
     }
+    
+    public function ativarInativarDesafioAction() {
+        $this->view->disable();
+        
+        $dados = new \stdClass();
+        $dados->status  = $this->dispatcher->getParam('status');
+        $dados->id      = $this->dispatcher->getParam('id');
+
+        $resultCadastro = Desafio::build()->ativarInativarDesafio($dados);
+
+        if($resultCadastro['status'] == 'ok')
+        {
+            $this->flashSession->success($resultCadastro['message']);
+        }else{
+            $this->flashSession->error($resultCadastro['message']);
+        }
+
+        $this->response->redirect('empresa/desafio');
+    }
 
 }

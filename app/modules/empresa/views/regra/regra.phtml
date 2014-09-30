@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <div class="pull-right">
-                            <span class="label label-large bg-default" id="quantidade-regra">0</span> Regras 
+                            <span class="label label-large bg-default" id="quantidade-regra" data-placement="left" data-toggle="tooltip" data-original-title="Regras Cadastradas">0</span> Regras 
                         </div>
                     </header>
                     <div id="pesquisarRegras"></div>
@@ -39,7 +39,7 @@
 </section>
 <!-- Início Modal Criar Regra -->
 <div class="modal fade" id="modalCriarRegra" tabindex="-5" role="dialog" aria-labelledby="modalCriarRegraLabel" aria-hidden="true">
-   {{ form('empresa/salvar-regra', 'class':'form-horizontal', 'id':'form-regra', 'method': 'post') }}
+   {{ form('empresa/regra/salvar-regra', 'class':'form-horizontal', 'id':'form-regra', 'method': 'post') }}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

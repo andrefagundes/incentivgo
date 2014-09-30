@@ -115,7 +115,8 @@ class Regra extends Model
                                 'regra',
                                 'pontuacao', 
                                 'observacao',
-                                'ativo'));
+                                'criacaoDt',
+                                'status' => 'ativo'));
         
         if($objDesafio->filter)
         {
@@ -132,18 +133,52 @@ class Regra extends Model
     }
     
     public function salvarRegra($dados){
-       // var_dump($dados['data_inicio']);die;
-        $this->assign(array(
+       
+        if($dados['id']){
+           $regra = $this->findFirst("id = ".$dados['id']);
+        }else{
+           $regra = $this;
+        }
+        
+        $regra->assign(array(
             'empresaId'     => 1,
             'regra'         => $dados['regra'],
             'pontuacao'     => $dados['pontuacao'],
             'observacao'    => $dados['observacao']
         ));
 
-        if (!$this->save()) {
-            return array('status' => 'error', 'message' => 'Não foi possível salvar a regra');
+        if (!$regra->save()) {
+            foreach ($regra->getMessages() as $mensagem) {
+                die($mensagem);
+              $message =  $mensagem;
+              break;
+            }
+            return array('status' => 'error', 'message' => 'Não foi possível salvar a regra!!!');
         } else {
-            return array('status' => 'ok', 'message' => 'Regra salva com sucesso');
+            return array('status' => 'ok', 'message' => 'Regra salva com sucesso!!!');
+        }
+    }
+    
+    public function ativarInativarRegra(\stdClass $dados){
+
+        $regra = $this->findFirst("id = ".$dados->id);
+        
+        $regra->assign(array(
+            'ativo'         => $dados->status
+        ));
+
+        if (!$regra->save()) {
+            foreach ($regra->getMessages() as $mensagem) {
+              $message =  $mensagem;
+              break;
+            }
+            return array('status' => 'error', 'message' => $message);
+        } else {
+            if($dados->status == 'N'){
+                return array('status' => 'ok', 'message' => 'Regra inativada com sucesso!!!');
+            }else{
+                return array('status' => 'ok', 'message' => 'Regra ativada com sucesso!!!');
+            }  
         }
     }
 }
