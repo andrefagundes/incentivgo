@@ -5,7 +5,7 @@ var pesquisarColaborador = {
            Colaborador.pesquisarColaborador(this.id);
         }); 
         $('.btnAlterarColaborador').click(function() {
-            $("#myModalLabel").html('Alterar Colaborador');
+            $("#myModalLabel").html('Alterar Usuário');
             $( "#modal-body-colaborador" ).html('').load( "colaborador/modal-colaborador/"+this.id );
             $('#modalCriarColaborador').modal('show'); 
         });

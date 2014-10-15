@@ -37,14 +37,14 @@ class Acl extends Component
 //        'empresa' => array(
 //           'index' 
 //        ),
-        'usuario' => array(
-            'index',
-            'search',
-            'edit',
-            'create',
-            'delete',
-            'alteraSenha'
-        ),
+//        'colaborador' => array(
+//            'index',
+//            'search',
+//            'edit',
+//            'create',
+//            'delete',
+//            'alteraSenha'
+//        ),
         'perfil' => array(
             'index',
             'search',

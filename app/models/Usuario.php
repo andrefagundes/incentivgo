@@ -120,7 +120,7 @@ class Usuario extends Model
     /**
      * Envie um e-mail para o usuário se a conta não está ativa
      */
-    public function afterSave()
+    public function afterCreate()
     {
         if ($this->ativo == 'N') {
 

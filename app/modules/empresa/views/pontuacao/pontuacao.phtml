@@ -2,63 +2,63 @@
 <section id="content">
     <section class="main padder">
         <div class="clearfix">
-            <h4><i class="fa fa-edit"></i>Colaboradores</h4>
+            <h4><i class="fa fa-edit"></i>Regras</h4>
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <!-- .breadcrumb -->
                 <ul class="breadcrumb">
-                    <li><a href="#">Colaboradores</a></li>
+                    <li><a href="#">Regras</a></li>
                 </ul>
                 <!-- / .breadcrumb -->
             </div>
-            <div class="col-lg-10 col-lg-offset-1" id="mensagem-modal-colaborador"><?php echo $this->flashSession->output(); ?></div>
+            <div class="col-lg-10 col-lg-offset-1" id="mensagem-modal-pontuacao"><?php echo $this->flashSession->output(); ?></div>
             <div class="col-lg-10 col-lg-offset-1">
                 <!-- scrollable inbox widget -->
                 <section class="panel">
                     <header class="panel-heading">
                         <div class="pull-left">
-                            <button type="button" class="btn btn-sm btn-white squared" id="btnCriarColaborador" >Cadastrar Usuário</button>
+                            <button type="button" class="btn btn-sm btn-white squared" id="btnCriarRegraPontuacao">Criar Regra de Pontuação</button>
                         </div>
                         <div class="col-sm-4 col-lg-offset-3">
                             <div class="input-group">
-                                <input type="text" id="filterColaboradores" class="input-sm form-control" placeholder="Pesquisar por colaboradores">
+                                <input type="text" id="filterRegrasPontuacoes" class="input-sm form-control" placeholder="Pesquisar por regras de pontuações">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-white" id="btnPesquisarColaboradores">Pesquisar</button>
+                                    <button type="button" class="btn btn-sm btn-white" id="btnPesquisarRegrasPontuacoes">Pesquisar</button>
                                 </span>
                             </div>
                         </div>
                         <div class="pull-right">
-                            <span class="label label-large bg-default" id="quantidade-colaborador" data-placement="left" data-toggle="tooltip" data-original-title="Colaboradores Cadastrados">0</span> Colaboradores 
+                            <span class="label label-large bg-default" id="quantidade-pontuacao" data-placement="left" data-toggle="tooltip" data-original-title="Regras Cadastradas">0</span> Regras 
                         </div>
                     </header>
-                    <div id="pesquisarColaborador"></div>
+                    <div id="pesquisarRegrasPontuacao"></div>
                 </section>
             </div>
     </section>
 </section>
-<!-- Início Modal Criar Colaborador -->
-<div class="modal fade" id="modalCriarColaborador" tabindex="-5" role="dialog" aria-labelledby="modalCriarColaboradorLabel" aria-hidden="true">
-   {{ form('empresa/colaborador/salvar-colaborador', 'class':'form-horizontal', 'id':'form-colaborador', 'method': 'post') }}
+<!-- Início Modal Criar Regra -->
+<div class="modal fade" id="modalCriarRegraPontuacao" tabindex="-5" role="dialog" aria-labelledby="modalCriarRegraPontuacaoLabel" aria-hidden="true">
+   {{ form('empresa/pontuacao/salvar-pontuacao', 'class':'form-horizontal', 'id':'form-pontuacao', 'method': 'post') }}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
                     <h4 class="modal-title" id="myModalLabel"></h4>
                 </div>
-                <div class="modal-body" id="modal-body-colaborador"></div>
+                <div class="modal-body" id="modal-body-pontuacao"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-sm btn-syndicate squared">Salvar colaborador</button>
+                    <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnSalvarRegra">Salvar regra</button>
                 </div>
             </div>
         </div>
    {{endForm()}}
 </div>
-<!-- Fim Modal Cadastro colaborador -->
-{{ javascript_include('js/empresa/colaborador/colaborador.js') }}
-<script type="text/javascript">  
-    $(document).ready(function(){
-        Colaborador.init();
-    });   
+<!-- Fim Modal Criar Regra -->
+{{ javascript_include('js/empresa/pontuacao/pontuacao.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        Pontuacao.init();
+    });
 </script>

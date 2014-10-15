@@ -11,7 +11,7 @@ var Colaborador = {
         
         //evento do botão de criar desafio
         $("#btnCriarColaborador").click(function() {
-            $("#myModalLabel").html('Cadastrar Colaborador');
+            $("#myModalLabel").html('Cadastrar Usuário');
             $("#modal-body-colaborador").html('').load( "colaborador/modal-colaborador/"+0 );
             $("#modalCriarColaborador").modal('show'); 
         });

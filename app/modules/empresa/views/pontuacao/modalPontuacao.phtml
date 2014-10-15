@@ -1,0 +1,45 @@
+{{hidden_field("dados[id]",'value':id)}}
+<section class="main padder">
+    <div class="row">
+        <div class="col-sm-11">
+            
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Regra</label>
+                <div class="col-lg-9">
+                    {{ text_area("dados[regra]", 'id':'regra', 'placeholder': 'Informe a regra','value':regra,'rows':'3', 'class':'bg-focus form-control') }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Pontuação</label>
+                <div class="col-lg-9">
+                    <div class="spinner input-group col-lg-3" id="MySpinner">
+                        {{ text_field("dados[pontuacao]", 'id':'pontuacao','value':pontuacao, 'class':'input-sm spinner-input form-control') }}
+                        <div class="btn-group btn-group-vertical input-group-btn">
+                            <button class="btn btn-white spinner-up" type="button">
+                                <i class="fa fa-chevron-up"></i>
+                            </button>
+                            <button class="btn btn-white spinner-down" type="button">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                     <label id="pontuacao-error" class="error" style="display: none;" for="pontuacao">Campo obrigatório</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Observação</label>
+                <div class="col-lg-9">
+                    {{ text_area("dados[observacao]", 'id':'observacao', 'placeholder': 'Observações','value':observacao,'rows':'3', 'class':'bg-focus form-control') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Fim Modal Criar Regra -->
+{{ javascript_include('js/empresa/pontuacao/modal-pontuacao.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        ModalPontuacao.init();
+    });
+</script>
+

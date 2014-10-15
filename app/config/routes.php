@@ -159,6 +159,50 @@ $router->add('/empresa/regra/ativar-inativar-regra/{status}/{id}', array(
     'controller' => 'regra',
     'action' => 'ativarInativarRegra'
 ));
+/******Rotas módulo empresa/pontuacao**********/
+
+$router->add('/empresa/pontuacao', array(
+    'module' => 'empresa',
+    'controller' => 'pontuacao',
+    'action' => 'pontuacao'
+));
+
+$router->add('/empresa/pontuacao/pesquisar-pontuacao', array(
+    'module' => 'empresa',
+    'controller' => 'pontuacao',
+    'action' => 'pesquisarPontuacao'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+
+$router->add('/empresa/pontuacao/modal-pontuacao/{code}', array(
+    'module' => 'empresa',
+    'controller' => 'pontuacao',
+    'action' => 'modalPontuacao'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
+$router->add('/empresa/pontuacao/salvar-pontuacao', array(
+    'module' => 'empresa',
+    'controller' => 'pontuacao',
+    'action' => 'salvarPontuacao'
+));
+
+$router->add('/empresa/pontuacao/ativar-inativar-pontuacao/{status}/{id}', array(
+    'module' => 'empresa',
+    'controller' => 'pontuacao',
+    'action' => 'ativarInativarPontuacao'
+));
 /******Rotas módulo empresa/colaborador**********/
 
 $router->add('/empresa/colaborador', array(
@@ -202,6 +246,15 @@ $router->add('/empresa/colaborador/ativar-inativar-colaborador/{status}/{id}', a
     'module' => 'empresa',
     'controller' => 'colaborador',
     'action' => 'ativarInativarColaborador'
+));
+
+
+/******Rotas módulo coloborador**********/
+
+$router->add('/colaborador', array(
+    'module' => 'colaborador',
+    'controller' => 'colaborador',
+    'action' => 'index'
 ));
 
 return $router;

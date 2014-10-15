@@ -2,7 +2,8 @@
 namespace Incentiv\Models;
 
 use Phalcon\Mvc\Model,
-    Phalcon\Mvc\Model\Behavior\SoftDelete;
+    Phalcon\Mvc\Model\Behavior\SoftDelete,
+    Phalcon\Mvc\Model\Validator\PresenceOf;
 
 /**
  * Incentiv\Models\Desafio
@@ -92,20 +93,24 @@ class Desafio extends Model
      */
     public function validation()
     {
-        $this->validate('desafio', new PresenceOf(array(
-            'message' => 'A descrição do desafio é obrigatória!!!'
+        $this->validate(new PresenceOf(array(
+          'field' => 'desafio',
+          'message' => 'A descrição do desafio é obrigatória!!!'
         )));
         
-        $this->validate('pontuacao', new PresenceOf(array(
-            'message' => 'A pontuação do desafio é obrigatória!!!'
+        $this->validate(new PresenceOf(array(
+          'field' => 'pontuacao',
+          'message' => 'A pontuação do desafio é obrigatória!!!'
         )));
         
-        $this->validate('inicioDt', new PresenceOf(array(
-            'message' => 'A data de início do desafio é obrigatória!!!'
+        $this->validate(new PresenceOf(array(
+          'field' => 'inicioDt',
+          'message' => 'A data de início do desafio é obrigatória!!!'
         )));
         
-        $this->validate('fimDt', new PresenceOf(array(
-            'message' => 'A data de fim do desafio é obrigatória!!!'
+        $this->validate(new PresenceOf(array(
+          'field' => 'fimDt',
+          'message' => 'A data de fim do desafio é obrigatória!!!'
         )));
 
         return $this->validationHasFailed() != true;
