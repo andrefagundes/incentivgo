@@ -1393,6 +1393,7 @@ PANELS CONFIGURATIONS
 	color: #fff;
 	text-align: center;
 	border-radius: 100%;
+        margin-left: 15px;
 }
 .blog-title {
 	background: rgba(0,0,0,0.5);
