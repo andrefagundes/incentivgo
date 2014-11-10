@@ -63,7 +63,7 @@ class Auth extends Component
     public function saveSuccessLogin($user)
     {
         $sucessoLogin               = new SucessoLogin();
-        $sucessoLogin->usuarioId      = $user->id;
+        $sucessoLogin->usuarioId    = $user->id;
         $sucessoLogin->ipAddress    = $this->request->getClientAddress();
         $sucessoLogin->userAgent    = $this->request->getUserAgent();
         if (!$sucessoLogin->save()) {

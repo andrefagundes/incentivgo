@@ -16,16 +16,15 @@ class CadastroForm extends Form
 {
     public function initialize()
     {
-        
+        $this->id = 'cadastro';
         $nome = new Text('nome', array(
             'placeholder'   => 'Informe o nome da empresa',
             'class'         => 'required form-control',
-            'required'      => ''
         ));
 
         $nome->addValidators(array(
             new PresenceOf(array(
-                'message' => 'O nome é obrigatório'
+                'message' => 'O nome da empresa é obrigatório'
             ))
         ));
 
@@ -35,7 +34,6 @@ class CadastroForm extends Form
         $email = new Text('email', array(
             'placeholder'   => 'Informe um e-mail de contato',
             'class'         => 'required form-control',
-            'required'      => ''
         ));
 
         $email->addValidators(array(
@@ -51,9 +49,9 @@ class CadastroForm extends Form
 
         // telefone
         $telefone = new Text('telefone', array(
-            'placeholder'   => 'Informe o telefone de contato',
+            'placeholder'   => 'Informe um telefone de contato',
             'class'         => 'required form-control',
-            'required'      => ''
+            'id'         => 'telefone',
         ));
 
         $telefone->addValidators(array(
@@ -80,7 +78,7 @@ class CadastroForm extends Form
         // Sign Up
         $this->add(new Submit('go', array(
             'class' => 'btn btn-syndicate squared form-control',
-            'Cadastrar'
+            'Enviar Pré-Cadastro'
         )));
     }
 

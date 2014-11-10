@@ -155,7 +155,7 @@ class RegraPontuacao extends Model
             }
             return array('status' => 'error', 'message' => 'Não foi possível salvar a regra!!!');
         } else {
-            return array('status' => 'ok', 'message' => 'Pontuacao salva com sucesso!!!');
+            return array('status' => 'ok', 'message' => 'Regra salva com sucesso!!!');
         }
     }
     

@@ -1,0 +1,64 @@
+<section class=" tasks-widget">
+        <div class="task-content">
+            <div id="mensagem-modal-resposta-ajudas"><?php echo $this->flashSession->output(); ?></div>
+            <ul class="task-list ui-sortable-modal ul-ajudas" id="sortable" >
+                {% for ajuda in ajudas %}
+                <li class="list-primary" id="li_ajuda_{{ajuda.id}}">
+                    <div class="task-title">
+                        <span class="task-title-sp">{{ajuda.mensagem}}</span>
+                        <span class="badge bg-primary">+ 10 pontos </span>
+                    </div><br/>
+                    <div class="task-title pull-left">
+                        <span class="sp-title moment">{{ajuda.envioDt}}</span>
+                    </div>
+                    {% if(ajuda.ativo == 'Y') %}
+                        <div id={{ajuda.id}} class="task-title pull-right">
+                            <button type="button" id="btnResponderAjuda" class="btn btn-xs btn-theme03 btnResponderAjuda">Ajudar</button>
+                        </div>
+                    {% endif %}
+                </li>
+                <li class="list-primary" id="li_motivo_{{ajuda.id}}" style="display: none">
+                    <div class="task-title inline"> 
+                        <form role="form" class="form-cadastro" id="form_ajuda_{{ajuda.id}}">
+                             <div>
+                                 <textarea id="txt_motivo_{{ajuda.id}}" placeholder="Informe o motivo de não aceitar o ajuda!!!" class="form-control"></textarea>
+                            </div>
+                       </form>
+                    </div><br/>
+                    <div id={{ajuda.id}} class="task-title pull-right">
+                        <button type="button" id="btnEnviarMotivoDescarte" class="btn btn-xs btn-theme03">Enviar</button>
+                        <button type="button" id="btnCancelarDescarte" class="btn btn-xs btn-theme04 btnCancelarDescarte">Cancelar</button>
+                    </div>
+                </li>
+                {% elsefor %}
+                <li class="list-primary text-center">
+                    <div class="task-title">
+                        <span class="task-title-sp">Nenhuma ajuda no momento!!!</span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <ul class="task-list ui-sortable-modal" id="ul_ajuda" style="display: none">
+                <li class="list-primary" >
+                    <div class="task-title inline"> 
+                        <form role="form" class="form-ajuda" id="form_ajuda">
+                             <div>
+                                 <textarea id="txt_mensagem_ajuda" name="txt_mensagem_ajuda" placeholder="Informe a sua dúvida e receba ajuda de seus colegas!!!" class="form-control"></textarea>
+                            </div>
+                       </form>
+                    </div><br/>
+                    <div class="task-title pull-right">
+                        <button type="button" id="btnEnviarAjuda" class="btn btn-xs btn-theme03">Enviar</button>
+                        <button type="button" id="btnCancelarAjuda" class="btn btn-xs btn-theme04">Cancelar</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+</section>
+<!-- Fim Modal Cadastro colaborador -->
+{{ javascript_include('js/colaborador/ajuda/modal-ajudas.js') }}
+<script type="text/javascript">  
+    $(document).ready(function(){
+        ModalAjudas.init();
+    });   
+</script>

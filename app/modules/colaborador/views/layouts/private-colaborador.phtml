@@ -5,7 +5,7 @@
     <!--header start-->
     <header class="header black-bg">
         <div class="sidebar-toggle-box">
-            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="<> Menu"></div>
         </div>
         <!--logo start-->
         <a href="index.html" class="logo"><b>Incentiv</b></a>
@@ -17,12 +17,12 @@
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
                         <i class="fa fa-th-large"></i>
-                        <span class="badge bg-theme">4</span>
+                        <span class="badge bg-theme">{{count_desafios}}</span>
                     </a>
                     <ul class="dropdown-menu extended tasks-bar">
                         <div class="notify-arrow notify-arrow-green"></div>
                         <li>
-                            <p class="green">Você tem 4 desafios ativos</p>
+                            <p class="green">Você tem {{count_desafios}} desafios ativos</p>
                         </li>
                         <li>
                             <a href="index.html#">
@@ -208,254 +208,12 @@
     </aside>
     <!--sidebar end-->
 
-    <!-- **********************************************************************************************************************************************************
+    <!-- *********************************************************************************
     MAIN CONTENT
-    *********************************************************************************************************************************************************** -->
-    <!--main content start-->
-    <section id="main-content">
-        <section class="wrapper">
-
-            <div class="row">
-                <div class="col-lg-9 main-chart">
-                    <div class="row mt">
-                        <div class="col-md-4 mb">
-                            <!-- WHITE PANEL - TOP USER -->
-                            <div class="white-panel pn">
-                                <div class="white-header">
-                                    <h5>Pontuação</h5>
-                                </div>
-                                <div class="badge badge-popular"><h2>40</h2></div>
-                                <p><b>pontos</b></p>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <p class="small mt">Histórico</p>
-                                        <p>2014</p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p class="small mt">Pontos usados</p>
-                                        <p>30 pontos</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- /col-md-4 -->
-                        <!-- SERVER STATUS PANELS -->
-                        <div class="col-md-4 col-sm-4 mb">
-                            <div class="white-panel pn">
-                                <div class="white-header">
-                                    <h5>Desafios <span class="badge bg-theme">4</span></h5>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4 col-xs-4"></div>
-                                </div>
-                                <div class="centered">
-                                    <!--<h1> <span class="fa fa-clock-o fa-2x"></span></h1>-->
-                                        <h1> <span class="fa fa-th-large fa-2x"></span></h1>
-                                </div>
-                                <button class="btn btn-link">Encarar</button>
-                            </div>
-                        </div><!-- /col-md-4 -->
-
-
-                        <div class="col-md-2 col-sm-2 mb">
-                            <div class="white-panel pn">
-                                <div class="white-header">
-                                    <h5>Notícias <span class="badge bg-theme03">4</span></h5>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4 col-xs-4"></div>
-                                </div>
-                                <div class="centered">
-                                    <h1> <span class=" li_news"></span></h1>
-                                </div>
-                                <button class="btn btn-theme03">Ver</button>
-                            </div>
-                        </div><!-- /col-md-4 -->
-                        <div class="col-md-2 col-sm-2 mb">
-                            <div class="white-panel pn">
-                                <div class="white-header">
-                                    <h5>Rascunho <span class="badge bg-theme04">4</span></h5>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 col-xs-6"></div>
-                                </div>
-                                <div class="centered">
-                                    <h1> <span class=" li_pen"></span></h1>
-                                </div>
-                                <button class="btn btn-theme04">Inserir</button>
-                            </div>
-                        </div><!-- /col-md-4 -->
-
-                    <div class="row mtbox">
-                        <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
-                            <div class="box1">
-                                <span class="li_bubble"></span>
-                                <h3>933</h3>
-                            </div>
-                            <p>933 People liked your page the last 24hs. Whoohoo!</p>
-                        </div>
-                        <div class="col-md-2 col-sm-2 box0">
-                            <div class="box1">
-                                <span class="li_cloud"></span>
-                                <h3>+48</h3>
-                            </div>
-                            <p>48 New files were added in your cloud storage.</p>
-                        </div>
-                        <div class="col-md-2 col-sm-2 box0">
-                            <div class="box1">
-                                <span class="li_stack"></span>
-                                <h3>23</h3>
-                            </div>
-                            <p>You have 23 unread messages in your inbox.</p>
-                        </div>
-                        <div class="col-md-2 col-sm-2 box0">
-                            <div class="box1">
-                                <span class="li_news"></span>
-                                <h3>+10</h3>
-                            </div>
-                            <p>More than 10 news were added in your reader.</p>
-                        </div>
-                        <div class="col-md-2 col-sm-2 box0">
-                            <div class="box1">
-                                <span class="li_data"></span>
-                                <h3>OK!</h3>
-                            </div>
-                            <p>Your server is working perfectly. Relax & enjoy.</p>
-                        </div>
-
-                    </div><!-- /row mt -->
-                    </div><!-- /row -->
-
-                </div><!-- /col-lg-9 END SECTION MIDDLE -->
-
-
-                <!-- **********************************************************************************************************************************************************
-                RIGHT SIDEBAR CONTENT
-                *********************************************************************************************************************************************************** -->                  
-
-                <div class="col-lg-3 ds">
-                    <!--COMPLETED ACTIONS DONUTS CHART-->
-                    <h3>Notificações</h3>
-
-                    <!-- First Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>2 Minutos Ago</muted><br/>
-                            <a href="#">James Brown</a> subscribed to your newsletter.<br/>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Second Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>3 Horas Ago</muted><br/>
-                            <a href="#">Diana Kennedy</a> purchased a year subscription.<br/>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Third Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>7 Horas Ago</muted><br/>
-                            <a href="#">Brandon Page</a> purchased a year subscription.<br/>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Fourth Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>11 Horas Ago</muted><br/>
-                            <a href="#">Mark Twain</a> commented your post.<br/>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Fifth Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>18 Horas Ago</muted><br/>
-                            <a href="#">Daniel Pratt</a> purchased a wallet in your store.<br/>
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- USERS ONLINE SECTION -->
-                    <h3>Colaboradores</h3>
-                    <!-- First Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            {{image( 'img/ui-divya.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DIVYA MANIAN</a><br/>
-                            <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Second Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            {{image( 'img/ui-sherman.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DJ SHERMAN</a><br/>
-                            <muted>I am Busy</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Third Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            {{image( 'img/ui-danro.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DAN ROGERS</a><br/>
-                            <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Fourth Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            {{image( 'img/ui-zac.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
-                        </div>
-                        <div class="details">
-                            <p><a href="#">Zac Sniders</a><br/>
-                            <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Fifth Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            {{image( 'img/ui-zac.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
-                        </div>
-                        <div class="details">
-                            <p><a href="#">André Fagundes</a><br/>
-                            <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-
-                </div><!-- /col-lg-3 -->
-            </div><! --/row -->
-        </section>
-    </section>
-
+    ******************************************************************************* -->
+    {{ content() }}
     <!--main content end-->
+    
     <!--footer start-->
     <footer class="site-footer">
         <div class="text-center">

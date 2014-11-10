@@ -9,10 +9,10 @@ use Incentiv\Models\Usuario,
     Incentiv\Models\Perfil;
 
 /**
- * Empresa\Controllers\DesafioController
+ * Empresa\Controllers\Empresa_DesafioController
  * Classe para gerenciar desafios
  */
-class DesafioController extends ControllerBase {
+class EmpresaDesafioController extends ControllerBase {
 
     public function initialize() {
         if (!$this->request->isAjax()) {
@@ -46,7 +46,7 @@ class DesafioController extends ControllerBase {
         ));
 
         $this->view->page = $paginator->getPaginate();
-        $this->view->pick("desafio/pesquisar-desafio");
+        $this->view->pick("empresa_desafio/pesquisar-desafio");
     }
     
     public function modalDesafioAction(){

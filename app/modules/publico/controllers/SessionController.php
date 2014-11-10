@@ -9,58 +9,69 @@ use Incentiv\Auth\Exception as AuthException,
     Publico\Forms\CadastroForm,
     Publico\Forms\EsqueceuSenhaForm,
     Publico\Forms\EnviarSugestaoForm;
-    
+
 /**
  * Publico\Controllers\SessionController
  * Métodos publicos para cadastro, login, esqueceu senha, logout
  */
-class SessionController extends ControllerBase
-{
-    public function initialize()
-    {
+class SessionController extends ControllerBase {
+
+    public function initialize() {
         $this->view->setTemplateBefore('public_session');
     }
-    
-    public function indexAction(){}
-    
+
+    public function indexAction() {
+        
+    }
+
     /**
      * Permite que um usuário se cadastre no sistema
      */
-    public function cadastroAction()
-    {
+    public function cadastroAction() {
         $form = new CadastroForm();
 
         if ($this->request->isPost()) {
-            die($this->request->getPost('telefone','int'));
-            if ($form->isValid($this->request->getPost()) != false) {
-                $user = Empresa::build();
 
-                $user->assign(array(
-                    'nome'          => $this->request->getPost('nome', 'striptags'),
-                    'email'         => $this->request->getPost('email', 'email'),
-                    'email'         => $this->request->getPost('telefone','int'),
-                    'perfilId'      => 3
-                ));
-               
-                if ($user->save()) {
-                    return $this->dispatcher->forward(array(
-                        'controller' => 'session',
-                        'action'     => 'mensagem'
+            if (Empresa::count("email = '{$this->request->getPost('email', 'email')}'") > 0) {
+                $this->flashSession->notice('Pré-cadastro já foi feito, em breve retornaremos!!!');
+                $this->response->redirect('session/mensagem');
+            } else {
+
+                if ($form->isValid($this->request->getPost()) != false) {
+                    $empresa = Empresa::build();
+
+                    $filter = new \Phalcon\Filter();
+
+                    //Using an anonymous function
+                    $filter->add('telefone', function($value) {
+                                return preg_replace('/[^0-9]/', '', $value);
+                            });
+
+                    $empresa->assign(array(
+                        'nome'      => $this->request->getPost('nome', 'striptags'),
+                        'email'     => $this->request->getPost('email', 'email'),
+                        'telefone'  => $filter->sanitize($this->request->getPost('telefone'), 'telefone'),
+                        'perfilId'  => 1,
+                        'preCadastroDt' => date('Y-m-d'),
+                        'ativo' => 'N'
                     ));
+
+                    if ($empresa->save()) {
+                        $this->flashSession->success('Pré-cadastro enviado com sucesso, em breve retornaremos!!!');
+                        $this->response->redirect('session/mensagem');
+                    }
+
+                    $this->flash->error($empresa->getMessages());
                 }
- 
-                $this->flash->error($user->getMessages());
             }
         }
-        
         $this->view->form = $form;
     }
 
     /**
      * Inicia uma sessão no backend de administração
      */
-    public function loginAction()
-    {
+    public function loginAction() {
         $form = new LoginForm();
 
         try {
@@ -97,8 +108,7 @@ class SessionController extends ControllerBase
     /**
      * Mostra o formulário esqueceu senha
      */
-    public function esqueceuSenhaAction()
-    {
+    public function esqueceuSenhaAction() {
         $form = new EsqueceuSenhaForm();
 
         if ($this->request->isPost()) {
@@ -114,8 +124,7 @@ class SessionController extends ControllerBase
                     $this->flash->error('Não há nenhuma conta associada a este e-mail');
                 } else {
                     //só faz alteração de senha se usuário estiver ativo
-                    if($user->ativo == 'Y')
-                    {
+                    if ($user->ativo == 'Y') {
                         $alteraSenha = new AlteraSenha();
                         $alteraSenha->usuarioId = $user->id;
                         if ($alteraSenha->save()) {
@@ -126,7 +135,7 @@ class SessionController extends ControllerBase
                             }
                         }
                     } else {
-                       $this->flash->notice('Usuário inativo'); 
+                        $this->flash->notice('Usuário inativo');
                     }
                 }
             }
@@ -134,12 +143,11 @@ class SessionController extends ControllerBase
 
         $this->view->form = $form;
     }
-    
+
     /**
      * Mostra o formulário enviar sugestão
      */
-    public function enviarSugestaoAction()
-    {
+    public function enviarSugestaoAction() {
         $form = new EnviarSugestaoForm();
 
         if ($this->request->isPost()) {
@@ -155,8 +163,7 @@ class SessionController extends ControllerBase
                     $this->flash->error('Não há nenhuma conta associada a este e-mail');
                 } else {
                     //só faz alteração de senha se usuário estiver ativo
-                    if($user->ativo == 'Y')
-                    {
+                    if ($user->ativo == 'Y') {
                         $alteraSenha = new AlteraSenha();
                         $alteraSenha->usuarioId = $user->id;
                         if ($alteraSenha->save()) {
@@ -167,7 +174,7 @@ class SessionController extends ControllerBase
                             }
                         }
                     } else {
-                       $this->flash->notice('Usuário inativo'); 
+                        $this->flash->notice('Usuário inativo');
                     }
                 }
             }
@@ -175,19 +182,21 @@ class SessionController extends ControllerBase
 
         $this->view->form = $form;
     }
-    
-     /**
+
+    /**
      * Tela de mensagem de cadastro de usuário
      */
-    public function mensagemAction(){}
+    public function mensagemAction() {
+        
+    }
 
-     /**
+    /**
      * Fechar sessão
      */
-    public function logoutAction()
-    {
+    public function logoutAction() {
         $this->auth->remove();
 
         return $this->response->redirect('index');
     }
+
 }

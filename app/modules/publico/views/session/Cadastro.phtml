@@ -1,6 +1,7 @@
 <section class="components">
     <div class="container margin">
         <div class="row col-sm-offset-4">
+            
             <h6>Faça o pré cadastro de sua empresa para usar o Incentiv.<p>Entraremos em contato.</p></h6>               
                 {{ form( 'class':'form-horizontal form-cadastro','role': 'form') }}
                 <div class="form-group">
@@ -38,3 +39,10 @@
         </div>
     </div>
 </section>
+<!-- Fim Modal Criar Desafio -->
+{{ javascript_include('js/publico/cadastro.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        Cadastro.init();
+    });
+</script>

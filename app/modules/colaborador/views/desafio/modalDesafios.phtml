@@ -1,0 +1,63 @@
+<section class=" tasks-widget">
+        <div class="task-content">
+            <div id="mensagem-modal-resposta-desafio"><?php echo $this->flashSession->output(); ?></div>
+            <ul class="task-list ui-sortable-modal" id="sortable">
+                {% for desafio in desafios %}
+                <li class="list-primary" id="li_desafio_{{desafio['id']}}">
+                    {% if(desafio['premiacao'] != '') %}
+                        <i class=" fa fa-smile-o"></i>
+                    {% endif %}
+                    <div class="task-title">
+                        <span class="task-title-sp">{{desafio['desafio']}}</span>
+                        <span class="badge bg-primary">+ {{desafio['pontuacao']}} pontos </span>
+                        
+                    </div><br/>
+                    {% if(desafio['premiacao'] != '') %}   
+                    <div class="task-title">
+                        <span class="task-title-sp">Premiação: {{desafio['premiacao']}}</span>
+                    </div><br/>
+                    {% endif %}
+                    <div class="task-title pull-left">
+                        <span class="sp-title">{{desafio['inicioDt']}} até {{desafio['fimDt']}}</span>
+                    </div>
+                    {% if(desafio['usuarioResposta'] == 'Y') %}
+                    <div id={{desafio['id']}} class="task-title pull-right">
+                        <button type="button" id="btnDesafioCumprido" class="btn btn-xs btn-theme03 btnDesafioCumprido">Desafio Cumprido</button>
+                    </div>
+                    {% else %}
+                    <div id={{desafio['id']}} class="task-title pull-right">
+                        <button type="button" id="btnAceitarDesafio" class="btn btn-xs btn-theme03">Aceitar</button>
+                        <button type="button" id="btnDescartarDesafio" class="btn btn-xs btn-theme04">Descartar</button>
+                    </div>
+                    {% endif %}
+                </li>
+                <li class="list-primary" id="li_motivo_{{desafio['id']}}" style="display: none">
+                    <div class="task-title inline"> 
+                        <form role="form" class="form-cadastro" id="form_desafio_{{desafio['id']}}">
+                             <div>
+                                 <textarea id="txt_motivo_{{desafio['id']}}" placeholder="Informe o motivo de não aceitar o desafio!!!" class="form-control"></textarea>
+                            </div>
+                       </form>
+                    </div><br/>
+                    <div id={{desafio['id']}} class="task-title pull-right">
+                        <button type="button" id="btnEnviarMotivoDescarte" class="btn btn-xs btn-theme03">Enviar</button>
+                        <button type="button" id="btnCancelarDescarte" class="btn btn-xs btn-theme04 btnCancelarDescarte">Cancelar</button>
+                    </div>
+                </li>
+                {% elsefor %}
+                <li class="list-primary text-center">
+                    <div class="task-title">
+                        <span class="task-title-sp">Nenhum desafio para você no momento!!!</span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+</section>
+<!-- Fim Modal Cadastro colaborador -->
+{{ javascript_include('js/colaborador/desafio/modal-desafios.js') }}
+<script type="text/javascript">  
+    $(document).ready(function(){
+        ModalDesafios.init();
+    });   
+</script>

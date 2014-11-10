@@ -9,6 +9,7 @@ use Phalcon\Mvc\Model;
  */
 class DesafioUsuario extends Model
 {
+     public static $_instance;
 
     /**
      *
@@ -21,12 +22,52 @@ class DesafioUsuario extends Model
      * @var integer
      */
     public $usuarioId;
-
+    
     /**
      *
      * @var integer
      */
     public $desafioId;
+    
+    /**
+     *
+     * @var varchar
+     */
+    public $usuarioResposta;
+    
+    /**
+     *
+     * @var varchar
+     */
+    public $usuarioRespostaMotivo;
+    
+    /**
+     *
+     * @var date
+     */
+    public $usuarioRespostaDt;
+    
+    /**
+     *
+     * @var date
+     */
+    public $envioAprovacaoDt;
+    
+    /**
+     *
+     * @var char
+     */
+    public $desafioCumprido;
+    
+    public static function build()
+    {
+        if( !isset( self::$_instance ) )
+        {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
+    }
 
     public function initialize()
     {
@@ -34,7 +75,64 @@ class DesafioUsuario extends Model
             'alias' => 'usuario'
         ));
         $this->belongsTo('desafioId', 'Incentiv\Models\Desafio', 'id', array(
-            'alias' => 'desafio'
+            'alias' => 'desafios'
         ));
+    }
+    
+    public function buscarDesafiosUsuario(\stdClass $objDesafio){
+        $desafios = $this::query()->columns(
+                         array( 'Incentiv\Models\DesafioUsuario.id',
+                                'Incentiv\Models\DesafioUsuario.usuarioResposta',
+                                'd.desafio',
+                                'd.pontuacao', 
+                                'inicioDt' => "DATE_FORMAT( d.inicioDt , '%d/%m/%Y' )",
+                                'fimDt' => "DATE_FORMAT( d.fimDt , '%d/%m/%Y' )",
+                                'd.premiacao'));
+        
+        $desafios->innerjoin('Incentiv\Models\Desafio', 'Incentiv\Models\DesafioUsuario.desafioId = d.id', 'd');
+        $desafios->andwhere( "Incentiv\Models\DesafioUsuario.usuarioId = {$objDesafio->usuarioId}");
+        $desafios->andwhere( "Incentiv\Models\DesafioUsuario.usuarioResposta != 'N' OR Incentiv\Models\DesafioUsuario.usuarioResposta IS NULL");
+        $desafios->andwhere( "Incentiv\Models\DesafioUsuario.envioAprovacaoDt IS NULL");
+        $desafios->andwhere( "d.ativo = 'Y'");
+        
+        $desafios->order('d.desafio');
+
+        return $desafios->execute();
+    }
+    
+    public function responderDesafioUsuario(\stdClass $objDesafio){
+        
+        $desafioUsuario = $this->findFirst("id = ".$objDesafio->id);
+        
+        $desafioUsuario->assign(array(
+            'usuarioResposta'            => $objDesafio->resposta,
+            'usuarioRespostaMotivo'      => $objDesafio->motivo,
+            'usuarioRespostaDt'          => date('Y-m-d H:i:s')
+        ));
+
+        if (!$desafioUsuario->save()) {
+            return array('status' => 'error', 'message'=>'Não foi possível descartar o desafio, tente mais tarde!!!');
+        }else{
+            if($objDesafio->resposta == 'N'){
+               return array('status' => 'ok', 'message'=>'Desafio descartado com sucesso!!!'); 
+            }else{
+                return array('status' => 'ok', 'message'=>'Desafio aceito com sucesso!!!');
+            }  
+        }
+    }
+    
+    public function desafioCumpridoUsuario(\stdClass $objDesafio){
+        
+        $desafioUsuario = $this->findFirst("id = ".$objDesafio->id);
+        
+        $desafioUsuario->assign(array(
+            'envioAprovacaoDt'            => date('Y-m-d H:i:s')
+        ));
+
+        if (!$desafioUsuario->save()) {
+            return array('status' => 'error', 'message'=>'Não foi possível enviar o desafio, tente mais tarde!!!');
+        }else{
+            return array('status' => 'ok', 'message'=>'Desafio enviado para aprovação com sucesso!!!');  
+        }
     }
 }

@@ -2,6 +2,7 @@
 namespace Colaborador\Controllers;
 
 use Phalcon\Mvc\Controller,
+    Phalcon\Mvc\View,
     Phalcon\Mvc\Dispatcher;
 
 /**
@@ -47,7 +48,7 @@ class ControllerBase extends Controller
                     ));
                 } else {
                     $dispatcher->forward(array(
-                        'controller' => 'user_control',
+                        'controller' => 'colaborador',
                         'action' => 'index'
                     ));
                 }
@@ -55,5 +56,9 @@ class ControllerBase extends Controller
                 return false;
             }
         }
+    }
+    
+    public function disableLayoutBefore(){
+        return $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }
 }

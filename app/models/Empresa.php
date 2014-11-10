@@ -49,7 +49,7 @@ class Empresa extends Model
     public function initialize()
     {
         $this->hasMany('id', 'Incentiv\Models\Usuario', 'empresaId', array(
-            'alias'         => 'user',
+            'alias'         => 'empresaId',
             'foreignKey'    => array(
                'message'    => 'A  empresa não pode ser excluída porque ela tem usuarios no sistema'
             )

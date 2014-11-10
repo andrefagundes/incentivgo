@@ -9,7 +9,7 @@ use Phalcon\Paginator\Adapter\Model as Paginator,
  * Empresa\Controllers\RegraController
  * CRUD para gerenciar empresas
  */
-class RegraController extends ControllerBase {
+class EmpresaRegraController extends ControllerBase {
 
     public function initialize() {
         if (!$this->request->isAjax()) {
@@ -43,7 +43,7 @@ class RegraController extends ControllerBase {
         ));
 
         $this->view->page = $paginator->getPaginate();
-        $this->view->pick("regra/pesquisar-regra");
+        $this->view->pick("empresa_regra/pesquisar-regra");
     }
     
     public function modalRegraAction(){

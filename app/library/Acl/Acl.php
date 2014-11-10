@@ -34,27 +34,56 @@ class Acl extends Component
      * @var array
      */
     private $privateResources = array(
-//        'empresa' => array(
-//           'index' 
-//        ),
-//        'colaborador' => array(
-//            'index',
-//            'search',
-//            'edit',
-//            'create',
-//            'delete',
-//            'alteraSenha'
-//        ),
-        'perfil' => array(
+        'empresa' => array(
+           'index' 
+        ),
+        'empresa_colaborador' => array(
+           'index',
+           'colaborador', 
+           'pesquisarColaborador', 
+           'modalColaborador',
+           'salvarColaborador',
+           'ativarInativarColaborador'
+        ),
+        'empresa_desafio' => array(
+           'index',
+           'desafio', 
+           'pesquisarDesafio', 
+           'modalDesafio',
+           'pesquisarColaboradoresDesafio',
+           'salvarDesafio',
+           'ativarInativarDesafio'
+        ),
+        'empresa_pontuacao' => array(
+           'index',
+           'pontuacao', 
+           'pesquisarPontuacao', 
+           'modalPontuacao',
+           'salvarPontuacao',
+           'ativarInativarPontuacao'
+        ),
+        'empresa_regra' => array(
+           'index',
+           'regra', 
+           'pesquisarRegra', 
+           'modalRegra',
+           'salvarRegra',
+           'ativarInativarRegra'
+        ),
+        'colaborador' => array(
             'index',
-            'search',
-            'edit',
-            'create',
-            'delete'
         ),
-        'permissao' => array(
-            'index'
+        'ajuda' => array(
+            'index',
+            'modalAjudas',
+            'pedirAjuda'
         ),
+        'desafio' => array(
+            'index',
+            'modalDesafios',
+            'responderDesafio',
+            'desafioCumprido'
+        )
     );
 
     /**
@@ -146,6 +175,7 @@ class Acl extends Component
         foreach ($perfil->getPermissions() as $permissao) {
             $permissoes[$permissao->resource . '.' . $permissao->action] = true;
         }
+        
         return $permissoes;
     }
 

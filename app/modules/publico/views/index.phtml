@@ -25,11 +25,11 @@
     </head>
 
     <body data-spy="scroll" data-target=".navbar" data-offset='61'>
-        
-        {{ content() }}
-        
         {{ javascript_include('http://code.jquery.com/jquery-1.11.0.min.js', false) }}
         {{ javascript_include('js/bootstrap.min.js') }}
+        {{ content() }}
+        
+
         <!--[if lte IE 8]>
                 {{ javascript_include('js/respond.min.js') }}
 	<![endif]-->
@@ -39,6 +39,7 @@
         {{ javascript_include('js/jquery.nicescroll.min.js') }}
         {{ javascript_include('js/skrollr.js') }}
         {{ javascript_include('js/jquery.touchwipe.min.js') }}
+        {{ javascript_include('js/jquery.mask.min.js') }}
         <!--[if lt IE 9]>
             {{ javascript_include('js/skrollr.ie.min.js') }}
         <![endif]-->

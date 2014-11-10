@@ -12,7 +12,7 @@ Premium: http://www.gridgum.com
 /* BASIC THEME CONFIGURATION */
 body {
     color: #797979;
-	background: #f2f2f2;
+    background: #f2f2f2;
     font-family: 'Ruda', sans-serif;
     padding: 0px !important;
     margin: 0px !important;
@@ -44,16 +44,30 @@ a, a:hover, a:focus {
 
 /* Bootstrap Modifications */
 .modal-header {
-	background: #00a9df;
+    background: #00a9df;
+}
+
+.modal-body{
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 1px;
 }
 
 .modal-title {
-	color: white;
+    color: white;
 }
 
 .btn-round {
-	border-radius: 20px;
-	-webkit-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+}
+
+.btn-modal-title{
+    margin-right: 60px;
+}
+
+.close-title-btn{
+    line-height: 1.7;
 }
 
 .accordion-heading .accordion-toggle {
@@ -69,7 +83,10 @@ a, a:hover, a:focus {
 	text-decoration: none;
 }	
 
-
+label.error {
+  color:red;
+  font-size: 10px;
+}
 
 /*Theme Backgrounds*/
 
@@ -2167,7 +2184,7 @@ label {
 /*todolist*/
 #sortable {
     list-style-type: none;
-    margin: 0 0 20px 0;
+    margin: 0 0 2px 0;
     padding: 0;
     width: 100%;
 }
@@ -2191,6 +2208,15 @@ label {
     position: relative;
     background: #f5f6f8;
     margin-bottom: 2px;
+    border-bottom   : none !important;
+}
+
+.ui-sortable-modal > li {
+    padding: 25px 0 25px 35px !important ;
+    position: relative;
+    background: #f5f6f8;
+    margin-bottom: 2px;
+    min-height: 72px;
     border-bottom   : none !important;
 }
 
@@ -2637,7 +2663,7 @@ label {
 /*--------------Tasks Widget--------------*/
 
 .task-content {
-    margin-bottom: 30px;
+    margin-bottom: 2px;
 }
 
 .task-panel {
@@ -2719,7 +2745,7 @@ label {
 }
 
 .tasks-widget .task-list  li:hover  {
-  background:#f9f9f9;
+  background:#f9f9ff;
 }
 
 .tasks-widget .task-list  li .task-config {

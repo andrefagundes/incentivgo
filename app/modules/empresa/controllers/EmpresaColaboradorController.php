@@ -7,10 +7,10 @@ use Incentiv\Models\Usuario,
     Incentiv\Models\Perfil;
 
 /**
- * Empresa\Controllers\ColaboradorController
+ * Empresa\Controllers\Empresa_ColaboradorController
  * Classe para gerenciar colaboradores
  */
-class ColaboradorController extends ControllerBase {
+class EmpresaColaboradorController extends ControllerBase {
 
     public function initialize() {
         if (!$this->request->isAjax()) {
@@ -25,7 +25,6 @@ class ColaboradorController extends ControllerBase {
     }
 
     public function colaboradorAction() {
-        
     }
     
     public function pesquisarColaboradorAction() {
@@ -36,6 +35,7 @@ class ColaboradorController extends ControllerBase {
 
         $objUsuario->ativo  = $this->request->getPost("ativo");
         $objUsuario->filter = $this->request->getPost("filter");
+        $objUsuario->perfil = $this->request->getPost("perfil");
 
         $resultUsers = Usuario::build()->fetchAllUsuarios($objUsuario);
 
@@ -47,7 +47,7 @@ class ColaboradorController extends ControllerBase {
         ));
 
         $this->view->page = $paginator->getPaginate();
-        $this->view->pick("colaborador/pesquisar-colaborador");
+        $this->view->pick("empresa_colaborador/pesquisar-colaborador");
     }
     
     public function modalColaboradorAction(){

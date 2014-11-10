@@ -85,7 +85,7 @@ class Desafio extends Model
         $this->criacaoDt = time();
 
         // Seta status do desafio para ativo
-        $this->ativo = 'S';
+        $this->ativo = 'Y';
     }
     
     /**

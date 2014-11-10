@@ -6,10 +6,10 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 use Incentiv\Models\RegraPontuacao;
 
 /**
- * Empresa\Controllers\PontuacaoController
+ * Empresa\Controllers\Empresa_PontuacaoController
  * CRUD para gerenciar as regras de pontuações usadas pelos colaboradores
  */
-class PontuacaoController extends ControllerBase {
+class EmpresaPontuacaoController extends ControllerBase {
 
     public function initialize() {
         if (!$this->request->isAjax()) {
@@ -43,7 +43,7 @@ class PontuacaoController extends ControllerBase {
         ));
 
         $this->view->page = $paginator->getPaginate();
-        $this->view->pick("pontuacao/pesquisar-pontuacao");
+        $this->view->pick("empresa_pontuacao/pesquisar-pontuacao");
     }
     
     public function modalPontuacaoAction(){

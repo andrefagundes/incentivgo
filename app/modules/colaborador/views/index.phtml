@@ -20,24 +20,25 @@
         {{ stylesheet_link('css/fonts/font.css') }}
         {{ stylesheet_link('css/fonts/lineicons/style.css') }}
         {{ stylesheet_link('http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', false) }}
-         {{ stylesheet_link('css/colaborador/style-colaborador.css') }}
+        {{ stylesheet_link('css/colaborador/style-colaborador.css') }}
         
         {{ javascript_include('js/jquery.min.js') }}
         {{ javascript_include('js/bootstrap.min.js') }}
+        {{ javascript_include('js/jquery.validate.min.js') }}
         {{ javascript_include('js/colaborador/js-library/chart-master/Chart.js') }}
 
     </head>
 
     <body  data-spy="scroll" data-target=".navbar" data-offset='61' >
-       
-       
-       {{ content() }} 
-        
-        
+
+    {{ content() }} 
+         
     {{ javascript_include('js/colaborador/jquery.dcjqaccordion.2.7.js') }}
     {{ javascript_include('js/colaborador/jquery.nicescroll.js') }}
     {{ javascript_include('js/colaborador/jquery.scrollTo.min.js') }}
     {{ javascript_include('js/colaborador/jquery.sparkline.js') }}
     {{ javascript_include('js/colaborador/common-scripts.js') }}
+    {{ javascript_include('js/colaborador/moment.min.js') }}
+    {{ javascript_include('js/colaborador/moment.locale.min.js') }}
     </body>
 </html>
