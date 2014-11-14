@@ -27,14 +27,13 @@ try {
 	/**
 	 * Handle the request
 	 */
-	$application = new \Phalcon\Mvc\Application();
-	$application->setDI($di);
+	$application = new \Phalcon\Mvc\Application($di);
         
         /**
 	 * Read modules
 	 */
 	include APP_DIR .'/config/modules.php';
-        
+
 	echo $application->handle()->getContent();
 
 } catch (Phalcon\Exception $e) {

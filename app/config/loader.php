@@ -8,5 +8,6 @@ $loader = new \Phalcon\Loader();
  */
 $loader->registerNamespaces(array(
     'Incentiv\Models' => __DIR__ .$config->application->modelsDir,
-    'Incentiv' => __DIR__ .$config->application->libraryDir
+    'Incentiv' => __DIR__ .$config->application->libraryDir,
+    'Incentiv\Plugins' => __DIR__ .$config->application->pluginsDir
 ))->register();

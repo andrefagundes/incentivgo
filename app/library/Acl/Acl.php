@@ -83,6 +83,24 @@ class Acl extends Component
             'modalDesafios',
             'responderDesafio',
             'desafioCumprido'
+        ),
+         'usuario' => array(
+            'index',
+            'search',
+            'edit',
+            'create',
+            'delete',
+            'changePassword'
+        ),
+        'perfil' => array(
+            'index',
+            'search',
+            'edit',
+            'create',
+            'delete'
+        ),
+        'permissao' => array(
+            'index'
         )
     );
 
@@ -119,9 +137,9 @@ class Acl extends Component
      * @param string $action
      * @return boolean
      */
-    public function isAllowed($perfil, $controller, $action)
+    public function isAllowed( $controller, $action,$perfil)
     {
-        return $this->getAcl()->isAllowed($perfil, $controller, $action);
+        return $this->getAcl()->isAllowed( $controller, $action,$perfil);
     }
 
     /**

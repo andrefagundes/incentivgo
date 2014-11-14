@@ -1,10 +1,8 @@
-{{ content() }}
-
 <div align="right">
     {{ link_to("usuario/create", "<i class='icon-plus-sign'></i> Criar Usuário", "class": "btn btn-primary") }}
 </div>
 
-<form method="post" action="{{ url("usuario/search") }}" autocomplete="off">
+<form method="post" action='{{ url("usuario/search") }}' autocomplete="off">
 
     <div class="center scaffold">
 

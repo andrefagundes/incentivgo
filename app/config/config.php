@@ -11,6 +11,7 @@ return new \Phalcon\Config(array(
         'modelsDir'      => '/../../app/models/',
         'cacheDir'       => '/../../app/cache/',
         'libraryDir'     => '/../../app/library/',
+        'pluginsDir'     => '/../../app/plugins/',
         'baseImage'      => __DIR__ . '/../../public/img/',
         'baseUrl'        => '/incentiv/',
         'publicUrl'      => 'localhost/incentiv',

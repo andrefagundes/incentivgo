@@ -7,6 +7,9 @@ use Phalcon\Loader,
     Phalcon\Mvc\View\Engine\Volt as VoltEngine,
     Phalcon\Mvc\ModuleDefinitionInterface;
 
+use Incentiv\Plugins\SecurityPlugin,
+    Incentiv\Plugins\NotFoundPlugin;
+
 class Module implements ModuleDefinitionInterface
 {
     /**
@@ -31,35 +34,48 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerServices($di)
     {
-        /**
-        * Dispatcher use a default namespace
-        */
-       $di->set('dispatcher', function () {
-           $dispatcher = new Dispatcher();
-           $dispatcher->setDefaultNamespace('Admin\Controllers');
-           return $dispatcher;
-       });
         
+        $di->set('dispatcher', function() use ($di) {
+
+            //Obtain the standard eventsManager from the DI
+            $eventsManager = $di->getShared('eventsManager');
+
+            //Instantiate the Security plugin
+            $security = new SecurityPlugin($di);
+
+            //Listen for events produced in the dispatcher using the Security plugin
+            $eventsManager->attach('dispatch:beforeExecuteRoute', $security);
+            $eventsManager->attach('dispatch:beforeException', new NotFoundPlugin());
+            $dispatcher = new Dispatcher();
+
+            //Bind the EventsManager to the Dispatcher
+            $dispatcher->setEventsManager($eventsManager);
+            $dispatcher->setDefaultNamespace('Admin\Controllers');
+
+            return $dispatcher;
+        });
+
         /**
          * Setting up the view component
          */
         $di->set('view', function() {
 
-                $view = new View();
+            $view = new View();
                 $view->setViewsDir(__DIR__.'/views/');
 
-                $view->registerEngines(array(
-                    '.phtml' => function($view, $di) {
-                        $volt = new VoltEngine($view, $di);
-                        $volt->setOptions(array(
-                            'compiledPath' => __DIR__.'/../../cache/volt/',
-                            'compiledSeparator' => '_'
-                        ));
-                        return $volt;
-                    }
-                ));
+            $view->registerEngines(array(
+                '.phtml' => function($view, $di) {
+                    $volt = new VoltEngine($view, $di);
+                    $volt->setOptions(array(
+                        'compiledPath' => __DIR__.'/../../cache/volt/',
+                        'compiledSeparator' => '_'
+                    ));
+                    return $volt;
+                }
+            ));
 
-                return $view;
+            return $view;
         }, true);
     }
+
 }

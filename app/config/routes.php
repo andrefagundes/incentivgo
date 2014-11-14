@@ -6,9 +6,37 @@ $router = new Phalcon\Mvc\Router(false);
 
 $router->setDefaultModule("publico");
 
-/******Rotas módulo público**********/
- 
+$router->add('/show401', array(
+    'module' => 'publico',
+    'controller' => 'errors',
+    'action' => 'show401'
+));
+$router->add('/show404', array(
+    'module' => 'publico',
+    'controller' => 'errors',
+    'action' => 'show404'
+));
+$router->add('/show500', array(
+    'module' => 'publico',
+    'controller' => 'errors',
+    'action' => 'show500'
+));
 
+$router->add('/session/logout', array(
+    'module' => 'publico',
+    'controller' => 'session',
+    'action' => 'logout'
+));
+
+/******Rotas módulo admin**********/
+$router->add('/admin', array(
+    'namespace' => 'Admin\Controllers',
+    'module' => 'admin',
+    'controller' => 'usuario',
+    'action' => 'index'
+));
+
+/******Rotas módulo público**********/
 $router->add('/session/login', array(
     'controller' => 'session',
     'action' => 'login'

@@ -1,17 +1,17 @@
 <?php
-namespace Colaborador\Controllers;
+namespace Admin\Controllers;
 
 use Phalcon\Tag,
     Phalcon\Mvc\Model\Criteria,
     Phalcon\Paginator\Adapter\Model as Paginator;
 
-use Colaborador\Forms\UsuarioForm,
-    Colaborador\Forms\AlteraSenhaForm,
+use Admin\Forms\UsuarioForm,
+    Admin\Forms\AlteraSenhaForm,
     Incentiv\Models\Usuario,
     Incentiv\Models\AlteracaoSenha;
 
 /**
- * Colaborador\Controllers\UsuarioController
+ * Admin\Controllers\UsuarioController
  * CRUD para gerenciar colaboradores
  */
 class UsuarioController extends ControllerBase
@@ -78,7 +78,6 @@ class UsuarioController extends ControllerBase
             $user->assign(array(
                 'nome'          => $this->request->getPost('nome', 'striptags'),
                 'perfilId'      => $this->request->getPost('perfilId', 'int'),
-                'matricula'     => $this->request->getPost('matricula', 'striptags'),
                 'email'         => $this->request->getPost('email', 'email')
             ));
 

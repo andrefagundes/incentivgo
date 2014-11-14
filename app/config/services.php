@@ -11,7 +11,6 @@ use Phalcon\DI\FactoryDefault,
     Phalcon\Security;
 
 use Incentiv\Auth\Auth,
-    Incentiv\Acl\Acl,
     Incentiv\Mail\Mail,
     Incentiv\Funcoes\Funcoes;
 
@@ -126,13 +125,6 @@ $di->set('auth', function () {
  */
 $di->set('mail', function () {
     return new Mail();
-});
-
-/**
- * Access Control List
- */
-$di->set('acl', function () {
-    return new Acl();
 });
 
 /**

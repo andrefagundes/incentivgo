@@ -12,7 +12,6 @@ class IndexController extends ControllerBase
     }
     
     public function indexAction(){
-        
         $form = new ContatoForm();
         
         $this->view->form = $form;

@@ -1,5 +1,5 @@
 <?php
-namespace Colaborador\Forms;
+namespace Admin\Forms;
 
 use Phalcon\Forms\Form,
     Phalcon\Forms\Element\Text,

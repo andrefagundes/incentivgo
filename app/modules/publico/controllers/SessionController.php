@@ -5,7 +5,10 @@ namespace Publico\Controllers;
 use Incentiv\Auth\Exception as AuthException,
     Incentiv\Models\Empresa,
     Incentiv\Models\AlteraSenha,
-    Publico\Forms\LoginForm,
+    Incentiv\Auth\Auth,
+    Incentiv\Models\Perfil;
+
+use Publico\Forms\LoginForm,
     Publico\Forms\CadastroForm,
     Publico\Forms\EsqueceuSenhaForm,
     Publico\Forms\EnviarSugestaoForm;
@@ -33,7 +36,7 @@ class SessionController extends ControllerBase {
         if ($this->request->isPost()) {
 
             if (Empresa::count("email = '{$this->request->getPost('email', 'email')}'") > 0) {
-                $this->flashSession->notice('Pré-cadastro já foi feito, em breve retornaremos!!!');
+                $this->flashSession->notice('Pré-cadastro já foi feito, entraremos em contato!!!');
                 $this->response->redirect('session/mensagem');
             } else {
 
@@ -57,7 +60,7 @@ class SessionController extends ControllerBase {
                     ));
 
                     if ($empresa->save()) {
-                        $this->flashSession->success('Pré-cadastro enviado com sucesso, em breve retornaremos!!!');
+                        $this->flashSession->success('Pré-cadastro enviado com sucesso, entraremos em contato!!!');
                         $this->response->redirect('session/mensagem');
                     }
 
@@ -91,11 +94,23 @@ class SessionController extends ControllerBase {
 
                     $this->auth->check(array(
                         'email' => $this->request->getPost('email'),
-                        'senha' => $this->request->getPost('senha'),
+                        'senha' => $this->request->getPost('password'),
                         'remember' => $this->request->getPost('remember')
                     ));
-
-                    return $this->response->redirect('usuario');
+                    
+                    $auth = Auth::getIdentity();
+                    
+                    if($auth['perfilId'] == Perfil::COLABORADOR)
+                    {
+                        return $this->response->redirect('colaborador');
+                    }elseif ($auth['perfilId'] == Perfil::ADMINISTRADOR) {
+                        return $this->response->redirect('empresa');
+                    }elseif ($auth['perfilId'] == Perfil::ADMINISTRADOR_INCENTIV) {
+                        return $this->response->redirect('admin');
+                    }else{
+                        return $this->response->redirect('/');
+                    }
+                    
                 }
             }
         } catch (AuthException $e) {
@@ -195,8 +210,7 @@ class SessionController extends ControllerBase {
      */
     public function logoutAction() {
         $this->auth->remove();
-
-        return $this->response->redirect('index');
+        return $this->response->redirect('');
     }
 
 }

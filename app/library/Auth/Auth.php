@@ -43,7 +43,7 @@ class Auth extends Component
         // Registra o login bem-sucedido
         $this->saveSuccessLogin($user);
 
-        // Verifique se o se lembra de mim foi selecionado
+        // Verifique se o se "lembra de mim" foi selecionado
         if (isset($credentials['remember'])) {
             $this->createRememberEnviroment($user);
         }
@@ -51,7 +51,9 @@ class Auth extends Component
         $this->session->set('auth-identity', array(
             'id' => $user->id,
             'nome' => $user->nome,
-            'perfil' => $user->perfil->nome
+            'perfilId' => $user->perfilId,
+            'perfil' => $user->perfil->nome,
+            'empresaId' => $user->empresaId
         ));
     }
 
@@ -178,7 +180,9 @@ class Auth extends Component
                         $this->session->set('auth-identity', array(
                             'id'        => $user->id,
                             'nome'      => $user->nome,
-                            'perfil'   => $user->perfil->nome
+                            'perfilId'  => $user->perfilId,
+                            'perfil'    => $user->perfil->nome,
+                            'empresaId' => $user->empresaId
                         ));
 
                         // Registra o login bem-sucedido
@@ -197,7 +201,7 @@ class Auth extends Component
     }
 
     /**
-     * Verifica se o usuário foi banido / inativo / suspensa
+     * Verifica se o usuário foi banido / inativo / suspenso
      *
      * @param Incentiv\Models\Usuario $user
      */
@@ -261,7 +265,9 @@ class Auth extends Component
         $this->session->set('auth-identity', array(
             'id'        => $user->id,
             'nome'      => $user->nome,
-            'perfil'   => $user->perfil->nome
+            'perfilId'  => $user->perfilId,
+            'perfil'    => $user->perfil->nome,
+            'empresaId' => $user->empresaId
         ));
     }
 
