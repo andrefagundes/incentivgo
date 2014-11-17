@@ -160,8 +160,8 @@ class Desafio extends Model
                          array( 'id',
                                 'desafio',
                                 'pontuacao', 
-                                'inicioDt' => "DATE_FORMAT( inicioDt , '%d/%c/%Y' )",
-                                'fimDt' => "DATE_FORMAT( fimDt , '%d/%c/%Y' )",
+                                'inicioDt' => "DATE_FORMAT( inicioDt , '%d/%m/%Y' )",
+                                'fimDt' => "DATE_FORMAT( fimDt , '%d/%m/%Y' )",
                                 'premiacao',
                                 'status' => 'ativo'));
         
