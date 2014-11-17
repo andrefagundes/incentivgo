@@ -24,7 +24,7 @@ class SecurityPlugin extends Plugin {
      */
     public function getAcl() {
         //throw new \Exception("something");
-        if (!isset($this->persistent->acl)) {die('asd');
+        if (!isset($this->persistent->acl)) {
             //$acl = new \Phalcon\Acl\Adapter\Memory();
             $acl = new AclList();
             $acl->setDefaultAction(Acl::DENY);
@@ -107,7 +107,7 @@ class SecurityPlugin extends Plugin {
      */
     public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher) {
 
-        $auth = $this->session->get('auth-identity');
+        $auth = $this->auth->getIdentity();
 
         if (!$auth) {
             $role = 'publico';
@@ -122,10 +122,10 @@ class SecurityPlugin extends Plugin {
 
         $allowed    = $acl->isAllowed($role, $controller, $action);
 
-        if ($allowed != Acl::ALLOW || empty($allowed)) {
-            $this->response->redirect('show401');
-            //return false;
-        }
+//        if ($allowed != Acl::ALLOW || empty($allowed)) {
+//            $this->response->redirect('show401');
+//            //return false;
+//        }
     }
 
 }

@@ -116,4 +116,17 @@ class Ajuda extends Model
         return array('status' => 'ok','message'=>'Ajuda salva com sucesso!!!');
         
     }
+    public function excluirAjuda(\stdClass $objAjuda){
+
+        $ajuda = $this::findFirst($objAjuda->ajudaId);
+        if ($ajuda != false) {
+            if ($ajuda->delete() == false) {
+                return array('status' => 'error', 'message'=>'Não foi possível excluir a ajuda!!!');
+            } else {
+                return array('status' => 'ok','message'=>'Ajuda excluída com sucesso!!!');
+            }
+        }else{
+              return array('status' => 'error', 'message'=>'Ajuda não foi encontrada!!!');
+        }
+    }
 }

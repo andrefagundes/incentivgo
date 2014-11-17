@@ -23,7 +23,6 @@ class NotFoundPlugin extends Plugin {
      */
     public function beforeException(Event $event, MvcDispatcher $dispatcher, DispatcherException $exception) {
         if ($exception instanceof DispatcherException) {
-            die(var_dump($exception));
             switch ($exception->getCode()) {
                 case Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
                 case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
@@ -33,7 +32,7 @@ class NotFoundPlugin extends Plugin {
 //                        'action' => 'show404'));
 //                    ));
                     $this->response->redirect('show404');
-                    return false;
+                    //return false;
             }
         }
 //        $dispatcher->forward(array(
@@ -41,9 +40,9 @@ class NotFoundPlugin extends Plugin {
 //            'controller' => 'errors',
 //            'action' => 'show500'
 //        ));
-          die(var_dump($exception));
+
         $this->response->redirect('show500');
-        return false;
+//        return false;
     }
 
 }

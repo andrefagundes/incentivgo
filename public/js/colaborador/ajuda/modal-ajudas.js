@@ -22,6 +22,7 @@ var ModalAjudas = {
         });
         
         $("#btnPedirAjuda").click(ModalAjudas.pedirAjuda);
+        $(".btnExcluirAjuda").click(ModalAjudas.excluirAjuda);
         $("#btnEnviarAjuda").click(ModalAjudas.enviarAjuda);
         $("#btnCancelarAjuda").click(ModalAjudas.cancelarAjuda);   
     },
@@ -31,12 +32,18 @@ var ModalAjudas = {
     },
     enviarAjuda:function(){
         if($("#form_ajuda").valid()){
-            
             var ajuda = $("#txt_mensagem_ajuda").val();
             $.post("colaborador/ajuda/pedir-ajuda", {'ajuda':ajuda }, function() {
                 $("#modal-body-ajudas").html('').load( "colaborador/modal-ajudas/"+0 );
             }, 'json');
         }
+    },
+    excluirAjuda:function(){            
+        var ajudaId = $(this).parent().attr('id');
+
+        $.post("colaborador/ajuda/excluir-ajuda", {'ajudaId':ajudaId }, function() {
+            $("#modal-body-ajudas").html('').load( "colaborador/modal-ajudas/"+0 );
+        }, 'json');
     },
     cancelarAjuda: function(){
         $("#modal-body-ajudas").html('').load( "colaborador/modal-ajudas/"+0 );

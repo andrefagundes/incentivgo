@@ -13,7 +13,11 @@
                     </div>
                     {% if(ajuda.ativo == 'Y') %}
                         <div id={{ajuda.id}} class="task-title pull-right">
-                            <button type="button" id="btnResponderAjuda" class="btn btn-xs btn-theme03 btnResponderAjuda">Ajudar</button>
+                            {% if(ajuda.usuarioId != usuarioId) %}
+                                <button type="button" id="btnResponderAjuda" class="btn btn-xs btn-theme03 btnResponderAjuda">Ajudar</button>
+                            {% else %}
+                                <button type="button" class="btn btn-xs btn-theme04 btnExcluirAjuda">Excluir</button>
+                            {% endif %}   
                         </div>
                     {% endif %}
                 </li>

@@ -13,7 +13,7 @@
         <div class="nav notify-row" id="top_menu">
             <!--  notification start -->
             <ul class="nav top-menu">
-                <!-- settings start -->
+<!--                 settings start 
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
                         <i class="fa fa-th-large"></i>
@@ -81,7 +81,7 @@
                         </li>
                     </ul>
                 </li>
-                <!-- settings end -->
+                 settings end -->
                 <!-- inbox dropdown start-->
                 <li id="header_inbox_bar" class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
@@ -95,38 +95,13 @@
                         </li>
                         <li>
                             <a href="index.html#">
-
-                                <span class="photo">{{image( 'img/ui-zac.jpg', 'alt':'avatar') }}</span>
-                                <span class="subject">
-                                    <span class="from">Zac Snider</span>
-                                    <span class="time">Just now</span>
-                                </span>
-                                <span class="message">
-                                    Hi mate, how is everything?
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index.html#">
                                 <span class="photo">{{image( 'img/ui-divya.jpg', 'alt':'avatar') }}</span>
                                 <span class="subject">
-                                    <span class="from">Divya Manian</span>
+                                    <span class="from">Daniela Alves</span>
                                     <span class="time">40 mins.</span>
                                 </span>
                                 <span class="message">
-                                    Hi, I need your help with this.
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index.html#">
-                                <span class="photo">{{image( 'img/ui-danro.jpg', 'alt':'avatar') }}</span>
-                                <span class="subject">
-                                    <span class="from">Dan Rogers</span>
-                                    <span class="time">2 hrs.</span>
-                                </span>
-                                <span class="message">
-                                    Love your new Dashboard.
+                                    Novo benefício
                                 </span>
                             </a>
                         </li>
@@ -134,11 +109,11 @@
                             <a href="index.html#">
                                 <span class="photo">{{image( 'img/ui-sherman.jpg', 'alt':'avatar') }}</span>
                                 <span class="subject">
-                                    <span class="from">Dj Sherman</span>
+                                    <span class="from">Rodrigo Cardeal</span>
                                     <span class="time">4 hrs.</span>
                                 </span>
                                 <span class="message">
-                                    Please, answer asap.
+                                    Projeto Gmail.
                                 </span>
                             </a>
                         </li>
@@ -153,7 +128,7 @@
         </div>
         <div class="top-menu">
             <ul class="nav pull-right top-menu">
-                <li><a class="logout" href="login.html"> Sair</a></li>
+                <li>{{ link_to('session/logout', 'Sair','class':'logout') }}</li>
             </ul>
         </div>
     </header>

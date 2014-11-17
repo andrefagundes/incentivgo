@@ -354,4 +354,17 @@ $router->add('/colaborador/ajuda/pedir-ajuda', array(
     return false;
 });
 
+$router->add('/colaborador/ajuda/excluir-ajuda', array(
+    'module' => 'colaborador',
+    'controller' => 'ajuda',
+    'action' => 'excluirAjuda'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
 return $router;

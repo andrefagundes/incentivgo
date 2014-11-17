@@ -101,7 +101,7 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
 /* ==== Intro ==== */
 
 #slide_1 {
-	background: #000 url(../img/slide_4.jpg) fixed no-repeat;
+	background: #000 url(../img/slide_8.jpg) fixed no-repeat;
 }
 
 @media (min-width: 1280px) {
