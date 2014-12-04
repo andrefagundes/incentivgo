@@ -367,4 +367,30 @@ $router->add('/colaborador/ajuda/excluir-ajuda', array(
     return false;
 });
 
+$router->add('/colaborador/modal-ajudar/{ajudaId}', array(
+    'module' => 'colaborador',
+    'controller' => 'ajuda',
+    'action' => 'modalAjudar'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
+$router->add('/colaborador/ajudar', array(
+    'module' => 'colaborador',
+    'controller' => 'ajuda',
+    'action' => 'ajudar'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
 return $router;

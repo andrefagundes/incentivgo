@@ -1,6 +1,10 @@
 var ModalAjudas = {
-
+    
     init: function() {
+        
+        $("#btnPedirAjuda").show();
+        $("#modal-footer-ajuda").hide();
+        
         $("#form_ajuda").validate({
             rules: {
                 'txt_mensagem_ajuda': {
@@ -21,10 +25,15 @@ var ModalAjudas = {
             $(this).html("Enviada "+ moment($(this).html()).startOf().fromNow());
         });
         
+        $(".btnAjudar").click(ModalAjudas.ajudar);
         $("#btnPedirAjuda").click(ModalAjudas.pedirAjuda);
         $(".btnExcluirAjuda").click(ModalAjudas.excluirAjuda);
         $("#btnEnviarAjuda").click(ModalAjudas.enviarAjuda);
         $("#btnCancelarAjuda").click(ModalAjudas.cancelarAjuda);   
+    },
+    ajudar:function(){
+        var ajudaId = $(this).parent().attr('id');
+        $("#modal-body-ajudas").html('').load( "colaborador/modal-ajudar/"+ajudaId );
     },
     pedirAjuda:function(){
         $(".ul-ajudas").hide();

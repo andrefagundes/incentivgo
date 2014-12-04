@@ -11,10 +11,13 @@
                     <div class="task-title pull-left">
                         <span class="sp-title moment">{{ajuda.envioDt}}</span>
                     </div>
+                    <div id={{ajuda.id}} class="task-title center">
+                        Respostas (5)
+                    </div>
                     {% if(ajuda.ativo == 'Y') %}
                         <div id={{ajuda.id}} class="task-title pull-right">
                             {% if(ajuda.usuarioId != usuarioId) %}
-                                <button type="button" id="btnResponderAjuda" class="btn btn-xs btn-theme03 btnResponderAjuda">Ajudar</button>
+                                <button type="button" id="btnAjudar" class="btn btn-xs btn-theme03 btnAjudar">Ajudar</button>
                             {% else %}
                                 <button type="button" class="btn btn-xs btn-theme04 btnExcluirAjuda">Excluir</button>
                             {% endif %}   
@@ -29,7 +32,7 @@
                             </div>
                        </form>
                     </div><br/>
-                    <div id={{ajuda.id}} class="task-title pull-right">
+                    <div id="{{ajuda.id}}" class="task-title pull-right">
                         <button type="button" id="btnEnviarMotivoDescarte" class="btn btn-xs btn-theme03">Enviar</button>
                         <button type="button" id="btnCancelarDescarte" class="btn btn-xs btn-theme04 btnCancelarDescarte">Cancelar</button>
                     </div>
@@ -57,7 +60,7 @@
                     </div>
                 </li>
             </ul>
-        </div>
+    </div>
 </section>
 <!-- Fim Modal Cadastro colaborador -->
 {{ javascript_include('js/colaborador/ajuda/modal-ajudas.js') }}

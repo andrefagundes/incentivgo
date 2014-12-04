@@ -1,278 +1,292 @@
 <!--main content start-->
-    <section id="main-content">
-        <section class="wrapper">
+<section id="main-content">
+    <section class="wrapper">
 
-            <div class="row">
-                <div class="col-lg-9 main-chart">
-                    <div class="row mt">
-                        <div class="col-md-4 mb">
-                            <!-- PONTUAÇÃO -->
-                            <div class="white-panel pn">
-                                <div class="white-header">
-                                    <h5>Pontuação</h5>
+        <div class="row">
+            <div class="col-lg-9 main-chart">
+                <div class="row mt">
+                    <div class="col-md-4 mb">
+                        <!-- PONTUAÇÃO -->
+                        <div class="white-panel pn">
+                            <div class="white-header">
+                                <h5>Pontuação</h5>
+                            </div>
+                            <div class="badge badge-popular"><h2>40</h2></div>
+                            <p><b>pontos</b></p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="small mt">Histórico</p>
+                                    <p>2014</p>
                                 </div>
-                                <div class="badge badge-popular"><h2>40</h2></div>
-                                <p><b>pontos</b></p>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <p class="small mt">Histórico</p>
-                                        <p>2014</p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p class="small mt">Pontos usados</p>
-                                        <p>30 pontos</p>
-                                    </div>
+                                <div class="col-md-6">
+                                    <p class="small mt">Pontos usados</p>
+                                    <p>30 pontos</p>
                                 </div>
                             </div>
-                        </div><!-- /col-md-4 -->
-                        
-                        <!-- DESAFIOS -->
-                        <div class="col-md-4 col-sm-4 mb">
-                            <div class="white-panel pn">
-                                <div class="white-header">
-                                    <h5>Desafios <span class="badge bg-theme">{{count_desafios}}</span></h5>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4 col-xs-4"></div>
-                                </div>
-                                <div class="centered">
-                                    <!--<h1> <span class="fa fa-clock-o fa-2x"></span></h1>-->
-                                        <h1> <span class="fa fa-th-large fa-2x"></span></h1>
-                                </div>
-                                <button class="btn btn-link" id="btnEncarar">Encarar</button>
+                        </div>
+                    </div><!-- /col-md-4 -->
+
+                    <!-- DESAFIOS -->
+                    <div class="col-md-4 col-sm-4 mb">
+                        <div class="white-panel pn">
+                            <div class="white-header">
+                                <h5>Desafios <span class="badge bg-theme">{{count_desafios}}</span></h5>
                             </div>
-                        </div><!-- /col-md-4 -->
-
-                        <!-- NOTÍCIAS -->
-                        <div class="col-md-4 col-sm-4 mb">
-                            <div class="white-panel pn">
-                                <div class="white-header">
-                                    <h5>Ajudas <span class="badge bg-theme04">{{count_ajudas}}</span></h5>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4 col-xs-4"></div>
-                                </div>
-                                <div class="centered">
-                                    <h1> <span class=" li_fire fa-2x"></span></h1>
-                                </div>
-                                <button class="btn btn-link" id="btnAjuda">Pedir ajuda</button>
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-4"></div>
                             </div>
-                        </div><!-- /col-md-4 -->
-                       <div class="col-md-2 col-sm-2 col-lg-offset-8 mb">
-                            <div class="white-panel pn">
-                                <div class="white-header">
-                                    <h5>Notícias <span class="badge bg-theme03">4</span></h5>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4 col-xs-4"></div>
-                                </div>
-                                <div class="centered">
-                                    <h1> <span class=" li_news"></span></h1>
-                                </div>
-                                <button class="btn btn-theme03">Ver</button>
+                            <div class="centered">
+                                <!--<h1> <span class="fa fa-clock-o fa-2x"></span></h1>-->
+                                <h1> <span class="fa fa-th-large fa-2x"></span></h1>
                             </div>
-                        </div><!-- /col-md-4 -->
-                        <div class="col-md-2 col-sm-2 mb">
-                            <div class="white-panel pn">
-                                <div class="white-header">
-                                    <h5>Rascunho <span class="badge bg-theme02">4</span></h5>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 col-xs-6"></div>
-                                </div>
-                                <div class="centered">
-                                    <h1> <span class=" li_pen"></span></h1>
-                                </div>
-                                <button class="btn btn-theme02">Inserir</button>
+                            <button class="btn btn-link" id="btnEncarar">Encarar</button>
+                        </div>
+                    </div><!-- /col-md-4 -->
+
+                    <!-- NOTÍCIAS -->
+                    <div class="col-md-4 col-sm-4 mb">
+                        <div class="white-panel pn">
+                            <div class="white-header">
+                                <h5>Ajudas <span class="badge bg-theme04">{{count_ajudas}}</span></h5>
                             </div>
-                        </div><!-- /col-md-4 -->
-<!--                        <div class="col-md-8 col-sm-8 mb">
-                            <div class="white-panel panel panel-body">
-                                <div class="col-md-4 col-sm-4">
-                                    
-                                        <h5 class="">Ajudas <span class="badge bg-theme02">4</span></h5>
-                                    
-                                    <div class="row">
-                                        <div class="col-sm-4 col-xs-4"></div>
-                                    </div>
-                                    <div class="centered">
-                                        <h1> <span class=" li_pen"></span></h1>
-                                    </div>
-                                    <button class="btn-link">Pedir Ajuda</button>
-                                </div>
-                            
-                                <div class="col-md-4 col-sm-4">
-                                    <div class="white-panel">
-                                        <h5>Conhecimentos <span class="badge bg-important">4</span></h5>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-4 col-xs-4"></div>
-                                    </div>
-                                    <div class="centered">
-                                        <h1> <span class=" li_pen"></span></h1>
-                                    </div>
-                                    <button class="btn-link btn-gplus">Gerar Conhecimento</button>
-                                </div>
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-4"></div>
                             </div>
-                        </div> /col-md-4   -->
-                    </div><!-- /row -->
-                </div><!-- /col-lg-9 END SECTION MIDDLE -->
+                            <div class="centered">
+                                <h1> <span class=" li_fire fa-2x"></span></h1>
+                            </div>
+                            <button class="btn btn-link" id="btnAjuda">Pedir ajuda</button>
+                        </div>
+                    </div><!-- /col-md-4 -->
+                    <div class="col-md-2 col-sm-2 col-lg-offset-8 mb">
+                        <div class="white-panel pn">
+                            <div class="white-header">
+                                <h5>Notícias <span class="badge bg-theme03">4</span></h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-4"></div>
+                            </div>
+                            <div class="centered">
+                                <h1> <span class=" li_news"></span></h1>
+                            </div>
+                            <button class="btn btn-theme03">Ver</button>
+                        </div>
+                    </div><!-- /col-md-4 -->
+                    <div class="col-md-2 col-sm-2 mb">
+                        <div class="white-panel pn">
+                            <div class="white-header">
+                                <h5>Rascunho <span class="badge bg-theme02">4</span></h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-xs-6"></div>
+                            </div>
+                            <div class="centered">
+                                <h1> <span class=" li_pen"></span></h1>
+                            </div>
+                            <button class="btn btn-theme02">Inserir</button>
+                        </div>
+                    </div><!-- /col-md-4 -->
+                    <!--                        <div class="col-md-8 col-sm-8 mb">
+                                                <div class="white-panel panel panel-body">
+                                                    <div class="col-md-4 col-sm-4">
+                                                        
+                                                            <h5 class="">Ajudas <span class="badge bg-theme02">4</span></h5>
+                                                        
+                                                        <div class="row">
+                                                            <div class="col-sm-4 col-xs-4"></div>
+                                                        </div>
+                                                        <div class="centered">
+                                                            <h1> <span class=" li_pen"></span></h1>
+                                                        </div>
+                                                        <button class="btn-link">Pedir Ajuda</button>
+                                                    </div>
+                                                
+                                                    <div class="col-md-4 col-sm-4">
+                                                        <div class="white-panel">
+                                                            <h5>Conhecimentos <span class="badge bg-important">4</span></h5>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-4 col-xs-4"></div>
+                                                        </div>
+                                                        <div class="centered">
+                                                            <h1> <span class=" li_pen"></span></h1>
+                                                        </div>
+                                                        <button class="btn-link btn-gplus">Gerar Conhecimento</button>
+                                                    </div>
+                                                </div>
+                                            </div> /col-md-4   -->
+                </div><!-- /row -->
+            </div><!-- /col-lg-9 END SECTION MIDDLE -->
 
 
-                <!-- **********************************************************************************************************************************************************
-                RIGHT SIDEBAR CONTENT
-                *********************************************************************************************************************************************************** -->                  
+            <!-- **********************************************************************************************************************************************************
+            RIGHT SIDEBAR CONTENT
+            *********************************************************************************************************************************************************** -->                  
 
-                <div class="col-lg-3 ds">
-                    <!--COMPLETED ACTIONS DONUTS CHART-->
-                    <h3>Notificações</h3>
+            <div class="col-lg-3 ds">
+                <!--COMPLETED ACTIONS DONUTS CHART-->
+                <h3>Notificações</h3>
 
-                    <!-- First Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>2 Minutos Ago</muted><br/>
-                            <a href="#">André Maciel</a> ganhou 10 pontos.<br/>
-                            </p>
-                        </div>
+                <!-- First Action -->
+                <div class="desc">
+                    <div class="thumb">
+                        <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
                     </div>
-                    <!-- Second Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>3 Horas Ago</muted><br/>
-                            <a href="#">Renata Xavier</a> criou uma nova ideia para a empresa.<br/>
-                            </p>
-                        </div>
+                    <div class="details">
+                        <p><muted>2 Minutos Ago</muted><br/>
+                        <a href="#">André Maciel</a> ganhou 10 pontos.<br/>
+                        </p>
                     </div>
-                    <!-- Third Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>7 Horas Ago</muted><br/>
-                            <a href="#">Rodrigo Cardeal</a> pediu uma ajuda.<br/>
-                            </p>
-                        </div>
+                </div>
+                <!-- Second Action -->
+                <div class="desc">
+                    <div class="thumb">
+                        <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
                     </div>
-                    <!-- Fourth Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>11 Horas Ago</muted><br/>
-                            <a href="#">Daniela Alves</a> terminou um desafio.<br/>
-                            </p>
-                        </div>
+                    <div class="details">
+                        <p><muted>3 Horas Ago</muted><br/>
+                        <a href="#">Renata Xavier</a> criou uma nova ideia para a empresa.<br/>
+                        </p>
                     </div>
-                    <!-- Fifth Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>18 Horas Ago</muted><br/>
-                            <a href="#">Rafael Oliveira</a> recebeu uma aprovação de desafio e ganhou 20 pontos.<br/>
-                            </p>
-                        </div>
+                </div>
+                <!-- Third Action -->
+                <div class="desc">
+                    <div class="thumb">
+                        <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
                     </div>
+                    <div class="details">
+                        <p><muted>7 Horas Ago</muted><br/>
+                        <a href="#">Rodrigo Cardeal</a> pediu uma ajuda.<br/>
+                        </p>
+                    </div>
+                </div>
+                <!-- Fourth Action -->
+                <div class="desc">
+                    <div class="thumb">
+                        <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                    </div>
+                    <div class="details">
+                        <p><muted>11 Horas Ago</muted><br/>
+                        <a href="#">Daniela Alves</a> terminou um desafio.<br/>
+                        </p>
+                    </div>
+                </div>
+                <!-- Fifth Action -->
+                <div class="desc">
+                    <div class="thumb">
+                        <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                    </div>
+                    <div class="details">
+                        <p><muted>18 Horas Ago</muted><br/>
+                        <a href="#">Rafael Oliveira</a> recebeu uma aprovação de desafio e ganhou 20 pontos.<br/>
+                        </p>
+                    </div>
+                </div>
 
-                    <!-- USERS ONLINE SECTION -->
-                    <h3>Colaboradores</h3>
-                    <!-- First Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            {{image( 'img/ui-divya.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
-                        </div>
-                        <div class="details">
-                            <p><a href="#">Daniela Alves</a><br/>
-                            <muted>Administradora</muted>
-                            </p>
-                        </div>
+                <!-- USERS ONLINE SECTION -->
+                <h3>Colaboradores</h3>
+                <!-- First Member -->
+                <div class="desc">
+                    <div class="thumb">
+                        {{image( 'img/ui-divya.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
                     </div>
-                    <!-- Second Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            {{image( 'img/ui-sherman.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
-                        </div>
-                        <div class="details">
-                            <p><a href="#">Rodrigo Cardeal</a><br/>
-                            <muted>Desenvolvedor Web</muted>
-                            </p>
-                        </div>
+                    <div class="details">
+                        <p><a href="#">Daniela Alves</a><br/>
+                        <muted>Administradora</muted>
+                        </p>
                     </div>
-                    <!-- Third Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            {{image( 'img/ui-danro.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
-                        </div>
-                        <div class="details">
-                            <p><a href="#">Rafael Oliveira</a><br/>
-                            <muted>Comercial</muted>
-                            </p>
-                        </div>
+                </div>
+                <!-- Second Member -->
+                <div class="desc">
+                    <div class="thumb">
+                        {{image( 'img/ui-sherman.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
                     </div>
-                    <!-- Fifth Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            {{image( 'img/ui-zac.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
-                        </div>
-                        <div class="details">
-                            <p><a href="#">André Fagundes</a><br/>
-                            <muted>Desenvolvedor Web</muted>
-                            </p>
-                        </div>
+                    <div class="details">
+                        <p><a href="#">Rodrigo Cardeal</a><br/>
+                        <muted>Desenvolvedor Web</muted>
+                        </p>
                     </div>
+                </div>
+                <!-- Third Member -->
+                <div class="desc">
+                    <div class="thumb">
+                        {{image( 'img/ui-danro.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
+                    </div>
+                    <div class="details">
+                        <p><a href="#">Rafael Oliveira</a><br/>
+                        <muted>Comercial</muted>
+                        </p>
+                    </div>
+                </div>
+                <!-- Fifth Member -->
+                <div class="desc">
+                    <div class="thumb">
+                        {{image( 'img/ui-zac.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
+                    </div>
+                    <div class="details">
+                        <p><a href="#">André Fagundes</a><br/>
+                        <muted>Desenvolvedor Web</muted>
+                        </p>
+                    </div>
+                </div>
 
-                </div><!-- /col-lg-3 -->
-            </div><! --/row -->
-        </section>
+            </div><!-- /col-lg-3 -->
+        </div><! --/row -->
     </section>
+</section>
 <!-- Início Modal Desafios -->
 <div class="modal fade" id="modalDesafios" tabindex="-5" role="dialog" aria-labelledby="modalDesafios" aria-hidden="true">
-   {{ form('empresa/colaborador/salvar-desafio', 'class':'form-horizontal', 'id':'form-colaborador', 'method': 'post') }}
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
-                    <h4 class="modal-title" id="myModalLabelDesafios"></h4>
-                </div>
-                <div id="modal-body-desafios" class="modal-body"></div>
-                <div class="modal-footer"> </div>
+    {{ form('empresa/colaborador/salvar-desafio', 'class':'form-horizontal', 'id':'form-colaborador', 'method': 'post') }}
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                <h4 class="modal-title" id="myModalLabelDesafios"></h4>
             </div>
+            <div id="modal-body-desafios" class="modal-body"></div>
+            <div class="modal-footer"> </div>
         </div>
-   {{endForm()}}
+    </div>
+    {{endForm()}}
 </div>
 <!-- Fim Modal Desafios -->
 <!-- Início Modal Ajudas -->
 <div class="modal fade" id="modalAjudas" tabindex="-5" role="dialog" aria-labelledby="modalAjudas" aria-hidden="true">
-   {{ form('empresa/colaborador/salvar-desafio', 'class':'form-horizontal', 'id':'form-ajudas', 'method': 'post') }}
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-default btn-modal-title" id="btnPedirAjuda">Pedir ajuda</button>
-                        <button type="button" class="close close-title-btn"  data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
-                    </div>
-                    <h4 class="modal-title" id="myModalLabelAjudas"></h4>
+    
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default btn-modal-title" id="btnPedirAjuda">Pedir ajuda</button>
+                    <button type="button" class="close close-title-btn"  data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
                 </div>
+                <h4 class="modal-title" id="myModalLabelAjudas"></h4>
+            </div>
+            {{ form('empresa/colaborador/salvar-desafio', 'class':'form-horizontal', 'id':'form-ajudas', 'method': 'post') }}
                 <div id="modal-body-ajudas" class="modal-body"></div>
-                <div class="modal-footer">
+            {{endForm()}}
+            <div class="modal-footer ">
+                <div id="modal-footer-ajuda" style="display: none;">
+                    <div class="task-title inline"> 
+                        <form role="form" class="form-ajudar" id="form_ajudar">
+                            <div>
+                                <textarea id="txt_mensagem_ajudar" name="txt_mensagem_ajudar" placeholder="Ajudar" class="form-control"></textarea>
+                            </div>
+                        </form>
+                    </div><br/>
+                    <div class="task-title pull-right">
+                        <button type="button" id="btnAjudar" class="btn btn-xs btn-theme03">Enviar</button>
+                        <button type="button" id="btnCancelarAjuda" class="btn btn-xs btn-theme04">Cancelar</button>
+                    </div>
                 </div>
             </div>
         </div>
-   {{endForm()}}
+    </div>
 </div>
 <!-- Fim Modal Ajudas -->
 {{ javascript_include('js/colaborador/index/colaborador.js') }}
-<script type="text/javascript">  
-    $(document).ready(function(){
+<script type="text/javascript">
+    $(document).ready(function() {
         Colaborador.init();
-    });   
+    });
 </script>

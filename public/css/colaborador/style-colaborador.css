@@ -818,9 +818,14 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 	background: #f2f2f2;
 }
 
+.desc-ajuda {
+	display: inline-block;
+	width: 100%;
+}
+
 .ds .thumb {
 	width: 30px;
-	margin: 0 10px 0 20px;
+	margin: 0 20px 0 20px;
 	display: block;
 	float: left;
 }
@@ -829,6 +834,174 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 	width: 170px;
 	float: left;
 }
+
+.bg-lighter {
+    background: none repeat scroll 0 0 #f1f5f9;
+}
+
+.detail-modal{
+    width: 371px;
+}
+
+.moment{
+    font-size: 10px;
+}
+
+/*********TWITTER***********/
+
+
+
+.dm {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    position: relative;
+}
+.dm:first-child {
+    margin-top: 0;
+}
+.dm:last-child {
+    margin-bottom: 10px;
+}
+.dm {
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+.sent .dm-message {
+    background-color: #00a9df;
+    float: right;
+}
+.dm-content {
+    margin-left: 58px;
+}
+.dm-message {
+    background-color: #e1e8ed;
+    border-radius: 4px;
+    float: left;
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 8px;
+    max-width: 340px;
+    padding: 7px 12px;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.dm-content .time {
+    clear: both;
+    color: #ccd6dd;
+    display: block;
+    font-size: 11px;
+    line-height: 1;
+    text-align: left;
+}
+.sent .dm-content .time {
+    text-align: right;
+}
+.dm-caret {
+    height: 10px;
+    left: -5px;
+    position: absolute;
+    top: 12px;
+    width: 10px;
+}
+.dm-caret-inner, .dm-caret-outer {
+    height: 0;
+    position: absolute;
+    vertical-align: text-bottom;
+    width: 0;
+}
+.dm-caret-outer {
+    border-bottom: 5px solid transparent;
+    border-right: 5px solid #e1e8ed;
+    border-top: 5px solid transparent;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
+
+.dm-convo .sent .dm-message .dm-text a, .dm-convo .sent .dm-message .dm-text .pretty-link b, .dm-convo .sent .dm-message .dm-text .pretty-link s {
+    color: #fff;
+}
+
+.dm-convo .sent .dm-message .dm-text .pretty-link b, .dm-convo .sent .dm-message .dm-text .twitter-timeline-link {
+    text-decoration: underline;
+}
+
+.sent .dm-content .time {
+    text-align: right;
+}
+
+.sent .suspicious-content-response {
+    text-align: right;
+}
+
+.dm-convo .sent .dropdown {
+    float: right;
+}
+
+.sent .avatar {
+    left: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.sent .time {
+    margin-left: 58px;
+    margin-right: 0;
+}
+.sent .dm-content {
+    margin-right: 58px;
+}
+.sent .dm-message {
+    background-color: #00a9df;
+    float: right;
+}
+.sent .dm-message .dm-text {
+    color: #fff;
+}
+.sent .dm-delete, .sent .dm-report {
+    float: right;
+}
+.sent .dm-report {
+    margin-right: 0;
+}
+.sent .dm-caret {
+    left: auto;
+    right: -10px;
+}
+.sent .dm-caret-outer {
+    border-left: 5px solid #00a9df;
+    border-right: 0 none;
+}
+.sent .dm-caret-inner {
+    border-left: 4px solid #00a9df;
+    border-right: 0 none;
+    left: -1px;
+}
+
+.dm-convo .received .dropdown-menu {
+    left: -88px;
+}
+
+.dm-convo .received .dropdown-menu .dropdown-caret {
+    left: 87px;
+}
+
+.dm-convo .received .dm-message .dm-text a, .dm-convo .received .dm-message .dm-text .pretty-link b, .dm-convo .received .dm-message .dm-text .pretty-link s {
+    color: #2b7bb9;
+}
+
+.sent muted {
+    color: #000;
+}
+
+
+
+/*********TWITTER***********/
+
 
 .ds > .desc p {
 	font-size: 11px;

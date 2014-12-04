@@ -54,7 +54,7 @@ class SecurityPlugin extends Plugin {
                 ),
                 'colaboradorResources'  => array(
                     'colaborador' => array('index'),
-                    'ajuda' => array('index','modalAjudas','pedirAjuda'),
+                    'ajuda' => array('index','modalAjudas','pedirAjuda','modalAjudar'),
                     'desafio' => array('index','modalDesafios','responderDesafio','desafioCumprido')
                 ),
                 'adminResources' => array(

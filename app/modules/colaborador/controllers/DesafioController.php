@@ -19,8 +19,10 @@ class DesafioController extends ControllerBase
     public function modalDesafiosAction(){
         $this->disableLayoutBefore();
         
+        $auth = $this->auth->getIdentity();
+        
         $objDesafio = new \stdClass();
-        $objDesafio->usuarioId = 1;
+        $objDesafio->usuarioId = $auth['id'];
         
         $resultDesafiosUsuario  = DesafioUsuario::build()->buscarDesafiosUsuario($objDesafio);
 

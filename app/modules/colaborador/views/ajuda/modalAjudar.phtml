@@ -1,0 +1,52 @@
+<section class=" tasks-widget">
+    <div class="task-content task-ajuda">
+        <div id="mensagem-modal-resposta-ajudar"><?php echo $this->flashSession->output(); ?></div>
+        {{hidden_field("ajuda-id",'value':ajudaId)}}
+        {% for ajuda in ajudas %}
+            {% if(ajuda.ajudaId == "") %}
+                <div class="col-lg-12 ds">        
+                    <div class="desc-ajuda">
+                        <div class="thumb">
+                            <a href="profile.html"><img width="40px" src="/incentiv/img/ui-zac.jpg" class="img-circle"></a>
+                        </div>
+                        <div class="dm-message dm-with-text">
+                            <div class="dm-text">
+                                <p lang="" data-aria-label-part="0" class="js-tweet-text tweet-text">{{ajuda.mensagem}}</p>
+                            </div><muted><span class="moment">{{ajuda.envioDt}}</span></muted>
+                            <div class="dm-caret">
+                                <div class="dm-caret-outer"></div>
+                                <div class="dm-caret-inner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-lg-12 ds"> 
+                    <div class="sent desc-ajuda">
+                        <div class="thumb pull-right">
+                            <a href="profile.html"><img width="40px" src="/incentiv/img/ui-sherman.jpg" class="img-circle"></a>
+                        </div>
+                        <div class="dm-message dm-with-text">
+                            <div class="dm-text">
+                                <p lang="" data-aria-label-part="0" class="js-tweet-text tweet-text">{{ajuda.mensagem}}</p>
+                            </div>
+                            <muted><span class="moment">{{ajuda.envioDt}}</span></muted>
+                            <div class="dm-caret">
+                                <div class="dm-caret-outer"></div>
+                                <div class="dm-caret-inner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Fim Modal Cadastro colaborador -->
+{{ javascript_include('js/colaborador/ajuda/modal-ajudar.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        ModalAjudar.init();
+    });
+</script>

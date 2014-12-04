@@ -105,7 +105,7 @@ class Ajuda extends Model
         }
 
         $ajuda->assign(array(
-            'usuarioId'     => 1,
+            'usuarioId'     => $objAjuda->usuarioId,
             'mensagem'      => $objAjuda->mensagem
         ));
 
@@ -114,6 +114,21 @@ class Ajuda extends Model
         }
 
         return array('status' => 'ok','message'=>'Ajuda salva com sucesso!!!');
+        
+    }
+    public function ajudar(\stdClass $objAjuda){
+
+        $this->assign(array(
+            'usuarioId'     => $objAjuda->usuarioId,
+            'ajudaId'       => $objAjuda->ajudaId,
+            'mensagem'      => $objAjuda->mensagem
+        ));
+
+        if (!$this->save()) {
+            return array('status' => 'error', 'message'=>'Não foi possível salvar a ajuda!!!');
+        }
+
+        return array('status' => 'ok','message'=>'Ajuda enviada com sucesso!!!');
         
     }
     public function excluirAjuda(\stdClass $objAjuda){
