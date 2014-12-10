@@ -11,8 +11,8 @@
                 <li><a href="#">Perfil</a></li>
                 <li><a href="#"><span class="badge bg-danger pull-right">3</span>Notificações</a></li>
                 <li class="divider"></li>
-                <li><a href="docs.html">Ajuda</a></li>
-                <li><a href="signin.html">Sair</a></li>
+                <!--<li><a href="docs.html">Ajuda</a></li>-->
+                <li>{{ link_to('session/logout', 'Sair') }}</li>
             </ul>
         </li>
     </ul>
@@ -64,17 +64,23 @@
             {{ link_to("empresa", '<i class="fa fa-th fa-lg"></i><span>Geral</span>') }}
         </li>
         <li class="dropdown-submenu">
-            {{ link_to("empresa/desafio", '<i class="fa fa-arrow-circle-right"></i><span>Desafios</span>') }}
+            {{ link_to("empresa/desafio",'alt':'Gere desafios aos seus colaboradores','title':'Gere desafios aos seus colaboradores',  '<i class="fa fa-arrow-circle-right"></i><span>Desafios</span>') }}
         </li>
         <li class="dropdown-submenu">
+            {{ link_to("empresa/noticias",'alt':'Informe as novidades da empresa pra seus colaboradores','title':'Informe as novidades da empresa pra seus colaboradores', '<i class="fa fa-arrow-circle-right"></i><span>Notícias</span>') }}
+        </li>
+<!--        <li class="dropdown-submenu">
             {{ link_to("empresa/regra", '<i class="fa fa-arrow-circle-right"></i><span>Regras</span>') }}
+        </li>-->
+        <li>
+            {{ link_to("empresa/colaborador",'alt':'Cadastro e alteração dos usuários','title':'Cadastro e alteração dos usuários',  '<i class="fa fa-edit fa-lg"></i><span>Usuários</span>') }}
         </li>
         <li>
-            {{ link_to("empresa/colaborador", '<i class="fa fa-edit fa-lg"></i><span>Colaboradores</span>') }}
+            {{ link_to("empresa/ideia", 'alt':'Ideias enviadas pelos colaboradores','title':'Ideias enviadas pelos colaboradores', '<i class="fa fa-edit fa-lg"></i><span>Banco de ideias</span>') }}
         </li>
-        <li>
+<!--        <li>
             {{ link_to("empresa/pontuacao", '<i class="fa fa-edit fa-lg"></i><span>Pontuação</span>') }}
-        </li>
+        </li>-->
 <!--        <li class="dropdown-submenu">
             <a href="#"><i class="fa fa-calendar fa-lg"></i><span>Eventos</span></a>
             <ul class="dropdown-menu">

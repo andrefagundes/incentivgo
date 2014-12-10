@@ -1,0 +1,48 @@
+<section class=" tasks-widget">
+        <div class="task-content">
+            <div id="mensagem-modal-resposta-anotacoes"><?php echo $this->flashSession->output(); ?></div>
+            <ul class="task-list ui-sortable-modal ul-anotacoes" id="sortable" >
+                {% for anotacao in anotacoes %}
+                <li class="list-primary" id="li_anotacao_{{anotacao.id}}">
+                    <div class="task-title">
+                        <span class="task-title-sp">{{anotacao.descricao}}</span>
+                    </div><br/>
+                    <div class="task-title pull-left">
+                        <span class="sp-title moment">Anotada em: {{ date('d/m/Y H:m:s', anotacao.criacaoDt) }}</span>
+                    </div>
+                    <div id={{anotacao.id}} class="task-title pull-right">
+                        <button type="button" class="btn btn-xs btn-theme04 btnExcluirAnotacao">Excluir</button>
+                    </div>
+                </li>
+                {% elsefor %}
+                <li class="list-primary text-center">
+                    <div class="task-title">
+                        <span class="task-title-sp">Nenhuma anotação no momento!!!</span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <ul class="task-list ui-sortable-modal" id="ul_anotacao" style="display: none">
+                <li class="list-primary" >
+                    <div class="task-title inline"> 
+                        <form role="form" class="form-anotacao" id="form-anotacao">
+                             <div>
+                                 <textarea id="txt_anotacao" name="txt_anotacao" placeholder="Informe a sua anotação!!!" class="form-control"></textarea>
+                            </div>
+                       </form>
+                    </div><br/>
+                    <div class="task-title pull-right">
+                        <button type="button" id="btnSalvarAnotacao" class="btn btn-xs btn-theme03">Salvar</button>
+                        <button type="button" id="btnCancelarAnotacao" class="btn btn-xs btn-theme04">Cancelar</button>
+                    </div>
+                </li>
+            </ul>
+    </div>
+</section>
+<!-- Fim Modal Cadastro colaborador -->
+{{ javascript_include('js/colaborador/index/modal-anotacoes.js') }}
+<script type="text/javascript">  
+    $(document).ready(function(){
+        ModalAnotacoes.init();
+    });   
+</script>

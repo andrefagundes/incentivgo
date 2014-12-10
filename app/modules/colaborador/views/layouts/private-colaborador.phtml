@@ -8,80 +8,11 @@
             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="<> Menu"></div>
         </div>
         <!--logo start-->
-        <a href="index.html" class="logo"><b>Incentiv</b></a>
+        <a href="index.html" class="logo">Incentiv Go</a>
         <!--logo end-->
         <div class="nav notify-row" id="top_menu">
             <!--  notification start -->
             <ul class="nav top-menu">
-<!--                 settings start 
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-                        <i class="fa fa-th-large"></i>
-                        <span class="badge bg-theme">{{count_desafios}}</span>
-                    </a>
-                    <ul class="dropdown-menu extended tasks-bar">
-                        <div class="notify-arrow notify-arrow-green"></div>
-                        <li>
-                            <p class="green">Você tem {{count_desafios}} desafios ativos</p>
-                        </li>
-                        <li>
-                            <a href="index.html#">
-                                <div class="task-info">
-                                    <div class="desc">DashGum Admin Panel</div>
-                                    <div class="percent">40%</div>
-                                </div>
-                                <div class="progress progress-striped">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                        <span class="sr-only">40% Complete (success)</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index.html#">
-                                <div class="task-info">
-                                    <div class="desc">Database Update</div>
-                                    <div class="percent">60%</div>
-                                </div>
-                                <div class="progress progress-striped">
-                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                        <span class="sr-only">60% Complete (warning)</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index.html#">
-                                <div class="task-info">
-                                    <div class="desc">Product Development</div>
-                                    <div class="percent">80%</div>
-                                </div>
-                                <div class="progress progress-striped">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                        <span class="sr-only">80% Complete</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index.html#">
-                                <div class="task-info">
-                                    <div class="desc">Payments Sent</div>
-                                    <div class="percent">70%</div>
-                                </div>
-                                <div class="progress progress-striped">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
-                                        <span class="sr-only">70% Complete (Important)</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="external">
-                            <a href="#">Ver todos os desafios</a>
-                        </li>
-                    </ul>
-                </li>
-                 settings end -->
                 <!-- inbox dropdown start-->
                 <li id="header_inbox_bar" class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
@@ -144,20 +75,14 @@
             <ul class="sidebar-menu" id="nav-accordion">
 
                 <p class="centered"><a href="profile.html">{{image( 'img/ui-zac.jpg','class':'img-circle','width':'60px') }}</a></p>
-                <h5 class="centered">André Fagundes</h5>
+                <h5 class="centered">{{usuario_logado}}</h5>
 
                 <li class="mt">
-                    <a class="active" href="index.html">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Geral</span>
-                    </a>
+                    {{ link_to('colaborador', '<i class="fa fa-dashboard"></i><span>Geral</span>','class':'active') }}
                 </li>
 
                 <li class="sub-menu">
-                    <a href="javascript:;" >
-                        <i class="li_bulb"></i>
-                        <span>Ideias</span>
-                    </a>
+                    {{ link_to('colaborador/ideia', '<i class="li_bulb"></i><span>Ideias</span>') }}
                 </li>
 
                 <li class="sub-menu">
@@ -166,16 +91,13 @@
                         <span>Metas</span>
                     </a>
                     <ul class="sub">
-                        <li><a  href="general.html">Profissionais</a></li>
-                        <li><a  href="buttons.html">Pessoais</a></li>
+                        <li>{{ link_to('colaborador/metas/1', 'Profissionais') }}</li>
+                        <li>{{ link_to('colaborador/metas/2', 'Pessoais') }}</li>
                     </ul>
                 </li>
 
                 <li class="sub-menu">
-                    <a href="javascript:;" >
-                        <i class="fa fa-cogs"></i>
-                        <span>Perfil</span>
-                    </a>
+                    {{ link_to('colaborador/perfil', '<i class="fa fa-cogs"></i><span>Perfil</span>') }}
                 </li>
             </ul>
             <!-- sidebar menu end-->
@@ -186,9 +108,126 @@
     <!-- *********************************************************************************
     MAIN CONTENT
     ******************************************************************************* -->
-    {{ content() }}
-    <!--main content end-->
-    
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="row">
+                {{ content() }}
+                <!--main content end-->
+
+                <!-- **********************************************************************************************************************************************************
+                RIGHT SIDEBAR CONTENT
+                *********************************************************************************************************************************************************** -->                  
+
+                <div class="col-lg-3 ds">
+                    <!--COMPLETED ACTIONS DONUTS CHART-->
+                    <h3>Notificações</h3>
+
+                    <!-- First Action -->
+                    <div class="desc">
+                        <div class="thumb">
+                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                        </div>
+                        <div class="details">
+                            <p><muted>2 Minutos Ago</muted><br/>
+                            <a href="#">André Maciel</a> ganhou 10 pontos.<br/>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Second Action -->
+                    <div class="desc">
+                        <div class="thumb">
+                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                        </div>
+                        <div class="details">
+                            <p><muted>3 Horas Ago</muted><br/>
+                            <a href="#">Renata Xavier</a> criou uma nova ideia para a empresa.<br/>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Third Action -->
+                    <div class="desc">
+                        <div class="thumb">
+                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                        </div>
+                        <div class="details">
+                            <p><muted>7 Horas Ago</muted><br/>
+                            <a href="#">Rodrigo Cardeal</a> pediu uma ajuda.<br/>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Fourth Action -->
+                    <div class="desc">
+                        <div class="thumb">
+                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                        </div>
+                        <div class="details">
+                            <p><muted>11 Horas Ago</muted><br/>
+                            <a href="#">Daniela Alves</a> terminou um desafio.<br/>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Fifth Action -->
+                    <div class="desc">
+                        <div class="thumb">
+                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                        </div>
+                        <div class="details">
+                            <p><muted>18 Horas Ago</muted><br/>
+                            <a href="#">Rafael Oliveira</a> recebeu uma aprovação de desafio e ganhou 20 pontos.<br/>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- USERS ONLINE SECTION -->
+                    <h3>Colaboradores</h3>
+                    <!-- First Member -->
+                    <div class="desc">
+                        <div class="thumb">
+                            {{image( 'img/ui-divya.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
+                        </div>
+                        <div class="details">
+                            <p><a href="#">Daniela Alves</a><br/>
+                            <muted>Administradora</muted>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Second Member -->
+                    <div class="desc">
+                        <div class="thumb">
+                            {{image( 'img/ui-sherman.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
+                        </div>
+                        <div class="details">
+                            <p><a href="#">Rodrigo Cardeal</a><br/>
+                            <muted>Desenvolvedor Web</muted>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Third Member -->
+                    <div class="desc">
+                        <div class="thumb">
+                            {{image( 'img/ui-danro.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
+                        </div>
+                        <div class="details">
+                            <p><a href="#">Rafael Oliveira</a><br/>
+                            <muted>Comercial</muted>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Fifth Member -->
+                    <div class="desc">
+                        <div class="thumb">
+                            {{image( 'img/ui-zac.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
+                        </div>
+                        <div class="details">
+                            <p><a href="#">André Fagundes</a><br/>
+                            <muted>Desenvolvedor Web</muted>
+                            </p>
+                        </div>
+                    </div>
+                </div><!-- /col-lg-3 -->
+            </div><! --/row -->
+        </section>
+    </section>
     <!--footer start-->
     <footer class="site-footer">
         <div class="text-center">

@@ -19,7 +19,11 @@ class AjudaController extends ControllerBase
    public function modalAjudasAction(){
         $this->disableLayoutBefore();
 
-        $resultAjudas  = Ajuda::build()->find(array("ajudaId IS NULL AND ativo = 'Y' ", "order" => "id"));
+        $resultAjudas  = Ajuda::build()->find(array("ajudaId IS NULL AND ativo = 'Y' ", "order" => "id"))->toArray();
+
+        foreach ($resultAjudas as $key => $result){
+          $resultAjudas[$key]['count_respostas'] =  Ajuda::count("ajudaId = ".$result['id']);
+        }
 
         $auth                   = $this->auth->getIdentity();
         $this->view->ajudas     = $resultAjudas;

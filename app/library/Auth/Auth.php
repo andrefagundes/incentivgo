@@ -230,7 +230,8 @@ class Auth extends Component
     public function getName()
     {
         $identity = $this->session->get('auth-identity');
-        return $identity['nome'];
+        $usuario_logado = explode(' ', $identity['nome']);
+        return $usuario_logado[0].' '.$usuario_logado[1];
     }
 
     /**

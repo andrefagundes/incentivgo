@@ -5,18 +5,6 @@ var ModalDesafios = {
             $("#mensagem-modal-resposta-desafio").slideUp({start:3000,duration: 5000});
         }
         
-//        //custom scrollbar
-//  $('.modal-body').niceScroll({
-//    scrollspeed: 3,
-//    mousescrollstep: 3,
-//    cursorwidth: 10,
-//    cursorborder: 1,
-//    cursorcolor: '#e3e4e5',
-//    cursorborderradius: '3px',
-//    autohidemode: true,
-//    horizrailenabled: false
-//  }).getNiceScroll().resize();
-        
         this.isResposta = '';
         this.isMotivo = '';
         

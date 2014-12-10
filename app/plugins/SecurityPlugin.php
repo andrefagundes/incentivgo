@@ -46,6 +46,8 @@ class SecurityPlugin extends Plugin {
                     'empresa' => array( 'index' ,'empresa'),
                     'empresa_colaborador' => array( 'index','colaborador','pesquisarColaborador','modalColaborador',
                     'salvarColaborador','ativarInativarColaborador'),
+                    'empresa_ideia' => array( 'index','ideia','pesquisarIdeia',
+                    'salvarIdeia','ativarInativarIdeia'),
                     'empresa_desafio' => array('index','desafio','pesquisarDesafio','modalDesafio','pesquisarColaboradoresDesafio',
                             'salvarDesafio', 'ativarInativarDesafio'),
                     'empresa_pontuacao' => array('index','pontuacao', 'pesquisarPontuacao','modalPontuacao',

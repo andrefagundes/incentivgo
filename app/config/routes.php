@@ -393,4 +393,120 @@ $router->add('/colaborador/ajudar', array(
     return false;
 });
 
+$router->add('/colaborador/modal-noticias/{code}', array(
+    'module' => 'colaborador',
+    'controller' => 'colaborador',
+    'action' => 'modalNoticias'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
+$router->add('/colaborador/modal-anotacoes/{code}', array(
+    'module' => 'colaborador',
+    'controller' => 'colaborador',
+    'action' => 'modalAnotacoes'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
+$router->add('/colaborador/anotacao/salvar-anotacao', array(
+    'module' => 'colaborador',
+    'controller' => 'colaborador',
+    'action' => 'salvarAnotacao'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
+$router->add('/colaborador/anotacao/excluir-anotacao', array(
+    'module' => 'colaborador',
+    'controller' => 'colaborador',
+    'action' => 'excluirAnotacao'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
+$router->add('/empresa/ideia', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_ideia',
+    'action' => 'ideia'
+));
+
+$router->add('/empresa/ideia/pesquisar-ideia/filter/{get}', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_ideia',
+    'action' => 'pesquisarIdeia',
+    'get' => 1
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+
+$router->add('/empresa/ideia/pesquisar-ideia', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_ideia',
+    'action' => 'pesquisarIdeia'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+
+$router->add('/empresa/ideia/modal-ideia/{code}', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_ideia',
+    'action' => 'modalIdeia'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
+$router->add('/colaborador/ideia', array(
+    'module' => 'colaborador',
+    'controller' => 'ideia',
+    'action' => 'ideia'
+));
+
+$router->add('/colaborador/ideia/modal-ideias/{code}', array(
+    'module' => 'colaborador',
+    'controller' => 'ideia',
+    'action' => 'modalIdeias'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
+
 return $router;

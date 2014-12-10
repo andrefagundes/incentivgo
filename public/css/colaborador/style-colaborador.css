@@ -47,6 +47,20 @@ a, a:hover, a:focus {
     background: #00a9df;
 }
 
+/* Bootstrap Modifications */
+.modal-header-anotacao {
+    background: #967adc;
+}
+
+/* Bootstrap Modifications */
+.modal-header-noticia {
+    background: #48cfad;
+}
+/* Bootstrap Modifications */
+.modal-header-ajuda {
+    background: #ed5565;
+}
+
 .modal-body{
     max-height: 400px;
     overflow-y: auto;
@@ -270,7 +284,7 @@ ul.top-menu > li > .logout {
 }
 
 /*LEFT NAVIGATION ICON*/
-.dcjq-icon {
+/*.dcjq-icon {
     height:17px;
     width:17px;
     display:inline-block;
@@ -287,7 +301,7 @@ ul.top-menu > li > .logout {
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
-}
+}*/
 /*---*/
 
 .nav-collapse.collapse {
@@ -1270,6 +1284,10 @@ PANELS CONFIGURATIONS
 	text-align: center;
 	background: #ffffff;
 	color: #ccd1d9;
+}
+
+.white-panel-ideia {
+	color: #000;
 }
 
 .white-panel p {

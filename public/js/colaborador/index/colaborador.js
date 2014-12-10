@@ -15,6 +15,20 @@ var Colaborador = {
             $("#modalAjudas").modal('show'); 
         });
         
+        //evento do botão noticias
+        $("#btnVerNoticias").click(function() {
+            $("#myModalLabelNoticias").html('Notícias');
+            $("#modal-body-noticias").html('').load( "colaborador/modal-noticias/"+0 );
+            $("#modalNoticias").modal('show'); 
+        });
+        
+        //evento do botão noticias
+        $("#btnInserirAnotacoes").click(function() {
+            $("#myModalLabelAnotacoes").html('Anotações');
+            $("#modal-body-anotacoes").html('').load( "colaborador/modal-anotacoes/"+0 );
+            $("#modalAnotacoes").modal('show'); 
+        });
+        
         Colaborador.pesquisarColaborador(1);
     },
     pesquisarColaborador: function(page){

@@ -201,6 +201,13 @@ class Usuario extends Model
             )
         ));
         
+        $this->hasMany('id', 'Incentiv\Models\Ideia', 'usuarioId', array(
+            'alias' => 'ideiaUsuario',
+            'foreignKey' => array(
+                'message' => 'O colaborador não pode ser excluído porque ele possui ideias.'
+            )
+        ));
+        
         $this->addBehavior(new SoftDelete(
             array(
                 'field' => 'ativo',

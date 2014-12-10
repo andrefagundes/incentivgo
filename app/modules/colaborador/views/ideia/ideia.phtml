@@ -1,0 +1,55 @@
+<!--main content start-->
+<div class="col-lg-9 main-chart">
+    <div class="row ">
+          <div class="col-md-12 mb">
+            <!-- PONTUAÇÃO -->
+            <div class="white-panel pn white-panel-ideia">
+                <div class="white-header">
+                    <h5>Ideias</h5>
+                </div>
+                <div class="row pager">
+                    <div class="col-md-6">
+                        <p class="mt">Se você é criativo e possui ideias para o crescimento da empresa em que
+                            trabalha, envie, contribua e cresça junto com a empresa</p>
+                        <span class="badge bg-primary">+ 10 pontos </span>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mt">Sua ideia sendo aprovada além de ganhar notoriedade e reconhecimento,
+                        poderá usufruir de vários benefícios através da pontuação ganha.</p>
+                        <span class="badge bg-primary">+ 30 pontos </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-theme04 btn-facebook btn-sm" id="btnIdeias" type="button">Enviar Ideias</button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /col-md-4 -->
+    </div><!-- /row -->
+</div><!-- /col-lg-9 END SECTION MIDDLE -->
+<!-- Início Modal Ideias -->
+<div class="modal fade" id="modalIdeias" tabindex="-5" role="dialog" aria-labelledby="modalIdeias" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-ideia">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default btn-modal-title" id="btnEnviarIdeia">Enviar Ideia</button>
+                    <button type="button" class="close close-title-btn"  data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                </div>
+                <h4 class="modal-title" id="myModalLabelIdeias"></h4>
+            </div>
+            <div id="modal-body-ideias" class="modal-body"></div>
+            <div class="modal-footer ">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fim Modal Ideias -->
+
+{{ javascript_include('js/colaborador/ideia/ideia.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        Ideia.init();
+    });
+</script>

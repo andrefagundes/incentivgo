@@ -3,20 +3,20 @@
             <div id="mensagem-modal-resposta-ajudas"><?php echo $this->flashSession->output(); ?></div>
             <ul class="task-list ui-sortable-modal ul-ajudas" id="sortable" >
                 {% for ajuda in ajudas %}
-                <li class="list-primary" id="li_ajuda_{{ajuda.id}}">
+                <li class="list-primary" id="li_ajuda_{{ajuda['id']}}">
                     <div class="task-title">
-                        <span class="task-title-sp">{{ajuda.mensagem}}</span>
+                        <span class="task-title-sp">{{ajuda['mensagem']}}</span>
                         <span class="badge bg-primary">+ 10 pontos </span>
                     </div><br/>
                     <div class="task-title pull-left">
-                        <span class="sp-title moment">{{ajuda.envioDt}}</span>
+                        <span class="sp-title moment">{{ajuda['envioDt']}}</span>
                     </div>
-                    <div id={{ajuda.id}} class="task-title center">
-                        Respostas (5)
+                    <div id={{ajuda['id']}} class="task-title center">
+                        Respostas ({{ajuda['count_respostas']}})
                     </div>
-                    {% if(ajuda.ativo == 'Y') %}
-                        <div id={{ajuda.id}} class="task-title pull-right">
-                            {% if(ajuda.usuarioId != usuarioId) %}
+                    {% if(ajuda['ativo'] == 'Y') %}
+                        <div id={{ajuda['id']}} class="task-title pull-right">
+                            {% if(ajuda['usuarioId'] != usuarioId) %}
                                 <button type="button" id="btnAjudar" class="btn btn-xs btn-theme03 btnAjudar">Ajudar</button>
                             {% else %}
                                 <button type="button" class="btn btn-xs btn-theme04 btnExcluirAjuda">Excluir</button>
@@ -24,15 +24,15 @@
                         </div>
                     {% endif %}
                 </li>
-                <li class="list-primary" id="li_motivo_{{ajuda.id}}" style="display: none">
+                <li class="list-primary" id="li_motivo_{{ajuda['id']}}" style="display: none">
                     <div class="task-title inline"> 
-                        <form role="form" class="form-cadastro" id="form_ajuda_{{ajuda.id}}">
+                        <form role="form" class="form-cadastro" id="form_ajuda_{{ajuda['id']}}">
                              <div>
-                                 <textarea id="txt_motivo_{{ajuda.id}}" placeholder="Informe o motivo de não aceitar o ajuda!!!" class="form-control"></textarea>
+                                 <textarea id="txt_motivo_{{ajuda['id']}}" placeholder="Informe o motivo de não aceitar o ajuda!!!" class="form-control"></textarea>
                             </div>
                        </form>
                     </div><br/>
-                    <div id="{{ajuda.id}}" class="task-title pull-right">
+                    <div id="{{ajuda['id']}}" class="task-title pull-right">
                         <button type="button" id="btnEnviarMotivoDescarte" class="btn btn-xs btn-theme03">Enviar</button>
                         <button type="button" id="btnCancelarDescarte" class="btn btn-xs btn-theme04 btnCancelarDescarte">Cancelar</button>
                     </div>
