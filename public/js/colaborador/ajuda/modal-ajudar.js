@@ -1,7 +1,7 @@
 var ModalAjudar = {
 
     init: function() {
-        
+        $("#btnAjudaEnvio,btnCancelarAjuda").off();
         $("#btnPedirAjuda").hide();
         $("#modal-footer-ajuda").show();
         
@@ -25,7 +25,7 @@ var ModalAjudar = {
             $(this).html("Enviada "+ moment($(this).html()).startOf().fromNow());
         });
         
-        $("#btnAjudar").click(ModalAjudar.ajudar);
+        $("#btnAjudaEnvio").click(ModalAjudar.ajudar);
         $("#btnCancelarAjuda").click(ModalAjudar.cancelarAjuda);   
     },
     
@@ -34,7 +34,7 @@ var ModalAjudar = {
             var ajuda = $("#txt_mensagem_ajudar").val();
             var ajudaId = $("#ajuda-id").val();
             $.post("colaborador/ajudar", {'ajuda':ajuda,'ajudaId':ajudaId }, function() {
-                $("#modal-body-ajudas").html('').load( "colaborador/modal-ajudar/"+ajudaId );
+                $("#modal-body-ajudas").load( "colaborador/modal-ajudar/"+ajudaId );
             }, 'json');
         }
     },

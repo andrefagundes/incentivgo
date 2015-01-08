@@ -2,12 +2,15 @@
 
 namespace Colaborador\Controllers;
 
-use Incentiv\Models\DesafioUsuario;
+use Phalcon\Http\Response;
+use \Incentiv\Models\Ideia;
 
 class IdeiaController extends ControllerBase {
 
     public function initialize() {
         if (!$this->request->isAjax()) {
+            $auth = $this->auth->getIdentity();
+            $this->view->usuario_id        = $auth['id'];
             $this->view->usuario_logado    = $this->auth->getName();
             $this->view->setTemplateBefore('private-colaborador');
         }
@@ -25,12 +28,38 @@ class IdeiaController extends ControllerBase {
         
         $auth = $this->auth->getIdentity();
         
-        $objDesafio = new \stdClass();
-        $objDesafio->usuarioId = $auth['id'];
+        $objIdeia = new \stdClass();
+        $objIdeia->usuarioId = $auth['id'];
         
-        $resultDesafiosUsuario  = DesafioUsuario::build()->buscarDesafiosUsuario($objDesafio);
+        $resultIdeiasUsuario  = Ideia::build()->buscarIdeiasUsuario($objIdeia);
 
-        $this->view->desafios   = $resultDesafiosUsuario;
+        $this->view->ideias   = $resultIdeiasUsuario;
     } 
+    
+    public function salvarIdeiaAction(){
+        $this->disableLayoutBefore();
+        
+        $auth = $this->auth->getIdentity();
+  
+        $objIdeia = new \stdClass();
+        $objIdeia->id           = $this->request->getPost("id");
+        $objIdeia->descricao    = $this->request->getPost("descricao");
+        $objIdeia->usuarioId    = $auth['id'];
+        $objIdeia->empresaId    = $auth['empresaId'];
+
+        $resultIdeia = Ideia::build()->salvarIdeia($objIdeia);
+
+        if($resultIdeia['status'] == 'ok')
+        {
+            $this->flashSession->success($resultIdeia['message']);
+        }else{
+            $this->flashSession->error($resultIdeia['message']);
+        }
+
+        $this->response = new Response();
+        $this->response->setJsonContent($resultIdeia['status'],'utf8');
+        $this->response->send();
+
+    }
 
 }

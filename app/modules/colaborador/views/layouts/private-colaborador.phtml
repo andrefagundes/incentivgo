@@ -78,14 +78,16 @@
                 <h5 class="centered">{{usuario_logado}}</h5>
 
                 <li class="mt">
+                    <!--<a href="#" class="active btnBody" id="geral"><i class="fa fa-dashboard"></i><span>Geral</span></a>-->
                     {{ link_to('colaborador', '<i class="fa fa-dashboard"></i><span>Geral</span>','class':'active') }}
                 </li>
 
                 <li class="sub-menu">
+                    <!--<a href="#" class="btnBody" id="ideia"><i class="fa fa-dashboard"></i><span>Ideias</span></a>-->
                     {{ link_to('colaborador/ideia', '<i class="li_bulb"></i><span>Ideias</span>') }}
                 </li>
 
-                <li class="sub-menu">
+<!--                <li class="sub-menu">
                     <a href="javascript:;" >
                         <i class="fa fa-desktop"></i>
                         <span>Metas</span>
@@ -94,7 +96,7 @@
                         <li>{{ link_to('colaborador/metas/1', 'Profissionais') }}</li>
                         <li>{{ link_to('colaborador/metas/2', 'Pessoais') }}</li>
                     </ul>
-                </li>
+                </li>-->
 
                 <li class="sub-menu">
                     {{ link_to('colaborador/perfil', '<i class="fa fa-cogs"></i><span>Perfil</span>') }}
@@ -105,137 +107,23 @@
     </aside>
     <!--sidebar end-->
 
-    <!-- *********************************************************************************
-    MAIN CONTENT
-    ******************************************************************************* -->
     <section id="main-content">
         <section class="wrapper">
             <div class="row">
-                {{ content() }}
-                <!--main content end-->
+                <div id="div-body">{{ content() }}</div>
+                    <!-- USUARIOS DO CHAT -->
+                <div id="div-chat"></div>
+                    <!-- FIM USUARIOS DO CHAT -->
+            </div>
 
-                <!-- **********************************************************************************************************************************************************
-                RIGHT SIDEBAR CONTENT
-                *********************************************************************************************************************************************************** -->                  
-
-                <div class="col-lg-3 ds">
-                    <!--COMPLETED ACTIONS DONUTS CHART-->
-                    <h3>Notificações</h3>
-
-                    <!-- First Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>2 Minutos Ago</muted><br/>
-                            <a href="#">André Maciel</a> ganhou 10 pontos.<br/>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Second Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>3 Horas Ago</muted><br/>
-                            <a href="#">Renata Xavier</a> criou uma nova ideia para a empresa.<br/>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Third Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>7 Horas Ago</muted><br/>
-                            <a href="#">Rodrigo Cardeal</a> pediu uma ajuda.<br/>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Fourth Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>11 Horas Ago</muted><br/>
-                            <a href="#">Daniela Alves</a> terminou um desafio.<br/>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Fifth Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>18 Horas Ago</muted><br/>
-                            <a href="#">Rafael Oliveira</a> recebeu uma aprovação de desafio e ganhou 20 pontos.<br/>
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- USERS ONLINE SECTION -->
-                    <h3>Colaboradores</h3>
-                    <!-- First Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            {{image( 'img/ui-divya.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
-                        </div>
-                        <div class="details">
-                            <p><a href="#">Daniela Alves</a><br/>
-                            <muted>Administradora</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Second Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            {{image( 'img/ui-sherman.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
-                        </div>
-                        <div class="details">
-                            <p><a href="#">Rodrigo Cardeal</a><br/>
-                            <muted>Desenvolvedor Web</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Third Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            {{image( 'img/ui-danro.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
-                        </div>
-                        <div class="details">
-                            <p><a href="#">Rafael Oliveira</a><br/>
-                            <muted>Comercial</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Fifth Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            {{image( 'img/ui-zac.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
-                        </div>
-                        <div class="details">
-                            <p><a href="#">André Fagundes</a><br/>
-                            <muted>Desenvolvedor Web</muted>
-                            </p>
-                        </div>
-                    </div>
-                </div><!-- /col-lg-3 -->
-            </div><! --/row -->
         </section>
     </section>
-    <!--footer start-->
-    <footer class="site-footer">
-        <div class="text-center">
-            2014 - Incentiv
-            <a href="index.html#" class="go-top">
-                <i class="fa fa-angle-up"></i>
-            </a>
-        </div>
-    </footer>
-    <!--footer end-->
+    <div class="chat-window-container"></div>
 </section>
+<script type="text/javascript" src="http://localhost:8088/socket.io/socket.io.js"></script>
+{{ javascript_include('js/colaborador/layout/private-colaborador.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        PrivateColaborador.init();
+    });
+</script>

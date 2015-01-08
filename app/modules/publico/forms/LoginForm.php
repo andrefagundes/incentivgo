@@ -19,25 +19,25 @@ class LoginForm extends Form
 
     public function initialize()
     {
-        $select = new Select('empresaId', Empresa::find("ativo = 'Y'"), array(
-            'using' => array(
-                'id',
-                'nome'
-            ),
-            'useEmpty'      => true,
-            'emptyText'     => '--Selecione sua empresa--',
-            'emptyValue'    => '',
-            'class'         => 'required form-control',
-            'required'      => ''
-        ));
+//        $select = new Select('empresaId', Empresa::find("ativo = 'Y'"), array(
+//            'using' => array(
+//                'id',
+//                'nome'
+//            ),
+//            'useEmpty'      => true,
+//            'emptyText'     => '--Selecione sua empresa--',
+//            'emptyValue'    => '',
+//            'class'         => 'required form-control',
+//            'required'      => ''
+//        ));
         
-         $select->addValidators(array(
-            new PresenceOf(array(
-                'message' => 'A empresa é obrigatória'
-            ))
-        ));
+//         $select->addValidators(array(
+//            new PresenceOf(array(
+//                'message' => 'A empresa é obrigatória'
+//            ))
+//        ));
          
-        $this->add($select);
+//        $this->add($select);
         // Email
         $email = new Text('email', array(
             'placeholder'   => 'Informe seu e-mail',

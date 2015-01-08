@@ -5,10 +5,10 @@ use Phalcon\Mvc\Model,
     Phalcon\Mvc\Model\Behavior\SoftDelete;
 
 /**
- * Incentiv\Models\Ideia
- * Todas as ideias registradas na aplicação
+ * Incentiv\Models\Meta
+ * Todas as metas registradas na aplicação
  */
-class Ideia extends Model
+class Meta extends Model
 {
     const DELETED       = 'N';
     const NOT_DELETED   = 'Y';
@@ -36,14 +36,14 @@ class Ideia extends Model
     public $descricao;
    
     /**
-     * @var char
+     * @var integer
      */
-    public $status;
+    public $tipo;
     
     /**
      * @var char
      */
-    public $resposta;
+    public $ativo;
     
     /**
      * @var integer
@@ -84,57 +84,55 @@ class Ideia extends Model
         $this->addBehavior(new SoftDelete(
             array(
                 'field' => 'ativo',
-                'value' => Ideia::DELETED
+                'value' => Meta::DELETED
             )
         ));
     }
     
-    public function fetchAllIdeias(\stdClass $objIdeia){
+    public function fetchAllMetas(\stdClass $objMeta){
         
-        $ideia = Ideia::query()->columns(array('id','descricao','criacaoDt', 'status' ));
+        $meta = Meta::query()->columns(array('id','descricao','criacaoDt' ));
         
-        if($objIdeia->filter)
+        if($objMeta->filter)
         {
-           $ideia->andwhere( "descricao LIKE('%{$objIdeia->filter}%')");
+           $meta->andwhere( "descricao LIKE('%{$objMeta->filter}%')");
         }
 
-        $ideia->order('id');
+        $meta->order('id');
 
-        return $ideia->execute();
+        return $meta->execute();
     }
     
-    public function buscarIdeiasUsuario(\stdClass $objIdeia){
+    public function buscarMetasUsuario(\stdClass $objMeta){
         
-        $ideias = $this::query()->columns(
+        $metas = $this::query()->columns(
                          array( 'id',
                                 'descricao',
-                                'status',
-                                'resposta',
                                 'criacaoDt'));
  
-        $ideias->andwhere( "usuarioId = {$objIdeia->usuarioId}");
-        $ideias->order('id');
+        $metas->andwhere( "usuarioId = {$objMeta->usuarioId}");
+        $metas->order('id');
 
-        return $ideias->execute();
+        return $metas->execute();
     }
     
-    public function salvarIdeia(\stdClass $objIdeia){
+    public function salvarMeta(\stdClass $objMeta){
 
         try {
             
-            if($objIdeia->id){
-               $ideia = $this->findFirst("id = ".$objIdeia->id);
+            if($objMeta->id){
+               $meta = $this->findFirst("id = ".$objMeta->id);
             }else{
-               $ideia = $this;
+               $meta = $this;
             }
 
-            $ideia->assign(array(
-                'empresaId'     => $objIdeia->empresaId,
-                'usuarioId'     => $objIdeia->usuarioId,
-                'descricao'     => $objIdeia->descricao
+            $meta->assign(array(
+                'empresaId'     => $objMeta->empresaId,
+                'usuarioId'     => $objMeta->usuarioId,
+                'descricao'     => $objMeta->descricao
             ));
 
-            if (!$ideia->save()) {
+            if (!$meta->save()) {
 
                 foreach ($this->getMessages() as $mensagem) {
                   $message =  $mensagem;
@@ -144,32 +142,32 @@ class Ideia extends Model
                 return array('status' => 'error', 'message'=> $message );
             }
 
-            return array('status' => 'ok','message'=>'Ideia salva com sucesso!!!');
+            return array('status' => 'ok','message'=>'Meta salva com sucesso!!!');
         
         } catch (Exception $e) {
             echo $e->getTraceAsString();
         }
     }
     
-    public function ativarInativarIdeia(\stdClass $dados){
+    public function ativarInativarMeta(\stdClass $dados){
 
-        $ideia = $this->findFirst("id = ".$dados->id);
+        $meta = $this->findFirst("id = ".$dados->id);
         
-        $ideia->assign(array(
+        $meta->assign(array(
             'ativo'         => $dados->status
         ));
 
-        if (!$ideia->save()) {
-            foreach ($ideia->getMessages() as $mensagem) {
+        if (!$meta->save()) {
+            foreach ($meta->getMessages() as $mensagem) {
               $message =  $mensagem;
               break;
             }
             return array('status' => 'error', 'message' => $message);
         } else {
             if($dados->status == 'N'){
-                return array('status' => 'ok', 'message' => 'Ideia inativada com sucesso!!!');
+                return array('status' => 'ok', 'message' => 'Meta inativada com sucesso!!!');
             }else{
-                return array('status' => 'ok', 'message' => 'Ideia ativada com sucesso!!!');
+                return array('status' => 'ok', 'message' => 'Meta ativada com sucesso!!!');
             }  
         }
     }

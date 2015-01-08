@@ -1,0 +1,42 @@
+<!--main content start-->
+<div class="col-lg-9 main-chart">
+    <div class="row ">
+          <div class="col-md-12 mb">
+            <!-- PONTUAÇÃO -->
+            <div class="white-panel pn pn-metas white-panel-meta">
+                <div class="white-header">
+                    <h5>Metas {{(tipoMeta == 1)?'Profissionais':'Pessoais'}}</h5>
+                </div>
+                <div class="row pager">
+                    <div class="col-md-12">
+                        <p class="mt text-justify">
+                            Cadastre suas metas profissionais e deixe a empresa saber quais são
+                        suas pretensões de crescimento, pondendo com isso participar de futuras vagas
+                        disponíveis</p>
+                    </div>
+                </div>
+                <div class="row pager">
+                    <div class="col-md-12">
+                        <form role="form" class="form-ideia" id="form-ideia">
+                             <div>
+                                 <textarea id="txt_ideia" name="txt_ideia" placeholder="Cadastre suas metas {{(tipoMeta == 1)?'profissionais':'pessoais'}}!!!" class="form-control"></textarea>
+                            </div>
+                       </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-theme04 btn-facebook btn-sm" id="btnCadastrarMetaProfi" type="button">Cadastrar Meta</button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /col-md-4 -->
+    </div><!-- /row -->
+</div><!-- /col-lg-9 END SECTION MIDDLE -->
+
+<!--{{ javascript_include('js/colaborador/meta/meta.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        Meta.init();
+    });
+</script>-->

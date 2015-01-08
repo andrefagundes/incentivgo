@@ -508,5 +508,50 @@ $router->add('/colaborador/ideia/modal-ideias/{code}', array(
     return false;
 });
 
+$router->add('/colaborador/ideia/salvar-ideia', array(
+    'module' => 'colaborador',
+    'controller' => 'ideia',
+    'action' => 'salvarIdeia'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
+$router->add('/colaborador/ideia/excluir-ideia', array(
+    'module' => 'colaborador',
+    'controller' => 'ideia',
+    'action' => 'excluirIdeia'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
+//$router->add('/colaborador/metas/{tipo}', array(
+//    'module' => 'colaborador',
+//    'controller' => 'meta',
+//    'action' => 'meta'
+//));
+
+$router->add('/colaborador/chat', array(
+    'module' => 'colaborador',
+    'controller' => 'chat',
+    'action' => 'chat'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
 
 return $router;
