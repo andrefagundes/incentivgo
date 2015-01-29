@@ -13,7 +13,11 @@ use Incentiv\Models\Usuario,
 class EmpresaColaboradorController extends ControllerBase {
 
     public function initialize() {
+
         if (!$this->request->isAjax()) {
+            $auth = $this->auth->getIdentity();          
+            $this->view->usuario_logado    = $this->auth->getName();
+            $this->view->avatar            = $auth['avatar'];
             $this->view->setTemplateBefore('private-empresa');
         }
     }

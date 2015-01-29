@@ -26,7 +26,7 @@
                         </li>
                         <li>
                             <a href="index.html#">
-                                <span class="photo">{{image( 'img/ui-divya.jpg', 'alt':'avatar') }}</span>
+                                <span class="photo">{{image( 'img/users/default.jpg', 'alt':'avatar') }}</span>
                                 <span class="subject">
                                     <span class="from">Daniela Alves</span>
                                     <span class="time">40 mins.</span>
@@ -38,7 +38,7 @@
                         </li>
                         <li>
                             <a href="index.html#">
-                                <span class="photo">{{image( 'img/ui-sherman.jpg', 'alt':'avatar') }}</span>
+                                <span class="photo">{{image( 'img/users/default.jpg', 'alt':'avatar') }}</span>
                                 <span class="subject">
                                     <span class="from">Rodrigo Cardeal</span>
                                     <span class="time">4 hrs.</span>
@@ -74,7 +74,7 @@
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
 
-                <p class="centered"><a href="profile.html">{{image( 'img/ui-zac.jpg','class':'img-circle','width':'60px') }}</a></p>
+                <p class="centered">{{ link_to('colaborador', image( 'img/users/'~empresaId~'/'~id~'/60_'~avatar,'class':'img-circle','width':'60px')) }}</p>
                 <h5 class="centered">{{usuario_logado}}</h5>
 
                 <li class="mt">

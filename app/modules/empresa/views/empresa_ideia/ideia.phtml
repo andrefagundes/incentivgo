@@ -17,9 +17,6 @@
                 <!-- scrollable inbox widget -->
                 <section class="panel">
                     <header class="panel-heading">
-                        <div class="pull-left">
-                            <button type="button" class="btn btn-sm btn-white squared" id="btnCriarIdeia" >Cadastrar Ideia</button>
-                        </div>
                         <div class="col-sm-4 col-lg-offset-3">
                             <div class="input-group">
                                 <input type="text" id="filterIdeias" class="input-sm form-control" placeholder="Pesquisar por ideias">
@@ -29,7 +26,7 @@
                             </div>
                         </div>
                         <div class="pull-right">
-                            <span class="label label-large bg-default" id="quantidade-ideia" data-placement="left" data-toggle="tooltip" data-original-title="Ideias Cadastradas">0</span> Ideias 
+                            <span class="label label-large bg-default" id="quantidade-ideia" data-placement="left" data-toggle="tooltip" data-original-title="Ideias Enviadas">{{count_ideias}}</span> Ideias 
                         </div>
                     </header>
                     <div id="pesquisarIdeia"></div>
@@ -38,8 +35,8 @@
     </section>
 </section>
 <!-- Início Modal Criar Ideia -->
-<div class="modal fade" id="modalCriarIdeia" tabindex="-5" role="dialog" aria-labelledby="modalCriarIdeiaLabel" aria-hidden="true">
-   {{ form('empresa/ideia/salvar-ideia', 'class':'form-horizontal', 'id':'form-ideia', 'method': 'post') }}
+<div class="modal fade" id="modalAnalisarIdeia" tabindex="-5" role="dialog" aria-labelledby="modalAnalisarIdeiaLabel" aria-hidden="true">
+   {{ form('empresa/ideia/guardar-aprovar', 'class':'form-horizontal', 'id':'form-analisar-ideia', 'method': 'post') }}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -49,7 +46,8 @@
                 <div class="modal-body" id="modal-body-ideia"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-sm btn-syndicate squared">Salvar ideia</button>
+                    <button type="button" class="btn btn-sm btn-round squared" id="btnGuardarIdeia" data-placement="bottom" data-toggle="tooltip" title="Se a ideia não for válida no momento, guarde-a para quem sabe ser analisada novamente">Guardar</button>
+                    <button type="button" class="btn btn-sm btn-syndicate squared" id="btnAprovarIdeia" data-placement="bottom">Aprovar</button>
                 </div>
             </div>
         </div>

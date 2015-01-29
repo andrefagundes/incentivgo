@@ -3,9 +3,9 @@
     <h3>Colaboradores</h3>
     {% for usuario in usuarios %}
         {% if(usuario['id'] != usuario_id) %}
-        <div class="desc chat-contacts offline" data-user-id="{{usuario['id']}}" id="user_{{usuario['id']}}">
+        <div class="desc chat-contacts offline"  data-user-id="{{usuario['id']}}" id="user_{{usuario['id']}}">
             <div class="thumb">
-                {{image( 'img/ui-zac.jpg','class':'img-circle','width':'35px','height':'35px','align':'') }}
+                {{image( 'img/'~usuario['avatar'],'class':'img-circle','width':'35px','height':'35px','align':'') }}
             </div>
             <div class="details">
                 <p>

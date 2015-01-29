@@ -16,27 +16,20 @@ class ColaboradorController extends ControllerBase
         $auth = $this->auth->getIdentity();
 
         $this->view->count_desafios    = DesafioUsuario::build()->count("usuarioId = ".$auth['id']." AND ( usuarioResposta IS NULL OR usuarioResposta != 'N' ) AND envioAprovacaoDt IS NULL");
-        $this->view->count_ajudas      = Ajuda::count("ativo = 'Y' AND ajudaId IS NULL");
-        $this->view->count_anotacoes   = Anotacao::count("usuarioId = ".$auth['id']);
-        $this->view->count_noticias    = Noticia::count("empresaId = ".$auth['empresaId']);
+        $this->view->count_ajudas      = Ajuda::build()->count("ativo = 'Y' AND ajudaId IS NULL");
+        $this->view->count_anotacoes   = Anotacao::build()->count("usuarioId = ".$auth['id']);
+        $this->view->count_noticias    = Noticia::build()->count("empresaId = ".$auth['empresaId']);
         $this->view->usuario_logado    = $this->auth->getName();
+        $this->view->avatar            = $auth['avatar'];
+        $this->view->empresaId         = $auth['empresaId'];
+        $this->view->id                = $auth['id'];
         if (!$this->request->isAjax()) {
             $this->view->setTemplateBefore('private-colaborador');
         }
     }
     
-    public function indexAction(){
-//        if ($this->request->isAjax()) {
-//            $this->disableLayoutBefore();
-//        }
-    }
-    
-    public function modalNoticiasAction(){
-        $this->disableLayoutBefore();
-
-        $resultNoticias  = Noticia::build()->find(array("order" => "id"));
-        $this->view->noticias   = $resultNoticias; 
-    }
+    public function indexAction(){}
+ 
     public function modalAnotacoesAction(){
         $this->disableLayoutBefore();
         $auth = $this->auth->getIdentity();
@@ -44,6 +37,7 @@ class ColaboradorController extends ControllerBase
         $resultAnotacoes  = Anotacao::build()->find(array("usuarioId = ".$auth['id'], "order" => "id"));
         $this->view->anotacoes   = $resultAnotacoes; 
     }
+    
     public function salvarAnotacaoAction(){
         $this->disableLayoutBefore();
         
@@ -87,12 +81,5 @@ class ColaboradorController extends ControllerBase
         $this->response->setJsonContent($resultAnotacao['status'],'utf8');
         $this->response->send();
 
-    }
-    
-    public function chatAction(){
-        $this->disableLayoutBefore();
-        $auth = $this->auth->getIdentity();
-        $this->view->usuario_id        = $auth['id'];
-        $this->view->usuarios          = Usuario::build()->find(array("empresaId = ".$auth['empresaId']." AND ativo = 'Y'",'columns' =>'id,nome,email'))->toArray();     
     }
 }

@@ -33,6 +33,11 @@ class Ideia extends Model
     /**
      * @var string
      */
+    public $titulo;
+    
+    /**
+     * @var string
+     */
     public $descricao;
    
     /**
@@ -66,6 +71,7 @@ class Ideia extends Model
     public function beforeValidationOnCreate()
     {
         $this->criacaoDt    = time();
+        $this->status       = 'Y';
     }
 
     public function initialize()
@@ -91,8 +97,17 @@ class Ideia extends Model
     
     public function fetchAllIdeias(\stdClass $objIdeia){
         
-        $ideia = Ideia::query()->columns(array('id','descricao','criacaoDt', 'status' ));
+        $ideia = Ideia::query()->columns(array('id',
+                                                'titulo',
+                                                'descricao',
+                                                'resposta',
+                                                'criacaoDt', 
+                                                'status' ));
         
+        if($objIdeia->empresaId)
+        {
+           $ideia->andwhere( "empresaId = {$objIdeia->empresaId}");
+        }
         if($objIdeia->filter)
         {
            $ideia->andwhere( "descricao LIKE('%{$objIdeia->filter}%')");
@@ -107,6 +122,7 @@ class Ideia extends Model
         
         $ideias = $this::query()->columns(
                          array( 'id',
+                                'titulo',
                                 'descricao',
                                 'status',
                                 'resposta',
@@ -131,6 +147,7 @@ class Ideia extends Model
             $ideia->assign(array(
                 'empresaId'     => $objIdeia->empresaId,
                 'usuarioId'     => $objIdeia->usuarioId,
+                'titulo'        => $objIdeia->titulo,
                 'descricao'     => $objIdeia->descricao
             ));
 
@@ -151,12 +168,12 @@ class Ideia extends Model
         }
     }
     
-    public function ativarInativarIdeia(\stdClass $dados){
+    public function guardarAprovarIdeia(\stdClass $dados){
 
         $ideia = $this->findFirst("id = ".$dados->id);
         
         $ideia->assign(array(
-            'ativo'         => $dados->status
+            'resposta'         => $dados->resposta
         ));
 
         if (!$ideia->save()) {
@@ -166,10 +183,10 @@ class Ideia extends Model
             }
             return array('status' => 'error', 'message' => $message);
         } else {
-            if($dados->status == 'N'){
-                return array('status' => 'ok', 'message' => 'Ideia inativada com sucesso!!!');
+            if($dados->resposta == 'N'){
+                return array('status' => 'ok', 'message' => 'Ideia guardada com sucesso!!!');
             }else{
-                return array('status' => 'ok', 'message' => 'Ideia ativada com sucesso!!!');
+                return array('status' => 'ok', 'message' => 'Ideia aprovada com sucesso!!!');
             }  
         }
     }

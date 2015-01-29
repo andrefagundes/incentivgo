@@ -54,7 +54,6 @@ var Chat = {
         
         $("div .chat-contacts").on('click', function(){
             id = $(this).data('userId');
-            Chat.boolSetarCanal = true;
             Chat.criarSalaChat(id);  
         });
         
@@ -73,52 +72,56 @@ var Chat = {
             $("#user_"+usuario.idUsuario).addClass( "offline" );
         });
         
-        //escutando para receber mensagem de usuario que vem do server
-        Chat.socket.on('send-client', function (dados) {
+        //escutando para verificar se o remetente já está aberto
+        Chat.socket.on('verificar-chat-aberto', function (dados) {
             Chat.canal = dados.canal;
             //verifica se o destinatario é o usuario que está logado
             if(dados.idDestinatario == Chat.usuarioLogado)
-            {
-                //verifica se sala do rementente(que enviou a mensagem já está aberta, senão cria e abre.
+            {   //verifica se sala do rementente(que enviou a mensagem está fechada, senão cria e abre.
                 if($('.chat-window-container [data-user-id="' + dados.idRemetente + '"]').length == 0){
-                    Chat.boolSetarCanal = false;
                     Chat.criarSalaChat(dados.idRemetente);
+                }else{
+                    if($("#sala_"+dados.idRemetente).val() != Chat.canal){
+                        Chat.socket.emit('criarCanalChat',{canal:Chat.canal,usuario:dados.idRemetente},function(data){
+                            Chat.setarCanalChat(data);
+                            //corrigindo atraso quando se muda de sala com F5
+                            Chat.socket.emit('send-client', dados);
+                        });
+                    }
                 }
             }
-            
-            $('.chat-window-container #sala_'+Chat.canal).append(dados.msg+'<br/>');
+         });
+         
+        //escutando para receber mensagem de usuario que vem do server
+        Chat.socket.on('send-client', function (dados) {
+            var message = Chat.templateMessage(dados);
+            $('.chat-window-container input[value="'+dados.canal+'"]').parent().append(message);
+            $('.message').scrollTo(50).bottom;
         });
     },
     informarUsuarioLogado:function(){
          // Emitindo o evento para o Server
         Chat.socket.emit('usuarioConectado',{idUsuario:Chat.usuarioLogado});
     },
-    criarCanalChat:function(idCanal){
-        Chat.socket.emit('criarCanalChat',{idCanal:idCanal});
-    },
     enviarMensagem:function(idDestinatario,idRemetente,mensagem,canal){
         Chat.boolDestinatario = false;
-        if($("#sala_"+canal).text() == ''){
+        
+        if($("#sala_"+idDestinatario).parent().text() == ''){
            Chat.boolDestinatario = true;
         }
+ 
         Chat.socket.emit('send-server', {idDestinatario: idDestinatario,
                                          idRemetente:idRemetente, 
                                          msg: mensagem,
                                          canal:canal,
                                          boolDestinatario:Chat.boolDestinatario});
-    },    
+    },   
     criarSalaChat:function(idUser){
-
-        if(Chat.boolSetarCanal){
-            Chat.canal = idUser;
-        }
 
         if ($('.chat-window-container [data-user-id="' + idUser + '"]').length) return;
         if ($("#user_"+idUser).attr('class') === 'desc chat-contacts offline') return;
 
-        Chat.criarCanalChat(Chat.canal);
-
-        var context = {user_image: '', user: $("#user_"+idUser).find('.contact-name').text(),id_sala:Chat.canal};
+        var context = {user_image: $("#user_"+idUser).find('img').attr('src'), user: $("#user_"+idUser).find('.contact-name').text(),id_sala:idUser};
         var html = Chat.templateChat(context);
 
         var clone = $(html);
@@ -142,20 +145,29 @@ var Chat = {
         clone.show();
         clone.find('> .panel-body').removeClass('display-none');
         clone.find('> input').removeClass('display-none');
+
+        Chat.socket.emit('criarCanalChat',{canal:Chat.canal,usuario:idUser},function(data){
+            Chat.setarCanalChat(data);
+        });
         
-        Chat.idUsuarioDestinatario = idUser;
+        $('#chat-000' + parseInt(count)+ ' input.form-control').focus();
         
         //evento de enter do chat
         $('input.form-control').on('keypress',function(e) {
             if(e.which == 13) {
-                var idDestinatario   = Chat.idUsuarioDestinatario;
-                var canal            = Chat.canal;
-                var idRemetente      = Chat.usuarioLogado;
-                var text             = $(this).val();
-                Chat.enviarMensagem(idDestinatario,idRemetente,text,canal);
-                $(this).val('');
+                if($(this).val() != ""){
+                    var idDestinatario   = $(this).data('sala');
+                    var canal            = $("#sala_"+$(this).data('sala')).val();
+                    var idRemetente      = Chat.usuarioLogado;
+                    var text             = $(this).val();
+                    Chat.enviarMensagem(idDestinatario,idRemetente,text,canal);
+                    $(this).val('').focus();
+                }
             }
         });
+    },
+    setarCanalChat:function(data){
+        $("#sala_"+data.usuario).val(data.canal);
     },
     templateChat:function(context){
         var template = '<div class="panel panel-default">'+
@@ -167,11 +179,29 @@ var Chat = {
                                 '</a>'+
                             '</div>'+
                             '<div class="panel-body" id="chat-bill">'+
-                            '<div id="sala_'+context.id_sala+'"></div>'+
+                            '<input type="hidden" id="sala_'+context.id_sala+'"  value="">'+
                             '</div>'+
-                            '<input type="text" class="form-control" placeholder="Digite a mensagem..." />'+
+                            '<input type="text" class="form-control" placeholder="Digite a mensagem..." data-sala='+context.id_sala+' />'+
                         '</div>';
          return template;
+    },
+    templateMessage:function(dados){
+        var posicao = '';
+        if(Chat.usuarioLogado == dados.idRemetente){
+            posicao = 'right';
+        }else{
+            posicao = 'left';
+        }
+
+        var message = '<div class="media '+posicao+'">'+
+                            '<div class="pull-'+posicao+'">'+
+                                '<img src="" width="25" class="img-circle" alt="people" />'+
+                            '</div>'+
+                            '<div class="media-body">'+
+                                '<span class="message">'+dados.msg+'</span>'+
+                            '</div>'+
+                        '</div>';
+          return message;
     },
     chatLayout:function(){
         Chat.container.find('.panel').each(function (index, value) {

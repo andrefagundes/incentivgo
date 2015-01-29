@@ -1,0 +1,65 @@
+<!--main content start-->
+<div class="col-lg-9 main-chart">
+    <div class="row ">
+        <div class="col-md-12 mb">
+            <!-- PONTUAÇÃO -->
+            <div class="white-panel pn white-panel-ideia">
+                <div class="white-header">
+                    <h5>Perfil</h5>
+                </div>
+                {{ form('colaborador/perfil', 'class':'form-horizontal', 'id':'form-perfil', 'method': 'post', 'enctype':'multipart/form-data') }}
+                    {{hidden_field('usuarioId','name':'dados[id]','value':usuario.id)}}
+                    {{hidden_field('empresaId','value':usuario.empresaId)}}
+                    {{hidden_field('avatar','value':usuario.avatar)}}
+                    <div class="row pager">
+                        <div class="col-xs-12 col-md-3">
+                            <input class="col-sm-2" id="input-avatar" name="avatar" type="file" accept="image/*" >
+                            <div id="errorBlock43" class="help-block"></div>
+                        </div>
+                        <div class="col-xs-12 col-md-9">
+                            <div id="mensagem-modal-resposta-perfil" class="center"><?php echo $this->getContent(); ?></div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-1 control-label">Nome:</label>
+                                <div class="col-sm-10">
+                                    {{ text_field("dados[nome]", 'id':'nome','value':usuario.nome,'class': 'form-control', 'placeholder':'Nome') }}
+                                    <label id="perfil-nome-error" class="error" for="perfil-nome" style="display: none;">Campo obrigatório</label>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-1 control-label">Email:</label>
+                                <div class="col-sm-6">
+                                    {{ email_field("dados[email]", 'id':'email','value':usuario.email,'class': 'form-control', 'placeholder':'Email') }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-1 control-label">Cargo:</label>
+                                <div class="col-sm-6">
+                                    {{ text_field("dados[cargo]", 'id':'cargo','value':usuario.cargo,'class': 'form-control', 'placeholder':'Cargo') }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-1 control-label">Data de Nascimento:</label>
+                                <div class="col-sm-4">
+                                    {{ text_field("dados[dt_nascimento]", 'id':'dt-nascimento','value':usuario.nascimentoDt,'class': 'form-control', 'placeholder':'Data de Nascimento') }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                     {{ submit_button('Salvar Perfil','class':'btn btn-theme04 btn-facebook btn-sm') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{endForm()}}
+            </div>
+        </div><!-- /col-md-4 -->
+    </div><!-- /row -->
+</div><!-- /col-lg-9 END SECTION MIDDLE -->
+
+{{ javascript_include('js/colaborador/perfil/perfil.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        Perfil.init();
+    });
+</script>

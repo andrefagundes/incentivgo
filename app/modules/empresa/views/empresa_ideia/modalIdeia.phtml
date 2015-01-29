@@ -1,0 +1,42 @@
+{{hidden_field("id",'value':id)}}
+{{hidden_field("resposta",'value':'')}}
+<section class="main padder">
+    <div class="row">
+        <div class="col-sm-11">
+            
+            <div class="form-group" data-placement="left" data-toggle="tooltip" title="Colaborador que enviou a ideia">
+                <label class="col-lg-3 control-label">Colaborador:</label>
+                <div class="col-lg-9">
+                   <p class="form-control-static">{{colaborador}}</p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Título:</label>
+                <div class="col-lg-9">
+                   <p class="form-control-static">{{titulo}}</p>
+                </div>
+            </div>
+            
+            <div class="form-group" data-placement="left" data-toggle="tooltip" title="Descrição da ideia">
+                <label class="col-lg-3 control-label">Descrição:</label>
+                <div class="col-lg-9">
+                   <p class="form-control-static">{{descricao}}</p>
+                </div>
+            </div>
+            
+            <div class="form-group" data-placement="left" data-toggle="tooltip" title="Data em que a ideia foi enviada para a empresa">
+                <label class="col-lg-3 control-label">Data de envio:</label>
+                <div class="col-lg-4">
+                    <p class="form-control-static">{{ date('d/m/Y', dt_envio) }}</p>
+                </div>   
+            </div>
+        </div>
+    </div>
+</section>
+{{ javascript_include('js/empresa/ideia/modal-ideia.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        ModalIdeia.init();
+    });
+</script>

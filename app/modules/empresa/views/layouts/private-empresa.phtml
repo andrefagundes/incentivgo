@@ -3,8 +3,8 @@
     <ul class="nav navbar-nav navbar-avatar pull-right">
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">            
-                <span class="hidden-xs-only">Universidade IESB</span>
-                <span class="thumb-small avatar inline">{{image( 'img/avatar.jpg', 'class':'img-circle', 'alt':'Universidade IESB') }}</span>
+                <span class="hidden-xs-only">{{usuario_logado}}</span>
+                <span class="thumb-small avatar inline">{{image( 'img/'~avatar, 'class':'img-circle', 'alt':'Universidade IESB') }}</span>
                 <b class="caret hidden-xs-only"></b>
             </a>
             <ul class="dropdown-menu">
@@ -67,7 +67,7 @@
             {{ link_to("empresa/desafio",'alt':'Gere desafios aos seus colaboradores','title':'Gere desafios aos seus colaboradores',  '<i class="fa fa-arrow-circle-right"></i><span>Desafios</span>') }}
         </li>
         <li class="dropdown-submenu">
-            {{ link_to("empresa/noticias",'alt':'Informe as novidades da empresa pra seus colaboradores','title':'Informe as novidades da empresa pra seus colaboradores', '<i class="fa fa-arrow-circle-right"></i><span>Notícias</span>') }}
+            {{ link_to("empresa/noticia",'alt':'Informe as novidades da empresa pra seus colaboradores','title':'Informe as novidades da empresa pra seus colaboradores', '<i class="fa fa-arrow-circle-right"></i><span>Notícias</span>') }}
         </li>
 <!--        <li class="dropdown-submenu">
             {{ link_to("empresa/regra", '<i class="fa fa-arrow-circle-right"></i><span>Regras</span>') }}

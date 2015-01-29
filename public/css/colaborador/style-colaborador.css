@@ -76,6 +76,10 @@ a, a:hover, a:focus {
     -webkit-border-radius: 20px;
 }
 
+.btn-file-avatar{
+    margin-bottom: 10px;
+}
+
 .btn-modal-title{
     margin-right: 60px;
 }
@@ -124,7 +128,7 @@ label.error {
 .btn-theme {
   color: #fff;
   background-color: #00a9df;
-  border-color: #48bcb4;
+  border-color: #009acb;
 }
 .btn-theme:hover,
 .btn-theme:focus,
@@ -132,8 +136,8 @@ label.error {
 .btn-theme.active,
 .open .dropdown-toggle.btn-theme {
   color: #fff;
-  background-color: #48bcb4;
-  border-color: #48bcb4;
+  background-color: #009acb;
+  border-color: #00a9df;
 }
 
 .btn-theme02 {
@@ -1190,7 +1194,8 @@ PANELS CONFIGURATIONS
 /*Panel Size*/
 
 .pn {
-	height: 250px;
+	height: 100%;
+        min-height: 250px;
 	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
 }
 
@@ -2893,6 +2898,9 @@ label {
     border-right: 1px solid #e0e0e0;
     font-size: 12px;
     padding: 6px 5px 8px;
+    max-height: 198px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .chat-window-container {
@@ -2951,6 +2959,62 @@ label {
 
 .chat-contacts {
     cursor: pointer;
+}
+
+.chat-window-container .panel .panel-body .media:not(.right) .media-body .message:before {
+    border-bottom: 6px solid transparent;
+    border-right: 5px solid #e2e2e2;
+    border-top: 6px solid transparent;
+    content: "";
+    display: inline-block;
+    left: -17px;
+    position: relative;
+    top: 2px;
+}
+
+.chat-window-container .panel .panel-body .media:not(.right) .media-body .message {
+    background: none repeat scroll 0 0 #fff;
+    border: 1px solid #efefef;
+    border-radius: 4px;
+    display: inline-block;
+    margin-left: 8px;
+    line-height: 18px;
+    margin-bottom: 4px;
+    max-width: 340px;
+    padding: 7px 12px;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.chat-window-container .panel .panel-body .right > .media-body .message:after {
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid #e2e2e2;
+    border-top: 6px solid transparent;
+    content: "";
+    display: inline-block;
+    position: relative;
+    right: -17px;
+    top: 2px;
+}
+
+
+.chat-window-container .panel .panel-body .right > .media-body .message {
+    background: none repeat scroll 0 0 #e2e2e2;
+    border-radius: 4px;
+    display: inline-block;
+    margin-right: 8px;
+    line-height: 18px;
+    margin-bottom: 4px;
+    max-width: 340px;
+    padding: 7px 12px;
+    position: relative;
+    word-wrap: break-word;
+}
+.chat-window-container .panel .panel-body .right > .media-body {
+    text-align: right;
+}
+.media, .media-body {
+    overflow: hidden;
 }
 /*.form-control {
     background-color: #f7f7f7;

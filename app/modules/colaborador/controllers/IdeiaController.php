@@ -12,6 +12,9 @@ class IdeiaController extends ControllerBase {
             $auth = $this->auth->getIdentity();
             $this->view->usuario_id        = $auth['id'];
             $this->view->usuario_logado    = $this->auth->getName();
+            $this->view->avatar            = $auth['avatar'];
+            $this->view->empresaId         = $auth['empresaId'];
+            $this->view->id                = $auth['id'];
             $this->view->setTemplateBefore('private-colaborador');
         }
     }
@@ -44,6 +47,7 @@ class IdeiaController extends ControllerBase {
         $objIdeia = new \stdClass();
         $objIdeia->id           = $this->request->getPost("id");
         $objIdeia->descricao    = $this->request->getPost("descricao");
+        $objIdeia->titulo       = $this->request->getPost("titulo");
         $objIdeia->usuarioId    = $auth['id'];
         $objIdeia->empresaId    = $auth['empresaId'];
 

@@ -1,15 +1,14 @@
 var pesquisarIdeia = {
-    init: function(){
+    init: function() {
         $("[data-toggle=tooltip]").tooltip();
         $('.btnPaginacaoIdeia').on('click', function() {
-           Ideia.pesquisarIdeia(this.id);
-        }); 
-        $('.btnAlterarIdeia').click(function() {
-            $("#myModalLabel").html('Alterar Usuário');
-            $( "#modal-body-ideia" ).html('').load( "ideia/modal-ideia/"+this.id );
-            $('#modalCriarIdeia').modal('show'); 
+            Ideia.pesquisarIdeia(this.id);
+        });
+        //evento do botão de criar desafio
+        $(".btnAnalisarIdeia").click(function() {
+            $("#myModalLabel").html('Analisar Ideia');
+            $("#modal-body-ideia").html('').load("ideia/modal-ideia/" + $(this).attr('id'));
+            $("#modalAnalisarIdeia").modal('show');
         });
     }
 };
-
-

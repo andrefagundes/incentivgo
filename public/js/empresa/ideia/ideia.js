@@ -9,19 +9,11 @@ var Ideia = {
             Ideia.pesquisarIdeia(1);
         });
         
-        //evento do botão de criar desafio
-        $("#btnCriarIdeia").click(function() {
-            $("#myModalLabel").html('Cadastrar Ideia');
-            alert('df');
-            $("#modal-body-ideia").html('').load( "ideia/modal-ideia/"+0 );
-            $("#modalCriarIdeia").modal('show'); 
-        });
-        
         Ideia.pesquisarIdeia(1);
     },
     pesquisarIdeia: function(page){
 
-        //T de todos os ideias
+        //T de todas as ideias
         var ativo   = 'T';
         var filter  = $("#filterIdeias").val();
        

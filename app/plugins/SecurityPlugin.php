@@ -24,7 +24,7 @@ class SecurityPlugin extends Plugin {
      */
     public function getAcl() {
         //throw new \Exception("something");
-        if (!isset($this->persistent->acl)) {
+//        if (!isset($this->persistent->acl)) {
             //$acl = new \Phalcon\Acl\Adapter\Memory();
             $acl = new AclList();
             $acl->setDefaultAction(Acl::DENY);
@@ -46,17 +46,22 @@ class SecurityPlugin extends Plugin {
                     'empresa' => array( 'index' ,'empresa'),
                     'empresa_colaborador' => array( 'index','colaborador','pesquisarColaborador','modalColaborador',
                     'salvarColaborador','ativarInativarColaborador'),
-                    'empresa_ideia' => array( 'index','ideia','pesquisarIdeia',
-                    'salvarIdeia','ativarInativarIdeia'),
+                    'empresa_ideia' => array( 'index','ideia','pesquisarIdeia','salvarIdeia','ativarInativarIdeia'),
                     'empresa_desafio' => array('index','desafio','pesquisarDesafio','modalDesafio','pesquisarColaboradoresDesafio',
                             'salvarDesafio', 'ativarInativarDesafio'),
+                    'empresa_noticia' => array('index','noticia','pesquisarNoticia','modalNoticia',
+                            'salvarNoticia', 'ativarInativarNoticia'),
                     'empresa_pontuacao' => array('index','pontuacao', 'pesquisarPontuacao','modalPontuacao',
                             'salvarPontuacao','ativarInativarPontuacao'),
                     'empresa_regra' => array('index','regra','pesquisarRegra','modalRegra','salvarRegra','ativarInativarRegra')
                 ),
                 'colaboradorResources'  => array(
-                    'colaborador' => array('index'),
+                    'colaborador' => array('index','modalAnotacoes','salvarAnotacao','excluirAnotacao'),
                     'ajuda' => array('index','modalAjudas','pedirAjuda','modalAjudar'),
+                    'chat' => array('index','chat'),
+                    'ideia' => array('index','ideia','modalIdeias','salvarIdeia'),
+                    'perfil' => array('index','perfil'),
+                    'noticia' => array('index','noticia','modalNoticias','modalLerNoticia'),
                     'desafio' => array('index','modalDesafios','responderDesafio','desafioCumprido')
                 ),
                 'adminResources' => array(
@@ -96,7 +101,7 @@ class SecurityPlugin extends Plugin {
             
             //The acl is stored in session, APC would be useful here too
             $this->persistent->acl = $acl;
-        }
+//        }
 
         return $this->persistent->acl;
     }
@@ -124,10 +129,10 @@ class SecurityPlugin extends Plugin {
 
         $allowed    = $acl->isAllowed($role, $controller, $action);
 
-//        if ($allowed != Acl::ALLOW || empty($allowed)) {
-//            $this->response->redirect('show401');
-//            //return false;
-//        }
+        if ($allowed != Acl::ALLOW || empty($allowed)) {
+            $this->response->redirect('show401');
+            return false;
+        }
     }
 
 }

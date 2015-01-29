@@ -300,6 +300,51 @@ class Usuario extends Model
         }
     }
     
+    public function salvarUsuarioPerfil(\stdClass $dados){
+
+        try {
+            $funcoes = $this->getDI()->getShared('funcoes');
+            
+            if($dados->dados['id']){
+               $usuario = $this->findFirst("id = ".$dados->dados['id']);
+            }else{
+               $usuario = $this;
+            }
+            
+            if($dados->dados['dt_nascimento']){
+               $nascimentoDt = $funcoes->formatarData($dados->dados['dt_nascimento']);
+            }else{
+                $nascimentoDt = null;
+            }
+            
+            if(isset($dados->dados['avatar'])){
+                $usuario->avatar = $dados->dados['avatar'];
+            }
+
+            $usuario->assign(array(
+                'nome'          => $dados->dados['nome'],
+                'email'         => $dados->dados['email'],
+                'cargo'         => $dados->dados['cargo'],
+                'nascimentoDt'  => $nascimentoDt
+            ));
+
+            if (!$usuario->save()) {
+
+                foreach ($this->getMessages() as $mensagem) {
+                  $message =  $mensagem;
+                  break;
+                }
+
+                return array('status' => 'error', 'message'=> $message );
+            }
+
+            return array('status' => 'ok','message'=>'Perfil salvo com sucesso!!!');
+        
+        } catch (Exception $e) {
+            echo $e->getTraceAsString();
+        }
+    }
+    
     public function ativarInativarUsuario(\stdClass $dados){
 
         $colaborador = $this->findFirst("id = ".$dados->id);

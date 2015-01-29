@@ -28,13 +28,13 @@ class Auth extends Component
         $user = Usuario::findFirstByEmail($credentials['email']);
         if ($user == false) {
             $this->registerUserThrottling(0);
-            throw new Exception('E-mail ou senha errada');
+            throw new Exception('E-mail ou senha inválidos');
         }
 
         // Verifica a senha
         if (!$this->security->checkHash($credentials['senha'], $user->senha)) {
             $this->registerUserThrottling($user->id);
-            throw new Exception('E-mail ou senha errada');
+            throw new Exception('E-mail ou senha inválidos');
         }
 
         // Verifique se o usuário está ativo
@@ -49,10 +49,11 @@ class Auth extends Component
         }
 
         $this->session->set('auth-identity', array(
-            'id' => $user->id,
-            'nome' => $user->nome,
-            'perfilId' => $user->perfilId,
-            'perfil' => $user->perfil->nome,
+            'id'        => $user->id,
+            'avatar'    => $user->avatar,
+            'nome'      => $user->nome,
+            'perfilId'  => $user->perfilId,
+            'perfil'    => $user->perfil->nome,
             'empresaId' => $user->empresaId
         ));
     }
@@ -179,6 +180,7 @@ class Auth extends Component
                         // Registra identidade
                         $this->session->set('auth-identity', array(
                             'id'        => $user->id,
+                            'avatar'    => $user->avatar,
                             'nome'      => $user->nome,
                             'perfilId'  => $user->perfilId,
                             'perfil'    => $user->perfil->nome,
@@ -265,6 +267,7 @@ class Auth extends Component
 
         $this->session->set('auth-identity', array(
             'id'        => $user->id,
+            'avatar'    => $user->avatar,
             'nome'      => $user->nome,
             'perfilId'  => $user->perfilId,
             'perfil'    => $user->perfil->nome,

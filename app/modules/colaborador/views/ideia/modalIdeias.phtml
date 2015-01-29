@@ -8,7 +8,7 @@
                         <span class="task-title-sp">{{ideia.descricao}}</span>
                     </div><br/>
                     <div class="task-title pull-left">
-                        <span class="sp-title moment">Enviada em: {{ date('d/m/Y', ideia.criacaoDt) }}</span>
+                        <span class="sp-title">Enviada em: {{ date('d/m/Y', ideia.criacaoDt) }}</span>
                     </div>
                     <div id={{ideia.id}} class="task-title pull-right">
                         {%if(ideia.criacaoDt != '' AND ideia.resposta == '' )%}
@@ -26,21 +26,24 @@
                 </li>
                 {% endfor %}
             </ul>
-            <ul class="task-list ui-sortable-modal" id="ul_ideia" style="display: none">
-                <li class="list-primary" >
-                    <div class="task-title inline"> 
-                        <form role="form" class="form-ideia" id="form-ideia">
-                             <div>
-                                 <textarea id="txt_ideia" name="txt_ideia" placeholder="Envie sua ideia e seja reconhecido pela empresa!!!" class="form-control"></textarea>
-                            </div>
-                       </form>
-                    </div><br/>
+            <div id="ul_ideia" class="container-fluid box1" style="display: none">
+                    <form role="form" class="form-ideia" id="form-ideia">
+                        <div class="task-title inline"> 
+                            <div>
+                                <input type="text" id="txt_titulo" name="txt_titulo" placeholder="Informe um título para a ideia!!!" class="form-control"></textarea>
+                           </div>
+                        </div><br/>
+                        <div class="task-title inline"> 
+                                 <div>
+                                     <textarea id="txt_ideia" name="txt_ideia" placeholder="Descreva sua ideia, envie e seja reconhecido pela empresa!!!" class="form-control"></textarea>
+                                </div>
+                        </div><br/>
+                    </form>
                     <div class="task-title pull-right">
                         <button type="button" id="btnSalvarIdeia" class="btn btn-xs btn-theme03">Enviar</button>
                         <button type="button" id="btnCancelarIdeia" class="btn btn-xs btn-theme04">Cancelar</button>
                     </div>
-                </li>
-            </ul>
+            </div>
     </div>
 </section>
 {{ javascript_include('js/colaborador/ideia/modal-ideias.js') }}

@@ -1,0 +1,55 @@
+
+<table class="table table-responsive text-small">
+    <tbody>
+        {% for noticia in page.items %}
+            <tr class="row">
+                <td class="td-responsive">
+                    <span data-placement="left" data-toggle="tooltip" data-original-title="Data de cadastro da notícia" >{{noticia.criacaoDt}}</span> 
+                    <div class="btn-group pull-right form-control-static" data-placement="right" data-toggle="tooltip" data-original-title="Ações">
+                        <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
+                        <ul class="dropdown-menu pull-right">
+                            <li class="text-left"><a href="#" class="btnAlterarNoticia" id="{{noticia.id}}"><i class="icon-pencil"></i> Alterar</a></li>
+                             <li class="divider"></li>
+                            {% if(noticia.status == 'N') %}
+                            <li class="text-left">{{linkTo('empresa/noticia/ativar-inativar-noticia/Y/'~noticia.id, '<i class="icon-plus-sign"></i> Ativar')}}
+                                {% else %}
+                            <li class="text-left">{{linkTo('empresa/noticia/ativar-inativar-noticia/N/'~noticia.id, '<i class="fa fa-minus-square-o"></i> Inativar')}}</li>
+                                {% endif %}
+                       </ul>
+                    </div>
+                    <h6><strong>{{noticia.titulo}}</strong> - {{noticia.noticia}}</h6>
+                </td>
+            </tr>
+        {% elsefor %}
+            <tr class="row">
+                <td class="table-responsive">
+                    <h6 class="text-center text-info">Nenhuma notícia cadastrada.</h6>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<section class="panel-footer">
+    <footer>
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-3 text-center">
+                <small class="text-muted inline m-t-small m-b-small">Mostrando {{ page.current }} de {{ page.total_pages }}</small>
+            </div>
+            <div class="col-sm-5 text-right text-center-sm">                
+                <ul class="pagination pagination-small m-t-none m-b-none">
+                    <li><a href="#" class="fa btnPaginacaoNoticia" id="1"><i class="icons icon-fast-backward"></i> Primeiro</a></li>
+                    <li><a href="#" class="fa btnPaginacaoNoticia" id="{{page.before}}"><i class="icons icon-step-backward"></i> Anterior</a></li>
+                    <li><a href="#" class="fa btnPaginacaoNoticia" id="{{page.next}}"><i class="icons icon-step-forward"></i> Próximo</a></li>
+                    <li><a href="#" class="fa btnPaginacaoNoticia" id="{{page.last}}">Último <i class="icons icon-fast-forward"></i> </a></li>
+                </ul>
+                {{hidden_field("quantNoticia","value":page.total_items )}}
+            </div>
+        </div>
+    </footer>
+</section>
+{{ javascript_include('js/empresa/noticia/pesquisar-noticia.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        pesquisarNoticia.init();
+    });
+</script>

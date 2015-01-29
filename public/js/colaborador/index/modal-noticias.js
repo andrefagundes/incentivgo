@@ -1,6 +1,0 @@
-var ModalNoticias = {
-    
-    init: function() {
-
-    }
-}; 

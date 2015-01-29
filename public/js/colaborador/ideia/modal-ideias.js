@@ -4,11 +4,15 @@ var ModalIdeias = {
         
         $("#form-ideia").validate({
             rules: {
+                'txt_titulo': {
+                    required: true
+                },
                 'txt_ideia': {
                     required: true
                 }
             },
             messages: {
+                'txt_titulo': 'Campo obrigatório',
                 'txt_ideia': 'Campo obrigatório'
             }
         });
@@ -28,8 +32,9 @@ var ModalIdeias = {
     },
     salvarIdeia:function(){
         if($("#form-ideia").valid()){
-            var ideia = $("#txt_ideia").val();
-            $.post("ideia/salvar-ideia", {'descricao':ideia }, function() {
+            var titulo = $("#txt_titulo").val();
+            var ideia  = $("#txt_ideia").val();
+            $.post("ideia/salvar-ideia", { 'titulo':titulo,'descricao':ideia }, function() {
                 $("#modal-body-ideias").html('').load( "ideia/modal-ideias/"+0 );
             }, 'json');
         }
