@@ -1,5 +1,5 @@
 
-<table class="table table-responsive text-small">
+<table class="table table-responsive table-striped table-condensed">
     <tbody>
         {% for desafio in page.items %}
             <tr class="row">
@@ -19,6 +19,16 @@
                             </span>
                         </small>
                     </div>
+                    <div class="text-muted">
+                            {% if(desafio.tipo is 1) %}
+                                {% set status = 'info' %} 
+                                {% set status_label = 'Individual' %}
+                            {% elseif(desafio.tipo is 2)  %}
+                                {% set status = 'success' %} 
+                                {% set status_label = 'Por Equipe' %}
+                            {% endif %}
+                            <span class="label label-{{status}}" data-placement="left" data-toggle="tooltip" title="Tipo de Desafio"> {{status_label}}</span>
+                    </div>
                     <span data-placement="left" data-toggle="tooltip" data-original-title="Período Válido" >{{desafio.inicioDt}} a {{desafio.fimDt}} </span> 
                     <div class="btn-group" data-placement="right" data-toggle="tooltip" data-original-title="Ações">
                         <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
@@ -26,10 +36,10 @@
                             <li class="text-left"><a href="#" class="btnAlterarDesafio" id="{{desafio.id}}"><i class="icon-pencil"></i> Alterar</a></li>
                              <li class="divider"></li>
                             {% if(desafio.status == 'N') %}
-                            <li class="text-left">{{linkTo('empresa/desafio/ativar-inativar-desafio/Y/'~desafio.id, '<i class="icon-plus-sign"></i> Ativar')}}
-                                {% else %}
-                            <li class="text-left">{{linkTo('empresa/desafio/ativar-inativar-desafio/N/'~desafio.id, '<i class="fa fa-minus-square-o"></i> Inativar')}}</li>
-                                {% endif %}
+                                <li class="text-left">{{linkTo('empresa/desafio/ativar-inativar-desafio/Y/'~desafio.id, '<i class="icon-plus-sign"></i> Ativar')}}
+                            {% else %}
+                                <li class="text-left">{{linkTo('empresa/desafio/ativar-inativar-desafio/N/'~desafio.id, '<i class="fa fa-minus-square-o"></i> Inativar')}}</li>
+                            {% endif %}
 <!--                           
                             <li class="text-left"><a href="#" id="{{desafio.id}}"><i class="icon-remove"></i> Deletar</a> </li>-->
                         </ul>

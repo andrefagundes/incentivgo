@@ -19,6 +19,6 @@ class ChatController extends ControllerBase
         $this->disableLayoutBefore();
         $auth = $this->auth->getIdentity();
         $this->view->usuario_id        = $auth['id'];
-        $this->view->usuarios          = Usuario::build()->find(array("empresaId = ".$auth['empresaId']." AND ativo = 'Y'",'columns' =>'id,nome,email,avatar'))->toArray();     
+        $this->view->usuarios          = Usuario::build()->find(array("empresaId = ".$auth['empresaId']." AND ativo = 'Y'",'columns' =>'id,empresaId,nome,email,cargo,avatar'))->toArray();     
     }
 }

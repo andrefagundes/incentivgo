@@ -6,8 +6,8 @@ var Noticia = {
             Noticia.pesquisarNoticia(1);
         });
         
-        if($("#mensagem-modal-noticia")){
-            $("#mensagem-modal-noticia").slideUp({start:3000,duration: 5000});
+        if($("div.alert")){
+            $("div.alert").slideUp({start:3000,duration: 5000});
         }
         
         //evento do botão de criar noticia

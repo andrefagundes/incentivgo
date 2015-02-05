@@ -5,8 +5,8 @@ var Pontuacao = {
             Pontuacao.pesquisarPontuacao(1);
         });
         
-        if($("#mensagem-modal-pontuacao")){
-            $("#mensagem-modal-pontuacao").slideUp({duration: 3000});
+        if($("div.alert")){
+            $("div.alert").slideUp({start:3000,duration: 5000});
         }
         
         //evento do botão de criar regra de pontuação

@@ -96,7 +96,7 @@ var Chat = {
         Chat.socket.on('send-client', function (dados) {
             var message = Chat.templateMessage(dados);
             $('.chat-window-container input[value="'+dados.canal+'"]').parent().append(message);
-            $('.message').scrollTo(50).bottom;
+            $('.panel-body span:last-child').scrollTo(50).bottom;
         });
     },
     informarUsuarioLogado:function(){
@@ -187,20 +187,27 @@ var Chat = {
     },
     templateMessage:function(dados){
         var posicao = '';
+        var message = '';
         if(Chat.usuarioLogado == dados.idRemetente){
             posicao = 'right';
+            message = '<div class="media '+posicao+'">'+
+                            '<div class="media-body">'+
+                                '<span class="message">'+dados.msg+'</span>'+
+                            '</div>'+
+                        '</div>';
         }else{
             posicao = 'left';
-        }
-
-        var message = '<div class="media '+posicao+'">'+
+            var user_image = $("#user_"+dados.idRemetente).find('img').attr('src');
+            message = '<div class="media '+posicao+'">'+
                             '<div class="pull-'+posicao+'">'+
-                                '<img src="" width="25" class="img-circle" alt="people" />'+
+                                '<img src="'+user_image+'" width="35" height="35" class="img-circle" alt="people" />'+
                             '</div>'+
                             '<div class="media-body">'+
                                 '<span class="message">'+dados.msg+'</span>'+
                             '</div>'+
                         '</div>';
+        }
+
           return message;
     },
     chatLayout:function(){

@@ -269,6 +269,10 @@ a.list-group-item.active > .badge, .nav-pills > .active > a > .badge{color: #3a5
 	position: relative;
 }
 
+.table {
+    margin-bottom: 1px;
+}
+
 /*.btn:hover, .btn:focus, .btn:active, .btn.active {background: #bac3cc;}*/
 
 .btn.disabled,

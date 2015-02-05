@@ -1,8 +1,8 @@
 var Ideia = {
     init: function(){
         
-        if($("#mensagem-modal-ideia")){
-            $("#mensagem-modal-ideia").slideUp({duration: 3000});
+        if($("div.alert")){
+            $("div.alert").slideUp({duration: 3000});
         }
         
         $("#btnPesquisarIdeias").click(function(){

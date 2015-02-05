@@ -1,11 +1,11 @@
 <?php
 
-namespace Colaborador\Controllers;
+namespace Empresa\Controllers;
 
 use Phalcon\Image\Adapter\GD;
 use \Incentiv\Models\Usuario;
 
-class PerfilController extends ControllerBase {
+class EmpresaPerfilController extends ControllerBase {
 
     public function initialize() {
         if (!$this->request->isAjax()) {
@@ -15,7 +15,7 @@ class PerfilController extends ControllerBase {
             $this->view->avatar = $auth['avatar'];
             $this->view->empresaId = $auth['empresaId'];
             $this->view->id = $auth['id'];
-            $this->view->setTemplateBefore('private-colaborador');
+            $this->view->setTemplateBefore('private-empresa');
         }
     }
 
@@ -37,9 +37,9 @@ class PerfilController extends ControllerBase {
             $result = Usuario::build()->salvarUsuarioPerfil($objUsuario);
 
             if ($result['status'] == 'ok') {
-                $this->flash->success($result['message']);
+                $this->flashSession->success($result['message']);
             } else {
-                $this->flash->error($result['message']);
+                $this->flashSession->error($result['message']);
             }
         } 
         

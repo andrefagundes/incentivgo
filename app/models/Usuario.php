@@ -105,7 +105,7 @@ class Usuario extends Model
         }
         
         $this->criacaoDt = time();
-
+        
         //A conta deve ser confirmada via e-mail
         $this->ativo = 'N';
         
@@ -208,6 +208,13 @@ class Usuario extends Model
             )
         ));
         
+        $this->hasMany('id', 'Incentiv\Models\Desafio', 'usuarioResponsavelId', array(
+            'alias' => 'responsavelUsuario',
+            'foreignKey' => array(
+                'message' => 'O colaborador não pode ser excluído porque ele possui desafio como responsavel.'
+            )
+        ));
+        
         $this->addBehavior(new SoftDelete(
             array(
                 'field' => 'ativo',
@@ -235,7 +242,7 @@ class Usuario extends Model
             $usuario->andwhere("ativo = '{$objUsuario->ativo}'");
         }
 
-        $usuario->order('nome');
+        $usuario->orderBy('nome');
    
         return $usuario->execute();
     }
@@ -261,7 +268,7 @@ class Usuario extends Model
             $usuario->andwhere("ativo = '{$objUsuario->ativo}'");
         }
   
-        $usuario->order('nome');
+        $usuario->orderBy('nome');
 
         return $usuario->execute()->toArray();
     }

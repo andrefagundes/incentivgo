@@ -16,7 +16,7 @@
         {{ javascript_include('js/modernizr.js') }}
         <!-- Le styles -->
         {{ stylesheet_link('css/bootstrap/bootstrap.min.css') }}
-        
+        {{ stylesheet_link('css/bootstrap/fileinput.min.css') }}
         {{ stylesheet_link('css/empresa/style-empresa.css') }}
         {{ stylesheet_link('css/fonts/font.css') }}
         {{ stylesheet_link('css/fonts/font-awesome.min.css') }}
@@ -42,6 +42,8 @@
        
         {{ content() }} 
         
+        {{ javascript_include('js/fileinput.min.js') }}
+        {{ javascript_include('js/jquery.mask.min.js') }}
         {{ javascript_include('js/retina.min.js') }}
         {{ javascript_include('js/jquery.easing.js') }}
         {{ javascript_include('js/jquery.fitvids.min.js') }}

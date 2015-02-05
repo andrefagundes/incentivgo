@@ -113,7 +113,7 @@ class Ideia extends Model
            $ideia->andwhere( "descricao LIKE('%{$objIdeia->filter}%')");
         }
 
-        $ideia->order('id');
+        $ideia->orderBy('id');
 
         return $ideia->execute();
     }
@@ -129,7 +129,7 @@ class Ideia extends Model
                                 'criacaoDt'));
  
         $ideias->andwhere( "usuarioId = {$objIdeia->usuarioId}");
-        $ideias->order('id');
+        $ideias->orderBy('id');
 
         return $ideias->execute();
     }

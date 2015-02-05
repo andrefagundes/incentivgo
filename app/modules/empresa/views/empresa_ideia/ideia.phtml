@@ -1,57 +1,53 @@
-
-<section id="content">
-    <section class="main padder">
-        <div class="clearfix">
-            <h4><i class="fa fa-edit"></i>Ideias</h4>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- .breadcrumb -->
-                <ul class="breadcrumb">
-                    <li><a href="#">Ideias</a></li>
-                </ul>
-                <!-- / .breadcrumb -->
-            </div>
-            <div class="col-lg-10 col-lg-offset-1" id="mensagem-modal-ideia"><?php echo $this->flashSession->output(); ?></div>
-            <div class="col-lg-10 col-lg-offset-1">
-                <!-- scrollable inbox widget -->
-                <section class="panel">
-                    <header class="panel-heading">
-                        <div class="col-sm-4 col-lg-offset-3">
-                            <div class="input-group">
-                                <input type="text" id="filterIdeias" class="input-sm form-control" placeholder="Pesquisar por ideias">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-white" id="btnPesquisarIdeias">Pesquisar</button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="pull-right">
-                            <span class="label label-large bg-default" id="quantidade-ideia" data-placement="left" data-toggle="tooltip" data-original-title="Ideias Enviadas">{{count_ideias}}</span> Ideias 
-                        </div>
-                    </header>
-                    <div id="pesquisarIdeia"></div>
-                </section>
-            </div>
-    </section>
-</section>
+<div class="clearfix">
+    <h4><i class="fa fa-edit"></i>Ideias</h4>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <!-- .breadcrumb -->
+        <ul class="breadcrumb">
+            <li><a href="#">Ideias</a></li>
+        </ul>
+        <!-- / .breadcrumb -->
+    </div>
+    <div class="col-lg-10 col-lg-offset-1">
+        <?php echo $this->flashSession->output(); ?>
+        <!-- scrollable inbox widget -->
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="col-sm-4 col-lg-offset-3">
+                    <div class="input-group">
+                        <input type="text" id="filterIdeias" class="input-sm form-control" placeholder="Pesquisar por ideias">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-white" id="btnPesquisarIdeias">Pesquisar</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <span class="label label-large bg-default" id="quantidade-ideia" data-placement="left" data-toggle="tooltip" data-original-title="Ideias Enviadas">{{count_ideias}}</span> Ideias 
+                </div>
+            </header>
+            <div id="pesquisarIdeia"></div>
+        </section>
+    </div>
+</div>
 <!-- Início Modal Criar Ideia -->
 <div class="modal fade" id="modalAnalisarIdeia" tabindex="-5" role="dialog" aria-labelledby="modalAnalisarIdeiaLabel" aria-hidden="true">
-   {{ form('empresa/ideia/guardar-aprovar', 'class':'form-horizontal', 'id':'form-analisar-ideia', 'method': 'post') }}
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
-                    <h4 class="modal-title" id="myModalLabel"></h4>
-                </div>
-                <div class="modal-body" id="modal-body-ideia"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-sm btn-round squared" id="btnGuardarIdeia" data-placement="bottom" data-toggle="tooltip" title="Se a ideia não for válida no momento, guarde-a para quem sabe ser analisada novamente">Guardar</button>
-                    <button type="button" class="btn btn-sm btn-syndicate squared" id="btnAprovarIdeia" data-placement="bottom">Aprovar</button>
-                </div>
+    {{ form('empresa/ideia/guardar-aprovar', 'class':'form-horizontal', 'id':'form-analisar-ideia', 'method': 'post') }}
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body" id="modal-body-ideia"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-sm btn-round squared" id="btnGuardarIdeia" data-placement="bottom" data-toggle="tooltip" title="Se a ideia não for válida no momento, guarde-a para quem sabe ser analisada novamente">Guardar</button>
+                <button type="button" class="btn btn-sm btn-syndicate squared" id="btnAprovarIdeia" data-placement="bottom">Aprovar</button>
             </div>
         </div>
-   {{endForm()}}
+    </div>
+    {{endForm()}}
 </div>
 <!-- Fim Modal Cadastro ideia -->
 {{ javascript_include('js/empresa/ideia/ideia.js') }}

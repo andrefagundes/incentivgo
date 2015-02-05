@@ -560,6 +560,12 @@ $router->add('/empresa/ideia/guardar-aprovar', array(
     'action' => 'guardarAprovarIdeia'
 ));
 
+$router->add('/empresa/perfil', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_perfil',
+    'action' => 'perfil'
+));
+
 $router->add('/colaborador/ideia', array(
     'module' => 'colaborador',
     'controller' => 'ideia',

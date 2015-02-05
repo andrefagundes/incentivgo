@@ -1,59 +1,55 @@
-
-<section id="content">
-    <section class="main padder">
-        <div class="clearfix">
-            <h4><i class="fa fa-edit"></i>Regras</h4>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- .breadcrumb -->
-                <ul class="breadcrumb">
-                    <li><a href="#">Regras</a></li>
-                </ul>
-                <!-- / .breadcrumb -->
-            </div>
-            <div class="col-lg-10 col-lg-offset-1" id="mensagem-modal-regra"><?php echo $this->flashSession->output(); ?></div>
-            <div class="col-lg-10 col-lg-offset-1">
-                <!-- scrollable inbox widget -->
-                <section class="panel">
-                    <header class="panel-heading">
-                        <div class="pull-left">
-                            <button type="button" class="btn btn-sm btn-white squared" id="btnCriarRegra">Criar Regra</button>
-                        </div>
-                        <div class="col-sm-4 col-lg-offset-3">
-                            <div class="input-group">
-                                <input type="text" id="filterRegras" class="input-sm form-control" placeholder="Pesquisar por regras">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-white" id="btnPesquisarRegras">Pesquisar</button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="pull-right">
-                            <span class="label label-large bg-default" id="quantidade-regra" data-placement="left" data-toggle="tooltip" data-original-title="Regras Cadastradas">0</span> Regras 
-                        </div>
-                    </header>
-                    <div id="pesquisarRegras"></div>
-                </section>
-            </div>
-    </section>
-</section>
+<div class="clearfix">
+    <h4><i class="fa fa-edit"></i>Regras</h4>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <!-- .breadcrumb -->
+        <ul class="breadcrumb">
+            <li><a href="#">Regras</a></li>
+        </ul>
+        <!-- / .breadcrumb -->
+    </div>
+    <div class="col-lg-10 col-lg-offset-1">
+        <?php echo $this->flashSession->output(); ?>
+        <!-- scrollable inbox widget -->
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="pull-left">
+                    <button type="button" class="btn btn-sm btn-white squared" id="btnCriarRegra">Criar Regra</button>
+                </div>
+                <div class="col-sm-4 col-lg-offset-3">
+                    <div class="input-group">
+                        <input type="text" id="filterRegras" class="input-sm form-control" placeholder="Pesquisar por regras">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-white" id="btnPesquisarRegras">Pesquisar</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <span class="label label-large bg-default" id="quantidade-regra" data-placement="left" data-toggle="tooltip" data-original-title="Regras Cadastradas">0</span> Regras 
+                </div>
+            </header>
+            <div id="pesquisarRegras"></div>
+        </section>
+    </div>
+</div>
 <!-- Início Modal Criar Regra -->
 <div class="modal fade" id="modalCriarRegra" tabindex="-5" role="dialog" aria-labelledby="modalCriarRegraLabel" aria-hidden="true">
-   {{ form('empresa/regra/salvar-regra', 'class':'form-horizontal', 'id':'form-regra', 'method': 'post') }}
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
-                    <h4 class="modal-title" id="myModalLabel"></h4>
-                </div>
-                <div class="modal-body" id="modal-body-regra"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnSalvarRegra">Salvar regra</button>
-                </div>
+    {{ form('empresa/regra/salvar-regra', 'class':'form-horizontal', 'id':'form-regra', 'method': 'post') }}
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body" id="modal-body-regra"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnSalvarRegra">Salvar regra</button>
             </div>
         </div>
-   {{endForm()}}
+    </div>
+    {{endForm()}}
 </div>
 <!-- Fim Modal Criar Regra -->
 {{ javascript_include('js/empresa/regra/regra.js') }}

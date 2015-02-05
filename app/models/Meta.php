@@ -98,7 +98,7 @@ class Meta extends Model
            $meta->andwhere( "descricao LIKE('%{$objMeta->filter}%')");
         }
 
-        $meta->order('id');
+        $meta->orderBy('id');
 
         return $meta->execute();
     }
@@ -111,7 +111,7 @@ class Meta extends Model
                                 'criacaoDt'));
  
         $metas->andwhere( "usuarioId = {$objMeta->usuarioId}");
-        $metas->order('id');
+        $metas->orderBy('id');
 
         return $metas->execute();
     }

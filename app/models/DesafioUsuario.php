@@ -95,7 +95,7 @@ class DesafioUsuario extends Model
         $desafios->andwhere( "Incentiv\Models\DesafioUsuario.envioAprovacaoDt IS NULL");
         $desafios->andwhere( "d.ativo = 'Y'");
         
-        $desafios->order('d.desafio');
+        $desafios->orderBy('d.desafio');
 
         return $desafios->execute();
     }

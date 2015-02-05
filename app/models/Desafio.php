@@ -11,8 +11,10 @@ use Phalcon\Mvc\Model,
  */
 class Desafio extends Model
 {
-    const DELETED               = 'N';
-    const NOT_DELETED           = 'Y';
+    const DELETED                   = 'N';
+    const NOT_DELETED               = 'Y';
+    const DESAFIO_TIPO_INDIVIDUAL   = 1;
+    const DESAFIO_TIPO_EQUIPE       = 2;
     
     public static $_instance;
    
@@ -25,6 +27,16 @@ class Desafio extends Model
      * @var integer
      */
     public $empresaId;
+    
+    /**
+     * @var integer
+     */
+    public $tipo;
+    
+    /**
+     * @var integer
+     */
+    public $usuarioResponsavelId;
     
     /**
      * @var string
@@ -132,6 +144,11 @@ class Desafio extends Model
             'reusable' => true
         ));
         
+        $this->belongsTo('usuarioResponsavelId', 'Incentiv\Models\Usuario', 'id', array(
+            'alias' => 'usuarioResponsavel',
+            'reusable' => true
+        ));
+        
         $this->hasMany('id', 'Incentiv\Models\UsuarioPontuacao', 'desafioId', array(
             'alias' => 'pontuacao',
             'foreignKey' => array(
@@ -159,6 +176,7 @@ class Desafio extends Model
         $desafios = Desafio::query()->columns(
                          array( 'id',
                                 'desafio',
+                                'tipo',
                                 'pontuacao', 
                                 'inicioDt' => "DATE_FORMAT( inicioDt , '%d/%m/%Y' )",
                                 'fimDt' => "DATE_FORMAT( fimDt , '%d/%m/%Y' )",
@@ -174,7 +192,7 @@ class Desafio extends Model
             $desafios->andwhere("ativo = '{$objDesafio->ativo}'");
         }
         
-        $desafios->order('desafio');
+        $desafios->orderBy('desafio');
 
         return $desafios->execute();
     }
@@ -193,10 +211,16 @@ class Desafio extends Model
         }else{
            $desafio = $this;
         }
+        
+        if($dados['tipo_desafio'] == Desafio::DESAFIO_TIPO_INDIVIDUAL){
+            $dados['colaborador-responsavel'] = $dados['colaboradores-participantes'];
+        }
 
         $desafio->assign(array(
-            'empresaId'     => 1,
-            'desafio'       => $dados['desafio'],
+            'empresaId'             => 1,
+            'desafio'               => $dados['desafio'],
+            'tipo'                  => $dados['tipo_desafio'],
+            'usuarioResponsavelId'  => $dados['colaborador-responsavel'],
             'pontuacao'     => (int) $dados['pontuacao'],
             'premiacao'     => $dados['premiacao'],
             'inicioDt'      => $funcoes->formatarData($dados['data_inicio']),

@@ -3,25 +3,31 @@
     <h3>Colaboradores</h3>
     {% for usuario in usuarios %}
         {% if(usuario['id'] != usuario_id) %}
-        <div class="desc chat-contacts offline"  data-user-id="{{usuario['id']}}" id="user_{{usuario['id']}}">
-            <div class="thumb">
-                {{image( 'img/'~usuario['avatar'],'class':'img-circle','width':'35px','height':'35px','align':'') }}
+            <div class="desc chat-contacts offline"  data-user-id="{{usuario['id']}}" id="user_{{usuario['id']}}">
+                <div class="thumb"> 
+                    {% if( usuario['avatar'] is empty ) %}
+                        {% set avatar = 'bfdc40e956b123b24b4962cc9409485a.jpg' %} 
+                    {% else  %}
+                        {% set avatar = usuario['empresaId']~'/'~usuario['id']~'/40_'~usuario['avatar'] %} 
+                    {% endif %}
+                    {{image( 'img/users/'~avatar,'class':'img-circle','width':'40px','height':'40px','align':'') }}
+                </div>
+                <div class="details">
+                    <p>
+                        <a href="#" class="contact-name">{{usuario['nome']}}</a><br/>
+                    <muted>{{usuario['email']}}</muted>
+                    <muted>{{usuario['cargo']}}</muted>
+                    <span class="status"></span>
+                    </p>
+                </div>
             </div>
-            <div class="details">
-                <p>
-                    <a href="#" class="contact-name">{{usuario['nome']}}</a><br/>
-                <muted>{{usuario['email']}}</muted>
-                <span class="status"></span>
-                </p>
-            </div>
-        </div>
         {% endif %}
     {% endfor %}
 </div>
 <script type="text/javascript" src="http://localhost:8088/socket.io/socket.io.js"></script>
 {{ javascript_include('js/chat/chat.js') }}
 <script type="text/javascript">
-    $(document).ready(function(){
-        Chat.init(); 
+    $(document).ready(function() {
+        Chat.init();
     });
 </script>

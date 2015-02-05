@@ -6,8 +6,8 @@ var Desafio = {
             Desafio.pesquisarDesafio(1);
         });
         
-        if($("#mensagem-modal-desafio")){
-            $("#mensagem-modal-desafio").slideUp({start:3000,duration: 5000});
+        if($("div.alert")){
+            $("div.alert").slideUp({start:3000,duration: 5000});
         }
         
         //evento do botão de criar desafio

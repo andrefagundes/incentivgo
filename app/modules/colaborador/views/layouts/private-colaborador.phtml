@@ -8,13 +8,14 @@
             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="<> Menu"></div>
         </div>
         <!--logo start-->
-        <a href="index.html" class="logo">Incentiv Go</a>
+        {{ link_to('colaborador', '<span>Incentiv Go</span>','class':'logo') }}
         <!--logo end-->
         <div class="nav notify-row" id="top_menu">
             <!--  notification start -->
             <ul class="nav top-menu">
                 <!-- inbox dropdown start-->
                 <li id="header_inbox_bar" class="dropdown">
+                    
                     <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
                         <i class="fa fa-envelope-o"></i>
                         <span class="badge bg-black">5</span>
@@ -73,8 +74,12 @@
         <div id="sidebar"  class="nav-collapse ">
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
-
-                <p class="centered">{{ link_to('colaborador', image( 'img/users/'~empresaId~'/'~id~'/60_'~avatar,'class':'img-circle','width':'60px')) }}</p>
+                {% if( avatar is empty ) %}
+                    {% set avatar_user = 'bfdc40e956b123b24b4962cc9409485a.jpg' %} 
+                {% else  %}
+                    {% set avatar_user = empresaId~'/'~id~'/'~'60_'~avatar %} 
+                {% endif %}
+                <p class="centered">{{ link_to('colaborador/perfil', image( 'img/users/'~avatar_user,'class':'img-circle','width':'60px')) }}</p>
                 <h5 class="centered">{{usuario_logado}}</h5>
 
                 <li class="mt">

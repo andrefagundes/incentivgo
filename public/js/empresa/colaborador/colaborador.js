@@ -1,8 +1,8 @@
 var Colaborador = {
     init: function(){
         
-        if($("#mensagem-modal-colaborador")){
-            $("#mensagem-modal-colaborador").slideUp({duration: 3000});
+        if($("div.alert")){
+            $("div.alert").slideUp({start:3000,duration: 5000});
         }
         
         $("#btnPesquisarColaboradores").click(function(){

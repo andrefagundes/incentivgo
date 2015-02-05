@@ -19,6 +19,8 @@ class EmpresaDesafioController extends ControllerBase {
             $auth = $this->auth->getIdentity();          
             $this->view->usuario_logado    = $this->auth->getName();
             $this->view->avatar            = $auth['avatar'];
+            $this->view->id                = $auth['id'];
+            $this->view->empresaId         = $auth['empresaId'];
             $this->view->setTemplateBefore('private-empresa');
         }
     }
@@ -44,7 +46,7 @@ class EmpresaDesafioController extends ControllerBase {
         $numberPage = $this->request->getPost("page");
         $paginator = new Paginator(array(
             "data" => $resultRegrasDesafios,
-            "limit" => 2,
+            "limit" => 3,
             "page" => $numberPage
         ));
 
@@ -66,9 +68,11 @@ class EmpresaDesafioController extends ControllerBase {
         $this->view->setVar("id",       $resultDesafio->id);
         $this->view->setVar("desafio",  $resultDesafio->desafio);
         $this->view->setVar("pontuacao",$resultDesafio->pontuacao);
+        $this->view->setVar("tipo",     $resultDesafio->tipo);
         $this->view->setVar("inicioDt", (!empty($resultDesafio->inicioDt))?date('d/m/Y',strtotime($resultDesafio->inicioDt)):'');
         $this->view->setVar("fimDt",    (!empty($resultDesafio->fimDt))?date('d/m/Y',strtotime($resultDesafio->fimDt)):'');
         $this->view->setVar("premiacao",$resultDesafio->premiacao);
+        $this->view->setVar("colaborador_responsavel",$resultDesafio->usuarioResponsavelId);
         $this->view->setVar("colaboradores",  substr($idsParticipantes,0, strlen($idsParticipantes)-1));
 
     }

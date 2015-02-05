@@ -46,14 +46,15 @@ class SecurityPlugin extends Plugin {
                     'empresa' => array( 'index' ,'empresa'),
                     'empresa_colaborador' => array( 'index','colaborador','pesquisarColaborador','modalColaborador',
                     'salvarColaborador','ativarInativarColaborador'),
-                    'empresa_ideia' => array( 'index','ideia','pesquisarIdeia','salvarIdeia','ativarInativarIdeia'),
+                    'empresa_ideia' => array( 'index','ideia','pesquisarIdeia','guardarAprovarIdeia','modalIdeia'),
                     'empresa_desafio' => array('index','desafio','pesquisarDesafio','modalDesafio','pesquisarColaboradoresDesafio',
                             'salvarDesafio', 'ativarInativarDesafio'),
                     'empresa_noticia' => array('index','noticia','pesquisarNoticia','modalNoticia',
                             'salvarNoticia', 'ativarInativarNoticia'),
                     'empresa_pontuacao' => array('index','pontuacao', 'pesquisarPontuacao','modalPontuacao',
                             'salvarPontuacao','ativarInativarPontuacao'),
-                    'empresa_regra' => array('index','regra','pesquisarRegra','modalRegra','salvarRegra','ativarInativarRegra')
+                    'empresa_regra' => array('index','regra','pesquisarRegra','modalRegra','salvarRegra','ativarInativarRegra'),
+                    'empresa_perfil' => array('index','perfil')
                 ),
                 'colaboradorResources'  => array(
                     'colaborador' => array('index','modalAnotacoes','salvarAnotacao','excluirAnotacao'),

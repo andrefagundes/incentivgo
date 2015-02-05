@@ -106,7 +106,7 @@ class Noticia extends Model
         
         $noticias->andwhere("empresaId = '{$objNoticia->empresaId}'");
         
-        $noticias->order('noticia');
+        $noticias->orderBy('noticia');
 
         return $noticias->execute();
     }

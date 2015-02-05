@@ -17,6 +17,8 @@ class EmpresaColaboradorController extends ControllerBase {
         if (!$this->request->isAjax()) {
             $auth = $this->auth->getIdentity();          
             $this->view->usuario_logado    = $this->auth->getName();
+            $this->view->id                = $auth['id'];
+            $this->view->empresaId         = $auth['empresaId'];
             $this->view->avatar            = $auth['avatar'];
             $this->view->setTemplateBefore('private-empresa');
         }
@@ -46,7 +48,7 @@ class EmpresaColaboradorController extends ControllerBase {
         $numberPage = $this->request->getPost("page");
         $paginator  = new Paginator(array(
             "data"  => $resultUsers,
-            "limit" => 1,
+            "limit" => 3,
             "page"  => $numberPage
         ));
 

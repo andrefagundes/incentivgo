@@ -127,7 +127,7 @@ class RegraPontuacao extends Model
             $regras->andwhere("ativo = '{$objDesafio->ativo}'");
         }
         
-        $regras->order('regra');
+        $regras->orderBy('regra');
 
         return $regras->execute();
     }

@@ -3055,6 +3055,10 @@ div.online .status {
     background: none repeat scroll 0 0 #8bbf61;
 }
 
+div.offline .status {
+    background: none repeat scroll 0 0 #dbdbde;
+}
+
 .status {
     border-radius: 50%;
     display: inline-block;

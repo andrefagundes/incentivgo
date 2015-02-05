@@ -15,6 +15,8 @@ class EmpresaIdeiaController extends ControllerBase {
         if (!$this->request->isAjax()) {
             $auth = $this->auth->getIdentity();          
             $this->view->usuario_logado    = $this->auth->getName();
+            $this->view->id                = $auth['id'];
+            $this->view->empresaId         = $auth['empresaId'];
             $this->view->avatar            = $auth['avatar'];
             $this->view->count_ideias      = Ideia::build()->count("status = 'Y' AND empresaId = {$auth['empresaId']}");
             $this->view->setTemplateBefore('private-empresa');
@@ -46,7 +48,7 @@ class EmpresaIdeiaController extends ControllerBase {
         $numberPage = $this->request->getPost("page");
         $paginator  = new Paginator(array(
             "data"  => $resultIdeias,
-            "limit" => 1,
+            "limit" => 3,
             "page"  => $numberPage
         ));
 
@@ -75,7 +77,6 @@ class EmpresaIdeiaController extends ControllerBase {
         $dados->id        = $this->request->getPost("id");
         $dados->resposta  = $this->request->getPost("resposta");
 
-//die(var_dump($dados));
         $result = Ideia::build()->guardarAprovarIdeia($dados);
 
         if($result['status'] == 'ok')

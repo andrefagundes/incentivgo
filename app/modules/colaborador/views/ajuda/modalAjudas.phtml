@@ -19,6 +19,9 @@
                             {% if(ajuda['usuarioId'] != usuarioId) %}
                                 <button type="button" id="btnAjudar" class="btn btn-xs btn-theme03 btnAjudar">Ajudar</button>
                             {% else %}
+                                {% if( ajuda['count_respostas'] > 0 ) %}
+                                    <button type="button" id="btnVerAjudas" class="btn btn-xs btn-theme btnAjudar">Ver Resposta(s)</button>
+                                {% endif %}
                                 <button type="button" class="btn btn-xs btn-theme04 btnExcluirAjuda">Excluir</button>
                             {% endif %}   
                         </div>
