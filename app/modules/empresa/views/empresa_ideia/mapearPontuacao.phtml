@@ -1,0 +1,47 @@
+{{hidden_field("dados[id]",'value':id,'id':'hidden_id')}}
+<section class="main padder">
+    <div class="row">
+        <div class="col-sm-11">
+            <div class="form-group">
+                <label class="col-lg-4 control-label" data-placement="left" data-toggle="tooltip" data-original-title="Pontuação dada ao colaborador que enviar um ideia para empresa.">Ideia Enviada:</label>
+                <div class="col-lg-8">
+                    <div class="spinner input-group col-lg-3 form-control-static" id="MySpinner">
+                        {{ text_field("dados[pontuacao_ideia_enviada]", 'id':'ideia-enviada','value':pontuacao_ideia_enviada, 'class':'input-sm spinner-input form-control') }}
+                        <div class="btn-group btn-group-vertical input-group-btn">
+                            <button class="btn btn-white spinner-up" type="button">
+                                <i class="fa fa-chevron-up"></i>
+                            </button>
+                            <button class="btn btn-white spinner-down" type="button">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                     <label id="ideia-error" class="error" style="display: none;" for="ideia-enviada">Campo obrigatório</label>
+                </div>   
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 control-label" data-placement="left" data-toggle="tooltip" data-original-title="Pontuação dada ao colaborador para a ideia que for aprovada para ser implementada na empresa." >Ideia Aprovada:</label>
+                <div class="col-lg-8">
+                    <div class="spinner input-group col-lg-3 form-control-static" id="MySpinner">
+                        {{ text_field("dados[pontuacao_ideia_aprovada]", 'id':'ideia-aprovada','value':pontuacao_ideia_aprovada, 'class':'input-sm spinner-input form-control') }}
+                        <div class="btn-group btn-group-vertical input-group-btn">
+                            <button class="btn btn-white spinner-up" type="button">
+                                <i class="fa fa-chevron-up"></i>
+                            </button>
+                            <button class="btn btn-white spinner-down" type="button">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                     <label id="ideia-error" class="error" style="display: none;" for="ideia-aprovada">Campo obrigatório</label>
+                </div>   
+            </div>
+        </div>
+    </div>
+</section>
+{{ javascript_include('js/empresa/ideia/mapear-pontuacao.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        ModalMapearPontuacao.init();
+    });
+</script>

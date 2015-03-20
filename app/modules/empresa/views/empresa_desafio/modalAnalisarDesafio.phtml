@@ -1,0 +1,71 @@
+{{hidden_field("dados[id]",'value':id,'id':'hidden_id')}}
+{{hidden_field("resposta",'value':'')}}
+<section class="main padder">
+    <div class="row">
+        <div class="col-sm-11">
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Tipo de Desafio</label>
+                <div class="col-lg-9">
+                  <p class="form-control-static">{{tipo}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Colaboradores participantes</label>
+                <div class="col-lg-9">
+                    <p class="form-control-static">{{colaboradores}}</p>
+                </div>
+            </div>
+            <div class="form-group" id="div_colab_resp">
+                <label class="col-lg-3 control-label">Colaborador responsável</label>
+                <div class="col-lg-9">
+                    <p class="form-control-static">{{colaborador_responsavel}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Desafio</label>
+                <div class="col-lg-9">
+                    <p class="form-control-static">{{desafio}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Pontuação</label>
+                <div class="col-lg-9">
+                    <p class="form-control-static">{{pontuacao}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Data início</label>
+                <div class="col-lg-4">
+                    <p class="form-control-static">{{inicioDt}}</p>
+                </div>   
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Data fim</label>
+                <div class="col-lg-4">
+                    <p class="form-control-static">{{fimDt}}</p>
+                </div>
+            </div>
+            {% if(premiacao) %}
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Premiação</label>
+                    <div class="col-lg-9">
+                        <p class="form-control-static">{{premiacao}}</p>
+                    </div>
+                </div>
+            {%endif%}
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Observação da Análise</label>
+                <div class="col-lg-9">
+                    {{ text_area("dados[observacao-analise]", 'id':'observacao-analise','value':'', 'placeholder': 'Informe a observação','rows':'2', 'class':'form-control') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Fim Modal Criar Regra -->
+{{ javascript_include('js/empresa/desafio/modal-analisar-desafio.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        ModalAnalisarDesafio.init();
+    });
+</script>

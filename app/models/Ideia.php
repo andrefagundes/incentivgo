@@ -153,7 +153,7 @@ class Ideia extends Model
 
             if (!$ideia->save()) {
 
-                foreach ($this->getMessages() as $mensagem) {
+                foreach ($ideia->getMessages() as $mensagem) {
                   $message =  $mensagem;
                   break;
                 }

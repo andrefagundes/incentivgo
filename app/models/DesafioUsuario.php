@@ -2,6 +2,8 @@
 namespace Incentiv\Models;
 
 use Phalcon\Mvc\Model;
+use Incentiv\Models\Desafio,
+ Incentiv\Models\UsuarioPontuacaoCredito;
 
 /**
  * DesafioUsuario
@@ -10,6 +12,9 @@ use Phalcon\Mvc\Model;
 class DesafioUsuario extends Model
 {
      public static $_instance;
+     
+     const DESAFIO_APROVADO  = 'Y';
+     const DESAFIO_REPROVADO = 'N';
 
     /**
      *
@@ -134,5 +139,46 @@ class DesafioUsuario extends Model
         }else{
             return array('status' => 'ok', 'message'=>'Desafio enviado para aprovação com sucesso!!!');  
         }
+    }
+    
+    public function aprovarReprovarDesafio(\stdClass $dados){
+
+        $usuariosDesafio = $this->find("desafioId = {$dados->id} AND usuarioResposta = 'Y'")->toArray();
+                $desafio = Desafio::build()->findFirst("id = {$dados->id}");
+ 
+        foreach ($usuariosDesafio as $usuarioDesafio){
+            $resultDesafio = $this->findFirst("id = {$usuarioDesafio['id']}");
+            $resultDesafio->assign(array(
+                'desafioCumprido'         => $dados->resposta
+            ));
+            
+            if (!$resultDesafio->save()) {
+                foreach ($resultDesafio->getMessages() as $mensagem) {
+                  $message =  $mensagem;
+
+                  return array('status' => 'error', 'message' => $message);
+                  break;
+                }
+            }else{
+                if($dados->resposta == DesafioUsuario::DESAFIO_APROVADO){
+                    $objCredito = new \stdClass();
+                    $objCredito->usuarioId = $usuarioDesafio['usuarioId'];
+                    $objCredito->empresaId = $dados->empresaId;
+                    $objCredito->pontuacao = $desafio->pontuacao;
+                    $objCredito->pontuacaoTipo = UsuarioPontuacaoCredito::PONTUACAO_DESAFIO_APROVADO;
+                    
+                    UsuarioPontuacaoCredito::creditarUsuario($objCredito);
+                }
+            }
+        }
+        
+        $desafio->observacaoAnalise = $dados->observacao;
+        $desafio->save();
+        
+        if($dados->resposta == 'N'){
+            return array('status' => 'ok', 'message' => 'Desafio reprovado com sucesso!!!');
+        }else{
+            return array('status' => 'ok', 'message' => 'Desafio aprovado com sucesso!!!');
+        }  
     }
 }

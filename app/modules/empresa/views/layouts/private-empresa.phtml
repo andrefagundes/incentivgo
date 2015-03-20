@@ -26,28 +26,19 @@
     <ul class="nav navbar-nav hidden-xs">
         <li>
             <div class="m-t m-b-small" id="panel-notifications">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-comment-o fa-fw fa-lg text-default"></i><b class="badge badge-notes bg-danger count-n">2</b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope-o fa-fw fa-lg text-default"></i><b class="badge badge-notes bg-danger count-n">0</b></a>
                 <section class="dropdown-menu m-l-small m-t-mini">
                     <section class="panel panel-large arrow arrow-top">
-                        <header class="panel-heading bg-white"><span class="h5"><strong>Você tem <span class="count-n">2</span> notificações</strong></span></header>
+                        <header class="panel-heading bg-white"><span class="h5"><strong>Você tem <span class="count-n">0</span> mensagens não lidas</strong></span></header>
                         <div class="list-group">
-                            <a href="#" class="media list-group-item">
-                                <span class="pull-left avatar thumb-small">{{image( 'img/avatar.jpg', 'class':'img-circle', 'alt':'John said') }}</span>
+                            <a href="#" class="media list-group-item" style="display: none">
                                 <span class="media-body block m-b-none">
-                                    Moved to Bootstrap 3.0<br>
-                                    <small class="text-muted">23 June 13</small>
-                                </span>
-                            </a>
-                            <a href="#" class="media list-group-item">
-                                <span class="media-body block m-b-none">
-                                    Adicionado um evento<br>
-                                    <small class="text-muted">Início: 19 Abril 2014</small>
                                 </span>
                             </a>
                         </div>
                         <footer class="panel-footer text-small">
                             <a href="#" class="pull-right"><i class="fa fa-cog"></i></a>
-                            <a href="#">Mostrar todas as notificações</a>
+                            {{ link_to('empresa/mensagens', 'Mostrar todas as mensagens') }}
                         </footer>
                     </section>
                 </section>

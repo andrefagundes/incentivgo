@@ -5,13 +5,12 @@
             <div class="col-xs-6">              
                 <section class="panel">
                     <header class="panel-heading bg-white">
-                        <div class="text-center h5">Desafios</div>
+                        <div class="text-center h5">Desafios Criados</div>
                     </header>
                     <div class="panel-body pull-in text-center">
                         <div class="inline">
                             <div class="easypiechart">
-                                <span class="h2" style="margin-left:10px;margin-top:10px;display:inline-block">540</span>
-                                <div class="easypie-text text-muted">ativos</div>
+                                <span class="h1" style="display:inline-block">{{count_desafios}}</span>
                             </div>
                         </div>
                     </div>
@@ -25,8 +24,7 @@
                     <div class="panel-body pull-in text-center">
                         <div class="inline">
                             <div class="easypiechart center">
-                                <span class="h2" style="margin-left:10px;margin-top:10px;display:inline-block">75</span>
-                                <div class="easypie-text text-muted">ativos</div>
+                                <span class="h1" style="display:inline-block">{{count_usuarios}}</span>
                             </div>
                         </div>
                     </div>
@@ -36,7 +34,7 @@
         </div>
         <section class="panel">
             <div class="panel-body text-muted l-h-2x text-center">
-                <span class="badge">5.489</span>
+                <span class="badge">{{count_pontuacao}}</span>
                 <span class="m-r-small">Pontuação total gerada</span>
                 <span class="badge bg-danger">5</span>
                 <span class="m-r-small">Novas mensagens</span>
@@ -44,55 +42,68 @@
         </section>
     </div>
     <div class="col-lg-6">
-        <!-- scrollable inbox widget -->
         <section class="panel">
             <header class="panel-heading">
-                <ul class="nav nav-pills pull-right">
-                    <li>
-                        <a href="#" class="panel-toggle text-muted"><i class="fa fa-caret-down fa-lg text-active"></i><i class="fa fa-caret-up fa-lg text"></i></a>
-                    </li>
-                </ul>
-                <span class="label label-large bg-default">15</span> Desafios Cumpridos
+                <span class="label label-large bg-default">{{count_desafios_cumpridos}}</span> Desafios Cumpridos para Aprovação
             </header>
-            <section style="height:234px" class="panel-body scrollbar scroll-y m-b">
-                <article class="media">
-                    <span class="pull-left thumb-small"><img src="img/avatar.jpg" alt="John said" class="img-circle"></span>
-                    <div class="media-body">
-                        <div class="pull-right media-mini text-center text-muted">
-                            <strong class="h4">12:18</strong><br>
-                            <small class="label bg-light">pm</small>
-                        </div>
-                        <a href="#" class="h4">Livraria cultura</a>
-                        <small class="block"><a href="#" class="">Descontos</a> <span class="label label-success">Ativa</span></small>
-                        <small class="block">Promoções exclusivas para o Incentiv, a partir de 50 incentivs com descontos de 10% na compra de livros.</small>
-                    </div>
-                </article>
-                <div class="line pull-in"></div>
-                <article class="media">
-                    <span class="pull-left thumb-small"><i class="fa fa-user fa fa-2x text-muted"></i></span>                
-                    <div class="media-body">
-                        <div class="pull-right media-mini text-center text-muted">
-                            <strong class="h4">17</strong><br>
-                            <small class="label bg-light">feb</small>
-                        </div>
-                        <a href="#" class="h4">Saraiva</a>
-                        <small class="block"><a href="#" class="">Descontos</a> <span class="label label-success">Ativa</span></small>
-                        <small class="block">A Saraiva em parceria com Incentiv está com descontos de até 50%, a partir de 80 incentivs</small>
-                    </div>
-                </article>
-                <div class="line pull-in"></div>
-                <article class="media">
-                    <div class="media-body">
-                        <div class="pull-right media-mini text-center text-muted">
-                            <strong class="h4">09</strong><br>
-                            <small class="label bg-light">jan</small>
-                        </div>
-                        <a href="#" class="h4 text-success">Curso de Inglês Wizard‎</a>
-                        <small class="block">Obtenha 30% de desconto na matrícula, com apenas 50 incentivs</small>
-                    </div>
-                </article>
-            </section>
+            <?php echo $this->flashSession->output(); ?>
+            <table class="table table-responsive table-striped table-condensed">
+                <tbody>
+                    {% for desafio in desafios_cumpridos %}
+                        <tr class="row">
+                            <td class="td-responsive">
+                                {% if(desafio['tipo'] is 1) %}
+                                {% set tipo = 'info' %} 
+                                {% set tipo_label = 'Individual' %}
+                                {% elseif(desafio['tipo'] is 2)  %}
+                                {% set tipo = 'success' %} 
+                                {% set tipo_label = 'Por Equipe' %}
+                                {% endif %}
+                                <span class="label label-{{tipo}}" data-placement="left" data-toggle="tooltip" title="Tipo de Desafio"> {{tipo_label}}</span>
+                                <div class="btn-group" data-placement="right" data-toggle="tooltip" data-original-title="Ações">
+                                    <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
+                                    <ul class="dropdown-menu pull-left">
+                                        <li class="text-left"><a href="#" class="btnAnalisar" id="{{desafio['id']}}"><i class="icon-angle-down"></i> Analisar</a></li>
+                                    </ul>
+                                </div>
+                                <h6>{{desafio['desafio']}}</h6>
+                            </td>
+                        </tr>
+                    {% elsefor %}
+                        <tr class="row">
+                            <td class="table-responsive">
+                                <h6 class="text-center text-info">Nenhum desafio para aprovação neste momento.</h6>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </section>
-        <!-- / scrollable inbox widget-->
     </div>
 </div>
+<!-- Início Modal Criar Desafio -->
+<div class="modal fade" id="modalAnalisarDesafio" tabindex="-5" role="dialog" aria-labelledby="modalAnalisarDesafioLabel" aria-hidden="true">
+    {{ form('empresa/desafio/analisar-desafio', 'class':'form-horizontal', 'id':'form-analisar-desafio', 'method': 'post') }}
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                <h4 class="modal-title" id="myModalLabelDesafios"></h4>
+            </div>
+            <div class="modal-body" id="modal-body-analisar-desafio"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnReprovarDesafio">Reprovar</button>
+                <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnAprovarDesafio">Aprovar</button>
+            </div>
+        </div>
+    </div>
+    {{endForm()}}
+</div>
+<!-- Fim Modal Criar Desafio -->
+{{ javascript_include('js/empresa/desafio/index.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        Index.init();
+    });
+</script>

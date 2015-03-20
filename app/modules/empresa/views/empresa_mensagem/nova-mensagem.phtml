@@ -1,0 +1,38 @@
+<section class="main media">
+    <div class="row media">
+        <div class="col-sm-11">
+            {{ form('empresa/mensagem/salvar-mensagem', 'class':'form-horizontal media', 'id':'form-nova-mensagem', 'method': 'post') }}
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Enviar para:</label>
+                <div class="col-lg-9 select2-allowclear">
+                    {{ text_field("dados[destinatarios-mensagem]", 'id':'destinatarios-mensagem','value':'','class': 'multi', 'style':'width:90%;') }}
+                </div>
+            </div>
+            <div class="form-group" id="div_colab_resp">
+                <label class="col-lg-3 control-label">Título:</label>
+                <div class="col-lg-9 select2-allowclear">
+                    {{ text_field("dados[titulo]", 'id':'titulo','value':'','class': 'bg-focus form-control', 'style':'width:60%') }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Mensagem:</label>
+                <div class="col-lg-9">
+                    {{ text_area("dados[mensagem]", 'id':'mensagem', 'placeholder': 'Descreva a mensagem','value':'','rows':'6', 'class':'bg-focus form-control') }}
+                </div>
+            </div>
+            <div class="text-center clearfix bg-white">
+                <input type="button" class="btn btn-theme04 btn-default btn-sm" id="btnCancelarNovaMensagem" value="Cancelar">
+                <input type="submit" class="btn btn-theme04 btn-facebook btn-sm" value="Enviar Mensagem">
+            </div>
+            {{endForm()}}
+        </div>
+    </div>
+</section>
+
+<!-- Fim Modal Criar Regra -->
+{{ javascript_include('js/empresa/mensagem/nova-mensagem.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        NovaMensagem.init();
+    });
+</script>

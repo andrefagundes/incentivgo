@@ -90,6 +90,41 @@ $router->add('/empresa', array(
     'action' => 'index'
 ));
 
+$router->add('/empresa/mensagens', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_mensagem',
+    'action' => 'mensagem'
+));
+
+$router->add('/empresa/mensagem/pesquisar-mensagem', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_mensagem',
+    'action' => 'pesquisarMensagem'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+$router->add('/empresa/mensagem/nova-mensagem', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_mensagem',
+    'action' => 'novaMensagem'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+
+$router->add('/empresa/mensagem/salvar-mensagem', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_mensagem',
+    'action' => 'salvarMensagem'
+));
+
 /******Rotas módulo empresa/desafio**********/
 
 $router->add('/empresa/desafio', array(
@@ -142,11 +177,30 @@ $router->add('/empresa/desafio/salvar-desafio', array(
     'action' => 'salvarDesafio'
 ));
 
+$router->add('/empresa/desafio/analisar-desafio', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_desafio',
+    'action' => 'analisarDesafio'
+));
+
 $router->add('/empresa/desafio/ativar-inativar-desafio/{status}/{id}', array(
     'module' => 'empresa',
     'controller' => 'empresa_desafio',
     'action' => 'ativarInativarDesafio'
 ));
+
+$router->add('/empresa/desafio/modal-analisar-desafio/{code}', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_desafio',
+    'action' => 'modalAnalisarDesafio'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
 
 /******Rotas módulo empresa/noticia**********/
 
@@ -558,6 +612,12 @@ $router->add('/empresa/ideia/guardar-aprovar', array(
     'module' => 'empresa',
     'controller' => 'empresa_ideia',
     'action' => 'guardarAprovarIdeia'
+));
+
+$router->add('/empresa/ideia/modal-mapear-pontuacao', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_ideia',
+    'action' => 'mapearPontuacao'
 ));
 
 $router->add('/empresa/perfil', array(

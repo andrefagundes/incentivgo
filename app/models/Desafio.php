@@ -97,7 +97,7 @@ class Desafio extends Model
         $this->criacaoDt = time();
 
         // Seta status do desafio para ativo
-        $this->ativo = 'Y';
+        $this->ativo = Desafio::NOT_DELETED;
     }
     
     /**
@@ -174,27 +174,51 @@ class Desafio extends Model
     public function fetchAllDesafios(\stdClass $objDesafio) {
         
         $desafios = Desafio::query()->columns(
-                         array( 'id',
-                                'desafio',
-                                'tipo',
+                         array( 'Incentiv\Models\Desafio.id',
+                                'Incentiv\Models\Desafio.desafio',
+                                'Incentiv\Models\Desafio.tipo',
                                 'pontuacao', 
-                                'inicioDt' => "DATE_FORMAT( inicioDt , '%d/%m/%Y' )",
-                                'fimDt' => "DATE_FORMAT( fimDt , '%d/%m/%Y' )",
-                                'premiacao',
-                                'status' => 'ativo'));
+                                'inicioDt' => "DATE_FORMAT( Incentiv\Models\Desafio.inicioDt , '%d/%m/%Y' )",
+                                'fimDt' => "DATE_FORMAT( Incentiv\Models\Desafio.fimDt , '%d/%m/%Y' )",
+                                'Incentiv\Models\Desafio.premiacao',
+                                'status' => 'Incentiv\Models\Desafio.ativo'));
+        
+        $desafios->innerjoin('Incentiv\Models\DesafioUsuario', 'Incentiv\Models\Desafio.id = DesafioUsuario.desafioId AND Incentiv\Models\Desafio.usuarioResponsavelId = DesafioUsuario.usuarioId', 'DesafioUsuario');
         
         if($objDesafio->filter)
         {
-           $desafios->andwhere( "desafio LIKE('%{$objDesafio->filter}%')");
+           $desafios->andwhere( "Incentiv\Models\Desafio.desafio LIKE('%{$objDesafio->filter}%')");
         }
         if($objDesafio->ativo && $objDesafio->ativo != 'T' )
         {
-            $desafios->andwhere("ativo = '{$objDesafio->ativo}'");
+            $desafios->andwhere("Incentiv\Models\Desafio.ativo = '{$objDesafio->ativo}'");
         }
         
-        $desafios->orderBy('desafio');
+        $desafios->andwhere("DesafioUsuario.envioAprovacaoDt IS NULL");
+        
+        $desafios->orderBy('Incentiv\Models\Desafio.desafio');
 
         return $desafios->execute();
+    }
+    
+    public function buscarDesafiosCumpridos(\stdClass $objDadosDesafioCumprido){
+        $desafiosCumpridos = $this::query()->columns(
+                         array( 
+                                'Incentiv\Models\Desafio.id',
+                                'Incentiv\Models\Desafio.tipo',
+                                'Incentiv\Models\Desafio.desafio',
+                                'Incentiv\Models\Desafio.pontuacao', 
+                                'inicioDt' => "DATE_FORMAT( Incentiv\Models\Desafio.inicioDt , '%d/%m/%Y' )",
+                                'fimDt' => "DATE_FORMAT( Incentiv\Models\Desafio.fimDt , '%d/%m/%Y' )",
+                                'Incentiv\Models\Desafio.premiacao'));
+        
+        $desafiosCumpridos->innerjoin('Incentiv\Models\DesafioUsuario', 'Incentiv\Models\Desafio.id = DesafioUsuario.desafioId AND Incentiv\Models\Desafio.usuarioResponsavelId = DesafioUsuario.usuarioId', 'DesafioUsuario');
+        $desafiosCumpridos->andwhere( "Incentiv\Models\Desafio.empresaId = {$objDadosDesafioCumprido->empresaId}");
+        $desafiosCumpridos->andwhere( "Incentiv\Models\Desafio.ativo = 'Y'");
+        $desafiosCumpridos->andwhere( "DesafioUsuario.envioAprovacaoDt IS NOT NULL");
+        $desafiosCumpridos->andwhere( "DesafioUsuario.desafioCumprido IS NULL");
+
+        return $desafiosCumpridos->execute()->toArray();
     }
     
     public function salvarDesafio($dados){

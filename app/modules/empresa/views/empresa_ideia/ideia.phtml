@@ -14,6 +14,9 @@
         <!-- scrollable inbox widget -->
         <section class="panel">
             <header class="panel-heading">
+                <div class="pull-left">
+                    <button type="button" class="btn btn-sm btn-white squared" id="btnMapearPontuacao">Mapear Pontuação</button>
+                </div>
                 <div class="col-sm-4 col-lg-offset-3">
                     <div class="input-group">
                         <input type="text" id="filterIdeias" class="input-sm form-control" placeholder="Pesquisar por ideias">
@@ -50,6 +53,25 @@
     {{endForm()}}
 </div>
 <!-- Fim Modal Cadastro ideia -->
+<!-- Início Modal Criar Desafio -->
+<div class="modal fade" id="modalMapearPontuacao" tabindex="-5" role="dialog" aria-labelledby="modalMapearPontuacao" aria-hidden="true">
+    {{ form('empresa/ideia/modal-mapear-pontuacao', 'class':'form-horizontal', 'id':'form-mapear-pontuacao', 'method': 'post') }}
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                    <h4 class="modal-title" id="myModalLabelMapear"></h4>
+                </div>
+                <div class="modal-body" id="modal-body-mapear"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnSalvarDesafio">Salvar</button>
+                </div>
+            </div>
+        </div>
+    {{endForm()}}
+</div>
+<!-- Fim Modal Criar Desafio -->
 {{ javascript_include('js/empresa/ideia/ideia.js') }}
 <script type="text/javascript">  
     $(document).ready(function(){

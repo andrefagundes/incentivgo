@@ -3,7 +3,8 @@
 namespace Empresa\Controllers;
 
 use Phalcon\Paginator\Adapter\Model as Paginator;
-use Incentiv\Models\Ideia;
+use Incentiv\Models\Ideia,
+    Incentiv\Models\IdeiaPontuacao;
 
 /**
  * Empresa\Controllers\Empresa_IdeiaController
@@ -11,14 +12,16 @@ use Incentiv\Models\Ideia;
  */
 class EmpresaIdeiaController extends ControllerBase {
 
+    private $_auth;
+
     public function initialize() {
-        if (!$this->request->isAjax()) {
-            $auth = $this->auth->getIdentity();          
+        $this->_auth = $this->auth->getIdentity(); 
+        if (!$this->request->isAjax()) { 
             $this->view->usuario_logado    = $this->auth->getName();
-            $this->view->id                = $auth['id'];
-            $this->view->empresaId         = $auth['empresaId'];
-            $this->view->avatar            = $auth['avatar'];
-            $this->view->count_ideias      = Ideia::build()->count("status = 'Y' AND empresaId = {$auth['empresaId']}");
+            $this->view->id                = $this->_auth['id'];
+            $this->view->empresaId         = $this->_auth['empresaId'];
+            $this->view->avatar            = $this->_auth['avatar'];
+            $this->view->count_ideias      = Ideia::build()->count("status = 'Y' AND empresaId = {$this->_auth['empresaId']}");
             $this->view->setTemplateBefore('private-empresa');
         }
     }
@@ -35,12 +38,10 @@ class EmpresaIdeiaController extends ControllerBase {
     public function pesquisarIdeiaAction() {
 
         $this->disableLayoutBefore();
-        
-        $auth = $this->auth->getIdentity(); 
 
         $objIdeia = new \stdClass();
         
-        $objIdeia->empresaId    = $auth['empresaId'];
+        $objIdeia->empresaId    = $this->_auth['empresaId'];
         $objIdeia->ativo        = $this->request->getPost("ativo");
         $objIdeia->filter       = $this->request->getPost("filter");
 
@@ -87,6 +88,34 @@ class EmpresaIdeiaController extends ControllerBase {
         }
 
         $this->response->redirect('empresa/ideia');
+    }
+    
+    public function mapearPontuacaoAction(){
+        $this->disableLayoutBefore();
+        
+        if ($this->request->isPost()) {
+            
+            $objMapeamento = new \stdClass();
+            $objMapeamento->dados               = $this->request->getPost('dados');
+            $objMapeamento->dados['empresaId']    = $this->_auth['empresaId'];
+
+            $result = IdeiaPontuacao::build()->salvarMapeamentoIdeia($objMapeamento);
+            
+            if ($result['status'] == 'ok') {
+                $this->flashSession->success($result['message']);
+            } else {
+                $this->flashSession->error($result['message']);
+            }
+            
+            $this->response->redirect('empresa/ideia');
+        }
+
+        $resultMapeamento  = IdeiaPontuacao::build()->findFirst("empresaId = {$this->_auth['empresaId']} AND ativo = '".IdeiaPontuacao::NOT_DELETED."'");
+
+        $this->view->setVar("id",$resultMapeamento->id);
+        $this->view->setVar("pontuacao_ideia_enviada",$resultMapeamento->pontuacaoIdeiaEnviada);
+        $this->view->setVar("pontuacao_ideia_aprovada",$resultMapeamento->pontuacaoIdeiaAprovada);
+
     }
 
 }

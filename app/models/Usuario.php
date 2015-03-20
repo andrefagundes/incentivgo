@@ -215,6 +215,27 @@ class Usuario extends Model
             )
         ));
         
+        $this->hasMany('id', 'Incentiv\Models\UsuarioPontuacaoCredito', 'usuarioId', array(
+            'alias' => 'creditoUsuario',
+            'foreignKey' => array(
+                'message' => 'O colaborador não pode ser excluído porque ele possui crédito cadastrado.'
+            )
+        ));
+        
+        $this->hasMany('id', 'Incentiv\Models\Mensagem', 'remetenteId', array(
+            'alias' => 'usuarioRemetente',
+            'foreignKey' => array(
+                'message' => 'O colaborador não pode ser excluído porque ele possui mensagem como remetente.'
+            )
+        ));
+        
+        $this->hasMany('id', 'Incentiv\Models\Mensagem', 'destinatarioId', array(
+            'alias' => 'usuarioDestinatario',
+            'foreignKey' => array(
+                'message' => 'O colaborador não pode ser excluído porque ele possui mensagem como destinatário.'
+            )
+        ));
+        
         $this->addBehavior(new SoftDelete(
             array(
                 'field' => 'ativo',

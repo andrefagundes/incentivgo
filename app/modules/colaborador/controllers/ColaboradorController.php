@@ -4,7 +4,6 @@ namespace Colaborador\Controllers;
 
 use Phalcon\Http\Response;
 use Incentiv\Models\DesafioUsuario,
-    Incentiv\Models\Usuario,
     Incentiv\Models\Ajuda,
     Incentiv\Models\Anotacao,
     Incentiv\Models\Noticia;

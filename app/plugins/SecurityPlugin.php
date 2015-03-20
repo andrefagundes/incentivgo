@@ -46,15 +46,16 @@ class SecurityPlugin extends Plugin {
                     'empresa' => array( 'index' ,'empresa'),
                     'empresa_colaborador' => array( 'index','colaborador','pesquisarColaborador','modalColaborador',
                     'salvarColaborador','ativarInativarColaborador'),
-                    'empresa_ideia' => array( 'index','ideia','pesquisarIdeia','guardarAprovarIdeia','modalIdeia'),
+                    'empresa_ideia' => array( 'index','ideia','pesquisarIdeia','guardarAprovarIdeia','modalIdeia','mapearPontuacao'),
                     'empresa_desafio' => array('index','desafio','pesquisarDesafio','modalDesafio','pesquisarColaboradoresDesafio',
-                            'salvarDesafio', 'ativarInativarDesafio'),
+                            'salvarDesafio', 'ativarInativarDesafio','modalAnalisarDesafio','analisarDesafio'),
                     'empresa_noticia' => array('index','noticia','pesquisarNoticia','modalNoticia',
                             'salvarNoticia', 'ativarInativarNoticia'),
                     'empresa_pontuacao' => array('index','pontuacao', 'pesquisarPontuacao','modalPontuacao',
                             'salvarPontuacao','ativarInativarPontuacao'),
                     'empresa_regra' => array('index','regra','pesquisarRegra','modalRegra','salvarRegra','ativarInativarRegra'),
-                    'empresa_perfil' => array('index','perfil')
+                    'empresa_perfil' => array('index','perfil'),
+                    'empresa_mensagem' => array('index','mensagem','pesquisarMensagem','novaMensagem','salvarMensagem')
                 ),
                 'colaboradorResources'  => array(
                     'colaborador' => array('index','modalAnotacoes','salvarAnotacao','excluirAnotacao'),

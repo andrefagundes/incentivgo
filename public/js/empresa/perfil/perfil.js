@@ -50,7 +50,7 @@ var Perfil = {
             }
         });
         
-        jQuery.validator.addMethod("dateBR", function(value, element) {
+        jQuery.validator.addMethod("dateBR", function(value) {
            if(value.length == "") return true;
            if(value.length!=10) return false;
            var data        = value;

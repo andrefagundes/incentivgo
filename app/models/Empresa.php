@@ -68,5 +68,19 @@ class Empresa extends Model
                'message'    => 'A  empresa não pode ser excluída porque ela tem notícias no sistema'
             )
         ));
+        
+        $this->hasMany('id', 'Incentiv\Models\PontuacaoIdeia', 'empresaId', array(
+            'alias'         => 'empresaPontuacaoIdeiaId',
+            'foreignKey'    => array(
+               'message'    => 'A  empresa não pode ser excluída porque ela tem pontuações de ideias no sistema'
+            )
+        ));
+        
+        $this->hasMany('id', 'Incentiv\Models\UsuarioPontuacaoCredito', 'empresaId', array(
+            'alias' => 'creditoUsuario',
+            'foreignKey' => array(
+                'message' => 'A  empresa não pode ser excluída porque ela possui usuario com credito cadastrado.'
+            )
+        ));
     }
 }

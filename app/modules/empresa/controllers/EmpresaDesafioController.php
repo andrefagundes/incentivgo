@@ -6,6 +6,7 @@ use Phalcon\Paginator\Adapter\Model as Paginator,
     Phalcon\Http\Response;
 use Incentiv\Models\Usuario,
     Incentiv\Models\Desafio,
+    Incentiv\Models\DesafioUsuario,
     Incentiv\Models\Perfil;
 
 /**
@@ -77,6 +78,34 @@ class EmpresaDesafioController extends ControllerBase {
 
     }
     
+    public function modalAnalisarDesafioAction(){
+        
+        $this->disableLayoutBefore();
+
+        $resultDesafio = Desafio::build()->findFirst($this->dispatcher->getParam('code'));
+        
+        $nomeParticipantes = $colaborador_responsavel = "";
+        foreach ($resultDesafio->desafioUsuario as $participantes){
+
+            $nomeParticipantes .= $participantes->usuario->nome.', ';
+            
+            if($resultDesafio->usuarioResponsavelId == $participantes->usuario->id){
+                $colaborador_responsavel = $participantes->usuario->nome;
+            }
+        }
+        
+        $this->view->setVar("id",       $resultDesafio->id);
+        $this->view->setVar("desafio",  $resultDesafio->desafio);
+        $this->view->setVar("pontuacao",$resultDesafio->pontuacao);
+        $this->view->setVar("tipo",     ($resultDesafio->desafio == Desafio::DESAFIO_TIPO_INDIVIDUAL)?'Individual':'Por Equipe');
+        $this->view->setVar("inicioDt", (!empty($resultDesafio->inicioDt))?date('d/m/Y',strtotime($resultDesafio->inicioDt)):'');
+        $this->view->setVar("fimDt",    (!empty($resultDesafio->fimDt))?date('d/m/Y',strtotime($resultDesafio->fimDt)):'');
+        $this->view->setVar("premiacao",$resultDesafio->premiacao);
+        $this->view->setVar("colaborador_responsavel",$colaborador_responsavel);
+        $this->view->setVar("colaboradores",  substr($nomeParticipantes,0, strlen($nomeParticipantes)-2));
+
+    }
+    
     public function pesquisarColaboradoresDesafioAction() {
 
         $this->disableLayoutBefore();
@@ -132,6 +161,31 @@ class EmpresaDesafioController extends ControllerBase {
         }
 
         $this->response->redirect('empresa/desafio');
+    }
+    
+    public function analisarDesafioAction(){
+        $this->view->disable();
+        
+        $auth = $this->auth->getIdentity(); 
+        
+        $dadosAnalise = $this->request->getPost('dados');
+
+        $dados = new \stdClass();
+        $dados->id          = $dadosAnalise['id'];
+        $dados->empresaId   = $auth['empresaId'];
+        $dados->observacao  = $dadosAnalise['observacao-analise'];
+        $dados->resposta    = $this->request->getPost("resposta");
+
+        $result = DesafioUsuario::build()->aprovarReprovarDesafio($dados);
+
+        if($result['status'] == 'ok')
+        {
+            $this->flashSession->success($result['message']);
+        }else{
+            $this->flashSession->error($result['message']);
+        }
+
+        $this->response->redirect('empresa');
     }
 
 }

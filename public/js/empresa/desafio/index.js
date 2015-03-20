@@ -1,23 +1,20 @@
-var Ideia = {
+var Index = {
     init: function(){
         
         if($("div.alert")){
             $("div.alert").slideUp({duration: 3000});
         }
         
-        $("#btnPesquisarIdeias").click(function(){
-            Ideia.pesquisarIdeia(1);
+        $(".btnAnalisar").click(function(){
+            id = $(this).attr('id');
+            if(id){
+                $("#myModalLabelDesafios").html('Analisar Desafio');
+                $("#modal-body-analisar-desafio").html('').load("empresa/desafio/modal-analisar-desafio/" + id);
+                $("#modalAnalisarDesafio").modal('show');
+            }
         });
-        
-        $("#btnMapearPontuacao").click(function(){
-            $("#myModalLabelMapear").html('Mapear Pontuação de Ideias');
-            $("#modal-body-mapear").html('').load( "ideia/modal-mapear-pontuacao" );
-            $("#modalMapearPontuacao").modal('show'); 
-        });
-        
-        Ideia.pesquisarIdeia(1);
     },
-    pesquisarIdeia: function(page){
+    aprovarIdeia: function(){
 
         //T de todas as ideias
         var ativo   = 'T';
