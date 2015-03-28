@@ -1,3 +1,4 @@
+{{hidden_field("tipo-mensagem",'value':1)}}
 <div class="row">  
 <!-- / nav -->
   <section id="content" class="content-sidebar bg-white">
@@ -7,9 +8,9 @@
           <button class="btn btn-sm btn-facebook m-t m-b" id="btnNovaMensagem"><i class="fa fa-edit"></i> Novo</button>
       </div>
       <div class="list-group list-normal m-b-none">
-        <a href="#" class="list-group-item active"><i class="fa fa-fw fa-inbox"></i><span class="badge m-r">0</span> Entrada</a>
-        <a href="#" class="list-group-item"><i class="fa fa-fw fa-envelope-o"></i><span class="badge m-r">0</span> Enviadas</a>
-        <a href="#" class="list-group-item"><i class="fa fa-fw fa-trash-o"></i><span class="badge m-r">0</span> Excluídas</a>
+          <a href="#" class="list-group-item btnMensagem active" id="btnMensagensEntrada"><i class="fa fa-fw fa-inbox"></i><span class="badge m-r">{{count_mensagens_recebidas}}</span> Entrada</a>
+        <a href="#" class="list-group-item btnMensagem" id="btnMensagensEnviadas"><i class="fa fa-fw fa-envelope-o"></i><span class="badge m-r">{{count_mensagens_enviadas}}</span> Enviadas</a>
+        <a href="#" class="list-group-item btnMensagem" id="btnMensagensExcluidas"><i class="fa fa-fw fa-trash-o"></i><span class="badge m-r">{{count_mensagens_excluidas}}</span> Excluídas</a>
       </div>
     </aside>
     <!-- /.sidebar -->
@@ -19,8 +20,8 @@
           <div class="btn-group m-t m-b">
           <button class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown">Filtro <span class="caret"></span></button>
           <ul class="dropdown-menu text-left text-small">
-            <li><a href="#">Lidas</a></li>
-            <li><a href="#">Não lidas</a></li>
+              <li><a href="#" id="btnFiltroLidas">Lidas</a></li>
+              <li><a href="#" id="btnFiltroNaoLidas">Não lidas</a></li>
           </ul>
         </div>
         <button class="btn btn-sm btn-white" data-toggle="tooltip" data-title="Atualizar"><i class="fa fa-refresh"></i></button>
@@ -30,43 +31,9 @@
           <div id="lista-mensagens" ></div>
       </div>
     </aside>
+    <div id="ler-mensagem" style="display: none"></div>
     <!-- /.sidebar -->
-    <!-- .main -->
-<!--    <section class="main">
-      <div class="bg-primary clearfix padder m-b">
-        <h3 class="m-b">Mobile first web app for startup</h3>
-      </div>
-      <div class="text-small padder">
-        <div class="block clearfix">
-          <a href="#" class="thumb-mini inline"><img src="images/avatar.jpg" class="img-circle"></a> Mika Sokeil
-          &lt;mica_sokeil@gmail.com&gt; para mim
-          <div class="pull-right inline">May 12 (<em>4 days ago</em>) 
-            <div class="btn-group">
-              <button class="btn btn-white btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-              <ul class="dropdown-menu pull-right">
-                <li><a href="#"><i class="fa fa-reply"></i> Responder</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Deletar mensagem</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <p>Mr. Soe</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.</p>
-        <blockquote>
-          <em>Morbi nec nunc condimentum, egestas dui nec, fermentum diam. Vivamus vel tincidunt libero, vitae elementum ligula. Nunc placerat purus quam, ac adipiscing arcu rutrum eu. Vestibulum adipiscing ut augue ut auctor. Vestibulum nec lorem imperdiet nibh mollis gravida ut a justo.<br><br>
-          Suspendisse arcu nulla, mollis sed eros id, pellentesque vulputate nulla. Nullam lectus dolor, pulvinar eu tristique nec, tempus ut ligula. Quisque pulvinar ut justo id dapibus. Duis convallis tellus faucibus nisl fermentum, nec semper massa adipiscing. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In vestibulum est vel elementum pellentesque.</em>
-        </blockquote>
-        <p>Duis non malesuada est, quis congue nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-        <p>Best Regards<br>Mical</p>
-      </div>
-      <div class="padder">
-        <form class="panel text-small">
-          <div class="panel-body">Clique aqui para <a href="#">Responder</a></div>
-        </form>
-      </div>
-    </section>-->
-    <!-- /.main -->
+    
   </section>
 </div>
 {{ javascript_include('js/empresa/mensagem/mensagem.js') }}

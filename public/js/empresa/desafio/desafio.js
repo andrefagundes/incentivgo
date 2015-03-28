@@ -1,6 +1,10 @@
 var Desafio = {
     init: function(){
         
+        //marcar menu ativo
+        $(".dropdown-submenu").removeClass('active');
+        $("#menu-desafio").addClass('active');
+        
         //evento do botão de pesquisar desafio
         $("#btnPesquisarDesafio").click(function(){
             Desafio.pesquisarDesafio(1);

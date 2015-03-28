@@ -1,5 +1,9 @@
 var Ideia = {
     init: function(){
+
+        //marcar menu ativo
+        $(".dropdown-submenu").removeClass('active');
+        $("#menu-ideia").addClass('active');
         
         if($("div.alert")){
             $("div.alert").slideUp({duration: 3000});

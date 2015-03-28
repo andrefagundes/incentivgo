@@ -1,0 +1,59 @@
+{{hidden_field("id",'value':id)}} 
+<section class="main">
+
+    <div class="bg-primary clearfix padder m-b">
+        <h3 class="m-b">{{titulo}}</h3>
+    </div>
+    <div class="text-small padder">
+        <div class="block clearfix">
+            {% if( avatar is empty ) %}
+                {% set avatar_user = 'bfdc40e956b123b24b4962cc9409485a.jpg' %} 
+            {% else  %}
+                {% set avatar_user = empresaId~'/'~id~'/'~'60_'~avatar %} 
+            {% endif %}
+            <a href="#" class="thumb-mini inline">{{image( 'img/users/'~avatar_user, 'class':'img-circle', 'alt':nomeRemetente) }}</a> {{nomeRemetente}}
+            &lt;{{emailRemetente}}&gt; <strong>para</strong> {{usuariosDestinatarios}}
+            <div class="pull-right inline">{{ envioDt }} (<em><span class="moment">{{ envioDtBanco }}</span></em>) 
+                <div class="btn-group">
+                    <button class="btn btn-white btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="#" class="btnResponderMensagem"><i class="fa fa-fw fa-reply"></i>Responder</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" id="btnExcluirMensagem"><i class="fa fa-fw fa-trash-o"></i>Excluir</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <p>
+            {{mensagem}}
+        </p>
+
+    </div>
+    <div class="padder">
+        <form class="panel text-small">
+            <div class="panel-body">Clique aqui para <a href="#" class="btnResponderMensagem">Responder</a></div>
+        </form>
+    </div>
+</section>
+<!-- Início Modal Criar Desafio -->
+<div class="modal fade" id="modalExcluirMsg" tabindex="-5" role="dialog" data-backdrop="false"  aria-labelledby="modalExcluirMsgLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body" id="modal-body-exclusao">Deseja realmente excluir a mensagem?</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-sm btn-syndicate squared" id="btnExcluirMensagemLida">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{ javascript_include('js/empresa/mensagem/ler-mensagem.js') }}
+<script type="text/javascript">  
+    $(document).ready(function(){
+        LerMensagem.init();
+    });   
+</script>

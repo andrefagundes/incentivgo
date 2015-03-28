@@ -1,6 +1,10 @@
 var Colaborador = {
     init: function(){
         
+        //marcar menu ativo
+        $(".dropdown-submenu").removeClass('active');
+        $("#menu-colaborador").addClass('active');
+        
         if($("div.alert")){
             $("div.alert").slideUp({start:3000,duration: 5000});
         }

@@ -9,7 +9,7 @@
                 {% else  %}
                 {% set avatar_user = empresaId~'/'~id~'/'~'60_'~avatar %} 
                 {% endif %}
-                <span class="thumb-small avatar inline">{{image( 'img/users/'~avatar_user, 'class':'img-circle', 'alt':'Universidade IESB') }}</span>
+                <span class="thumb-small avatar inline">{{image( 'img/users/'~avatar_user, 'class':'img-circle') }}</span>
                 <b class="caret hidden-xs-only"></b>
             </a>
             <ul class="dropdown-menu">
@@ -54,23 +54,26 @@
 <!-- nav vertical -->
 <nav id="nav" class="nav-primary hidden-xs nav-vertical">
     <ul class="nav" data-spy="affix" data-offset-top="50">
-        <li class=" active dropdown-submenu">
+        <li class=" active dropdown-submenu" id="menu-geral">
             {{ link_to("empresa", '<i class="fa fa-th fa-lg"></i><span>Geral</span>') }}
         </li>
-        <li class="dropdown-submenu">
+        <li class="dropdown-submenu" id="menu-desafio">
             {{ link_to("empresa/desafio",'alt':'Gere desafios aos seus colaboradores','title':'Gere desafios aos seus colaboradores',  '<i class="fa fa-arrow-circle-right"></i><span>Desafios</span>') }}
         </li>
-        <li class="dropdown-submenu">
+        <li class="dropdown-submenu" id="menu-noticia">
             {{ link_to("empresa/noticia",'alt':'Informe as novidades da empresa pra seus colaboradores','title':'Informe as novidades da empresa pra seus colaboradores', '<i class="fa fa-arrow-circle-right"></i><span>Notícias</span>') }}
         </li>
         <!--        <li class="dropdown-submenu">
                     {{ link_to("empresa/regra", '<i class="fa fa-arrow-circle-right"></i><span>Regras</span>') }}
                 </li>-->
-        <li>
+        <li class="dropdown-submenu" id="menu-colaborador">
             {{ link_to("empresa/colaborador",'alt':'Cadastro e alteração dos usuários','title':'Cadastro e alteração dos usuários',  '<i class="fa fa-edit fa-lg"></i><span>Usuários</span>') }}
         </li>
-        <li>
+        <li class="dropdown-submenu" id="menu-ideia">
             {{ link_to("empresa/ideia", 'alt':'Ideias enviadas pelos colaboradores','title':'Ideias enviadas pelos colaboradores', '<i class="fa fa-edit fa-lg"></i><span>Banco de ideias</span>') }}
+        </li>
+        <li class="dropdown-submenu" id="menu-mensagem">
+            {{ link_to("empresa/mensagens", 'alt':'Todas as mensagens','title':'Todas as mensagens', '<i class="fa fa-envelope-o fa-lg"></i><span>Mensagens</span>') }}
         </li>
         <!--        <li>
                     {{ link_to("empresa/pontuacao", '<i class="fa fa-edit fa-lg"></i><span>Pontuação</span>') }}
@@ -93,7 +96,7 @@
 <footer id="footer">
     <div class="text-center padder clearfix">
         <p>
-            <small>&copy; 2014, Redes sociais do Incentiv Educ</small><br><br>
+            <small>&copy; 2015, Redes sociais do Incentiv Go</small><br><br>
             <a href="#" class="btn btn-xs btn-circle btn-twitter"><i class="fa fa-twitter"></i></a>
             <a href="#" class="btn btn-xs btn-circle btn-facebook"><i class="fa fa-facebook"></i></a>
             <a href="#" class="btn btn-xs btn-circle btn-gplus"><i class="fa fa-google-plus"></i></a>

@@ -1,7 +1,7 @@
 var ModalAjudar = {
 
     init: function() {
-        $("#btnAjudaEnvio,btnCancelarAjuda").off();
+        $("#btnAjudaEnvio,#btnCancelarAjuda").off();
         $("#btnPedirAjuda").hide();
         $("#modal-footer-ajuda").show();
         

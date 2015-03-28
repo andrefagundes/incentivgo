@@ -22,7 +22,7 @@ class EmpresaIdeiaController extends ControllerBase {
             $this->view->empresaId         = $this->_auth['empresaId'];
             $this->view->avatar            = $this->_auth['avatar'];
             $this->view->count_ideias      = Ideia::build()->count("status = 'Y' AND empresaId = {$this->_auth['empresaId']}");
-            $this->view->setTemplateBefore('private-empresa');
+            $this->view->setTemplateAfter('private-empresa');
         }
     }
     /**

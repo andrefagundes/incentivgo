@@ -2,8 +2,8 @@
 namespace Incentiv\Models;
 
 use Phalcon\Mvc\Model,
-    Phalcon\Mvc\Model\Behavior\SoftDelete,
-    Phalcon\Mvc\Model\Validator\PresenceOf;
+    Phalcon\Mvc\Model\Validator\PresenceOf,
+    Phalcon\Mvc\Model\Relation;
 
 /**
  * Incentiv\Models\Mensagem
@@ -11,8 +11,9 @@ use Phalcon\Mvc\Model,
  */
 class Mensagem extends Model
 {
-    const DELETED               = 'N';
-    const NOT_DELETED           = 'Y';
+    const MENSAGENS_TIPO_ENTRADA    = 1;
+    const MENSAGENS_TIPO_ENVIADA    = 2;
+    const MENSAGENS_TIPO_EXCLUIDA   = 3;
     
     public static $_instance;
    
@@ -46,16 +47,6 @@ class Mensagem extends Model
      */
     public $envioDt;
     
-    /**
-     * @var char
-     */
-    public $lida;
-    
-    /**
-     * @var char
-     */
-    public $ativo;
-    
     public static function build()
     {
         if( !isset( self::$_instance ) )
@@ -76,9 +67,6 @@ class Mensagem extends Model
 
         // Seta status da mensagem para ativa
         $this->ativo = 'Y';
-        
-        // Seta status da mensagem para ativa
-        $this->lida = 'N';
     }
     
     /**
@@ -109,42 +97,81 @@ class Mensagem extends Model
         $this->hasMany('id', 'Incentiv\Models\MensagemDestinatario', 'mensagemId', array(
             'alias' => 'mensagemDestinatario',
             'foreignKey' => array(
-                'message' => 'A mensagem não pode ser excluída porque ela possui destinatários.'
+                'message' => 'A mensagem não pode ser excluída porque ela possui destinatários.',
+                'action' => Relation::ACTION_CASCADE
             )
         ));
         
-        $this->addBehavior(new SoftDelete(
-            array(
-                'field' => 'ativo',
-                'value' => Mensagem::DELETED
+        $this->hasMany('id', 'Incentiv\Models\MensagemExcluida', 'mensagemId', array(
+            'alias' => 'mensagemExcluida',
+            'foreignKey' => array(
+                'message' => 'A mensagem não pode ser excluída porque ela possui exclusão na tabela mensagem_excluida.'
             )
         ));
     }
     
     public function fetchAllMensagens(\stdClass $objMensagem){
+
+        $mensagem = Mensagem::query()->columns(array('Incentiv\Models\Mensagem.id',
+                                                'Incentiv\Models\Mensagem.titulo',
+                                                'Incentiv\Models\Mensagem.mensagem',
+                                                'Incentiv\Models\Mensagem.mensagemId',
+                                                'Incentiv\Models\Mensagem.remetenteId',
+                                                'Incentiv\Models\Mensagem.envioDt',
+                                                'usuario.nome'));
         
-        $mensagem = Mensagem::query()->columns(array('id',
-                                                'titulo',
-                                                'mensagem',
-                                                'mensagemId',
-                                                'remetenteId',
-                                                'envioDt', 
-                                                'ativo' ));
-        
-        if(isset($objMensagem->remetenteId))
+        $mensagem->innerjoin('Incentiv\Models\Usuario', "Incentiv\Models\Mensagem.remetenteId = usuario.id", 'usuario');
+         
+        if($objMensagem->tipo == Mensagem::MENSAGENS_TIPO_ENTRADA )
         {
-           $mensagem->andwhere( "remetenteId = {$objMensagem->remetenteId}");
+            $mensagem->innerjoin('Incentiv\Models\MensagemDestinatario', "MensagemDestinatario.mensagemId = Incentiv\Models\Mensagem.id AND MensagemDestinatario.destinatarioId = {$objMensagem->destinatarioId}", 'MensagemDestinatario');
+            $mensagem->leftjoin('Incentiv\Models\MensagemExcluida', "MensagemDestinatario.destinatarioId = mensagemExcluidaDestinatario.usuarioId", 'mensagemExcluidaDestinatario');
+            $mensagem->andwhere( "mensagemExcluidaDestinatario.id IS NULL");
         }
+        
+        if(isset($objMensagem->remetenteId) && $objMensagem->tipo == Mensagem::MENSAGENS_TIPO_ENVIADA)
+        {
+           $mensagem->leftjoin('Incentiv\Models\MensagemExcluida', "Incentiv\Models\Mensagem.remetenteId = mensagemExcluidaRemetente.usuarioId AND Incentiv\Models\Mensagem.remetenteId = {$objMensagem->remetenteId}", 'mensagemExcluidaRemetente');
+           $mensagem->andwhere( "mensagemExcluidaRemetente.id IS NULL");
+        }
+        
         if($objMensagem->filter)
         {
-           $mensagem->andwhere( "lida = {$objMensagem->filter}");
+           $mensagem->andwhere( "MensagemDestinatario.lida = {$objMensagem->filter}");
         }
         
-        $mensagem->andwhere( "mensagemId IS NULL");
-
-        $mensagem->orderBy('id');
+        $mensagem->andwhere( "Incentiv\Models\Mensagem.mensagemId IS NULL");
+        
+        $mensagem->orderBy('Incentiv\Models\Mensagem.id');
 
         return $mensagem->execute();
+        
+    }
+    
+    public function fetchAllMensagensExcluidas(\stdClass $objMensagem){
+
+        $mensagem = Mensagem::query()->columns(array('Incentiv\Models\Mensagem.id',
+                                                'Incentiv\Models\Mensagem.titulo',
+                                                'Incentiv\Models\Mensagem.mensagem',
+                                                'Incentiv\Models\Mensagem.mensagemId',
+                                                'Incentiv\Models\Mensagem.remetenteId',
+                                                'Incentiv\Models\Mensagem.envioDt',
+                                                'usuario.nome'));
+        
+        $mensagem->innerjoin('Incentiv\Models\Usuario', "Incentiv\Models\Mensagem.remetenteId = usuario.id", 'usuario');
+        $mensagem->leftjoin('Incentiv\Models\MensagemDestinatario', "MensagemDestinatario.mensagemId = Incentiv\Models\Mensagem.id AND MensagemDestinatario.destinatarioId = {$objMensagem->destinatarioId}", 'MensagemDestinatario');
+        $mensagem->leftjoin('Incentiv\Models\MensagemExcluida', "MensagemDestinatario.destinatarioId = mensagemExcluidaDestinatario.usuarioId", 'mensagemExcluidaDestinatario');
+        $mensagem->leftjoin('Incentiv\Models\MensagemExcluida', "Incentiv\Models\Mensagem.remetenteId = mensagemExcluidaRemetente.usuarioId AND Incentiv\Models\Mensagem.remetenteId = {$objMensagem->remetenteId}", 'mensagemExcluidaRemetente');
+        
+        if($objMensagem->filter)
+        {
+           $mensagem->andwhere( "mensagemExcluidaDestinatario.lida = {$objMensagem->filter}");
+        }
+        
+        $mensagem->orderBy('Incentiv\Models\Mensagem.id');
+
+        return $mensagem->execute();
+        
     }
     
     public function salvarMensagem($arrMensagem){
@@ -171,7 +198,7 @@ class Mensagem extends Model
             return array('status' => 'error', 'message'=>'Não foi possível enviar a mensagem!!!');
         }
         
-        return array('status' => 'ok','message'=>'Mensagem salva com sucesso!!!');
+        return array('status' => 'ok','message'=>'Mensagem enviada com sucesso!!!');
         
     }
     public function responderMensagem(\stdClass $objMensagem){
@@ -192,17 +219,14 @@ class Mensagem extends Model
         
     }
     
-    public function excluirMensagem(\stdClass $objMensagem){
-
-        $mensagem = $this::findFirst($objMensagem->id);
-        if ($mensagem != false) {
-            if ($mensagem->delete() == false) {
-                return array('status' => 'error', 'message'=>'Não foi possível excluir a mensagem!!!');
-            } else {
-                return array('status' => 'ok','message'=>'Mensagem excluída com sucesso!!!');
-            }
-        }else{
-              return array('status' => 'error', 'message'=>'Mensagem não foi encontrada!!!');
-        }
+    public function quantMensagensEnviadas($remetenteId){
+        $mensagensRecebidas = Mensagem::query()->columns(array('quant'=>'count(*)'));
+        
+        $mensagensRecebidas->leftjoin('Incentiv\Models\MensagemExcluida', "Incentiv\Models\Mensagem.remetenteId = mensagemExcluida.usuarioId", 'mensagemExcluida');
+        $mensagensRecebidas->andwhere( "Incentiv\Models\Mensagem.remetenteId = {$remetenteId}");
+        $mensagensRecebidas->andwhere( "mensagemExcluida.id IS NULL");
+        $count = $mensagensRecebidas->execute();
+        
+        return $count['quant']->quant;
     }
 }

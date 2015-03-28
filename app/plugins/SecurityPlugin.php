@@ -55,7 +55,7 @@ class SecurityPlugin extends Plugin {
                             'salvarPontuacao','ativarInativarPontuacao'),
                     'empresa_regra' => array('index','regra','pesquisarRegra','modalRegra','salvarRegra','ativarInativarRegra'),
                     'empresa_perfil' => array('index','perfil'),
-                    'empresa_mensagem' => array('index','mensagem','pesquisarMensagem','novaMensagem','salvarMensagem')
+                    'empresa_mensagem' => array('index','mensagem','pesquisarMensagem','novaMensagem','salvarMensagem','lerMensagem','excluirMensagem')
                 ),
                 'colaboradorResources'  => array(
                     'colaborador' => array('index','modalAnotacoes','salvarAnotacao','excluirAnotacao'),

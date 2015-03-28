@@ -1,6 +1,10 @@
 var Noticia = {
     init: function(){
         
+        //marcar menu ativo
+        $(".dropdown-submenu").removeClass('active');
+        $("#menu-noticia").addClass('active');
+        
         //evento do botão de pesquisar noticia
         $("#btnPesquisarNoticia").click(function(){
             Noticia.pesquisarNoticia(1);

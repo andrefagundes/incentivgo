@@ -118,6 +118,28 @@ $router->add('/empresa/mensagem/nova-mensagem', array(
     }
     return false;
 });
+$router->add('/empresa/mensagem/ler-mensagem/{code}', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_mensagem',
+    'action' => 'lerMensagem'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+$router->add('/empresa/mensagem/excluir-mensagem', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_mensagem',
+    'action' => 'excluirMensagem'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
 
 $router->add('/empresa/mensagem/salvar-mensagem', array(
     'module' => 'empresa',

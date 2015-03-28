@@ -4,10 +4,9 @@ namespace Empresa\Controllers;
 
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
-use Incentiv\Models\Desafio,
-    Incentiv\Models\Usuario,
-    Incentiv\Models\Mensagem,
-    Incentiv\Models\UsuarioPontuacaoCredito as Credito;
+use Incentiv\Models\Mensagem,
+    Incentiv\Models\MensagemDestinatario,
+    Incentiv\Models\MensagemExcluida;
 
 /**
  * Empresa\Controllers\EmpresaController
@@ -20,9 +19,9 @@ class EmpresaMensagemController extends ControllerBase {
     public function initialize() {
         $this->_auth = $this->auth->getIdentity();
         if (!$this->request->isAjax()) {
-//            $this->view->count_mensagens_recebidas = Mensagem::build()->count("destinatarioId = ".$this->_auth['id']);
-//            $this->view->count_mensagens_enviadas  = Usuario::build()->count("remetenteId = ".$this->_auth['empresaId']);
-//            $this->view->count_mensagens_excluidas = Usuario::build()->count("ativo = 'N'");
+            $this->view->count_mensagens_recebidas = MensagemDestinatario::build()->quantMensagensRecebidas($this->_auth['id']);
+            $this->view->count_mensagens_enviadas  = Mensagem::build()->quantMensagensEnviadas($this->_auth['id']);
+            $this->view->count_mensagens_excluidas = MensagemExcluida::build()->count("usuarioId = {$this->_auth['id']}");
             $this->view->usuario_logado    = $this->auth->getName();
             $this->view->id                = $this->_auth['id'];
             $this->view->empresaId         = $this->_auth['empresaId'];
@@ -42,14 +41,20 @@ class EmpresaMensagemController extends ControllerBase {
         $objMensagem = new \stdClass();
 
         $objMensagem->destinatarioId    = $this->_auth['id'];
-        $objMensagem->ativo             = $this->request->getPost("ativo");
+        $objMensagem->remetenteId       = $this->_auth['id'];
+        $objMensagem->tipo              = $this->request->getPost("tipo");
         $objMensagem->filter            = $this->request->getPost("filter");
 
-        $resultMensagens = Mensagem::build()->fetchAllMensagens($objMensagem);
+        if($this->request->getPost("tipo") == Mensagem::MENSAGENS_TIPO_EXCLUIDA ){
+            $resultMensagens = Mensagem::build()->fetchAllMensagensExcluidas($objMensagem);
+        }else{
+            $resultMensagens = Mensagem::build()->fetchAllMensagens($objMensagem);
+        }
+     
         $numberPage = $this->request->getPost("page");
         $paginator  = new Paginator(array(
             "data"  => $resultMensagens,
-            "limit" => 3,
+            "limit" => 5,
             "page"  => $numberPage
         ));
 
@@ -83,4 +88,57 @@ class EmpresaMensagemController extends ControllerBase {
             $this->response->redirect('empresa/mensagens');
         }
     }
+    
+    public function lerMensagemAction(){
+         
+        $this->disableLayoutBefore();
+
+        $resultMensagem = Mensagem::build()->findFirst($this->dispatcher->getParam('code'));
+        
+        
+        $objDadosMensagemLida = new \stdClass();
+        $objDadosMensagemLida->mensagemId       = $resultMensagem->id;
+        $objDadosMensagemLida->destinatarioId   = $this->_auth['id'];
+        
+        MensagemDestinatario::build()->setarMensagemLida($objDadosMensagemLida);
+        
+        $usuariosDestinatarios = '';
+        foreach ($resultMensagem->mensagemDestinatario as $destinatario){
+            $usuariosDestinatarios .= $destinatario->usuario->nome." (".$destinatario->usuario->email."), ";
+        }
+
+        $this->view->setVar("id",              $resultMensagem->id);
+        $this->view->setVar("titulo",          $resultMensagem->titulo);
+        $this->view->setVar("mensagem",        $resultMensagem->mensagem);
+        $this->view->setVar("avatar",          $resultMensagem->usuarioRemetente->avatar);
+        $this->view->setVar("nomeRemetente",   $resultMensagem->usuarioRemetente->nome);
+        $this->view->setVar("emailRemetente",  $resultMensagem->usuarioRemetente->email);
+        $this->view->setVar("envioDt", date('d/m/Y H:m:s',strtotime($resultMensagem->envioDt))   );
+        $this->view->setVar("envioDtBanco", $resultMensagem->envioDt);
+        $this->view->setVar("usuariosDestinatarios",  substr($usuariosDestinatarios,0, strlen($usuariosDestinatarios)-2));
+        $this->view->pick("empresa_mensagem/ler-mensagem");
+    }
+    
+    public function excluirMensagemAction(){
+        $this->disableLayoutBefore();
+        
+        $objMensagem        = new \stdClass();
+        $objMensagem->usuarioId  = $this->_auth['id'];
+        $objMensagem->mensagemId = $this->request->getPost("id");
+
+        $resultMensagem = MensagemExcluida::build()->excluirMensagem($objMensagem);
+
+        if($resultMensagem['status'] == 'ok')
+        {
+            $this->flashSession->success($resultMensagem['message']);
+        }else{
+            $this->flashSession->error($resultMensagem['message']);
+        }
+
+//        $this->response = new Response();
+//        $this->response->setJsonContent($resultMensagem['status'],'utf8');
+//        $this->response->send();
+        $this->response->redirect('empresa/mensagens');
+    }
+
 }

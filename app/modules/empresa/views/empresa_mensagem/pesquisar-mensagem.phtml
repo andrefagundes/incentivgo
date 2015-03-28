@@ -1,5 +1,5 @@
 {% for mensagem in page.items %}
-    <a href="#" class="list-group-item bg"><small class="pull-right text-muted">1 hour ago</small><strong>Sophi Soke</strong><br><small>{{mensagem.titulo}}</small></a>
+<a href="#" class="list-group-item bg mensagem-entrada" id="{{mensagem.id}}"><small class="pull-right text-muted moment">{{ mensagem.envioDt }}</small><strong>{{mensagem.nome}}</strong><br><small>{{mensagem.titulo}}</small></a>
 {% elsefor %}
     <a href="#" class="list-group-item bg text-center text-info">Nenhuma mensagem no momento.</a>
 {% endfor %}

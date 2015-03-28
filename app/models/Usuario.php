@@ -236,6 +236,13 @@ class Usuario extends Model
             )
         ));
         
+        $this->hasMany('id', 'Incentiv\Models\MensagemExcluida', 'usuarioId', array(
+            'alias' => 'usuarioMensagemExcluida',
+            'foreignKey' => array(
+                'message' => 'O usuário não pode ser excluído porque ela possui exclusão na tabela mensagem_excluida.'
+            )
+        ));
+        
         $this->addBehavior(new SoftDelete(
             array(
                 'field' => 'ativo',

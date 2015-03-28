@@ -22,7 +22,7 @@ class EmpresaDesafioController extends ControllerBase {
             $this->view->avatar            = $auth['avatar'];
             $this->view->id                = $auth['id'];
             $this->view->empresaId         = $auth['empresaId'];
-            $this->view->setTemplateBefore('private-empresa');
+            $this->view->setTemplateAfter('private-empresa');
         }
     }
     /**
