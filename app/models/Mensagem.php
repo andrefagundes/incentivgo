@@ -122,22 +122,24 @@ class Mensagem extends Model
         
         $mensagem->innerjoin('Incentiv\Models\Usuario', "Incentiv\Models\Mensagem.remetenteId = usuario.id", 'usuario');
          
-        if($objMensagem->tipo == Mensagem::MENSAGENS_TIPO_ENTRADA )
+        if($objMensagem->tipo == Mensagem::MENSAGENS_TIPO_ENTRADA)
         {
-            $mensagem->innerjoin('Incentiv\Models\MensagemDestinatario', "MensagemDestinatario.mensagemId = Incentiv\Models\Mensagem.id AND MensagemDestinatario.destinatarioId = {$objMensagem->destinatarioId}", 'MensagemDestinatario');
+            $mensagem->innerjoin('Incentiv\Models\MensagemDestinatario', "MensagemDestinatario.mensagemId = Incentiv\Models\Mensagem.id", 'MensagemDestinatario');
             $mensagem->leftjoin('Incentiv\Models\MensagemExcluida', "MensagemDestinatario.destinatarioId = mensagemExcluidaDestinatario.usuarioId", 'mensagemExcluidaDestinatario');
+            $mensagem->andwhere( "MensagemDestinatario.destinatarioId = {$objMensagem->destinatarioId}");
             $mensagem->andwhere( "mensagemExcluidaDestinatario.id IS NULL");
         }
         
         if(isset($objMensagem->remetenteId) && $objMensagem->tipo == Mensagem::MENSAGENS_TIPO_ENVIADA)
         {
-           $mensagem->leftjoin('Incentiv\Models\MensagemExcluida', "Incentiv\Models\Mensagem.remetenteId = mensagemExcluidaRemetente.usuarioId AND Incentiv\Models\Mensagem.remetenteId = {$objMensagem->remetenteId}", 'mensagemExcluidaRemetente');
+           $mensagem->leftjoin('Incentiv\Models\MensagemExcluida', "Incentiv\Models\Mensagem.remetenteId = mensagemExcluidaRemetente.usuarioId", 'mensagemExcluidaRemetente');
+           $mensagem->andwhere( "Incentiv\Models\Mensagem.remetenteId = {$objMensagem->remetenteId}");
            $mensagem->andwhere( "mensagemExcluidaRemetente.id IS NULL");
         }
         
-        if($objMensagem->filter)
+        if($objMensagem->filter && $objMensagem->tipo == Mensagem::MENSAGENS_TIPO_ENTRADA)
         {
-           $mensagem->andwhere( "MensagemDestinatario.lida = {$objMensagem->filter}");
+           $mensagem->andwhere( "MensagemDestinatario.lida = '{$objMensagem->filter}'");
         }
         
         $mensagem->andwhere( "Incentiv\Models\Mensagem.mensagemId IS NULL");
@@ -165,8 +167,10 @@ class Mensagem extends Model
         
         if($objMensagem->filter)
         {
-           $mensagem->andwhere( "mensagemExcluidaDestinatario.lida = {$objMensagem->filter}");
+           $mensagem->andwhere( "MensagemDestinatario.lida = '{$objMensagem->filter}' OR mensagemExcluidaRemetente.id IS NOT NULL");
         }
+        
+        $mensagem->andwhere( "mensagemExcluidaDestinatario.id IS NOT NULL OR mensagemExcluidaRemetente.id IS NOT NULL");
         
         $mensagem->orderBy('Incentiv\Models\Mensagem.id');
 
@@ -201,6 +205,32 @@ class Mensagem extends Model
         return array('status' => 'ok','message'=>'Mensagem enviada com sucesso!!!');
         
     }
+    public function salvarMensagemResposta($arrMensagem){
+
+        $mensagemPai = $this->findFirst("id = {$arrMensagem['mensagemId']}");
+        
+        $this->assign(array(
+            'titulo'            => $arrMensagem['titulo'],
+            'mensagemId'        => $arrMensagem['mensagemId'],
+            'mensagem'          => $arrMensagem['mensagem'],
+            'remetenteId'       => $arrMensagem['remetenteId']
+        ));
+        
+        //responde a mensagem somente pra o remetente que o enviou a mensagem.
+        $mensagemDestinatario = array();
+        $mensagemDestinatario[$mensagemPai->remetenteId] = new MensagemDestinatario();
+        $mensagemDestinatario[$mensagemPai->remetenteId]->destinatarioId  = $mensagemPai->remetenteId;
+        $this->assign(array(
+            'mensagemDestinatario' => $mensagemDestinatario
+        ));
+        
+        if (!$this->save()) {
+            return array('status' => 'error', 'message'=>'Não foi possível enviar a mensagem!!!');
+        }
+        
+        return array('status' => 'ok','message'=>'Mensagem respondida com sucesso!!!');
+        
+    }
     public function responderMensagem(\stdClass $objMensagem){
 
         $this->assign(array(
@@ -228,5 +258,17 @@ class Mensagem extends Model
         $count = $mensagensRecebidas->execute();
         
         return $count['quant']->quant;
+    }
+    
+    public function buscarMensagensRecebidas($destinatarioId){
+        $mensagensRecebidas = Mensagem::query()->columns(array('Incentiv\Models\Mensagem.titulo',
+                                                                'envioDt' => "DATE_FORMAT( Incentiv\Models\Mensagem.envioDt , '%d/%m/%Y' )"));
+        $mensagensRecebidas->innerjoin('Incentiv\Models\MensagemDestinatario', "Incentiv\Models\Mensagem.id = MensagemDestinatario.mensagemId AND MensagemDestinatario.destinatarioId = {$destinatarioId}", 'MensagemDestinatario');
+        $mensagensRecebidas->leftjoin('Incentiv\Models\MensagemExcluida', "MensagemDestinatario.destinatarioId = mensagemExcluida.usuarioId", 'mensagemExcluida');
+        $mensagensRecebidas->andwhere( "MensagemDestinatario.lida = 'N'");
+        $mensagensRecebidas->andwhere( "mensagemExcluida.id IS NULL");
+        $mensagensRecebidas->limit(3);
+        
+        return $mensagensRecebidas->execute()->toArray();
     }
 }

@@ -1,5 +1,4 @@
-{{hidden_field("id",'value':id)}} 
-<section class="main">
+<section class="main bg">
 
     <div class="bg-primary clearfix padder m-b">
         <h3 class="m-b">{{titulo}}</h3>
@@ -15,9 +14,9 @@
             &lt;{{emailRemetente}}&gt; <strong>para</strong> {{usuariosDestinatarios}}
             <div class="pull-right inline">{{ envioDt }} (<em><span class="moment">{{ envioDtBanco }}</span></em>) 
                 <div class="btn-group">
-                    <button class="btn btn-white btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                    <button type="button" class="btn btn-white btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
                     <ul class="dropdown-menu pull-right">
-                        <li><a href="#" class="btnResponderMensagem"><i class="fa fa-fw fa-reply"></i>Responder</a></li>
+                        <li><a href="#" class="link-responder-mensagem"><i class="fa fa-fw fa-reply"></i>Responder</a></li>
                         <li class="divider"></li>
                         <li><a href="#" id="btnExcluirMensagem"><i class="fa fa-fw fa-trash-o"></i>Excluir</a></li>
                     </ul>
@@ -31,9 +30,28 @@
     </div>
     <div class="padder">
         <form class="panel text-small">
-            <div class="panel-body">Clique aqui para <a href="#" class="btnResponderMensagem">Responder</a></div>
+            <div class="panel-body">Clique aqui para <a href="#" class="link-responder-mensagem">Responder</a></div>
         </form>
     </div>
+    <div class="padder block clearfix" id="div-resposta-mensagem" style="display: none;">
+        {{ form('empresa/mensagem/responder-mensagem', 'class':'form-horizontal media', 'id':'form-responder-mensagem', 'method': 'post') }}
+            {{hidden_field("id",'value':id)}} 
+            <div class="col-lg-12">
+                <p>
+                    {{ text_field("resposta-titulo", 'id':'resposta-titulo', 'placeholder': 'Informe um título', 'value':'','class': 'bg-focus form-control', 'style':'width:60%') }}
+                </p>
+            </div>
+            <div class="col-lg-12">
+                <p>
+                {{ text_area("resposta-mensagem", 'id':'resposta-mensagem', 'placeholder': 'Descreva a resposta da mensagem','value':'','rows':'6', 'class':'bg-focus form-control') }}
+                </p>
+            </div>
+            <div class="text-center padder">
+                <button type="button" class="btn btn-sm btn-default m-t" id="btnCancelarResposta"> Cancelar</button>
+                <button type="submit" class="btn btn-sm btn-facebook m-t" id="btnResponderMensagem"> Enviar</button>
+            </div>
+        {{endForm()}}
+    </div><br/>
 </section>
 <!-- Início Modal Criar Desafio -->
 <div class="modal fade" id="modalExcluirMsg" tabindex="-5" role="dialog" data-backdrop="false"  aria-labelledby="modalExcluirMsgLabel" aria-hidden="true">

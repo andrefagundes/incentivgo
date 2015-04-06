@@ -86,8 +86,12 @@ $router->add('/contato', array(
 
 $router->add('/empresa', array(
     'module' => 'empresa',
-    'controller' => 'empresa',
-    'action' => 'index'
+    'controller' => 'empresa_geral'
+));
+
+$router->add('/empresa/geral', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_geral'
 ));
 
 $router->add('/empresa/mensagens', array(
@@ -129,6 +133,17 @@ $router->add('/empresa/mensagem/ler-mensagem/{code}', array(
     }
     return false;
 });
+$router->add('/empresa/mensagem/verificar-mensagens', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_mensagem',
+    'action' => 'verificarMensagens'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
 $router->add('/empresa/mensagem/excluir-mensagem', array(
     'module' => 'empresa',
     'controller' => 'empresa_mensagem',
@@ -140,11 +155,15 @@ $router->add('/empresa/mensagem/excluir-mensagem', array(
     }
     return false;
 });
-
 $router->add('/empresa/mensagem/salvar-mensagem', array(
     'module' => 'empresa',
     'controller' => 'empresa_mensagem',
     'action' => 'salvarMensagem'
+));
+$router->add('/empresa/mensagem/responder-mensagem', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_mensagem',
+    'action' => 'responderMensagem'
 ));
 
 /******Rotas módulo empresa/desafio**********/

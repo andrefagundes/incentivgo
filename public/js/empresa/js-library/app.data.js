@@ -48,27 +48,39 @@ $(document).ready(function() {
 		$item.find('.media-body').html($notes.title);
 		$item.hide().prependTo($el.find('.list-group')).slideDown().css('display','block');
 	}
-	var $noteMail = {
-		icon: '<i class="fa fa-envelope-o fa-2x text-default"></i>',
-		title: 'Add the mail app, Check it out.<br><small class="text-muted">2 July 13</small>',
-		link: 'mail.html'
-	}
-	var $noteCalendar = {
-		icon: '<i class="fa fa-calendar fa-2x text-default"></i>',
-		title: 'Added the calendar, Get it.<br><small class="text-muted">10 July 13</small>',
-		link: 'calendar.html'
-	}
-	var $noteTimeline = {
-		icon: '<i class="fa fa-clock-o fa-2x text-default"></i>',
-		title: 'Added the timeline, view it here.<br><small class="text-muted">1 minute ago</small>',
-		link: 'timeline.html'
-	}
-	window.setTimeout(function(){addNotification($noteMail)}, 2000);
-	window.setTimeout(function(){addNotification($noteCalendar)}, 3500);
-	window.setTimeout(function(){addNotification($noteTimeline)}, 5000);
+//	var $noteMail = {
+//		icon: '<i class="fa fa-envelope-o fa-2x text-default"></i>',
+//		title: 'Add the mail app, Check it out.<br><small class="text-muted">2 July 13</small>',
+//		link: 'mail.html'
+//	}
+//	var $noteCalendar = {
+//		icon: '<i class="fa fa-calendar fa-2x text-default"></i>',
+//		title: 'Added the calendar, Get it.<br><small class="text-muted">10 July 13</small>',
+//		link: 'calendar.html'
+//	}
+//	var $noteTimeline = {
+//		icon: '<i class="fa fa-clock-o fa-2x text-default"></i>',
+//		title: 'Added the timeline, view it here.<br><small class="text-muted">1 minute ago</small>',
+//		link: 'timeline.html'
+//	}
 
-	
-	
+   
+//	window.setTimeout(function(){addNotification($noteMail)}, 2000);
+//	window.setTimeout(function(){addNotification($noteCalendar)}, 3500);
+//	window.setTimeout(function(){addNotification($noteTimeline)}, 5000);
+    
+    $.post("mensagem/verificar-mensagens", null, function(data) {
+            $.each(data, function(i,item){
+                var mensagem = {
+                icon: '<i class="fa fa-clock-o fa-2x text-default"></i>',
+                title: item.titulo+'<br><small class="text-muted">'+item.envioDt+'</small>',
+                link: 'mensagens'
+            };
+            addNotification(mensagem);
+        });
+
+    }, 'json');
+
 	$('#myEvents').on('change', function(e, item){
 		addDragEvent($(item));
 	});

@@ -1,4 +1,5 @@
 {{hidden_field("tipo-mensagem",'value':1)}}
+{{hidden_field("filtro-mensagem",'value':'')}}
 <div class="row">  
 <!-- / nav -->
   <section id="content" class="content-sidebar bg-white">
@@ -20,13 +21,14 @@
           <div class="btn-group m-t m-b">
           <button class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown">Filtro <span class="caret"></span></button>
           <ul class="dropdown-menu text-left text-small">
+              <li><a href="#" id="btnFiltroTodas">Todas</a></li>
               <li><a href="#" id="btnFiltroLidas">Lidas</a></li>
               <li><a href="#" id="btnFiltroNaoLidas">Não lidas</a></li>
           </ul>
         </div>
-        <button class="btn btn-sm btn-white" data-toggle="tooltip" data-title="Atualizar"><i class="fa fa-refresh"></i></button>
+          <button class="btn btn-sm btn-white" id="btnAtualizarPesquisa" data-toggle="tooltip" data-title="Atualizar"><i class="fa fa-refresh"></i></button>
       </div>
-      <div class="list-normal m-t-n-xmini scroll-y scrollbar" style="max-height:400px">
+      <div class="list-normal m-t-n-xmini scroll-y scrollbar" style="max-height:100%">
           <?php echo $this->flashSession->output(); ?>
           <div id="lista-mensagens" ></div>
       </div>

@@ -10,21 +10,40 @@ var Mensagem = {
         }
         
         $("#btnMensagensEntrada").click(function(){
+            $("#filtro-mensagem").val('');
             Mensagem.removerClassActive();
             $(this).addClass('active');
             $("#tipo-mensagem").val(1);
             Mensagem.pesquisarMensagem(1);
         });
         $("#btnMensagensEnviadas").click(function(){
+            $("#filtro-mensagem").val('');
             Mensagem.removerClassActive();
             $(this).addClass('active');
             $("#tipo-mensagem").val(2);
             Mensagem.pesquisarMensagem(1);
         });
         $("#btnMensagensExcluidas").click(function(){
+            $("#filtro-mensagem").val('');
             Mensagem.removerClassActive();
             $(this).addClass('active');
             $("#tipo-mensagem").val(3);
+            Mensagem.pesquisarMensagem(1);
+        });
+        $("#btnFiltroTodas").click(function(){
+            $("#filtro-mensagem").val('');
+            Mensagem.pesquisarMensagem(1);
+        });
+        $("#btnFiltroLidas").click(function(){
+            $("#filtro-mensagem").val('Y');
+            Mensagem.pesquisarMensagem(1);
+        });
+        $("#btnFiltroNaoLidas").click(function(){
+            $("#filtro-mensagem").val('N');
+            Mensagem.pesquisarMensagem(1);
+        });
+        
+        $("#btnAtualizarPesquisa").click(function(){
             Mensagem.pesquisarMensagem(1);
         });
 
@@ -37,7 +56,7 @@ var Mensagem = {
     pesquisarMensagem: function(page){
 
         var tipo   = $("#tipo-mensagem").val();
-        var filter  = $("#filterMensagem").val();
+        var filter  = $("#filtro-mensagem").val();
         $("#grupo-filtros").show();
         $.post( "mensagem/pesquisar-mensagem", { 'page': page, 'tipo':tipo, 'filter':filter }, function(data){
              $( "#lista-mensagens" ).empty().append( data );

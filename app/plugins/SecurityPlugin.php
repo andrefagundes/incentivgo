@@ -44,6 +44,7 @@ class SecurityPlugin extends Plugin {
             $AllResources = array(
                 'administradorResources' => array(
                     'empresa' => array( 'index' ,'empresa'),
+                    'empresa_geral' => array( 'index' ,'empresa'),
                     'empresa_colaborador' => array( 'index','colaborador','pesquisarColaborador','modalColaborador',
                     'salvarColaborador','ativarInativarColaborador'),
                     'empresa_ideia' => array( 'index','ideia','pesquisarIdeia','guardarAprovarIdeia','modalIdeia','mapearPontuacao'),
@@ -55,7 +56,8 @@ class SecurityPlugin extends Plugin {
                             'salvarPontuacao','ativarInativarPontuacao'),
                     'empresa_regra' => array('index','regra','pesquisarRegra','modalRegra','salvarRegra','ativarInativarRegra'),
                     'empresa_perfil' => array('index','perfil'),
-                    'empresa_mensagem' => array('index','mensagem','pesquisarMensagem','novaMensagem','salvarMensagem','lerMensagem','excluirMensagem')
+                    'empresa_mensagem' => array('index','mensagem','pesquisarMensagem','novaMensagem',
+                                                'salvarMensagem','lerMensagem','excluirMensagem','verificarMensagens','responderMensagem')
                 ),
                 'colaboradorResources'  => array(
                     'colaborador' => array('index','modalAnotacoes','salvarAnotacao','excluirAnotacao'),

@@ -7,10 +7,10 @@ use Incentiv\Models\Desafio,
     Incentiv\Models\UsuarioPontuacaoCredito as Credito;
 
 /**
- * Empresa\Controllers\EmpresaController
+ * Empresa\Controllers\EmpresaGeralController
  * CRUD para gerenciar empresas
  */
-class EmpresaController extends ControllerBase {
+class EmpresaGeralController extends ControllerBase {
     
     private $_auth;
 
@@ -27,7 +27,7 @@ class EmpresaController extends ControllerBase {
             $this->view->id                = $this->_auth['id'];
             $this->view->empresaId         = $this->_auth['empresaId'];
             $this->view->avatar            = $this->_auth['avatar'];
-            $this->view->setTemplateBefore('private-empresa');
+            $this->view->setTemplateAfter('private-empresa');
         }
     }
 

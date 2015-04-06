@@ -2,15 +2,16 @@
 
 namespace Empresa\Controllers;
 
-use Phalcon\Paginator\Adapter\Model as Paginator;
+use Phalcon\Paginator\Adapter\Model as Paginator,
+    Phalcon\Http\Response;
 
 use Incentiv\Models\Mensagem,
     Incentiv\Models\MensagemDestinatario,
     Incentiv\Models\MensagemExcluida;
 
 /**
- * Empresa\Controllers\EmpresaController
- * CRUD para gerenciar empresas
+ * Empresa\Controllers\EmpresaMensagemController
+ * CRUD para gerenciar mensagens
  */
 class EmpresaMensagemController extends ControllerBase {
     
@@ -89,6 +90,30 @@ class EmpresaMensagemController extends ControllerBase {
         }
     }
     
+    public function responderMensagemAction(){
+        $this->view->disable(); 
+        if ($this->request->isPost()) {
+            
+            $dados['titulo']        = $this->request->getPost('resposta-titulo');
+            $dados['mensagemId']    = $this->request->getPost('id');
+            $dados['mensagem']      = $this->request->getPost('resposta-mensagem');
+            $dados['remetenteId']     = $this->_auth['id'];
+
+            $resultMensagem = Mensagem::build()->salvarMensagemResposta($dados);
+          
+            if($resultMensagem['status'] == 'ok')
+            {
+                $this->flashSession->success($resultMensagem['message']);
+            }else{
+                $this->flashSession->error($resultMensagem['message']);
+            }
+            
+            $this->response->redirect('empresa/mensagens');
+        }else{
+            $this->response->redirect('empresa/mensagens');
+        }
+    }
+    
     public function lerMensagemAction(){
          
         $this->disableLayoutBefore();
@@ -106,7 +131,8 @@ class EmpresaMensagemController extends ControllerBase {
         foreach ($resultMensagem->mensagemDestinatario as $destinatario){
             $usuariosDestinatarios .= $destinatario->usuario->nome." (".$destinatario->usuario->email."), ";
         }
-
+        
+        $this->view->setVar("empresaId",       $this->_auth['empresaId']);
         $this->view->setVar("id",              $resultMensagem->id);
         $this->view->setVar("titulo",          $resultMensagem->titulo);
         $this->view->setVar("mensagem",        $resultMensagem->mensagem);
@@ -117,6 +143,14 @@ class EmpresaMensagemController extends ControllerBase {
         $this->view->setVar("envioDtBanco", $resultMensagem->envioDt);
         $this->view->setVar("usuariosDestinatarios",  substr($usuariosDestinatarios,0, strlen($usuariosDestinatarios)-2));
         $this->view->pick("empresa_mensagem/ler-mensagem");
+    }
+    
+    public function verificarMensagensAction(){
+        $this->disableLayoutBefore();
+        $mensagensRecebidas = Mensagem::build()->buscarMensagensRecebidas($this->_auth['id']);
+        $this->response = new Response();
+        $this->response->setJsonContent($mensagensRecebidas,'utf8');
+        $this->response->send();
     }
     
     public function excluirMensagemAction(){
@@ -135,9 +169,6 @@ class EmpresaMensagemController extends ControllerBase {
             $this->flashSession->error($resultMensagem['message']);
         }
 
-//        $this->response = new Response();
-//        $this->response->setJsonContent($resultMensagem['status'],'utf8');
-//        $this->response->send();
         $this->response->redirect('empresa/mensagens');
     }
 
