@@ -99,6 +99,7 @@ class EmpresaMensagemController extends ControllerBase {
             $dados['mensagem']      = $this->request->getPost('resposta-mensagem');
             $dados['remetenteId']     = $this->_auth['id'];
 
+            
             $resultMensagem = Mensagem::build()->salvarMensagemResposta($dados);
           
             if($resultMensagem['status'] == 'ok')
