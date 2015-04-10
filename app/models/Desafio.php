@@ -31,6 +31,11 @@ class Desafio extends Model
     /**
      * @var integer
      */
+    public $usuarioId;
+    
+    /**
+     * @var integer
+     */
     public $tipo;
     
     /**
@@ -134,13 +139,18 @@ class Desafio extends Model
     public function beforeValidationOnUpdate()
     {
         // Data de alteração
-        $this->modificacaoDt = date('Y-m-d');
+        $this->modificacaoDt = time();
     }
 
     public function initialize()
     {
         $this->belongsTo('empresaId', 'Incentiv\Models\Empresa', 'id', array(
             'alias' => 'empresa',
+            'reusable' => true
+        ));
+        
+        $this->belongsTo('usuarioId', 'Incentiv\Models\Usuario', 'id', array(
+            'alias' => 'usuarioCadastro',
             'reusable' => true
         ));
         
@@ -185,6 +195,11 @@ class Desafio extends Model
         
         $desafios->innerjoin('Incentiv\Models\DesafioUsuario', 'Incentiv\Models\Desafio.id = DesafioUsuario.desafioId AND Incentiv\Models\Desafio.usuarioResponsavelId = DesafioUsuario.usuarioId', 'DesafioUsuario');
         
+        $desafios->where("Incentiv\Models\Desafio.empresaId = {$objDesafio->empresaId}");
+        $desafios->andwhere("Incentiv\Models\Desafio.usuarioId = {$objDesafio->usuarioId}");
+        
+        $desafios->andwhere("DesafioUsuario.envioAprovacaoDt IS NULL");
+        
         if($objDesafio->filter)
         {
            $desafios->andwhere( "Incentiv\Models\Desafio.desafio LIKE('%{$objDesafio->filter}%')");
@@ -193,8 +208,6 @@ class Desafio extends Model
         {
             $desafios->andwhere("Incentiv\Models\Desafio.ativo = '{$objDesafio->ativo}'");
         }
-        
-        $desafios->andwhere("DesafioUsuario.envioAprovacaoDt IS NULL");
         
         $desafios->orderBy('Incentiv\Models\Desafio.desafio');
 
@@ -241,7 +254,8 @@ class Desafio extends Model
         }
 
         $desafio->assign(array(
-            'empresaId'             => 1,
+            'usuarioId'             => $dados['usuarioId'],
+            'empresaId'             => $dados['empresaId'],
             'desafio'               => $dados['desafio'],
             'tipo'                  => $dados['tipo_desafio'],
             'usuarioResponsavelId'  => $dados['colaborador-responsavel'],

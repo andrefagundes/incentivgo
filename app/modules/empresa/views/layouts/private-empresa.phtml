@@ -63,28 +63,25 @@
         <li class="dropdown-submenu" id="menu-noticia">
             {{ link_to("empresa/noticia",'alt':'Informe as novidades da empresa pra seus colaboradores','title':'Informe as novidades da empresa pra seus colaboradores', '<i class="fa fa-arrow-circle-right"></i><span>Notícias</span>') }}
         </li>
-        <!--        <li class="dropdown-submenu">
-                    {{ link_to("empresa/regra", '<i class="fa fa-arrow-circle-right"></i><span>Regras</span>') }}
-                </li>-->
         <li class="dropdown-submenu" id="menu-colaborador">
             {{ link_to("empresa/colaborador",'alt':'Cadastro e alteração dos usuários','title':'Cadastro e alteração dos usuários',  '<i class="fa fa-edit fa-lg"></i><span>Usuários</span>') }}
         </li>
         <li class="dropdown-submenu" id="menu-ideia">
             {{ link_to("empresa/ideia", 'alt':'Ideias enviadas pelos colaboradores','title':'Ideias enviadas pelos colaboradores', '<i class="fa fa-edit fa-lg"></i><span>Banco de ideias</span>') }}
         </li>
+        <li class="dropdown-submenu">
+           {{ link_to("empresa/recompensa",'alt':'Regra de uso das pontuações dos colaboradores','title':'Regra de uso das pontuações dos colaboradores', '<i class="fa fa-arrow-circle-right"></i><span>Recompensas</span>') }}
+       </li>
         <li class="dropdown-submenu" id="menu-mensagem">
             {{ link_to("empresa/mensagens", 'alt':'Todas as mensagens','title':'Todas as mensagens', '<i class="fa fa-envelope-o fa-lg"></i><span>Mensagens</span>') }}
         </li>
-        <!--        <li>
-                    {{ link_to("empresa/pontuacao", '<i class="fa fa-edit fa-lg"></i><span>Pontuação</span>') }}
-                </li>-->
-        <!--        <li class="dropdown-submenu">
-                    <a href="#"><i class="fa fa-calendar fa-lg"></i><span>Eventos</span></a>
-                    <ul class="dropdown-menu">
-                        <li>{{ link_to("empresa/evento/1", 'Palestras') }}</li>
-                        <li>{{ link_to("empresa/evento/2", 'Outros') }}</li>
-                    </ul>
-                </li>-->
+<!--        <li class="dropdown-submenu">
+            <a href="#"><i class="fa fa-calendar fa-lg"></i><span>Eventos</span></a>
+            <ul class="dropdown-menu">
+                <li>{{ link_to("empresa/evento/1", 'Palestras') }}</li>
+                <li>{{ link_to("empresa/evento/2", 'Outros') }}</li>
+            </ul>
+        </li>-->
     </ul>
 </nav>
 <section id="content">

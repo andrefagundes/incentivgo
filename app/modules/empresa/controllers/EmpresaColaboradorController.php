@@ -12,14 +12,15 @@ use Incentiv\Models\Usuario,
  */
 class EmpresaColaboradorController extends ControllerBase {
 
+    private $_auth;
+    
     public function initialize() {
-
+        $this->_auth = $this->auth->getIdentity();  
         if (!$this->request->isAjax()) {
-            $auth = $this->auth->getIdentity();          
             $this->view->usuario_logado    = $this->auth->getName();
-            $this->view->id                = $auth['id'];
-            $this->view->empresaId         = $auth['empresaId'];
-            $this->view->avatar            = $auth['avatar'];
+            $this->view->id                = $this->_auth['id'];
+            $this->view->empresaId         = $this->_auth['empresaId'];
+            $this->view->avatar            = $this->_auth['avatar'];
             $this->view->setTemplateAfter('private-empresa');
         }
     }
@@ -76,10 +77,11 @@ class EmpresaColaboradorController extends ControllerBase {
             
             $dados  = new \stdClass();
             
-            $dados->id       = $this->request->getPost('id');
-            $dados->nome     = $this->request->getPost('nome', 'striptags');
-            $dados->email    = $this->request->getPost('email', 'email');
-            $dados->perfilId = (int) $this->request->getPost('perfilId', 'int');
+            $dados->id        = $this->request->getPost('id');
+            $dados->nome      = $this->request->getPost('nome', 'striptags');
+            $dados->email     = $this->request->getPost('email', 'email');
+            $dados->perfilId  = (int) $this->request->getPost('perfilId', 'int');
+            $dados->empresaId = $this->_auth['empresaId'];
 
             $resultUsuario = Usuario::build()->salvarUsuario($dados);
           

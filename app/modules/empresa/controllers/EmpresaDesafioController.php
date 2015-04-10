@@ -14,14 +14,15 @@ use Incentiv\Models\Usuario,
  * Classe para gerenciar desafios
  */
 class EmpresaDesafioController extends ControllerBase {
-
+    private $_auth;
+    
     public function initialize() {
-        if (!$this->request->isAjax()) {
-            $auth = $this->auth->getIdentity();          
+        $this->_auth = $this->auth->getIdentity();
+        if (!$this->request->isAjax()) {        
             $this->view->usuario_logado    = $this->auth->getName();
-            $this->view->avatar            = $auth['avatar'];
-            $this->view->id                = $auth['id'];
-            $this->view->empresaId         = $auth['empresaId'];
+            $this->view->avatar            = $this->_auth['avatar'];
+            $this->view->id                = $this->_auth['id'];
+            $this->view->empresaId         = $this->_auth['empresaId'];
             $this->view->setTemplateAfter('private-empresa');
         }
     }
@@ -39,6 +40,8 @@ class EmpresaDesafioController extends ControllerBase {
         $this->disableLayoutBefore();
         
         $objDesafio = new \stdClass();
+        $objDesafio->usuarioId  = $this->_auth['id'];
+        $objDesafio->empresaId  = $this->_auth['empresaId'];
         $objDesafio->ativo      = $this->request->getPost("ativo");
         $objDesafio->filter     = $this->request->getPost("filter");
 
@@ -128,6 +131,8 @@ class EmpresaDesafioController extends ControllerBase {
         if ($this->request->isPost()) {
             
             $dados  = $this->request->getPost('dados');
+            $dados['usuarioId'] = $this->_auth['id'];
+            $dados['empresaId'] = $this->_auth['empresaId'];
 
             $resultCadastro = Desafio::build()->salvarDesafio($dados);
           
@@ -166,13 +171,11 @@ class EmpresaDesafioController extends ControllerBase {
     public function analisarDesafioAction(){
         $this->view->disable();
         
-        $auth = $this->auth->getIdentity(); 
-        
         $dadosAnalise = $this->request->getPost('dados');
 
         $dados = new \stdClass();
         $dados->id          = $dadosAnalise['id'];
-        $dados->empresaId   = $auth['empresaId'];
+        $dados->empresaId   = $this->_auth['empresaId'];
         $dados->observacao  = $dadosAnalise['observacao-analise'];
         $dados->resposta    = $this->request->getPost("resposta");
 

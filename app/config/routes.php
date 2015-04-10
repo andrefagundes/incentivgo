@@ -289,18 +289,18 @@ $router->add('/empresa/noticia/ativar-inativar-noticia/{status}/{id}', array(
 ));
 
 
-/******Rotas módulo empresa/regra**********/
+/******Rotas módulo empresa/recompensa**********/
 
-$router->add('/empresa/regra', array(
+$router->add('/empresa/recompensa', array(
     'module' => 'empresa',
-    'controller' => 'empresa_regra',
-    'action' => 'regra'
+    'controller' => 'empresa_recompensa',
+    'action' => 'recompensa'
 ));
 
-$router->add('/empresa/regra/pesquisar-regra', array(
+$router->add('/empresa/recompensa/pesquisar-recompensa', array(
     'module' => 'empresa',
-    'controller' => 'empresa_regra',
-    'action' => 'pesquisarRegra'
+    'controller' => 'empresa_recompensa',
+    'action' => 'pesquisarRecompensa'
 ))->beforeMatch(function() {
     //Verifica se a requisição é Ajax
     if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
@@ -309,54 +309,10 @@ $router->add('/empresa/regra/pesquisar-regra', array(
     return false;
 });
 
-$router->add('/empresa/regra/modal-regra/{code}', array(
+$router->add('/empresa/recompensa/modal-recompensa/{code}', array(
     'module' => 'empresa',
-    'controller' => 'empresa_regra',
-    'action' => 'modalRegra'
-))->beforeMatch(function() {
-    //Verifica se a requisição é Ajax
-    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
-        return true;
-    }
-
-    return false;
-});
-
-$router->add('/empresa/regra/salvar-regra', array(
-    'module' => 'empresa',
-    'controller' => 'empresa_regra',
-    'action' => 'salvarRegra'
-));
-
-$router->add('/empresa/regra/ativar-inativar-regra/{status}/{id}', array(
-    'module' => 'empresa',
-    'controller' => 'empresa_regra',
-    'action' => 'ativarInativarRegra'
-));
-/******Rotas módulo empresa/pontuacao**********/
-
-$router->add('/empresa/pontuacao', array(
-    'module' => 'empresa',
-    'controller' => 'empresa_pontuacao',
-    'action' => 'pontuacao'
-));
-
-$router->add('/empresa/pontuacao/pesquisar-pontuacao', array(
-    'module' => 'empresa',
-    'controller' => 'empresa_pontuacao',
-    'action' => 'pesquisarPontuacao'
-))->beforeMatch(function() {
-    //Verifica se a requisição é Ajax
-    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
-        return true;
-    }
-    return false;
-});
-
-$router->add('/empresa/pontuacao/modal-pontuacao/{code}', array(
-    'module' => 'empresa',
-    'controller' => 'empresa_pontuacao',
-    'action' => 'modalPontuacao'
+    'controller' => 'empresa_recompensa',
+    'action' => 'modalRecompensa'
 ))->beforeMatch(function() {
     //Verifica se a requisição é Ajax
     if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
@@ -366,17 +322,18 @@ $router->add('/empresa/pontuacao/modal-pontuacao/{code}', array(
     return false;
 });
 
-$router->add('/empresa/pontuacao/salvar-pontuacao', array(
+$router->add('/empresa/recompensa/salvar-recompensa', array(
     'module' => 'empresa',
-    'controller' => 'empresa_pontuacao',
-    'action' => 'salvarPontuacao'
+    'controller' => 'empresa_recompensa',
+    'action' => 'salvarRecompensa'
 ));
 
-$router->add('/empresa/pontuacao/ativar-inativar-pontuacao/{status}/{id}', array(
+$router->add('/empresa/recompensa/ativar-inativar-recompensa/{status}/{id}', array(
     'module' => 'empresa',
-    'controller' => 'empresa_pontuacao',
-    'action' => 'ativarInativarPontuacao'
+    'controller' => 'empresa_recompensa',
+    'action' => 'ativarInativarRecompensa'
 ));
+
 /******Rotas módulo empresa/colaborador**********/
 
 $router->add('/empresa/colaborador', array(

@@ -215,6 +215,13 @@ class Usuario extends Model
             )
         ));
         
+        $this->hasMany('id', 'Incentiv\Models\Desafio', 'usuarioId', array(
+            'alias' => 'desafioUsuarioCadastro',
+            'foreignKey' => array(
+                'message' => 'O colaborador não pode ser excluído porque ele possui desafio cadastrado.'
+            )
+        ));
+        
         $this->hasMany('id', 'Incentiv\Models\UsuarioPontuacaoCredito', 'usuarioId', array(
             'alias' => 'creditoUsuario',
             'foreignKey' => array(
@@ -312,7 +319,7 @@ class Usuario extends Model
         }
 
         $usuario->assign(array(
-            'empresaId'     => 1,
+            'empresaId'     => $dados->empresaId,
             'perfilId'      => $dados->perfilId,
             'nome'          => $dados->nome,
             'email'         => $dados->email

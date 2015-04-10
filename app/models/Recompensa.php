@@ -5,10 +5,10 @@ use Phalcon\Mvc\Model,
     Phalcon\Mvc\Model\Behavior\SoftDelete;
 
 /**
- * Incentiv\Models\RegraPontuacao
- * Modelo de registro de regras de pontuacões usadas(debitadas)
+ * Incentiv\Models\Recompensa
+ * Modelo de registro de recompensas
  */
-class RegraPontuacao extends Model
+class Recompensa extends Model
 {
     const DELETED               = 'N';
     const NOT_DELETED           = 'Y';
@@ -28,7 +28,7 @@ class RegraPontuacao extends Model
     /**
      * @var string
      */
-    public $regra;
+    public $recompensa;
     
     /**
      * @var string
@@ -66,7 +66,7 @@ class RegraPontuacao extends Model
     }
 
     /**
-     * Antes de criar a regra atribui data e ativacao
+     * Antes de criar a recompensa atribui data e ativacao
      */
     public function beforeValidationOnCreate()
     {
@@ -74,11 +74,11 @@ class RegraPontuacao extends Model
         $this->criacaoDt = time();
 
         // Seta estado para ativa
-        $this->ativo = 'S';
+        $this->ativo = Recompensa::NOT_DELETED;
     }
 
     /**
-     * Define a data e hora antes de atualizar a regra
+     * Define a data e hora antes de atualizar a recompensa
      */
     public function beforeValidationOnUpdate()
     {
@@ -93,26 +93,26 @@ class RegraPontuacao extends Model
             'reusable' => true
         ));
         
-        $this->hasMany('id', 'Incentiv\Models\UsuarioPontuacao', 'regraId', array(
+        $this->hasMany('id', 'Incentiv\Models\UsuarioPontuacao', 'recompensaId', array(
             'alias' => 'pontuacao',
             'foreignKey' => array(
-                'message' => 'A regra não pode ser excluída porque ela possui pontuação lançada.'
+                'message' => 'A recompensa não pode ser excluída porque ela possui pontuação lançada.'
             )
         ));
         
         $this->addBehavior(new SoftDelete(
             array(
                 'field' => 'ativo',
-                'value' => RegraPontuacao::DELETED
+                'value' => Recompensa::DELETED
             )
         ));
     }
     
-    public function fetchAllPontuacoes(\stdClass $objDesafio) {
+    public function fetchAllRecompensas(\stdClass $objDesafio) {
         
-        $regras = RegraPontuacao::query()->columns(
+        $recompensas = Recompensa::query()->columns(
                          array( 'id',
-                                'regra',
+                                'recompensa',
                                 'pontuacao', 
                                 'observacao',
                                 'criacaoDt',
@@ -120,64 +120,64 @@ class RegraPontuacao extends Model
         
         if($objDesafio->filter)
         {
-           $regras->andwhere( "regra LIKE('%{$objDesafio->filter}%')");
+           $recompensas->andwhere( "recompensa LIKE('%{$objDesafio->filter}%')");
         }
         if($objDesafio->ativo && $objDesafio->ativo != 'T' )
         {
-            $regras->andwhere("ativo = '{$objDesafio->ativo}'");
+            $recompensas->andwhere("ativo = '{$objDesafio->ativo}'");
         }
         
-        $regras->orderBy('regra');
+        $recompensas->orderBy('recompensa');
 
-        return $regras->execute();
+        return $recompensas->execute();
     }
     
-    public function salvarPontuacao($dados){
+    public function salvarRecompensa($dados){
        
         if($dados['id']){
-           $regra = $this->findFirst("id = ".$dados['id']);
+           $recompensa = $this->findFirst("id = ".$dados['id']);
         }else{
-           $regra = $this;
+           $recompensa = $this;
         }
         
-        $regra->assign(array(
-            'empresaId'     => 1,
-            'regra'         => $dados['regra'],
+        $recompensa->assign(array(
+            'empresaId'     => $dados['empresaId'],
+            'recompensa'    => $dados['recompensa'],
             'pontuacao'     => $dados['pontuacao'],
             'observacao'    => $dados['observacao']
         ));
 
-        if (!$regra->save()) {
-            foreach ($regra->getMessages() as $mensagem) {
+        if (!$recompensa->save()) {
+            foreach ($recompensa->getMessages() as $mensagem) {
                 die($mensagem);
               $message =  $mensagem;
               break;
             }
-            return array('status' => 'error', 'message' => 'Não foi possível salvar a regra!!!');
+            return array('status' => 'error', 'message' => 'Não foi possível salvar a recompensa!!!');
         } else {
-            return array('status' => 'ok', 'message' => 'Regra salva com sucesso!!!');
+            return array('status' => 'ok', 'message' => 'Recompensa salva com sucesso!!!');
         }
     }
     
-    public function ativarInativarPontuacao(\stdClass $dados){
+    public function ativarInativarRecompensa(\stdClass $dados){
 
-        $regra = $this->findFirst("id = ".$dados->id);
+        $recompensa = $this->findFirst("id = ".$dados->id);
         
-        $regra->assign(array(
+        $recompensa->assign(array(
             'ativo'         => $dados->status
         ));
 
-        if (!$regra->save()) {
-            foreach ($regra->getMessages() as $mensagem) {
+        if (!$recompensa->save()) {
+            foreach ($recompensa->getMessages() as $mensagem) {
               $message =  $mensagem;
               break;
             }
             return array('status' => 'error', 'message' => $message);
         } else {
             if($dados->status == 'N'){
-                return array('status' => 'ok', 'message' => 'Pontuacao inativada com sucesso!!!');
+                return array('status' => 'ok', 'message' => 'Recompensa inativada com sucesso!!!');
             }else{
-                return array('status' => 'ok', 'message' => 'Pontuacao ativada com sucesso!!!');
+                return array('status' => 'ok', 'message' => 'Recompensa ativada com sucesso!!!');
             }  
         }
     }

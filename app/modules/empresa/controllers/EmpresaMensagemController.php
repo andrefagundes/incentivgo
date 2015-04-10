@@ -118,31 +118,39 @@ class EmpresaMensagemController extends ControllerBase {
     public function lerMensagemAction(){
          
         $this->disableLayoutBefore();
-
-        $resultMensagem = Mensagem::build()->findFirst($this->dispatcher->getParam('code'));
         
+        $mensagemId = $this->dispatcher->getParam('code');
+        
+        $resultMensagem  = Mensagem::build()->find(array("(id = {$mensagemId} OR mensagemId = {$mensagemId})", "order" => "id ")); 
         
         $objDadosMensagemLida = new \stdClass();
-        $objDadosMensagemLida->mensagemId       = $resultMensagem->id;
+        $objDadosMensagemLida->mensagemId       = $this->dispatcher->getParam('code');
         $objDadosMensagemLida->destinatarioId   = $this->_auth['id'];
         
         MensagemDestinatario::build()->setarMensagemLida($objDadosMensagemLida);
         
-        $usuariosDestinatarios = '';
-        foreach ($resultMensagem->mensagemDestinatario as $destinatario){
-            $usuariosDestinatarios .= $destinatario->usuario->nome." (".$destinatario->usuario->email."), ";
+        $mensagens = '';
+        foreach ($resultMensagem as $key => $mensagem){
+            $mensagens[$key]['id']              = $mensagem->id;
+            $mensagens[$key]['titulo']          = $mensagem->titulo;
+            $mensagens[$key]['mensagem']        = $mensagem->mensagem;
+            $mensagens[$key]['avatar']          = $mensagem->usuarioRemetente->avatar;
+            $mensagens[$key]['nomeRemetente']   = $mensagem->usuarioRemetente->nome;
+            $mensagens[$key]['emailRemetente']  = $mensagem->usuarioRemetente->email;
+            $mensagens[$key]['envioDt']         = date('d/m/Y H:m:s',strtotime($mensagem->envioDt));
+            $mensagens[$key]['envioDtBanco']    = $mensagem->envioDt;
+            $mensagens[$key]['id_mensagem_pai'] = $mensagemId;
+            
+            $usuariosDestinatarios = '';
+            foreach ($mensagem->mensagemDestinatario as $destinatario){
+                $usuariosDestinatarios .= $destinatario->usuario->nome." (".$destinatario->usuario->email."), ";
+            }
+            
+            $mensagens[$key]['usuariosDestinatarios'] = substr($usuariosDestinatarios,0, strlen($usuariosDestinatarios)-2);
         }
         
+        $this->view->setVar("mensagens",       $mensagens);
         $this->view->setVar("empresaId",       $this->_auth['empresaId']);
-        $this->view->setVar("id",              $resultMensagem->id);
-        $this->view->setVar("titulo",          $resultMensagem->titulo);
-        $this->view->setVar("mensagem",        $resultMensagem->mensagem);
-        $this->view->setVar("avatar",          $resultMensagem->usuarioRemetente->avatar);
-        $this->view->setVar("nomeRemetente",   $resultMensagem->usuarioRemetente->nome);
-        $this->view->setVar("emailRemetente",  $resultMensagem->usuarioRemetente->email);
-        $this->view->setVar("envioDt", date('d/m/Y H:m:s',strtotime($resultMensagem->envioDt))   );
-        $this->view->setVar("envioDtBanco", $resultMensagem->envioDt);
-        $this->view->setVar("usuariosDestinatarios",  substr($usuariosDestinatarios,0, strlen($usuariosDestinatarios)-2));
         $this->view->pick("empresa_mensagem/ler-mensagem");
     }
     

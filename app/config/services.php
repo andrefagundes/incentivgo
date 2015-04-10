@@ -12,7 +12,8 @@ use Phalcon\DI\FactoryDefault,
 
 use Incentiv\Auth\Auth,
     Incentiv\Mail\Mail,
-    Incentiv\Funcoes\Funcoes;
+    Incentiv\Funcoes\Funcoes,
+    Incentiv\Funcoes\MySqlBuilder;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -132,4 +133,9 @@ $di->set('mail', function () {
  */
 $di->set('funcoes', function () {
     return new Funcoes();
+});
+
+//string de sql
+$di->set('builderSql', function () {
+    return new MySqlBuilder();
 });

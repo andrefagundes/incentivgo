@@ -1,8 +1,8 @@
-var ModalPontuacao = {
+var ModalRecompensa = {
     init: function() {
-        $("#form-pontuacao").validate({
+        $("#form-recompensa").validate({
             rules: {
-                'dados[regra]': {
+                'dados[recompensa]': {
                     required: true
                 },
                 'dados[pontuacao]': {
@@ -10,7 +10,7 @@ var ModalPontuacao = {
                 }
             },
             messages: {
-                'dados[regra]': 'Campo obrigatório',
+                'dados[recompensa]': 'Campo obrigatório',
                 'dados[pontuacao]': 'Campo obrigatório'
             }
         });

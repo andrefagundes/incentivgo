@@ -12,6 +12,7 @@ class Perfil extends Model
     const ADMINISTRADOR             = 1;
     const COLABORADOR               = 2;
     const ADMINISTRADOR_INCENTIV    = 3;
+    const GERENTE                   = 4;
     
     public static $_instance;
 

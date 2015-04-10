@@ -3,21 +3,24 @@
 namespace Empresa\Controllers;
 
 use Phalcon\Paginator\Adapter\Model as Paginator,
-    Incentiv\Models\Regra;
+    Incentiv\Models\Recompensa;
 
 /**
- * Empresa\Controllers\RegraController
+ * Empresa\Controllers\RecompensaController
  * CRUD para gerenciar empresas
  */
-class EmpresaRegraController extends ControllerBase {
+class EmpresaRecompensaController extends ControllerBase {
 
+    private $_auth;
+    
     public function initialize() {
+        $this->_auth = $this->auth->getIdentity(); 
         if (!$this->request->isAjax()) {
-            $auth = $this->auth->getIdentity();          
+         
             $this->view->usuario_logado    = $this->auth->getName();
-            $this->view->id                = $auth['id'];
-            $this->view->empresaId         = $auth['empresaId'];
-            $this->view->avatar            = $auth['avatar'];
+            $this->view->id                = $this->_auth['id'];
+            $this->view->empresaId         = $this->_auth['empresaId'];
+            $this->view->avatar            = $this->_auth['avatar'];
             $this->view->setTemplateBefore('private-empresa');
         }
     }
@@ -28,9 +31,9 @@ class EmpresaRegraController extends ControllerBase {
         
     }
 
-    public function regraAction() { }
+    public function recompensaAction() { }
     
-    public function pesquisarRegraAction() {
+    public function pesquisarRecompensaAction() {
 
         $this->disableLayoutBefore();
         
@@ -38,38 +41,39 @@ class EmpresaRegraController extends ControllerBase {
         $objDesafio->ativo      = $this->request->getPost("ativo");
         $objDesafio->filter     = $this->request->getPost("filter");
 
-        $resultRegras = Regra::build()->fetchAllRegras($objDesafio);
+        $resultRecompensas = Recompensa::build()->fetchAllRecompensas($objDesafio);
         
         $numberPage = $this->request->getPost("page");
         $paginator = new Paginator(array(
-            "data" => $resultRegras,
-            "limit" => 2,
+            "data" => $resultRecompensas,
+            "limit" => 4,
             "page" => $numberPage
         ));
 
         $this->view->page = $paginator->getPaginate();
-        $this->view->pick("empresa_regra/pesquisar-regra");
+        $this->view->pick("empresa_recompensa/pesquisar-recompensa");
     }
     
-    public function modalRegraAction(){
+    public function modalRecompensaAction(){
         
         $this->disableLayoutBefore();
 
-        $resultRegra = Regra::build()->findFirst($this->dispatcher->getParam('code'));
+        $resultRecompensa = Recompensa::build()->findFirst($this->dispatcher->getParam('code'));
 
-        $this->view->setVar("id",       $resultRegra->id);
-        $this->view->setVar("regra",    $resultRegra->regra);
-        $this->view->setVar("pontuacao",    $resultRegra->pontuacao);
-        $this->view->setVar("observacao",$resultRegra->observacao);
+        $this->view->setVar("id",       $resultRecompensa->id);
+        $this->view->setVar("recompensa",    $resultRecompensa->recompensa);
+        $this->view->setVar("pontuacao",    $resultRecompensa->pontuacao);
+        $this->view->setVar("observacao",$resultRecompensa->observacao);
     }
     
-    public function salvarRegraAction() {
+    public function salvarRecompensaAction() {
         $this->view->disable(); 
         if ($this->request->isPost()) {
             
             $dados  = $this->request->getPost('dados');
-
-            $resultCadastro = Regra::build()->salvarRegra($dados);
+            $dados['empresaId'] = $this->_auth['empresaId'];
+            
+            $resultCadastro = Recompensa::build()->salvarRecompensa($dados);
       
             if($resultCadastro['status'] == 'ok')
             {
@@ -78,20 +82,20 @@ class EmpresaRegraController extends ControllerBase {
                 $this->flashSession->error($resultCadastro['message']);
             }
             
-            $this->response->redirect('empresa/regra');
+            $this->response->redirect('empresa/recompensa');
         }else{
-            $this->response->redirect('empresa/regra');
+            $this->response->redirect('empresa/recompensa');
         }
     }
     
-    public function ativarInativarRegraAction() {
+    public function ativarInativarRecompensaAction() {
         $this->view->disable();
         
         $dados = new \stdClass();
         $dados->status  = $this->dispatcher->getParam('status');
         $dados->id      = $this->dispatcher->getParam('id');
 
-        $resultCadastro = Regra::build()->ativarInativarRegra($dados);
+        $resultCadastro = Recompensa::build()->ativarInativarRecompensa($dados);
 
         if($resultCadastro['status'] == 'ok')
         {
@@ -100,6 +104,6 @@ class EmpresaRegraController extends ControllerBase {
             $this->flashSession->error($resultCadastro['message']);
         }
 
-        $this->response->redirect('empresa/regra');
+        $this->response->redirect('empresa/recompensa');
     }
 }

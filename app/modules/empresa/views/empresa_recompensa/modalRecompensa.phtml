@@ -4,14 +4,14 @@
         <div class="col-sm-11">
             
             <div class="form-group">
-                <label class="col-lg-3 control-label">Regra</label>
-                <div class="col-lg-9">
-                    {{ text_area("dados[regra]", 'id':'regra', 'placeholder': 'Informe a regra','value':regra,'rows':'3', 'class':'bg-focus form-control') }}
+                <label class="col-lg-4 control-label">Recompensa</label>
+                <div class="col-lg-8">
+                    {{ text_area("dados[recompensa]", 'id':'recompensa', 'placeholder': 'Ex: Tirar um dia de folga','value':recompensa,'rows':'3', 'class':'bg-focus form-control') }}
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 control-label">Pontuação</label>
-                <div class="col-lg-9">
+                <label class="col-lg-4 control-label">Pontuação Debitada</label>
+                <div class="col-lg-8">
                     <div class="spinner input-group col-lg-3" id="MySpinner">
                         {{ text_field("dados[pontuacao]", 'id':'pontuacao','value':pontuacao, 'class':'input-sm spinner-input form-control') }}
                         <div class="btn-group btn-group-vertical input-group-btn">
@@ -27,19 +27,19 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 control-label">Observação</label>
-                <div class="col-lg-9">
+                <label class="col-lg-4 control-label">Observação</label>
+                <div class="col-lg-8">
                     {{ text_area("dados[observacao]", 'id':'observacao', 'placeholder': 'Observações','value':observacao,'rows':'3', 'class':'bg-focus form-control') }}
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Fim Modal Criar Regra -->
-{{ javascript_include('js/empresa/regra/modal-regra.js') }}
+<!-- Fim Modal Criar Recompensa -->
+{{ javascript_include('js/empresa/recompensa/modal-recompensa.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        ModalRegra.init();
+        ModalRecompensa.init();
     });
 </script>
 

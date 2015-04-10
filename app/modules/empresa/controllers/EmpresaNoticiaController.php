@@ -69,22 +69,22 @@ class EmpresaNoticiaController extends ControllerBase {
 
     }
     
-    public function pesquisarColaboradoresNoticiaAction() {
-
-        $this->disableLayoutBefore();
-        
-        $objUsuario = new \stdClass();
-        $objUsuario->filter         = $this->request->get("filter");
-        $objUsuario->colaboradores  = $this->request->get("colaboradores");
-        $objUsuario->perfil         = Perfil::COLABORADOR;
-        $objUsuario->ativo          = Usuario::NOT_DELETED;
-
-        $resultUsuarios = Usuario::build()->fetchAllUsuariosNoticia($objUsuario);
-
-        $this->response = new Response();
-        $this->response->setJsonContent($resultUsuarios,'utf8');
-        $this->response->send();
-    }
+//    public function pesquisarColaboradoresNoticiaAction() {
+//
+//        $this->disableLayoutBefore();
+//        
+//        $objUsuario = new \stdClass();
+//        $objUsuario->filter         = $this->request->get("filter");
+//        $objUsuario->colaboradores  = $this->request->get("colaboradores");
+//        $objUsuario->perfil         = Perfil::COLABORADOR;
+//        $objUsuario->ativo          = Usuario::NOT_DELETED;
+//
+//        $resultUsuarios = Usuario::build()->fetchAllUsuariosNoticia($objUsuario);
+//
+//        $this->response = new Response();
+//        $this->response->setJsonContent($resultUsuarios,'utf8');
+//        $this->response->send();
+//    }
     
     public function salvarNoticiaAction() {
         $this->view->disable(); 

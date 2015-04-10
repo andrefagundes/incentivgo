@@ -103,7 +103,7 @@ class SessionController extends ControllerBase {
                     if($auth['perfilId'] == Perfil::COLABORADOR)
                     {
                         return $this->response->redirect('colaborador');
-                    }elseif ($auth['perfilId'] == Perfil::ADMINISTRADOR) {
+                    }elseif ($auth['perfilId'] == Perfil::ADMINISTRADOR || $auth['perfilId'] == Perfil::GERENTE) {
                         return $this->response->redirect('empresa');
                     }elseif ($auth['perfilId'] == Perfil::ADMINISTRADOR_INCENTIV) {
                         return $this->response->redirect('admin');

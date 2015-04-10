@@ -32,6 +32,7 @@ class SecurityPlugin extends Plugin {
             //Register roles
             $roles = array(
                 'administrador' => new Role('administrador'),
+                'gerente'       => new Role('gerente'),
                 'colaborador'   => new Role('colaborador'),
                 'admin'         => new Role('admin'),
                 'publico'       => new Role('publico')
@@ -52,9 +53,7 @@ class SecurityPlugin extends Plugin {
                             'salvarDesafio', 'ativarInativarDesafio','modalAnalisarDesafio','analisarDesafio'),
                     'empresa_noticia' => array('index','noticia','pesquisarNoticia','modalNoticia',
                             'salvarNoticia', 'ativarInativarNoticia'),
-                    'empresa_pontuacao' => array('index','pontuacao', 'pesquisarPontuacao','modalPontuacao',
-                            'salvarPontuacao','ativarInativarPontuacao'),
-                    'empresa_regra' => array('index','regra','pesquisarRegra','modalRegra','salvarRegra','ativarInativarRegra'),
+                    'empresa_recompensa' => array('index','recompensa','pesquisarRecompensa','modalRecompensa','salvarRecompensa','ativarInativarRecompensa'),
                     'empresa_perfil' => array('index','perfil'),
                     'empresa_mensagem' => array('index','mensagem','pesquisarMensagem','novaMensagem',
                                                 'salvarMensagem','lerMensagem','excluirMensagem','verificarMensagens','responderMensagem')
