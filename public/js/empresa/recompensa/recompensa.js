@@ -1,5 +1,10 @@
 var Recompensa = {
     init: function(){
+        
+        //marcar menu ativo
+        $(".dropdown-submenu").removeClass('active');
+        $("#menu-recompensa").addClass('active');
+        
         //evento do botão de pesquisar desafio
         $("#btnPesquisarRecompensas").click(function(){
             Recompensa.pesquisarRecompensa(1);

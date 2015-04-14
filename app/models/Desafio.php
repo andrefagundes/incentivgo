@@ -51,7 +51,7 @@ class Desafio extends Model
     /**
      * @var integer
      */
-    public $pontuacao;
+    public $desafioTipoId;
     
     /**
      * @var integer
@@ -116,7 +116,7 @@ class Desafio extends Model
         )));
         
         $this->validate(new PresenceOf(array(
-          'field' => 'pontuacao',
+          'field' => 'desafioTipoId',
           'message' => 'A pontuação do desafio é obrigatória!!!'
         )));
         
@@ -159,13 +159,6 @@ class Desafio extends Model
             'reusable' => true
         ));
         
-        $this->hasMany('id', 'Incentiv\Models\UsuarioPontuacao', 'desafioId', array(
-            'alias' => 'pontuacao',
-            'foreignKey' => array(
-                'message' => 'O desafio não pode ser excluído porque ele possui pontuação lançada.'
-            )
-        ));
-        
         $this->hasMany('id', 'Incentiv\Models\DesafioUsuario', 'desafioId', array(
             'alias' => 'desafioUsuario',
             'foreignKey' => array(
@@ -187,7 +180,7 @@ class Desafio extends Model
                          array( 'Incentiv\Models\Desafio.id',
                                 'Incentiv\Models\Desafio.desafio',
                                 'Incentiv\Models\Desafio.tipo',
-                                'pontuacao', 
+                                'desafioTipoId', 
                                 'inicioDt' => "DATE_FORMAT( Incentiv\Models\Desafio.inicioDt , '%d/%m/%Y' )",
                                 'fimDt' => "DATE_FORMAT( Incentiv\Models\Desafio.fimDt , '%d/%m/%Y' )",
                                 'Incentiv\Models\Desafio.premiacao',
@@ -220,7 +213,7 @@ class Desafio extends Model
                                 'Incentiv\Models\Desafio.id',
                                 'Incentiv\Models\Desafio.tipo',
                                 'Incentiv\Models\Desafio.desafio',
-                                'Incentiv\Models\Desafio.pontuacao', 
+                                'desafioTipoId', 
                                 'inicioDt' => "DATE_FORMAT( Incentiv\Models\Desafio.inicioDt , '%d/%m/%Y' )",
                                 'fimDt' => "DATE_FORMAT( Incentiv\Models\Desafio.fimDt , '%d/%m/%Y' )",
                                 'Incentiv\Models\Desafio.premiacao'));
@@ -259,7 +252,7 @@ class Desafio extends Model
             'desafio'               => $dados['desafio'],
             'tipo'                  => $dados['tipo_desafio'],
             'usuarioResponsavelId'  => $dados['colaborador-responsavel'],
-            'pontuacao'     => (int) $dados['pontuacao'],
+            'desafioTipoId'     => (int) $dados['desafio_tipo_id'],
             'premiacao'     => $dados['premiacao'],
             'inicioDt'      => $funcoes->formatarData($dados['data_inicio']),
             'fimDt'         => $funcoes->formatarData($dados['data_fim'])

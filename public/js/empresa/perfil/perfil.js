@@ -22,7 +22,7 @@ var Perfil = {
             showUpload: false,
             showCaption: false,
             showRemove: false,
-            browseClass: "btn btn-facebook btn-file-avatar form-control",
+            browseClass: "btn btn-facebook btn-file-avatar form-control squared",
             browseLabel: "Alterar avatar",
             browseIcon: '',
             msgSizeTooLarge:'O arquivo "{name}" ({size} KB) é maior que o permitido {maxSize} KB.',

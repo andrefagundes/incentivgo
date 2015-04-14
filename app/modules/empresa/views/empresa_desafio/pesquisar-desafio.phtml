@@ -5,7 +5,21 @@
         <tr class="row">
             <td class="td-responsive">
                 <div class="pull-right text-muted">
-                    <strong class="h3 text-info text-center" data-placement="left" data-toggle="tooltip" data-original-title="Pontos válidos">{{desafio.pontuacao}}</strong> pts<br>
+                    {% if(desafio.desafioTipoId == 1) %}
+                        {% set nivel_label = 'Fácil' %}
+                    {% elseif(desafio.desafioTipoId == 2)  %}
+                        {% set nivel_label = 'Médio' %}
+                    {% elseif(desafio.desafioTipoId == 3)  %}
+                        {% set nivel_label = 'Difícil' %} 
+                    {% elseif(desafio.desafioTipoId == 4)  %}
+                        {% set nivel_label = 'Super Difícil' %}
+                    {% endif %}
+                    <small>
+                    <span class="label label-info" data-placement="left" data-toggle="tooltip" data-original-title="Nível {{nivel_label}}">
+                            {{nivel_label}}
+                        </span>
+                    </small>
+                    &nbsp;
                     <small>
                         {% if(desafio.status == 'N') %}
                         {% set status = 'danger' %} 
@@ -14,7 +28,7 @@
                         {% set status = 'success' %} 
                         {% set status_label = 'Ativo' %}
                         {% endif %}
-                        <span class="label label-{{status}}" data-placement="left" data-toggle="tooltip" data-original-title="Status">
+                        <span class="label label-{{status}}" data-placement="right" data-toggle="tooltip" data-original-title="Status {{status_label}}">
                             {{status_label}}
                         </span>
                     </small>
@@ -26,7 +40,7 @@
                 {% set tipo = 'success' %} 
                 {% set tipo_label = 'Por Equipe' %}
                 {% endif %}
-                <span class="label label-{{tipo}}" data-placement="left" data-toggle="tooltip" title="Tipo de Desafio"> {{tipo_label}}</span>
+                <span class="label label-{{tipo}}" data-placement="left" data-toggle="tooltip" title="Desafio {{tipo_label}}"> {{tipo_label}}</span>
                 <!--<span data-placement="left" data-toggle="tooltip" data-original-title="Período Válido" >{{desafio.inicioDt}} a {{desafio.fimDt}} </span>--> 
                 <div class="btn-group" data-placement="right" data-toggle="tooltip" data-original-title="Ações">
                     <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
@@ -57,17 +71,19 @@
 <section class="panel-footer">
     <footer>
         <div class="row">
-            <div class="col-sm-4 col-sm-offset-3 text-center">
+            <div class="col-lg-1 text-center"  data-placement="bottom" data-toggle="tooltip" data-original-title="Desafios Cadastrados">
+                <small class="text-muted inline m-t-small m-b-small"><span class="label label-large bg-default " id="quantidade-desafio">{{page.total_items}}</span> Desafios </small>
+            </div>
+            <div class="col-lg-3 col-sm-offset-3 text-center">
                 <small class="text-muted inline m-t-small m-b-small">Mostrando {{ page.current }} de {{ page.total_pages }}</small>
             </div>
-            <div class="col-sm-5 text-right text-center-sm">                
+            <div class="col-lg-5 text-right text-center-sm">                
                 <ul class="pagination pagination-small m-t-none m-b-none">
                     <li><a href="#" class="fa btnPaginacaoDesafio" id="1"><i class="icons icon-fast-backward"></i> Primeiro</a></li>
                     <li><a href="#" class="fa btnPaginacaoDesafio" id="{{page.before}}"><i class="icons icon-step-backward"></i> Anterior</a></li>
                     <li><a href="#" class="fa btnPaginacaoDesafio" id="{{page.next}}"><i class="icons icon-step-forward"></i> Próximo</a></li>
                     <li><a href="#" class="fa btnPaginacaoDesafio" id="{{page.last}}">Último <i class="icons icon-fast-forward"></i> </a></li>
                 </ul>
-                {{hidden_field("quantDesafio","value":page.total_items )}}
             </div>
         </div>
     </footer>

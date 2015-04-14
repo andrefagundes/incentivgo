@@ -6,7 +6,9 @@ use Phalcon\Paginator\Adapter\Model as Paginator,
     Phalcon\Http\Response;
 use Incentiv\Models\Usuario,
     Incentiv\Models\Desafio,
+    Incentiv\Models\DesafioPontuacao,
     Incentiv\Models\DesafioUsuario,
+    Incentiv\Models\DesafioTipo,
     Incentiv\Models\Perfil;
 
 /**
@@ -71,7 +73,7 @@ class EmpresaDesafioController extends ControllerBase {
 
         $this->view->setVar("id",       $resultDesafio->id);
         $this->view->setVar("desafio",  $resultDesafio->desafio);
-        $this->view->setVar("pontuacao",$resultDesafio->pontuacao);
+        $this->view->setVar("desafioTipoId",$resultDesafio->desafioTipoId);
         $this->view->setVar("tipo",     $resultDesafio->tipo);
         $this->view->setVar("inicioDt", (!empty($resultDesafio->inicioDt))?date('d/m/Y',strtotime($resultDesafio->inicioDt)):'');
         $this->view->setVar("fimDt",    (!empty($resultDesafio->fimDt))?date('d/m/Y',strtotime($resultDesafio->fimDt)):'');
@@ -99,7 +101,7 @@ class EmpresaDesafioController extends ControllerBase {
         
         $this->view->setVar("id",       $resultDesafio->id);
         $this->view->setVar("desafio",  $resultDesafio->desafio);
-        $this->view->setVar("pontuacao",$resultDesafio->pontuacao);
+        $this->view->setVar("desafioTipoId",$resultDesafio->desafioTipoId);
         $this->view->setVar("tipo",     ($resultDesafio->desafio == Desafio::DESAFIO_TIPO_INDIVIDUAL)?'Individual':'Por Equipe');
         $this->view->setVar("inicioDt", (!empty($resultDesafio->inicioDt))?date('d/m/Y',strtotime($resultDesafio->inicioDt)):'');
         $this->view->setVar("fimDt",    (!empty($resultDesafio->fimDt))?date('d/m/Y',strtotime($resultDesafio->fimDt)):'');
@@ -189,6 +191,32 @@ class EmpresaDesafioController extends ControllerBase {
         }
 
         $this->response->redirect('empresa');
+    }
+    
+    public function mapearPontuacaoAction(){
+        $this->disableLayoutBefore();
+        
+        if ($this->request->isPost()) {
+            
+            $objMapeamento = new \stdClass();
+            $objMapeamento->dados               = $this->request->getPost('dados');
+            $objMapeamento->dados['empresaId']  = $this->_auth['empresaId'];
+
+            $result = DesafioPontuacao::build()->salvarMapeamentoDesafio($objMapeamento);
+            
+            if ($result['status'] == 'ok') {
+                $this->flashSession->success($result['message']);
+            } else {
+                $this->flashSession->error($result['message']);
+            }
+            
+            $this->response->redirect('empresa/desafio');
+        }
+
+        $resultTiposDesafio  = DesafioTipo::build()->buscarTiposDesafio($this->_auth['empresaId']);
+//die(var_dump($resultTiposDesafio->toArray()));
+        $this->view->setVar("tipo_desafios",$resultTiposDesafio);
+
     }
 
 }

@@ -243,6 +243,12 @@ $router->add('/empresa/desafio/modal-analisar-desafio/{code}', array(
     return false;
 });
 
+$router->add('/empresa/desafio/modal-mapear-pontuacao-desafio', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_desafio',
+    'action' => 'mapearPontuacao'
+));
+
 /******Rotas módulo empresa/noticia**********/
 
 $router->add('/empresa/noticia', array(

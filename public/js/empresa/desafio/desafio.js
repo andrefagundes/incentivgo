@@ -20,6 +20,12 @@ var Desafio = {
             $( "#modal-body-desafio" ).html('').load( "desafio/modal-desafio/"+0 );
             $('#modalCriarDesafio').modal('show'); 
         });
+        
+        $("#btnMapearPontuacaoDesafio").click(function(){
+            $("#myModalLabelMapearDesafio").html('Mapear Pontuação de Desafios');
+            $("#modal-body-mapear-desafio").html('').load( "desafio/modal-mapear-pontuacao-desafio" );
+            $("#modalMapearPontuacaoDesafio").modal('show'); 
+        });
 
         Desafio.pesquisarDesafio();
     },
@@ -34,10 +40,6 @@ var Desafio = {
         
         $.post( "desafio/pesquisar-desafio", { 'page': page, 'ativo':ativo, 'filter':filter }, function(data){
              $( "#pesquisarDesafio" ).empty().append( data );
-             Desafio.inserirQuantidadeDesafio($("#quantDesafio").val());
         },'html');
-    },
-    inserirQuantidadeDesafio:function(quantDesafio){
-       $("#quantidade-desafio").html('').html(quantDesafio);
     }
 };

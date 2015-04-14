@@ -24,6 +24,9 @@ var ModalDesafio = {
 
         $("#form-desafio").validate({
             rules: {
+                'dados[desafio_tipo_id]': {
+                    required: true
+                },
                 'dados[tipo_desafio]': {
                     required: true
                 },
@@ -36,9 +39,6 @@ var ModalDesafio = {
                 'dados[desafio]': {
                     required: true
                 },
-                'dados[pontuacao]': {
-                    required: true
-                },
                 'dados[data_inicio]': {
                     required: true,
                     validarData: true
@@ -49,9 +49,9 @@ var ModalDesafio = {
                 }
             },
             messages: {
+                'dados[desafio_tipo_id]': 'Campo obrigatório',
                 'dados[tipo_desafio]': 'Campo obrigatório',
                 'dados[desafio]': 'Campo obrigatório',
-                'dados[pontuacao]': 'Campo obrigatório',
                 'dados[data_inicio]': 'Campo obrigatório',
                 'dados[data_fim]': 'Campo obrigatório',
                 'dados[colaboradores-participantes]':'Campo obrigatório',

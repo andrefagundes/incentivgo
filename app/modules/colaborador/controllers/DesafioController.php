@@ -3,12 +3,16 @@
 namespace Colaborador\Controllers;
 
 use Phalcon\Http\Response;
-use Incentiv\Models\DesafioUsuario;
+use Incentiv\Models\DesafioUsuario,
+    Incentiv\Models\DesafioPontuacao;
 
 class DesafioController extends ControllerBase
 {
+    private $_auth;
+    
     public function initialize()
     {
+        $this->_auth = $this->auth->getIdentity();
         if (!$this->request->isAjax()) {
             $this->view->setTemplateBefore('private-colaborador');
         }
@@ -19,10 +23,8 @@ class DesafioController extends ControllerBase
     public function modalDesafiosAction(){
         $this->disableLayoutBefore();
         
-        $auth = $this->auth->getIdentity();
-        
         $objDesafio = new \stdClass();
-        $objDesafio->usuarioId = $auth['id'];
+        $objDesafio->usuarioId = $this->_auth['id'];
         
         $resultDesafiosUsuario  = DesafioUsuario::build()->buscarDesafiosUsuario($objDesafio);
 
