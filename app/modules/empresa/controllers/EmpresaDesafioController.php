@@ -70,6 +70,14 @@ class EmpresaDesafioController extends ControllerBase {
         foreach ($resultDesafio->desafioUsuario as $participantes){
             $idsParticipantes .= $participantes->usuarioId.',';
         }
+        
+        $desafios_tipo = DesafioTipo::build()->buscarTiposDesafio($this->_auth['empresaId']);
+        
+        foreach ($desafios_tipo as $desafios) {
+            $nivel_desafios[$desafios->id] = '<strong>'.$desafios->desafioTipo.'</strong> ( '.$desafios->pontuacao." pontos )"; 
+        }
+ 
+        $this->view->setVar('nivel_desafios',$nivel_desafios);
 
         $this->view->setVar("id",       $resultDesafio->id);
         $this->view->setVar("desafio",  $resultDesafio->desafio);

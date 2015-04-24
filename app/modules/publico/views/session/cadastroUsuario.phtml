@@ -1,0 +1,59 @@
+<section class="components">
+    <div class="container margin">
+        <div class="row col-sm-offset-4">
+            
+            <h5>Faça seu cadastro com o email da empresa!!!<p>Somente ele será válido.</p></h5>    
+                {{ form( 'action':'session/cadastro-usuario/'~codigo~'/'~empresaId~'','class':'form-horizontal form-cadastro','role': 'form') }}
+                {{hidden_field("empresaId",'value':empresaId)}}
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                        <?php echo $this->flashSession->output(); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                        {{ form.render('nome') }}
+                        {{ form.messages('nome') }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                        {{ form.render('email') }}
+                        {{ form.messages('email') }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                        {{ form.render('senha') }}
+                        {{ form.messages('senha') }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                         {{ form.render("confirmSenha") }}
+                         {{ form.messages('confirmSenha') }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                        {{ link_to("session/login", 'class':'btn btn-link', "Já possui cadastro?") }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                        {{ form.render('go') }}
+                    </div>
+                </div>
+                {{ form.render('csrf') }}
+                {{ form.messages('csrf') }}
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Fim Modal Criar Desafio -->
+{{ javascript_include('js/publico/cadastro.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        Cadastro.init();
+    });
+</script>

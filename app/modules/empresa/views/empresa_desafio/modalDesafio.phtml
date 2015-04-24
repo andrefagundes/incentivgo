@@ -10,7 +10,7 @@
                         "desafioTipoId",
                         'class'=>'form-control',
                          'name'=>'dados[desafio_tipo_id]','value'=>$desafioTipoId,
-                        \Incentiv\Models\DesafioTipo::find("status = 'Y'"),
+                        $nivel_desafios,
                             "using" => array("id", "desafioTipo"),
                             'useEmpty' => true,
                             'emptyText' => 'Selecione o nível do desafio...',

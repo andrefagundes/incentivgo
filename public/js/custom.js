@@ -5,9 +5,8 @@ $(document).ready(function() {
   'use strict';
 
   $('.navbar a, .navbar li a, .brand, #footer li a, .more a, a.go-top').on('click', function(event) {
-    var anchor = $(this);
-    console.log(this.attr());
-    scrollVal = $(this.attr('href')).offset().top - 60;
+    var $anchor = $(this),
+        scrollVal = $($anchor.attr('href')).offset().top - 60;
 
     if (scrollVal < 0) {
       scrollVal = 0;

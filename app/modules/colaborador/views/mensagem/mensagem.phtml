@@ -1,0 +1,46 @@
+{{hidden_field("tipo-mensagem",'value':1)}}
+{{hidden_field("filtro-mensagem",'value':'')}}
+<div class="col-lg-3">
+    <section class="panel">
+        <div class="text-center panel-heading clearfix bg-white">
+            <button class="btn btn-sm btn-facebook m-t m-b squared" id="btnNovaMensagem"><i class="fa fa-edit"></i> Novo</button>
+        </div>
+        <div class="list-group list-normal m-b-none">
+            <a href="#" class="list-group-item btnMensagem active" id="btnMensagensEntrada"><i class="fa fa-fw fa-inbox"></i><span class="badge m-r">{{count_mensagens_recebidas}}</span> Entrada</a>
+            <a href="#" class="list-group-item btnMensagem" id="btnMensagensEnviadas"><i class="fa fa-fw fa-envelope-o"></i><span class="badge m-r">{{count_mensagens_enviadas}}</span> Enviadas</a>
+            <a href="#" class="list-group-item btnMensagem" id="btnMensagensExcluidas"><i class="fa fa-fw fa-trash-o"></i><span class="badge m-r">{{count_mensagens_excluidas}}</span> Excluídas</a>
+        </div>
+    </section>
+</div>
+<div class="col-lg-6">
+    <section class="panel">
+        <div class="panel-body minimal">
+            <div class="mail-option">
+                <aside class="sidebar sidebar-large">
+                    <div class="padder header-bar bg clearfix" id="grupo-filtros">
+                        <div class="btn-group m-t m-b">
+                            <button class="btn btn-default btn-sm dropdown-toggle squared" data-toggle="dropdown">Filtro <span class="caret"></span></button>
+                            <ul class="dropdown-menu text-left text-small">
+                                <li><a href="#" id="btnFiltroTodas">Todas</a></li>
+                                <li><a href="#" id="btnFiltroLidas">Lidas</a></li>
+                                <li><a href="#" id="btnFiltroNaoLidas">Não lidas</a></li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-sm btn-default squared" id="btnAtualizarPesquisa" data-toggle="tooltip" data-title="Atualizar"><i class="fa fa-refresh"></i></button>
+                    </div>
+                    <div class="list-normal m-t-n-xmini col-lg-4 scroll-y scrollbar" style="max-height:100%">
+                        <?php echo $this->flashSession->output(); ?>
+                        <div id="lista-mensagens" ></div>
+                    </div>
+                </aside>
+                <div id="ler-mensagem" style="display: none"></div>
+            </div>
+        </div>
+    </section>
+</div>
+{{ javascript_include('js/colaborador/mensagem/mensagem.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        Mensagem.init();
+    });
+</script>

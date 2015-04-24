@@ -3,7 +3,9 @@
 namespace Empresa\Controllers;
 
 use Phalcon\Paginator\Adapter\Model as Paginator,
-    Incentiv\Models\Recompensa;
+    Incentiv\Models\Recompensa,
+    Incentiv\Models\Usuario,
+    Incentiv\Models\UsuarioPontuacaoDebito;
 
 /**
  * Empresa\Controllers\RecompensaController
@@ -105,5 +107,35 @@ class EmpresaRecompensaController extends ControllerBase {
         }
 
         $this->response->redirect('empresa/recompensa');
+    }
+    
+    public function utilizarRecompensaAction(){
+        $usuarios = Usuario::build()->find(array("empresaId = {$this->_auth['empresaId']} AND ativo = 'Y'",'columns'=>'id,nome'));
+        $recompensas = Recompensa::build()->find(array("empresaId = {$this->_auth['empresaId']} AND ativo = 'Y'",'columns'=>'id,recompensa'));
+        
+        $this->view->setVar('usuarios',$usuarios);
+        $this->view->setVar('recompensas',$recompensas);
+    }
+    
+    public function debitarRecompensaAction(){
+        $this->view->disable(); 
+        if ($this->request->isPost()) {
+            
+            $dados  = $this->request->getPost('dados');
+            $dados['empresa_id'] = $this->_auth['empresaId'];
+
+            $resultCadastro = UsuarioPontuacaoDebito::build()->debitarUsuario($dados);
+      
+            if($resultCadastro['status'] == 'ok')
+            {
+                $this->flashSession->success($resultCadastro['message']);
+            }else{
+                $this->flashSession->error($resultCadastro['message']);
+            }
+            
+            $this->response->redirect('empresa/recompensa/utilizar-recompensa');
+        }else{
+            $this->response->redirect('empresa/recompensa/utilizar-recompensa');
+        }
     }
 }

@@ -3,7 +3,8 @@ namespace Incentiv\Models;
 
 use Phalcon\Mvc\Model;
 use Incentiv\Models\Desafio,
- Incentiv\Models\UsuarioPontuacaoCredito;
+    Incentiv\Models\UsuarioPontuacaoCredito,
+    Incentiv\Models\DesafioPontuacao;
 
 /**
  * DesafioUsuario
@@ -89,12 +90,13 @@ class DesafioUsuario extends Model
                          array( 'Incentiv\Models\DesafioUsuario.id',
                                 'Incentiv\Models\DesafioUsuario.usuarioResposta',
                                 'd.desafio',
-                                'd.pontuacao', 
+                                'DesafioPontuacao.pontuacao', 
                                 'inicioDt' => "DATE_FORMAT( d.inicioDt , '%d/%m/%Y' )",
                                 'fimDt' => "DATE_FORMAT( d.fimDt , '%d/%m/%Y' )",
                                 'd.premiacao'));
         
         $desafios->innerjoin('Incentiv\Models\Desafio', 'Incentiv\Models\DesafioUsuario.desafioId = d.id', 'd');
+        $desafios->innerjoin('Incentiv\Models\DesafioPontuacao', "d.empresaId = DesafioPontuacao.empresaId AND d.desafioTipoId = DesafioPontuacao.desafioTipoId AND DesafioPontuacao.ativo = 'Y'", 'DesafioPontuacao');
         $desafios->andwhere( "Incentiv\Models\DesafioUsuario.usuarioId = {$objDesafio->usuarioId}");
         $desafios->andwhere( "Incentiv\Models\DesafioUsuario.usuarioResposta != 'N' OR Incentiv\Models\DesafioUsuario.usuarioResposta IS NULL");
         $desafios->andwhere( "Incentiv\Models\DesafioUsuario.envioAprovacaoDt IS NULL");
@@ -161,10 +163,13 @@ class DesafioUsuario extends Model
                 }
             }else{
                 if($dados->resposta == DesafioUsuario::DESAFIO_APROVADO){
+                    
+                    $desafioPontuacao = DesafioPontuacao::build()->findFirst("empresaId = {$dados->empresaId} AND desafioTipoId = {$desafio->desafioTipoId} AND ativo = 'Y'");
+                    
                     $objCredito = new \stdClass();
                     $objCredito->usuarioId = $usuarioDesafio['usuarioId'];
                     $objCredito->empresaId = $dados->empresaId;
-                    $objCredito->pontuacao = $desafio->pontuacao;
+                    $objCredito->pontuacao = $desafioPontuacao->pontuacao;
                     $objCredito->pontuacaoTipo = UsuarioPontuacaoCredito::PONTUACAO_DESAFIO_APROVADO;
                     
                     UsuarioPontuacaoCredito::creditarUsuario($objCredito);

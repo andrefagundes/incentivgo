@@ -229,6 +229,13 @@ class Usuario extends Model
             )
         ));
         
+        $this->hasMany('id', 'Incentiv\Models\UsuarioPontuacaoDebito', 'usuarioId', array(
+            'alias' => 'debitoUsuario',
+            'foreignKey' => array(
+                'message' => 'O colaborador não pode ser excluído porque ele possui débito cadastrado.'
+            )
+        ));
+        
         $this->hasMany('id', 'Incentiv\Models\Mensagem', 'remetenteId', array(
             'alias' => 'usuarioRemetente',
             'foreignKey' => array(
@@ -311,31 +318,39 @@ class Usuario extends Model
     public function salvarUsuario(\stdClass $dados){
 
         try {
-            
-        if($dados->id){
-           $usuario = $this->findFirst("id = ".$dados->id);
-        }else{
-           $usuario = $this;
-        }
+            $dominios = EmpresaDominio::build()->find(array("empresaId = {$dados->empresaId} AND status = 'Y'",'columns' =>'dominio'));
 
-        $usuario->assign(array(
-            'empresaId'     => $dados->empresaId,
-            'perfilId'      => $dados->perfilId,
-            'nome'          => $dados->nome,
-            'email'         => $dados->email
-        ));
-        
-        if (!$usuario->save()) {
-
-            foreach ($this->getMessages() as $mensagem) {
-              $message =  $mensagem;
-              break;
+            foreach ($dominios as $dominio){
+                $dominioUsuario = explode('@', $dados->email);
+                if($dominioUsuario[1] != $dominio->dominio){
+                    return array('status' => 'error', 'message'=> "E-mails autorizados somente com o final @{$dominio->dominio}" );
+                }
             }
             
-            return array('status' => 'error', 'message'=> $message );
-        }
+            if($dados->id){
+               $usuario = $this->findFirst("id = ".$dados->id);
+            }else{
+               $usuario = $this;
+            }
 
-        return array('status' => 'ok','message'=>'Colaborador salvo com sucesso!!!');
+            $usuario->assign(array(
+                'empresaId'     => $dados->empresaId,
+                'perfilId'      => $dados->perfilId,
+                'nome'          => $dados->nome,
+                'email'         => $dados->email
+            ));
+
+            if (!$usuario->save()) {
+
+                foreach ($this->getMessages() as $mensagem) {
+                  $message =  $mensagem;
+                  break;
+                }
+
+                return array('status' => 'error', 'message'=> $message );
+            }
+
+            return array('status' => 'ok','message'=>'Colaborador salvo com sucesso!!!');
         
         } catch (Exception $e) {
             echo $e->getTraceAsString();

@@ -82,5 +82,19 @@ class Empresa extends Model
                 'message' => 'A  empresa não pode ser excluída porque ela possui usuario com credito cadastrado.'
             )
         ));
+        
+        $this->hasMany('id', 'Incentiv\Models\UsuarioPontuacaoDebito', 'empresaId', array(
+            'alias' => 'debitoUsuario',
+            'foreignKey' => array(
+                'message' => 'A  empresa não pode ser excluída porque ela possui usuario com débito cadastrado.'
+            )
+        ));
+        
+        $this->hasMany('id', 'Incentiv\Models\EmpresaDominio', 'empresaId', array(
+            'alias' => 'empresaDominio',
+            'foreignKey' => array(
+                'message' => 'A  empresa não pode ser excluída porque ela possui domínio cadastrado.'
+            )
+        ));
     }
 }

@@ -62,6 +62,11 @@ $router->add('/session/mensagem', array(
     'action' => 'mensagem'
 ));
 
+$router->add('/session/cadastro-usuario/{code}/{empresaId}', array(
+    'controller' => 'session',
+    'action' => 'cadastroUsuario'
+));
+
 $router->add('/confirm/{code}/{email}', array(
     'controller' => 'usuario_control',
     'action' => 'confirmEmail'
@@ -338,6 +343,18 @@ $router->add('/empresa/recompensa/ativar-inativar-recompensa/{status}/{id}', arr
     'module' => 'empresa',
     'controller' => 'empresa_recompensa',
     'action' => 'ativarInativarRecompensa'
+));
+
+$router->add('/empresa/recompensa/utilizar-recompensa', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_recompensa',
+    'action' => 'utilizarRecompensa'
+));
+
+$router->add('/empresa/recompensa/debitar-recompensa', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_recompensa',
+    'action' => 'debitarRecompensa'
 ));
 
 /******Rotas módulo empresa/colaborador**********/
@@ -694,5 +711,77 @@ $router->add('/colaborador/chat', array(
     return false;
 });
 
+/****colaborador/mensagem****/
+$router->add('/colaborador/mensagens', array(
+    'module' => 'colaborador',
+    'controller' => 'mensagem',
+    'action' => 'mensagem'
+));
+
+$router->add('/colaborador/mensagem/pesquisar-mensagem', array(
+    'module' => 'colaborador',
+    'controller' => 'mensagem',
+    'action' => 'pesquisarMensagem'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+$router->add('/colaborador/mensagem/nova-mensagem', array(
+    'module' => 'colaborador',
+    'controller' => 'mensagem',
+    'action' => 'novaMensagem'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+$router->add('/colaborador/mensagem/ler-mensagem/{code}', array(
+    'module' => 'colaborador',
+    'controller' => 'mensagem',
+    'action' => 'lerMensagem'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+$router->add('/colaborador/mensagem/verificar-mensagens', array(
+    'module' => 'colaborador',
+    'controller' => 'mensagem',
+    'action' => 'verificarMensagens'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+$router->add('/colaborador/mensagem/excluir-mensagem', array(
+    'module' => 'colaborador',
+    'controller' => 'mensagem',
+    'action' => 'excluirMensagem'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+$router->add('/colaborador/mensagem/salvar-mensagem', array(
+    'module' => 'colaborador',
+    'controller' => 'mensagem',
+    'action' => 'salvarMensagem'
+));
+$router->add('/colaborador/mensagem/responder-mensagem', array(
+    'module' => 'colaborador',
+    'controller' => 'mensagem',
+    'action' => 'responderMensagem'
+));
 
 return $router;

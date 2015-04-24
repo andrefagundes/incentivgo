@@ -1,6 +1,6 @@
 <?php
 
-namespace Empresa\Controllers;
+namespace Colaborador\Controllers;
 
 use Phalcon\Paginator\Adapter\Model as Paginator,
     Phalcon\Http\Response;
@@ -10,10 +10,10 @@ use Incentiv\Models\Mensagem,
     Incentiv\Models\MensagemExcluida;
 
 /**
- * Empresa\Controllers\EmpresaMensagemController
- * CRUD para gerenciar mensagens
+ * Colaborador\Controllers\MensagemController
+ * Classe para gerenciar mensagens no perfil colaborador
  */
-class EmpresaMensagemController extends ControllerBase {
+class MensagemController extends ControllerBase {
     
     private $_auth;
 
@@ -28,7 +28,7 @@ class EmpresaMensagemController extends ControllerBase {
             $this->view->id                = $this->_auth['id'];
             $this->view->empresaId         = $this->_auth['empresaId'];
             $this->view->avatar            = $this->_auth['avatar'];
-            $this->view->setTemplateBefore('private-empresa');
+            $this->view->setTemplateBefore('private-colaborador');
         }
     }
     
@@ -52,7 +52,7 @@ class EmpresaMensagemController extends ControllerBase {
         }else{
             $resultMensagens = Mensagem::build()->fetchAllMensagens($objMensagem);
         }
-     
+
         $numberPage = $this->request->getPost("page");
         $paginator  = new Paginator(array(
             "data"  => $resultMensagens,
@@ -61,12 +61,12 @@ class EmpresaMensagemController extends ControllerBase {
         ));
 
         $this->view->page = $paginator->getPaginate();
-        $this->view->pick("empresa_mensagem/pesquisar-mensagem");
+        $this->view->pick("colaborador/pesquisar-mensagem");
     }
     
     public function novaMensagemAction(){
         $this->disableLayoutBefore();
-        $this->view->pick("empresa_mensagem/nova-mensagem");
+        $this->view->pick("colaborador/nova-mensagem");
     }
     
     public function salvarMensagemAction(){
@@ -85,9 +85,9 @@ class EmpresaMensagemController extends ControllerBase {
                 $this->flashSession->error($resultMensagem['message']);
             }
             
-            $this->response->redirect('empresa/mensagens');
+            $this->response->redirect('colaborador/mensagens');
         }else{
-            $this->response->redirect('empresa/mensagens');
+            $this->response->redirect('colaborador/mensagens');
         }
     }
     
@@ -110,9 +110,9 @@ class EmpresaMensagemController extends ControllerBase {
                 $this->flashSession->error($resultMensagem['message']);
             }
             
-            $this->response->redirect('empresa/mensagens');
+            $this->response->redirect('colaborador/mensagens');
         }else{
-            $this->response->redirect('empresa/mensagens');
+            $this->response->redirect('colaborador/mensagens');
         }
     }
     
@@ -162,7 +162,7 @@ class EmpresaMensagemController extends ControllerBase {
         $this->view->setVar("resposta",       $permissao);
         $this->view->setVar("mensagens",       $mensagens);
         $this->view->setVar("empresaId",       $this->_auth['empresaId']);
-        $this->view->pick("empresa_mensagem/ler-mensagem");
+        $this->view->pick("colaborador/ler-mensagem");
     }
     
     public function verificarMensagensAction(){
@@ -193,5 +193,4 @@ class EmpresaMensagemController extends ControllerBase {
         $this->response->setJsonContent(array('status'=>$resultMensagem['status']));
         $this->response->send();
     }
-
 }

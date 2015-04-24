@@ -93,10 +93,10 @@ class Recompensa extends Model
             'reusable' => true
         ));
         
-        $this->hasMany('id', 'Incentiv\Models\UsuarioPontuacao', 'recompensaId', array(
-            'alias' => 'pontuacao',
+        $this->hasMany('id', 'Incentiv\Models\UsuarioPontuacaoDebito', 'recompensaId', array(
+            'alias' => 'recompensa',
             'foreignKey' => array(
-                'message' => 'A recompensa não pode ser excluída porque ela possui pontuação lançada.'
+                'message' => 'A  recompensa não pode ser excluída porque ela possui débito cadastrado.'
             )
         ));
         

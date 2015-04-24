@@ -3,8 +3,7 @@
 namespace Colaborador\Controllers;
 
 use Phalcon\Http\Response;
-use Incentiv\Models\DesafioUsuario,
-    Incentiv\Models\DesafioPontuacao;
+use Incentiv\Models\DesafioUsuario;
 
 class DesafioController extends ControllerBase
 {

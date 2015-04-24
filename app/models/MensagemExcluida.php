@@ -69,7 +69,7 @@ class MensagemExcluida extends Model
             'usuarioId'         => $objMensagem->usuarioId,
         ));
         
-         if (!$this->save()) {
+        if (!$this->save()) {
               foreach ($this->getMessages() as $mensagem) {
               die($mensagem);
               break;

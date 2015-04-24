@@ -2,7 +2,10 @@
 namespace Publico\Controllers;
 
 use Incentiv\Models\EmailConfirmacao,
-    Incentiv\Models\AlteraSenha;
+    Incentiv\Models\AlteraSenha,
+    Incentiv\Models\AlteracaoSenha,
+    Incentiv\Models\Usuario;
+use Publico\Forms\AlteraSenhaForm;
 
 /**
  * UsuarioControlController
@@ -28,7 +31,7 @@ class UsuarioControlController extends ControllerBase
         $codigo = $this->dispatcher->getParam('code');
 
         $confirmation = EmailConfirmacao::findFirstByCodigo( $codigo );
-        
+
         if (!$confirmation) {
             return $this->dispatcher->forward(array(
                 'controller'    => 'index',
@@ -49,82 +52,107 @@ class UsuarioControlController extends ControllerBase
          * Altera a confirmação para "confirmar"
          */
         if (!$confirmation->save()) {
-
-            foreach ($confirmation->getMessages() as $message) {
-                $this->flash->error($message);
-            }
-
-            return $this->dispatcher->forward(array(
-                'controller'    => 'index',
-                'action'        => 'index'
-            ));
+            $this->flashSession->error('Não foi possível fazer a confirmação.');
+            return $this->response->redirect('session/mensagem');
         }
+      
+        $usuario = Usuario::findFirstById($confirmation->usuarioId);
+        $usuario->ativo = 'Y';
         
-        //depois de e-mail confirmado envia um novo email para criação de senha.
-        $alteraSenha = new AlteraSenha();
-        $alteraSenha->usuarioId = $confirmation->usuarioId;
-        if ($alteraSenha->save()) {
-            $this->flash->success('Sucesso! Por favor, verifique seu e-mail para criar senha');
-        } else {
-            foreach ($alteraSenha->getMessages() as $message) {
-                $this->flash->error($message);
-            }
+        if (!$usuario->save()) {
+            $this->flashSession->error('Não foi possível ativar usuário.');
+            return $this->response->redirect('session/mensagem');
         }
 
-        return $this->dispatcher->forward(array(
-            'controller'    => 'session',
-            'action'        => 'mensagem'
-        ));
+        //verifica se depois que o usuário confirmar o email ele tem que alterar senha
+        if($usuario->stAlterarSenha ==  'Y'){
+            $alteraSenha = new AlteraSenha();
+            $alteraSenha->usuarioId = $confirmation->usuarioId;
+            if ($alteraSenha->save()) {
+                $this->flashSession->success('Sucesso! Por favor, verifique seu e-mail para criar senha.');
+            } else {
+                foreach ($alteraSenha->getMessages() as $message) {
+                    $this->flashSession->error($message);
+                }
+            }
+            return $this->response->redirect('session/mensagem');
+        }else{
+            $this->flashSession->success('E-mail confirmado e usuário ativado com sucesso.');
+            return $this->response->redirect('session/login');
+        }
     }
 
     public function resetPasswordAction()
     {
         $codigo = $this->dispatcher->getParam('code');
+        
+        $form = new AlteraSenhaForm();
 
-        $resetPassword = AlteraSenha::findFirstByCodigo($codigo);
+        if ($this->request->isPost()) {
+            
+            if (!$form->isValid($this->request->getPost())) {
+                foreach ($form->getMessages() as $message) {
+                    $this->flash->error($message);
+                }
+            } else {
+                $resetPassword  = AlteraSenha::findFirstByCodigo($codigo);
+                $user           = Usuario::findFirstById($resetPassword->usuarioId);
 
-        if (!$resetPassword) {
-            return $this->dispatcher->forward(array(
-                'controller'    => 'index',
-                'action'        => 'index'
-            ));
-        }
+                if($user){
+                $user->senha            = $this->security->hash($this->request->getPost('senha'));
+                $user->stAlterarSenha   = 'N';
 
-        if ($resetPassword->reset != 'N') {
-            return $this->dispatcher->forward(array(
-                'controller'    => 'session',
-                'action'        => 'login'
-            ));
-        }
+                $alteracaoSenha             = new AlteracaoSenha();
+                $alteracaoSenha->user       = $user;
+                $alteracaoSenha->ipAddress  = $this->request->getClientAddress();
+                $alteracaoSenha->userAgent  = $this->request->getUserAgent();
 
-        $resetPassword->reset = 'Y';
+                if (!$alteracaoSenha->save()) {
+                    $this->flashSession->error('Erro ao alterar senha.');
+                } else {
+                    //se alterar a senha seta o pedido de alteração para Y
+                    $resetPassword->reset   = 'Y';
 
-        /**
-         * Altera a confirmação de reset
-         */
-        if (!$resetPassword->save()) {
+                    if (!$resetPassword->save()) {
 
-            foreach ($resetPassword->getMessages() as $message) {
-                $this->flash->error($message);
+                        foreach ($resetPassword->getMessages() as $message) {
+                            $this->flashSession->error($message);
+                        }
+
+                        return $this->dispatcher->forward(array(
+                            'controller'    => 'index',
+                            'action'        => 'index'
+                        ));
+                    }
+
+                    $this->flashSession->success('Sua senha foi alterada com sucesso.');
+                    $form->clear();
+                    return $this->response->redirect('session/login');
+                }
+                }else{
+                    $this->flashSession->error('Usuário não encontrado ou inativo.');
+                }
+            }
+        }else{
+            //valida se existe pedido de alteração de senha.
+            $resetPassword = AlteraSenha::findFirstByCodigo($codigo);
+
+            if (!$resetPassword) {
+                return $this->dispatcher->forward(array(
+                    'controller'    => 'index',
+                    'action'        => 'index'
+                ));
             }
 
-            return $this->dispatcher->forward(array(
-                'controller'    => 'index',
-                'action'        => 'index'
-            ));
+            if ($resetPassword->reset != 'N') {
+                return $this->dispatcher->forward(array(
+                    'controller'    => 'session',
+                    'action'        => 'login'
+                ));
+            }
         }
-
-        /**
-         * Identifica o usuário na aplicação
-         */
-        $this->auth->authUserById($resetPassword->usuarioId);
-
-        $this->flash->success('Por favor, redefinir sua senha');
-
-        return $this->dispatcher->forward(array(
-            'module'    => 'colaborador',
-            'controller'    => 'colaborador',
-            'action'        => 'alteraSenha'
-        ));
+        
+        $this->view->codigo = $codigo;
+        $this->view->form = $form;
     }
 }

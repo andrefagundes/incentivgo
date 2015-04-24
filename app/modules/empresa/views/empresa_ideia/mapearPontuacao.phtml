@@ -1,10 +1,10 @@
 {{hidden_field("dados[id]",'value':id,'id':'hidden_id')}}
 <section class="main padder">
     <div class="row">
-        <div class="col-sm-11">
+        <div class="col-sm-12">
             <div class="form-group">
-                <label class="col-lg-4 control-label" data-placement="left" data-toggle="tooltip" data-original-title="Pontuação dada ao colaborador que enviar um ideia para empresa.">Ideia Enviada:</label>
-                <div class="col-lg-8">
+                <label class="col-lg-5 control-label" data-placement="left" data-toggle="tooltip" data-original-title="Pontuação dada ao colaborador que enviar um ideia para empresa.">Ideia Enviada:</label>
+                <div class="col-lg-7">
                     <div class="spinner input-group col-lg-3 form-control-static" id="MySpinner">
                         {{ text_field("dados[pontuacao_ideia_enviada]", 'id':'ideia-enviada','value':pontuacao_ideia_enviada, 'class':'input-sm spinner-input form-control') }}
                         <div class="btn-group btn-group-vertical input-group-btn">
@@ -20,8 +20,8 @@
                 </div>   
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label" data-placement="left" data-toggle="tooltip" data-original-title="Pontuação dada ao colaborador para a ideia que for aprovada para ser implementada na empresa." >Ideia Aprovada:</label>
-                <div class="col-lg-8">
+                <label class="col-lg-5 control-label" data-placement="left" data-toggle="tooltip" data-original-title="Pontuação dada ao colaborador para a ideia que for aprovada para ser implementada na empresa." >Ideia Aprovada:</label>
+                <div class="col-lg-7">
                     <div class="spinner input-group col-lg-3 form-control-static" id="MySpinner">
                         {{ text_field("dados[pontuacao_ideia_aprovada]", 'id':'ideia-aprovada','value':pontuacao_ideia_aprovada, 'class':'input-sm spinner-input form-control') }}
                         <div class="btn-group btn-group-vertical input-group-btn">

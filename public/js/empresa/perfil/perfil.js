@@ -66,6 +66,6 @@ var Perfil = {
            return true;
        }, "Data inválida");
         
-        $("#dt-nascimento").mask('##/##/####');
+//        $("#dt-nascimento").mask('##/##/####');
     }
 };

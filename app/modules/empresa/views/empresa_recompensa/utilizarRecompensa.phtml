@@ -1,0 +1,61 @@
+<div class="clearfix">
+    <h4><i class="fa fa-edit"></i>Utilizar Recompensa</h4>
+</div>
+<div class="row">
+    <div class="col-sm-6 col-sm-push-3">
+        <section class="panel">
+            <div class="panel-body">
+                {{ form('empresa/recompensa/debitar-recompensa', 'class':'form-horizontal', 'id':'form-debito-recompensa', 'method': 'post') }}
+                <div class="row pager">
+                    <div class="col-xs-12 col-md-10 col-sm-push-1">
+                        <div id="mensagem-modal-resposta-perfil" class="center"><?php echo $this->flashSession->output(); ?></div>
+                        <div class="form-group ">
+                            <label for="inputEmail3" class="col-sm-3 control-label">Colaborador:</label>
+                            <div class="col-lg-9 col-md-12 col-xs-12 col-sm-10">
+                                <?php 
+                                    echo Phalcon\Tag::select(array(
+                                    "usuarioId",
+                                    'class'=>'form-control',
+                                     'name'=>'dados[usuario_id]','value'=>'',
+                                        $usuarios,
+                                        "using" => array("id", "nome"),
+                                        'useEmpty' => true,
+                                        'emptyText' => 'Selecione o colaborador...',
+                                        'emptyValue' => ''
+                                )); ?>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-3 control-label">Recompensa:</label>
+                            <div class="col-lg-9 col-md-12 col-xs-12 col-sm-10">
+                                <?php 
+                                    echo Phalcon\Tag::select(array(
+                                    "recompensaId",
+                                    'class'=>'form-control',
+                                    'name'=>'dados[recompensa_id]','value'=>'',
+                                    $recompensas,
+                                        "using" => array("id", "recompensa"),
+                                        'useEmpty' => true,
+                                        'emptyText' => 'Selecione a recompensa usada...',
+                                        'emptyValue' => ''
+                                )); ?>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                {{ submit_button('Utilizar Recompensa','class':'btn btn-theme04 btn-facebook btn-sm squared') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{endForm()}}
+            </div>
+        </section>
+    </div>
+</div>
+{{ javascript_include('js/empresa/recompensa/utilizar-recompensa.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        UtilizarRecompensa.init();
+    });
+</script>

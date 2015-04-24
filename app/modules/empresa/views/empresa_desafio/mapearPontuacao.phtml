@@ -1,10 +1,10 @@
 <section class="main padder">
     <div class="row">
-        <div class="col-sm-11">
+        <div class="col-sm-12">
             {% for tipoDesafio in tipo_desafios %}
                 <div class="form-group">
-                    <label class="col-lg-4 control-label" data-placement="left" data-toggle="tooltip" data-original-title="Pontuação em que desafio é considerado fácil.">{{tipoDesafio.desafioTipo|convert_encoding('latin1', 'utf8')}}:</label>
-                    <div class="col-lg-8">
+                    <label class="col-lg-5 control-label" data-placement="left" data-toggle="tooltip" data-original-title="Pontuação em que desafio é considerado {{tipoDesafio.desafioTipo|convert_encoding('latin1', 'utf8')}}.">{{tipoDesafio.desafioTipo|convert_encoding('latin1', 'utf8')}}:</label>
+                    <div class="col-lg-7">
                         <div class="spinner input-group col-lg-3 form-control-static" id="MySpinner">
                             {{ text_field("dados[tipos]["~tipoDesafio.id~"]", 'id':tipoDesafio.id,'value':tipoDesafio.pontuacao, 'class':"required messa tipoDesafio input-sm spinner-input form-control", 'title':'Campo Obrigatório') }}
                             <div class="btn-group btn-group-vertical input-group-btn">

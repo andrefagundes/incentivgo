@@ -2,7 +2,7 @@
 namespace Publico\Forms;
     
 use Phalcon\Forms\Form,
-    Phalcon\Forms\Element\Select,
+//    Phalcon\Forms\Element\Select,
     Phalcon\Forms\Element\Text,
     Phalcon\Forms\Element\Password,
     Phalcon\Forms\Element\Submit,
@@ -12,7 +12,7 @@ use Phalcon\Forms\Form,
     Phalcon\Validation\Validator\Email,
     Phalcon\Validation\Validator\Identical;
 
-use Incentiv\Models\Empresa;
+//use Incentiv\Models\Empresa;
 
 class LoginForm extends Form
 {

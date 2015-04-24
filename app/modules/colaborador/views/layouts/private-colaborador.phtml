@@ -18,39 +18,15 @@
                     
                     <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
                         <i class="fa fa-envelope-o"></i>
-                        <span class="badge bg-black">5</span>
+                        <span class="badge bg-danger count-n">0</span>
                     </a>
                     <ul class="dropdown-menu extended inbox">
                         <div class="notify-arrow notify-arrow-green"></div>
                         <li>
-                            <p class="green">Você possui 5 mensagens</p>
+                            <p class="green">Você possui <span class="count-n">0</span> mensagens</p>
                         </li>
                         <li>
-                            <a href="index.html#">
-                                <span class="photo">{{image( 'img/users/default.jpg', 'alt':'avatar') }}</span>
-                                <span class="subject">
-                                    <span class="from">Daniela Alves</span>
-                                    <span class="time">40 mins.</span>
-                                </span>
-                                <span class="message">
-                                    Novo benefício
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index.html#">
-                                <span class="photo">{{image( 'img/users/default.jpg', 'alt':'avatar') }}</span>
-                                <span class="subject">
-                                    <span class="from">Rodrigo Cardeal</span>
-                                    <span class="time">4 hrs.</span>
-                                </span>
-                                <span class="message">
-                                    Projeto Gmail.
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index.html#">Ver todas as mensagens</a>
+                            {{ link_to('colaborador/mensagens', 'Mostrar todas as mensagens') }}
                         </li>
                     </ul>
                 </li>
@@ -106,6 +82,9 @@
                 <li class="sub-menu">
                     {{ link_to('colaborador/perfil', '<i class="fa fa-cogs"></i><span>Perfil</span>') }}
                 </li>
+                 <li class="sub-menu" id="menu-mensagem">
+                     {{ link_to("colaborador/mensagens", 'data-toggle':'tooltip','data-placement':'top','data-original-title':'Todas as mensagens', '<i class="fa fa-envelope-o fa-lg"></i><span>Mensagens</span>') }}
+                </li>
             </ul>
             <!-- sidebar menu end-->
         </div>
@@ -114,7 +93,7 @@
 
     <section id="main-content">
         <section class="wrapper">
-            <div class="row">
+            <div class="row mt">
                 <div id="div-body">{{ content() }}</div>
                     <!-- USUARIOS DO CHAT -->
                 <div id="div-chat"></div>
