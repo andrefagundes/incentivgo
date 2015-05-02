@@ -89,7 +89,11 @@ class DesafioUsuario extends Model
         $desafios = $this::query()->columns(
                          array( 'Incentiv\Models\DesafioUsuario.id',
                                 'Incentiv\Models\DesafioUsuario.usuarioResposta',
+                                'Incentiv\Models\DesafioUsuario.desafioId',
                                 'd.desafio',
+                                'd.tipo',
+                                'd.usuarioResponsavelId',
+                                'usuarioResponsavel'=>'usuarioResponsavel.nome',
                                 'DesafioPontuacao.pontuacao', 
                                 'inicioDt' => "DATE_FORMAT( d.inicioDt , '%d/%m/%Y' )",
                                 'fimDt' => "DATE_FORMAT( d.fimDt , '%d/%m/%Y' )",
@@ -97,14 +101,29 @@ class DesafioUsuario extends Model
         
         $desafios->innerjoin('Incentiv\Models\Desafio', 'Incentiv\Models\DesafioUsuario.desafioId = d.id', 'd');
         $desafios->innerjoin('Incentiv\Models\DesafioPontuacao', "d.empresaId = DesafioPontuacao.empresaId AND d.desafioTipoId = DesafioPontuacao.desafioTipoId AND DesafioPontuacao.ativo = 'Y'", 'DesafioPontuacao');
+        $desafios->leftjoin('Incentiv\Models\Usuario', "d.usuarioResponsavelId = usuarioResponsavel.id", 'usuarioResponsavel');
         $desafios->andwhere( "Incentiv\Models\DesafioUsuario.usuarioId = {$objDesafio->usuarioId}");
         $desafios->andwhere( "Incentiv\Models\DesafioUsuario.usuarioResposta != 'N' OR Incentiv\Models\DesafioUsuario.usuarioResposta IS NULL");
         $desafios->andwhere( "Incentiv\Models\DesafioUsuario.envioAprovacaoDt IS NULL");
         $desafios->andwhere( "d.ativo = 'Y'");
         
         $desafios->orderBy('d.desafio');
-
-        return $desafios->execute();
+        
+        $desafiosUsuario = $desafios->execute()->toArray();
+        
+        foreach ($desafiosUsuario as $key => $desafio){
+            $usuariosParticipantes = "";
+            if($desafio['tipo'] == Desafio::DESAFIO_TIPO_EQUIPE){
+                $desafiosUsuariosParticipantes = $this->find("desafioId = {$desafio['desafioId']}");
+                foreach ($desafiosUsuariosParticipantes as $participante){
+                    $usuariosParticipantes .= $participante->usuario->nome.', ';   
+                }
+                $desafiosUsuario[$key]['usuariosParticipantes'] = substr($usuariosParticipantes,0, strlen($usuariosParticipantes)-2);
+            }else{
+                $desafiosUsuario[$key]['usuariosParticipantes'] = '';
+            }
+        }
+        return $desafiosUsuario;
     }
     
     public function responderDesafioUsuario(\stdClass $objDesafio){

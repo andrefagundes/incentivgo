@@ -2427,11 +2427,11 @@ label {
 }
 
 .ui-sortable-modal > li {
-    padding: 25px 0 25px 35px !important ;
+    padding: 20px 5px 25px 20px !important ;
     position: relative;
     background: #f5f6f8;
     margin-bottom: 2px;
-    min-height: 72px;
+    min-height: 100%;
     border-bottom   : none !important;
 }
 

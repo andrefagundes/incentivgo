@@ -1,16 +1,30 @@
-<section class=" tasks-widget">
+<section class="tasks-widget style-form">
         <div class="task-content">
             <div id="mensagem-modal-resposta-desafio"><?php echo $this->flashSession->output(); ?></div>
-            <ul class="task-list ui-sortable-modal" id="sortable">
+            <ul class="task-list ui-sortable-modal " id="sortable">
                 {% for desafio in desafios %}
-                <li class="list-primary" id="li_desafio_{{desafio['id']}}">
+                <li class="list-primary m-b" id="li_desafio_{{desafio['id']}}">
                     {% if(desafio['premiacao'] != '') %}
                         <i class=" fa fa-smile-o"></i>
                     {% endif %}
                     <div class="task-title">
-                        <span class="task-title-sp">{{desafio['desafio']}}</span>
-                        <span class="badge bg-primary">+ {{desafio['pontuacao']}} pontos </span>
-                        
+                        {% if(desafio['tipo'] == 1) %}
+                            {% set tipo_desafio = 'Individual' %}
+                        {% else %}
+                            {% set tipo_desafio = 'Por Equipe' %}
+                        {% endif %}
+                        {% if loop.first %}
+                            {% set direcao = 'bottom' %}
+                        {%else%}
+                            {% set direcao = 'right' %}
+                        {%endif%}
+                        <span class="task-title-sp">{{desafio['desafio']}}</span>  
+                        {% if(desafio['tipo'] == 2) %}
+                            <span class="badge bg-primary" data-placement="{{direcao}}" data-title="Colaboradores Participantes" data-trigger="hover"  data-content="{{desafio['usuariosParticipantes']}}<br/> <strong>Responsável pelo Desafio:</strong> {{desafio['usuarioResponsavel']}}" data-toggle="popover">{{tipo_desafio}}</span>   
+                        {% else %}
+                            <span class="badge bg-primary" data-placement="{{direcao}}" data-title="Colaboradores Participantes" data-trigger="hover"  data-content="Somente Você" data-toggle="popover">{{tipo_desafio}}</span>   
+                        {% endif %}
+                        <span class="badge bg-primary" data-placement="right" data-title="Pontos Válidos" data-toggle="tooltip">+ {{desafio['pontuacao']}}</span>   
                     </div><br/>
                     {% if(desafio['premiacao'] != '') %}   
                     <div class="task-title">
@@ -21,11 +35,20 @@
                         <span class="sp-title">{{desafio['inicioDt']}} até {{desafio['fimDt']}}</span>
                     </div>
                     {% if(desafio['usuarioResposta'] == 'Y') %}
-                    <div id={{desafio['id']}} class="task-title pull-right">
-                        <button type="button" id="btnDesafioCumprido" class="btn btn-xs btn-theme03 btnDesafioCumprido">Desafio Cumprido</button>
-                    </div>
+                     {% if(desafio['tipo'] == 1) %}
+                        <div id={{desafio['id']}} class="task-title pull-right">
+                            <button type="button" id="btnDesafioCumprido" class="btn btn-xs btn-theme03 btnDesafioCumprido">Desafio Cumprido</button>
+                        </div>
+                        {% else %}
+                            {% if(desafio['tipo'] == 2 AND desafio['usuarioResponsavelId'] == usuarioId ) %}
+                                <div id={{desafio['id']}} class="col-lg-3 pull-right right">
+                                    <button type="button" id="btnDesafioCumprido" class="btn btn-xs btn-theme03 btnDesafioCumprido">Desafio Cumprido</button>
+                                </div>
+                            {% endif%}
+                        {% endif%}
+                   
                     {% else %}
-                    <div id={{desafio['id']}} class="task-title pull-right">
+                    <div id={{desafio['id']}} class="pull-right inline">
                         <button type="button" id="btnAceitarDesafio" class="btn btn-xs btn-theme03">Aceitar</button>
                         <button type="button" id="btnDescartarDesafio" class="btn btn-xs btn-theme04">Descartar</button>
                     </div>

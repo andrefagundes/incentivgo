@@ -28,6 +28,7 @@ class DesafioController extends ControllerBase
         $resultDesafiosUsuario  = DesafioUsuario::build()->buscarDesafiosUsuario($objDesafio);
 
         $this->view->desafios   = $resultDesafiosUsuario;
+        $this->view->usuarioId   = $this->_auth['id'];
     } 
     
     public function responderDesafioAction(){

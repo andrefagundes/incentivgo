@@ -1,6 +1,8 @@
 var ModalDesafios = {
 
     init: function() {
+        $("[data-toggle=popover]").popover({html:true});
+        $("[data-toggle=tooltip]").tooltip();
         if($("#mensagem-modal-resposta-desafio")){
             $("#mensagem-modal-resposta-desafio").slideUp({start:3000,duration: 5000});
         }
