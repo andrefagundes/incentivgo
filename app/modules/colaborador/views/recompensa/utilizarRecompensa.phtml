@@ -5,28 +5,12 @@
     <div class="col-sm-6 col-sm-push-3">
         <section class="panel">
             <div class="panel-body">
-                {{ form('empresa/recompensa/debitar-recompensa', 'class':'form-horizontal', 'id':'form-debito-recompensa', 'method': 'post') }}
+                {{ form('colaborador/recompensa/debitar-recompensa', 'class':'form-horizontal', 'id':'form-debito-recompensa', 'method': 'post') }}
                 <div class="row pager">
                     <div class="col-xs-12 col-md-10 col-sm-push-1">
                         <div id="mensagem-modal-resposta-perfil" class="center"><?php echo $this->flashSession->output(); ?></div>
-                        <div class="form-group ">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Colaborador:</label>
-                            <div class="col-lg-9 col-md-12 col-xs-12 col-sm-10">
-                                <?php 
-                                    echo Phalcon\Tag::select(array(
-                                    "usuarioId",
-                                    'class'=>'form-control',
-                                     'name'=>'dados[usuario_id]','value'=>'',
-                                        $usuarios,
-                                        "using" => array("id", "nome"),
-                                        'useEmpty' => true,
-                                        'emptyText' => 'Selecione o colaborador...',
-                                        'emptyValue' => ''
-                                )); ?>
-                            </div>
-                        </div>
                         <div class="form-group">
-                            <label for="recompensaId" class="col-sm-3 control-label">Recompensa:</label>
+                            <label for="inputEmail3" class="col-sm-3 control-label">Recompensa:</label>
                             <div class="col-lg-9 col-md-12 col-xs-12 col-sm-10">
                                 <?php 
                                     echo Phalcon\Tag::select(array(
@@ -53,7 +37,7 @@
         </section>
     </div>
 </div>
-{{ javascript_include('js/empresa/recompensa/utilizar-recompensa.js') }}
+{{ javascript_include('js/colaborador/recompensa/utilizar-recompensa.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
         UtilizarRecompensa.init();

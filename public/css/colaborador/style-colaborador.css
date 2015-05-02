@@ -101,9 +101,22 @@ a, a:hover, a:focus {
 	text-decoration: none;
 }	
 
+.email-cabecalho {
+    display: inline-block;
+    width: 100%;
+    border-top: 1px solid #eff2f7;
+    border-bottom: 1px solid #eff2f7;
+    margin: 20px 0;
+    padding: 10px 0;
+}
+
 label.error {
   color:red;
   font-size: 10px;
+}
+
+.btn-sm, .btn-group-sm > .btn, .btn{
+    border-radius:  0px !important;
 }
 
 /*Theme Backgrounds*/

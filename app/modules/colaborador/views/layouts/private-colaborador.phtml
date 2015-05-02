@@ -8,11 +8,11 @@
             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="<> Menu"></div>
         </div>
         <!--logo start-->
-        {{ link_to('colaborador', '<span>Incentiv Go</span>','class':'logo') }}
+        {{ link_to('colaborador/geral', '<span>Incentiv Go</span>','class':'logo') }}
         <!--logo end-->
         <div class="nav notify-row" id="top_menu">
             <!--  notification start -->
-            <ul class="nav top-menu">
+            <ul id="panel-notifications" class="nav top-menu">
                 <!-- inbox dropdown start-->
                 <li id="header_inbox_bar" class="dropdown">
                     
@@ -60,12 +60,22 @@
 
                 <li class="mt">
                     <!--<a href="#" class="active btnBody" id="geral"><i class="fa fa-dashboard"></i><span>Geral</span></a>-->
-                    {{ link_to('colaborador', '<i class="fa fa-dashboard"></i><span>Geral</span>','class':'active') }}
+                    {{ link_to('colaborador/geral', '<i class="fa fa-dashboard"></i><span>Geral</span>','class':'active') }}
                 </li>
 
                 <li class="sub-menu">
                     <!--<a href="#" class="btnBody" id="ideia"><i class="fa fa-dashboard"></i><span>Ideias</span></a>-->
                     {{ link_to('colaborador/ideia', '<i class="li_bulb"></i><span>Ideias</span>') }}
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class="fa fa-vk"></i>
+                        <span>Recompensas</span>
+                    </a>
+                    <ul class="sub">
+                        <li>{{ link_to('colaborador/recompensa', 'Usar Pontos') }}</li>
+                        <li>{{ link_to('colaborador/recompensa/2', 'Ver Recompensas') }}</li>
+                    </ul>
                 </li>
 
 <!--                <li class="sub-menu">
@@ -78,13 +88,13 @@
                         <li>{{ link_to('colaborador/metas/2', 'Pessoais') }}</li>
                     </ul>
                 </li>-->
-
+                <li class="sub-menu" id="menu-mensagem">
+                     {{ link_to("colaborador/mensagens", '<i class="fa fa-envelope-o fa-lg"></i><span>Mensagens</span>') }}
+                </li>
                 <li class="sub-menu">
                     {{ link_to('colaborador/perfil', '<i class="fa fa-cogs"></i><span>Perfil</span>') }}
                 </li>
-                 <li class="sub-menu" id="menu-mensagem">
-                     {{ link_to("colaborador/mensagens", 'data-toggle':'tooltip','data-placement':'top','data-original-title':'Todas as mensagens', '<i class="fa fa-envelope-o fa-lg"></i><span>Mensagens</span>') }}
-                </li>
+                 
             </ul>
             <!-- sidebar menu end-->
         </div>

@@ -138,6 +138,9 @@ class Ideia extends Model
 
         try {
             
+            $db      = $this->getDI()->getShared('db');
+            $db->begin();
+            
             if($objIdeia->id){
                $ideia = $this->findFirst("id = ".$objIdeia->id);
             }else{
@@ -152,19 +155,30 @@ class Ideia extends Model
             ));
 
             if (!$ideia->save()) {
-
                 foreach ($ideia->getMessages() as $mensagem) {
+                  $db->rollback();
                   $message =  $mensagem;
                   break;
                 }
-
                 return array('status' => 'error', 'message'=> $message );
+            }else{
+                $pontuacaoIdeia = IdeiaPontuacao::build()->findFirst("empresaId = {$objIdeia->empresaId} AND ativo = 'Y'");
+                
+                $objCredito = new \stdClass();
+                $objCredito->empresaId      = $objIdeia->empresaId;
+                $objCredito->usuarioId      = $objIdeia->usuarioId;
+                $objCredito->pontuacao      = $pontuacaoIdeia->pontuacaoIdeiaEnviada;
+                $objCredito->pontuacaoTipo  = UsuarioPontuacaoCredito::PONTUACAO_IDEIA_ENVIADA;
+
+                UsuarioPontuacaoCredito::build()->creditarUsuario($objCredito);
             }
 
-            return array('status' => 'ok','message'=>'Ideia salva com sucesso!!!');
+            $db->commit();
+            return array('status' => 'ok','message'=>"Parabéns você recebeu {$objCredito->pontuacaoTipo} pontos pela ideia enviada!!!");
         
         } catch (Exception $e) {
-            echo $e->getTraceAsString();
+            $db->rollback();
+            return array('status' => 'error','message'=>'Não foi possível enviar a ideia, tente novamente mais tarde');
         }
     }
     

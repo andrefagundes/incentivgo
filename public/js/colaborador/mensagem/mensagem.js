@@ -1,4 +1,4 @@
-var Mensagem = {
+var ColaboradorMensagem = {
     init: function(){  
         $("[data-toggle=tooltip]").tooltip();
         //marcar menu ativo
@@ -11,44 +11,44 @@ var Mensagem = {
         
         $("#btnMensagensEntrada").click(function(){
             $("#filtro-mensagem").val('');
-            Mensagem.removerClassActive();
+            ColaboradorMensagem.removerClassActive();
             $(this).addClass('active');
             $("#tipo-mensagem").val(1);
-            Mensagem.pesquisarMensagem(1);
+            ColaboradorMensagem.pesquisarMensagem(1);
         });
         $("#btnMensagensEnviadas").click(function(){
             $("#filtro-mensagem").val('');
-            Mensagem.removerClassActive();
+            ColaboradorMensagem.removerClassActive();
             $(this).addClass('active');
             $("#tipo-mensagem").val(2);
-            Mensagem.pesquisarMensagem(1);
+            ColaboradorMensagem.pesquisarMensagem(1);
         });
         $("#btnMensagensExcluidas").click(function(){
             $("#filtro-mensagem").val('');
-            Mensagem.removerClassActive();
+            ColaboradorMensagem.removerClassActive();
             $(this).addClass('active');
             $("#tipo-mensagem").val(3);
-            Mensagem.pesquisarMensagem(1);
+            ColaboradorMensagem.pesquisarMensagem(1);
         });
         $("#btnFiltroTodas").click(function(){
             $("#filtro-mensagem").val('');
-            Mensagem.pesquisarMensagem(1);
+            ColaboradorMensagem.pesquisarMensagem(1);
         });
         $("#btnFiltroLidas").click(function(){
             $("#filtro-mensagem").val('Y');
-            Mensagem.pesquisarMensagem(1);
+            ColaboradorMensagem.pesquisarMensagem(1);
         });
         $("#btnFiltroNaoLidas").click(function(){
             $("#filtro-mensagem").val('N');
-            Mensagem.pesquisarMensagem(1);
+            ColaboradorMensagem.pesquisarMensagem(1);
         });
         
         $("#btnAtualizarPesquisa").click(function(){
-            Mensagem.pesquisarMensagem(1);
+            ColaboradorMensagem.pesquisarMensagem(1);
         });
 
         $("#btnMensagensEntrada").addClass('active');
-        Mensagem.pesquisarMensagem(1);
+        ColaboradorMensagem.pesquisarMensagem(1);
     },
     removerClassActive: function(){
         $("[id^='btnMensagens']").removeClass('active');

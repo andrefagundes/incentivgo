@@ -1,0 +1,51 @@
+<div class="col-lg-9">
+    <!-- PONTUAÇÃO -->
+    <div class="white-panel pn white-panel-ideia">
+        <div class="white-header">
+            <h5>Usar Recompensas</h5>
+        </div>
+        <div class="row pager">
+            <div class="col-lg-12">
+                <p class="mt">Parabéns!!! Agora você será recompensado por todo seu esforço e motivação, ajudando a empresa em que trabalha a crescer cada dia mais
+                e você crescendo junto com ela.</p>
+            </div>
+            <div class="col-lg-6">
+               <span class="badge bg-success">{{count_pontuacao}} </span> pontos disponíveis
+            </div>
+            <div class="col-lg-6">
+                <span class="badge bg-theme04">{{count_pontuacao}}</span> pontos usados 
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <button class="btn btn-theme04 btn-facebook btn-sm" id="btnRecompensas" type="button">Banco de Recompensas</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Início Modal Recompensas -->
+<div class="modal fade" id="modalRecompensas" tabindex="-5" role="dialog" aria-labelledby="modalRecompensas" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-recompensa">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default btn-modal-title" id="btnEnviarRecompensa">Usar Recompensa</button>
+                    <button type="button" class="close close-title-btn"  data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                </div>
+                <h4 class="modal-title" id="myModalLabelRecompensas"></h4>
+            </div>
+            <div id="modal-body-recompensas" class="modal-body"></div>
+            <div class="modal-footer ">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fim Modal Ideias -->
+
+<!-- Fim Modal Criar Recompensa -->
+{{ javascript_include('js/colaborador/recompensa/recompensa.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        Recompensa.init();
+    });
+</script>

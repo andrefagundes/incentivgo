@@ -100,6 +100,13 @@ class Recompensa extends Model
             )
         ));
         
+        $this->hasMany('id', 'Incentiv\Models\UsuarioPedidoRecompensa', 'recompensaId', array(
+            'alias' => 'pedidoRecompensa',
+            'foreignKey' => array(
+                'message' => 'A  recompensa não pode ser excluída porque ela possui pedido de usuário.'
+            )
+        ));
+        
         $this->addBehavior(new SoftDelete(
             array(
                 'field' => 'ativo',
@@ -117,6 +124,8 @@ class Recompensa extends Model
                                 'observacao',
                                 'criacaoDt',
                                 'status' => 'ativo'));
+        
+        $recompensas->where("empresaId = '{$objDesafio->empresaId}'");
         
         if($objDesafio->filter)
         {

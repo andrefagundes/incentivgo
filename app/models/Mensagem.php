@@ -130,20 +130,23 @@ class Mensagem extends Model
             $mensagem->where( "MensagemDestinatario.destinatarioId = {$objMensagem->destinatarioId}");
             $mensagem->andwhere( "mensagemExcluidaDestinatario.id IS NULL");
         }
-        
+   
         if(isset($objMensagem->remetenteId) && $objMensagem->tipo == Mensagem::MENSAGENS_TIPO_ENVIADA)
         {
            $mensagem->leftjoin('Incentiv\Models\MensagemExcluida', "Incentiv\Models\Mensagem.id = mensagemExcluidaRemetente.mensagemId AND Incentiv\Models\Mensagem.remetenteId = mensagemExcluidaRemetente.usuarioId", 'mensagemExcluidaRemetente');
            $mensagem->where( "Incentiv\Models\Mensagem.remetenteId = {$objMensagem->remetenteId}");
            $mensagem->andwhere( "mensagemExcluidaRemetente.id IS NULL");
         }
-        
+  
         if($objMensagem->filter && $objMensagem->tipo == Mensagem::MENSAGENS_TIPO_ENTRADA)
         {
            $mensagem->andwhere( "MensagemDestinatario.lida = '{$objMensagem->filter}'");
         }
         
-        $mensagem->andwhere( "Incentiv\Models\Mensagem.mensagemId IS NULL");
+        if(isset($objMensagem->remetenteId) && $objMensagem->tipo == Mensagem::MENSAGENS_TIPO_ENVIADA)
+        {
+            $mensagem->andwhere( "Incentiv\Models\Mensagem.mensagemId IS NULL");
+        }
         
         $mensagem->orderBy('Incentiv\Models\Mensagem.id');
 
@@ -159,7 +162,8 @@ class Mensagem extends Model
                                                 'Incentiv\Models\Mensagem.mensagemId',
                                                 'Incentiv\Models\Mensagem.remetenteId',
                                                 'Incentiv\Models\Mensagem.envioDt',
-                                                'usuario.nome'));
+                                                'usuario.nome',
+                                                'MensagemDestinatario.lida'));
         
         $mensagem->innerjoin('Incentiv\Models\Usuario', "Incentiv\Models\Mensagem.remetenteId = usuario.id", 'usuario');
         $mensagem->leftjoin('Incentiv\Models\MensagemDestinatario', "MensagemDestinatario.mensagemId = Incentiv\Models\Mensagem.id", 'MensagemDestinatario');
@@ -271,7 +275,7 @@ class Mensagem extends Model
         $mensagensRecebidas->andwhere( "MensagemDestinatario.lida = 'N'");
         $mensagensRecebidas->andwhere( "mensagemExcluida.id IS NULL");
         $mensagensRecebidas->limit(3);
-        
+
         return $mensagensRecebidas->execute()->toArray();
     }
 }

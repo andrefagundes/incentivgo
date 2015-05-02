@@ -1,7 +1,7 @@
 <section class="main media">
     <div class="row media">
         <div class="col-sm-11">
-            {{ form('empresa/mensagem/salvar-mensagem', 'class':'form-horizontal media', 'id':'form-nova-mensagem', 'method': 'post') }}
+            {{ form('colaborador/mensagem/salvar-mensagem', 'class':'form-horizontal media', 'id':'form-nova-mensagem', 'method': 'post') }}
             <div class="form-group">
                 <label class="col-lg-3 control-label">Enviar para:</label>
                 <div class="col-lg-9 select2-allowclear">
@@ -30,7 +30,7 @@
 </section>
 
 <!-- Fim Modal Criar Regra -->
-{{ javascript_include('js/empresa/mensagem/nova-mensagem.js') }}
+{{ javascript_include('js/colaborador/mensagem/nova-mensagem.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
         NovaMensagem.init();

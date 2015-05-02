@@ -5,7 +5,8 @@ namespace Colaborador\Controllers;
 use Phalcon\Paginator\Adapter\Model as Paginator,
     Phalcon\Http\Response;
 
-use Incentiv\Models\Mensagem,
+use Incentiv\Models\Usuario,
+    Incentiv\Models\Mensagem,
     Incentiv\Models\MensagemDestinatario,
     Incentiv\Models\MensagemExcluida;
 
@@ -61,12 +62,12 @@ class MensagemController extends ControllerBase {
         ));
 
         $this->view->page = $paginator->getPaginate();
-        $this->view->pick("colaborador/pesquisar-mensagem");
+        $this->view->pick("mensagem/pesquisar-mensagem");
     }
     
     public function novaMensagemAction(){
         $this->disableLayoutBefore();
-        $this->view->pick("colaborador/nova-mensagem");
+        $this->view->pick("mensagem/nova-mensagem");
     }
     
     public function salvarMensagemAction(){
@@ -162,7 +163,7 @@ class MensagemController extends ControllerBase {
         $this->view->setVar("resposta",       $permissao);
         $this->view->setVar("mensagens",       $mensagens);
         $this->view->setVar("empresaId",       $this->_auth['empresaId']);
-        $this->view->pick("colaborador/ler-mensagem");
+        $this->view->pick("mensagem/ler-mensagem");
     }
     
     public function verificarMensagensAction(){
@@ -191,6 +192,23 @@ class MensagemController extends ControllerBase {
 
         $this->response = new Response();
         $this->response->setJsonContent(array('status'=>$resultMensagem['status']));
+        $this->response->send();
+    }
+    
+    public function pesquisarColaboradoresMensagemAction() {
+
+        $this->disableLayoutBefore();
+        
+        $objUsuario = new \stdClass();
+        $objUsuario->filter         = $this->request->get("filter");
+        $objUsuario->colaboradores  = $this->request->get("colaboradores");
+        $objUsuario->usuarioLogado  = $this->_auth['id'];
+        $objUsuario->ativo          = Usuario::NOT_DELETED;
+
+        $resultUsuarios = Usuario::build()->fetchAllUsuariosDesafio($objUsuario);
+
+        $this->response = new Response();
+        $this->response->setJsonContent($resultUsuarios,'utf8');
         $this->response->send();
     }
 }

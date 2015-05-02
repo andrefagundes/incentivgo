@@ -126,6 +126,7 @@ class EmpresaDesafioController extends ControllerBase {
         $objUsuario = new \stdClass();
         $objUsuario->filter         = $this->request->get("filter");
         $objUsuario->colaboradores  = $this->request->get("colaboradores");
+        $objUsuario->usuarioLogado  = $this->_auth['id'];
         $objUsuario->perfil         = Perfil::COLABORADOR;
         $objUsuario->ativo          = Usuario::NOT_DELETED;
 

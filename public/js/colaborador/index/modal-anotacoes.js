@@ -29,19 +29,19 @@ var ModalAnotacoes = {
     salvarAnotacao:function(){
         if($("#form-anotacao").valid()){
             var anotacao = $("#txt_anotacao").val();
-            $.post("colaborador/anotacao/salvar-anotacao", {'descricao':anotacao }, function() {
-                $("#modal-body-anotacoes").html('').load( "colaborador/modal-anotacoes/"+0 );
+            $.post("anotacao/salvar-anotacao", {'descricao':anotacao }, function() {
+                $("#modal-body-anotacoes").html('').load( "modal-anotacoes/"+0 );
             }, 'json');
         }
     },
     excluirAnotacao:function(){            
         var anotacaoId = $(this).parent().attr('id');
 
-        $.post("colaborador/anotacao/excluir-anotacao", {'anotacaoId':anotacaoId }, function() {
-            $("#modal-body-anotacoes").html('').load( "colaborador/modal-anotacoes/"+0 );
+        $.post("anotacao/excluir-anotacao", {'anotacaoId':anotacaoId }, function() {
+            $("#modal-body-anotacoes").html('').load( "modal-anotacoes/"+0 );
         }, 'json');
     },
     cancelarAnotacao: function(){
-        $("#modal-body-anotacoes").html('').load( "colaborador/modal-anotacoes/"+0 );
+        $("#modal-body-anotacoes").html('').load( "modal-anotacoes/"+0 );
     }
 }; 

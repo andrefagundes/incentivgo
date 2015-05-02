@@ -4,13 +4,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="Plataforma de incentivo a colaboradores de empresas" />
+        <meta name="description" content="Plataforma Web Corporativa de incentivo a colaboradores de empresas" />
         <meta name="author" content="André Maciel Fagundes">
         <meta name="keywords" content="incentivo, empresas, business, corporações, corporation"/>
         <meta name="robots" content="index,follow,noodp,noydir" />
         <title>Bem-vindo ao Incentiv</title>
 
-        <link rel="canonical" href="http://www.incentiv.com.br/" />
+        <link rel="canonical" href="http://www.incentivgo.com.br/" />
         <link rel="shortcut icon" href="" />
         
         {{ javascript_include('js/modernizr.js') }}
@@ -20,7 +20,7 @@
         {{ stylesheet_link('css/empresa/style-empresa.css') }}
         {{ stylesheet_link('css/fonts/font.css') }}
         {{ stylesheet_link('css/fonts/font-awesome.min.css') }}
-        {{ stylesheet_link('css/empresa/select2.css') }}
+        {{ stylesheet_link('css/select2.css') }}
         {{ stylesheet_link('css/empresa/plugin.css') }}
         
         {{ stylesheet_link('http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', false) }}
@@ -49,13 +49,17 @@
         {{ javascript_include('js/jquery.touchwipe.min.js') }}
         {{ javascript_include('js/skrollr.js') }}
         <!--{{ javascript_include('js/guideline.main.js') }}-->
-        <!--{{ javascript_include('js/toucheffects.js') }}-->
+        {{ javascript_include('js/toucheffects.js') }}
         <!--{{ javascript_include('js/modals.js') }}-->
         <!--{{ javascript_include('js/jquery.form.js') }}-->
         {{ javascript_include('js/jquery.validate.min.js') }}
         {{ javascript_include('js/additional-methods.min.js') }}
         {{ javascript_include('js/moment.min.js') }}
         {{ javascript_include('js/moment.locale.min.js') }}
+        
+        <!--select2--> 
+        {{ javascript_include('js/select2.min.js') }}
+        {{ javascript_include('js/select2_locale_pt-BR.js') }}
 
          <!--app--> 
         {{ javascript_include('js/empresa/js-library/app.js') }}
@@ -79,9 +83,6 @@
          <!--parsley--> 
 <!--        {{ javascript_include('js/empresa/parsley/parsley.min.js') }}
         {{ javascript_include('js/empresa/parsley/i18n/pt-br.js') }}-->
-         <!--select2--> 
-        {{ javascript_include('js/empresa/js-library/select2/select2.min.js') }}
-        {{ javascript_include('js/empresa/js-library/select2/select2_locale_pt-BR.js') }}
         <!--dataTables -->
         <!--{{ javascript_include('js/empresa/js-library/datatables/jquery.dataTables.min.js') }}-->
         

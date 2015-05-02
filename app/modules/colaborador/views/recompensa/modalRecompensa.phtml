@@ -1,0 +1,66 @@
+<section class=" tasks-widget">
+    <div class="task-content">
+        <div id="mensagem-modal-resposta-recompensas"><?php echo $this->flashSession->output(); ?></div>
+        <ul class="task-list ui-sortable-modal ul-recompensas" id="sortable" >
+            {% for pedidoRecompensa in pedidosRecompensas %}
+                <li class="list-primary" id="li_recompensa_{{pedidoRecompensa.id}}">
+                    <div class="task-title">
+                        <span class="task-title-sp">{{pedidoRecompensa.recompensa}}</span>
+                    </div><br/>
+                    <div class="task-title pull-left">
+                        <span class="sp-title">Enviada em: {{ pedidoRecompensa.cadastroDt }}</span>
+                    </div>
+                    <div id={{pedidoRecompensa.id}} class="task-title pull-right">
+                        {%if(pedidoRecompensa.status == 1 )%}
+                            <span class="badge bg-important">Pedido enviado</span>
+                        {%elseif(pedidoRecompensa.status == 2)%}
+                            <span class="badge bg-success">Parabéns!!! Recompensa pode ser usada</span>
+                        {%endif%}
+                    </div>
+                </li>
+            {% elsefor %}
+                <li class="list-primary text-center">
+                    <div class="task-title">
+                        <span class="task-title-sp">Nenhuma recompensa utilizada até o momento!!!</span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div id="ul_recompensa" class="container-fluid box1" style="display: none">
+            <form role="form" class="form-recompensa form-horizontal" id="form-recompensa">
+                <div class="form-group">
+                    <label for="recompensaId" class="col-lg-2 control-label">Recompensa:</label>
+                    <div class="col-lg-10">
+                        <?php
+                        echo Phalcon\Tag::select(array(
+                            "recompensa_id",
+                            'class' => 'form-control',
+                            'name' => 'dados[recompensa_id]', 'value' => '',
+                            $recompensas,
+                            "using" => array("id", "recompensa"),
+                            'useEmpty' => true,
+                            'emptyText' => 'Selecione a recompensa que deseja usar...',
+                            'emptyValue' => ''
+                        ));
+                        ?>
+                        <label id="recompensaId-error" class="error pull-left display-none"  for="recompensaId">Campo obrigatório</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="observacaoUsuario" class="col-lg-2 control-label">Observações:</label>
+                    <div class="col-lg-10">
+                        <textarea id="observacaoUsuario" name="dados[txt_observacao_recompensa]" placeholder="Observações" class="form-control"></textarea>
+                    </div>
+                </div>
+            </form>
+            <button type="button" id="btnSalvarRecompensa" class="btn btn-xs btn-theme03 pull-right ml">Enviar</button>
+            <button type="button" id="btnCancelarRecompensa" class="btn btn-xs btn-theme04 pull-right">Cancelar</button>
+        </div>
+    </div>
+</section>
+{{ javascript_include('js/colaborador/recompensa/modal-recompensa.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        ModalRecompensa.init();
+    });
+</script>

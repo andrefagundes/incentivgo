@@ -8,14 +8,14 @@ var pesquisarMensagem = {
         });
         
         $('.btnPaginacaoMensagem').on('click', function() {
-            Mensagem.pesquisarMensagem(this.id);
+            ColaboradorMensagem.pesquisarMensagem(this.id);
         });
         
         $(".mensagem-entrada,#btnNovaMensagem").off();
         $(".mensagem-entrada").click(pesquisarMensagem.lerMensagem);
-        $("#btnNovaMensagem").click(Mensagem.novaMensagem);
+        $("#btnNovaMensagem").click(ColaboradorMensagem.novaMensagem);
     },
     lerMensagem:function(){
-        Mensagem.lerMensagem(this.id);
+        ColaboradorMensagem.lerMensagem(this.id);
     }
 };

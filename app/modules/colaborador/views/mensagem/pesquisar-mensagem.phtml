@@ -1,10 +1,28 @@
-{% for mensagem in page.items %}
-<a href="#" class="list-group-item bg mensagem-entrada" id="{{mensagem.id}}"><small class="pull-right text-muted moment">{{ mensagem.envioDt }}</small><strong>{{mensagem.nome}}</strong><br><small>{{mensagem.titulo}}</small></a>
-{% elsefor %}
-    <a href="#" class="list-group-item bg text-center text-info">Nenhuma mensagem no momento.</a>
-{% endfor %}
-<section class="panel-footer">
-    <footer>
+<section class="tasks-widget">
+    <div class="panel-body">
+        <div class="task-content">
+            <ul class="task-list ui-sortable" id="sortable">
+                {% for mensagem in page.items %}
+<!--                    {% if mensagem.lida is 'Y' %}
+                        {% set list = 'info' %}
+                    {% else %}
+                        {% set list = 'success' %}
+                    {% endif %}-->
+                    <li class="list-unstyled list-success">
+                        <div class="task-title">
+                            <a href="#" class="mensagem-entrada" id="{{mensagem.id}}"><small class="pull-right text-muted moment">{{ mensagem.envioDt }}</small><strong>{{mensagem.nome}}</strong><br><small>{{mensagem.titulo}}</small></a>
+                        </div>
+                    </li>
+                {% elsefor %}
+                    <li class="text-center center">
+                    <div class="task-title">
+                        <span class="task-title-sp">Nenhuma mensagem no momento.</span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+         <footer>
         <div class="row">
             <div class="col-sm-3 col-sm-offset-4 text-center">
                 <small class="text-muted inline m-t-small m-b-small">Mostrando {{ page.current }} de {{ page.total_pages }}</small>
@@ -12,15 +30,16 @@
             <div class="col-sm-5 text-right text-center-sm">                
                 <ul class="pagination pagination-small m-t-none m-b-none">
                     <div class="btn-group m-t pull-right">
-                    <button type="button" class="btn btn-sm btn-white btnPaginacaoMensagem" id="{{page.before}}"><i class="fa fa-chevron-left"></i></button>
-                    <button type="button" class="btn btn-sm btn-white btnPaginacaoMensagem" id="{{page.next}}"><i class="fa fa-chevron-right"></i></button>
+                    <button type="button" class="btn btn-sm btn-default btnPaginacaoMensagem" id="{{page.before}}"><i class="fa fa-chevron-left"></i></button>
+                    <button type="button" class="btn btn-sm btn-default btnPaginacaoMensagem" id="{{page.next}}"><i class="fa fa-chevron-right"></i></button>
                     </div>
                 </ul>
             </div>
         </div>
-    </footer>
+        </footer>
+    </div>
 </section>
-{{ javascript_include('js/empresa/mensagem/pesquisar-mensagem.js') }}
+{{ javascript_include('js/colaborador/mensagem/pesquisar-mensagem.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
         pesquisarMensagem.init();

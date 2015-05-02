@@ -42,6 +42,7 @@ class EmpresaRecompensaController extends ControllerBase {
         $objDesafio = new \stdClass();
         $objDesafio->ativo      = $this->request->getPost("ativo");
         $objDesafio->filter     = $this->request->getPost("filter");
+        $objDesafio->empresaId  = $this->_auth['empresaId'];
 
         $resultRecompensas = Recompensa::build()->fetchAllRecompensas($objDesafio);
         

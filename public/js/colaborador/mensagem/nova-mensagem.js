@@ -5,7 +5,7 @@ var NovaMensagem = {
         formataSelectColaboradores();
         
         $("#btnCancelarNovaMensagem").click(function(){
-            Mensagem.pesquisarMensagem(1);
+            ColaboradorMensagem.pesquisarMensagem(1);
             $("#grupo-filtros").show();
         });
 

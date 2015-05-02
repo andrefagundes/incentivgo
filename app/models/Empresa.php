@@ -90,6 +90,13 @@ class Empresa extends Model
             )
         ));
         
+        $this->hasMany('id', 'Incentiv\Models\UsuarioPedidoRecompensa', 'empresaId', array(
+            'alias' => 'pedidoRecompensa',
+            'foreignKey' => array(
+                'message' => 'A  empresa não pode ser excluída porque ela possui usuario com pedido de recompensa.'
+            )
+        ));
+        
         $this->hasMany('id', 'Incentiv\Models\EmpresaDominio', 'empresaId', array(
             'alias' => 'empresaDominio',
             'foreignKey' => array(

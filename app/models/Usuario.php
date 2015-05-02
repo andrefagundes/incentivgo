@@ -236,6 +236,13 @@ class Usuario extends Model
             )
         ));
         
+        $this->hasMany('id', 'Incentiv\Models\UsuarioPedidoRecompensa', 'usuarioId', array(
+            'alias' => 'recompensaUsuario',
+            'foreignKey' => array(
+                'message' => 'O colaborador não pode ser excluído porque ele possui recompensa cadastrada.'
+            )
+        ));
+        
         $this->hasMany('id', 'Incentiv\Models\Mensagem', 'remetenteId', array(
             'alias' => 'usuarioRemetente',
             'foreignKey' => array(
@@ -290,12 +297,9 @@ class Usuario extends Model
     }
     
     public function fetchAllUsuariosDesafio(\stdClass $objUsuario){
-        
+
         $usuario = Usuario::query()->columns(array('id','nome','email'));
-        if($objUsuario->perfil)
-        {
-            $usuario->where("perfilId = {$objUsuario->perfil}");
-        }
+        
         if($objUsuario->filter)
         {
            $usuario->andwhere( "nome LIKE('%{$objUsuario->filter}%') OR 
@@ -309,6 +313,8 @@ class Usuario extends Model
         {
             $usuario->andwhere("ativo = '{$objUsuario->ativo}'");
         }
+        
+        $usuario->notInWhere('id', array($objUsuario->usuarioLogado));
   
         $usuario->orderBy('nome');
 

@@ -36,8 +36,8 @@ var ModalDesafios = {
             ModalDesafios.isMotivo   = $("#txt_motivo_"+desafioId).val();
         }
         if($("#form_desafio_"+desafioId).valid()){
-            $.post("colaborador/responder-desafio", {'id': desafioId, 'resposta': ModalDesafios.isResposta,'motivo': ModalDesafios.isMotivo}, function() {
-                $("#modal-body-desafios").html('').load("colaborador/modal-desafios/" + 0);
+            $.post("responder-desafio", {'id': desafioId, 'resposta': ModalDesafios.isResposta,'motivo': ModalDesafios.isMotivo}, function() {
+                $("#modal-body-desafios").html('').load("modal-desafios/" + 0);
             }, 'json');
         }
     },
@@ -45,8 +45,8 @@ var ModalDesafios = {
         
         var desafioId = $(this).parent().attr('id');
 
-        $.post("colaborador/desafio-cumprido", {'id': desafioId}, function() {
-            $("#modal-body-desafios").html('').load("colaborador/modal-desafios/" + 0);
+        $.post("desafio-cumprido", {'id': desafioId}, function() {
+            $("#modal-body-desafios").html('').load("modal-desafios/" + 0);
         }, 'json');
     },
     cancelarDescarte: function(){

@@ -83,15 +83,17 @@ class SecurityPlugin extends Plugin {
                 ),
                 'colaboradorResources'  => array(
                     'colaborador' => array('index','modalAnotacoes','salvarAnotacao','excluirAnotacao'),
-                    'ajuda' => array('index','modalAjudas','pedirAjuda','modalAjudar'),
+                    'ajuda' => array('index','modalAjudas','pedirAjuda','modalAjudar','excluirAjuda','ajudar'),
                     'chat' => array('index','chat'),
                     'ideia' => array('index','ideia','modalIdeias','salvarIdeia'),
                     'perfil' => array('index','perfil'),
                     'noticia' => array('index','noticia','modalNoticias','modalLerNoticia'),
                     'desafio' => array('index','modalDesafios','responderDesafio','desafioCumprido'),
+                    'recompensa' => array('index','recompensa','pesquisarRecompensa','modalRecompensa',
+                                                  'salvarPedidoRecompensa'),
                     'mensagem' => array('index','mensagem','pesquisarMensagem','novaMensagem',
                                         'salvarMensagem','lerMensagem','excluirMensagem','verificarMensagens',
-                                        'responderMensagem')
+                                        'responderMensagem','pesquisarColaboradoresMensagem')
                 ),
                 'adminResources' => array(
                     'usuario' => array('index','search','edit','create','delete','alteraSenha'),

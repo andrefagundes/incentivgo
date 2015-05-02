@@ -3,6 +3,6 @@ var ModalLerNoticia = {
         $("#btnVoltarNoticia").click(ModalLerNoticia.voltarNoticia);
     },
     voltarNoticia: function() {
-        $("#modal-body-noticias").html('').load("colaborador/modal-noticias/" + 0);
+        $("#modal-body-noticias").html('').load("modal-noticias/" + 0);
     }
 }; 

@@ -4,13 +4,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="Plataforma de incentivo a colaboradores de empresas" />
+        <meta name="description" content="Plataforma Web Corporativa de incentivo a colaboradores de empresas" />
         <meta name="author" content="André Maciel Fagundes">
         <meta name="keywords" content="incentivo, empresas, business, corporações, corporation,gamificação, gamification"/>
         <meta name="robots" content="index,follow,noodp,noydir" />
         <title>Bem-vindo ao Incentiv</title>
 
-        <link rel="canonical" href="http://www.incentiv.com.br/" />
+        <link rel="canonical" href="http://www.incentivgo.com.br/" />
         <link rel="shortcut icon" href="" />
         
         {{ javascript_include('js/modernizr.js') }}
@@ -22,6 +22,7 @@
         {{ stylesheet_link('css/fonts/lineicons/style.css') }}
         {{ stylesheet_link('http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', false) }}
         {{ stylesheet_link('css/colaborador/style-colaborador.css') }}
+        {{ stylesheet_link('css/select2.css') }}
         
         {{ javascript_include('js/jquery.min.js') }}
         {{ javascript_include('js/bootstrap.min.js') }}
@@ -41,7 +42,10 @@
     {{ javascript_include('js/colaborador/jquery.scrollTo.min.js') }}
     {{ javascript_include('js/colaborador/jquery.sparkline.js') }}
     {{ javascript_include('js/colaborador/common-scripts.js') }}
+    {{ javascript_include('js/colaborador/app.data.js') }}
     {{ javascript_include('js/moment.min.js') }}
     {{ javascript_include('js/moment.locale.min.js') }}
+    {{ javascript_include('js/select2.min.js') }}
+    {{ javascript_include('js/select2_locale_pt-BR.js') }}
     </body>
 </html>

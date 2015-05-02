@@ -133,5 +133,14 @@ class UsuarioPontuacaoCredito extends Model
         } catch (Exception $e) {
             echo $e->getTraceAsString();
         }
-    }  
+    }
+    
+    public function buscarPontuacaoUsuario($usuarioId){
+        $pontuacaoCredito = $this::sum(array( "column" => "pontuacao", "conditions" => "usuarioId = {$usuarioId}"));
+        $pontuacaoDebito  = UsuarioPontuacaoDebito::sum(array("column" => "pontuacao", "conditions" => "usuarioId = {$usuarioId}"));
+
+        $total = $pontuacaoCredito - $pontuacaoDebito;
+
+        return $total;
+    }
 }

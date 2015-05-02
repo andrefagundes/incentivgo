@@ -32,7 +32,7 @@ var ModalAjudas = {
     },
     ajudar: function() {
         var ajudaId = $(this).parent().attr('id');
-        $("#modal-body-ajudas").html('').load("colaborador/modal-ajudar/" + ajudaId);
+        $("#modal-body-ajudas").html('').load("modal-ajudar/" + ajudaId);
     },
     pedirAjuda: function() {
         $(".ul-ajudas").hide();
@@ -41,19 +41,19 @@ var ModalAjudas = {
     enviarAjuda: function() {
         if ($("#form_ajuda").valid()) {
             var ajuda = $("#txt_mensagem_ajuda").val();
-            $.post("colaborador/ajuda/pedir-ajuda", {'ajuda': ajuda}, function() {
-                $("#modal-body-ajudas").html('').load("colaborador/modal-ajudas/" + 0);
+            $.post("ajuda/pedir-ajuda", {'ajuda': ajuda}, function() {
+                $("#modal-body-ajudas").html('').load("modal-ajudas/" + 0);
             }, 'json');
         }
     },
     excluirAjuda: function() {
         var ajudaId = $(this).parent().attr('id');
 
-        $.post("colaborador/ajuda/excluir-ajuda", {'ajudaId': ajudaId}, function() {
-            $("#modal-body-ajudas").html('').load("colaborador/modal-ajudas/" + 0);
+        $.post("ajuda/excluir-ajuda", {'ajudaId': ajudaId}, function() {
+            $("#modal-body-ajudas").html('').load("modal-ajudas/" + 0);
         }, 'json');
     },
     cancelarAjuda: function() {
-        $("#modal-body-ajudas").html('').load("colaborador/modal-ajudas/" + 0);
+        $("#modal-body-ajudas").html('').load("modal-ajudas/" + 0);
     }
 }; 

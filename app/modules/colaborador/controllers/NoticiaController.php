@@ -36,8 +36,8 @@ class NoticiaController extends ControllerBase {
         $this->disableLayoutBefore();
         
         $id = $this->dispatcher->getParam("code");
+        $resultNoticia = Noticia::build()->findFirst("id = {$id}");
 
-        $resultNoticia = Noticia::build()->findFirst(array("id" => $id));
         $this->view->noticia = $resultNoticia;
     }
 

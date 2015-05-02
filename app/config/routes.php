@@ -405,7 +405,7 @@ $router->add('/empresa/colaborador/ativar-inativar-colaborador/{status}/{id}', a
 
 /******Rotas módulo colaborador**********/
 
-$router->add('/colaborador', array(
+$router->add('/colaborador/geral', array(
     'module' => 'colaborador',
     'controller' => 'colaborador',
     'action' => 'index'
@@ -527,7 +527,7 @@ $router->add('/colaborador/modal-noticias/{code}', array(
     return false;
 });
 
-$router->add('/noticia/modal-ler-noticia/{code}', array(
+$router->add('/colaborador/noticia/modal-ler-noticia/{code}', array(
     'module' => 'colaborador',
     'controller' => 'noticia',
     'action' => 'modalLerNoticia'
@@ -710,6 +710,77 @@ $router->add('/colaborador/chat', array(
 
     return false;
 });
+
+$router->add('/colaborador/desafio/pesquisar-colaborador/filter/{get}', array(
+    'module' => 'colaborador',
+    'controller' => 'mensagem',
+    'action' => 'pesquisarColaboradoresMensagem',
+    'get' => 1
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+
+
+/******Rotas módulo colaborador/recompensa**********/
+
+$router->add('/colaborador/recompensa', array(
+    'module' => 'colaborador',
+    'controller' => 'recompensa',
+    'action' => 'recompensa'
+));
+
+$router->add('/colaborador/recompensa/pesquisar-recompensa', array(
+    'module' => 'colaborador',
+    'controller' => 'recompensa',
+    'action' => 'pesquisarRecompensa'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+
+$router->add('/colaborador/recompensa/modal-recompensa/{code}', array(
+    'module' => 'colaborador',
+    'controller' => 'recompensa',
+    'action' => 'modalRecompensa'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+
+    return false;
+});
+
+$router->add('/colaborador/recompensa/salvar-recompensa', array(
+    'module' => 'colaborador',
+    'controller' => 'recompensa',
+    'action' => 'salvarPedidoRecompensa'
+));
+
+$router->add('/colaborador/recompensa/ativar-inativar-recompensa/{status}/{id}', array(
+    'module' => 'colaborador',
+    'controller' => 'recompensa',
+    'action' => 'ativarInativarRecompensa'
+));
+
+$router->add('/colaborador/recompensa/utilizar-recompensa', array(
+    'module' => 'colaborador',
+    'controller' => 'recompensa',
+    'action' => 'utilizarRecompensa'
+));
+
+$router->add('/colaborador/recompensa/debitar-recompensa', array(
+    'module' => 'colaborador',
+    'controller' => 'recompensa',
+    'action' => 'debitarRecompensa'
+));
 
 /****colaborador/mensagem****/
 $router->add('/colaborador/mensagens', array(

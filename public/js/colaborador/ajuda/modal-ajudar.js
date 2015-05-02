@@ -33,12 +33,12 @@ var ModalAjudar = {
         if($("#form_ajudar").valid()){
             var ajuda = $("#txt_mensagem_ajudar").val();
             var ajudaId = $("#ajuda-id").val();
-            $.post("colaborador/ajudar", {'ajuda':ajuda,'ajudaId':ajudaId }, function() {
-                $("#modal-body-ajudas").load( "colaborador/modal-ajudar/"+ajudaId );
+            $.post("ajudar", {'ajuda':ajuda,'ajudaId':ajudaId }, function() {
+                $("#modal-body-ajudas").load( "modal-ajudar/"+ajudaId );
             }, 'json');
         }
     },
     cancelarAjuda: function(){
-        $("#modal-body-ajudas").html('').load( "colaborador/modal-ajudas/"+0 );
+        $("#modal-body-ajudas").html('').load( "modal-ajudas/"+0 );
     }
 }; 

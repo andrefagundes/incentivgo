@@ -28,7 +28,7 @@
                         </div>
                         <button class="btn btn-sm btn-default squared" id="btnAtualizarPesquisa" data-toggle="tooltip" data-title="Atualizar"><i class="fa fa-refresh"></i></button>
                     </div>
-                    <div class="list-normal m-t-n-xmini col-lg-4 scroll-y scrollbar" style="max-height:100%">
+                    <div class="list-normal m-t-n-xmini col-lg-12 scroll-y scrollbar" style="max-height:100%">
                         <?php echo $this->flashSession->output(); ?>
                         <div id="lista-mensagens" ></div>
                     </div>
@@ -41,6 +41,6 @@
 {{ javascript_include('js/colaborador/mensagem/mensagem.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        Mensagem.init();
+        ColaboradorMensagem.init();
     });
 </script>

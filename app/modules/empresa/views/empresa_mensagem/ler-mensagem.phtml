@@ -1,20 +1,20 @@
 <section class="main bg">
     {% for mensagem in mensagens %}
     {% if loop.first %}
-    <div class="bg-primary clearfix padder m-b">
-        <h3 class="m-b">{{mensagem['titulo']}}</h3>
-    </div>
+        <div class="bg-primary clearfix padder m-b">
+            <h3 class="m-b">{{mensagem['titulo']}}</h3>
+        </div>
     {%else%}
-    <div class="bg-default white-header clearfix padder m-b divider">
-        <h3 class="m-b">{{mensagem['titulo']}}</h3>
-    </div>
+        <div class="bg-default white-header clearfix padder m-b divider">
+            <h3 class="m-b">{{mensagem['titulo']}}</h3>
+        </div>
     {% endif %}
     <div class="text-small padder">
         <div class="block clearfix">
             {% if( mensagem['avatar'] is empty ) %}
-            {% set avatar_user = 'bfdc40e956b123b24b4962cc9409485a.jpg' %} 
+                {% set avatar_user = 'bfdc40e956b123b24b4962cc9409485a.jpg' %} 
             {% else  %}
-            {% set avatar_user = empresaId~'/'~mensagem['id']~'/'~'60_'~mensagem['avatar'] %} 
+                {% set avatar_user = empresaId~'/'~mensagem['id']~'/'~'60_'~mensagem['avatar'] %} 
             {% endif %}
             <a href="#" class="thumb-mini inline">{{image( 'img/users/'~avatar_user, 'class':'img-circle', 'alt':mensagem['nomeRemetente']) }}</a> {{mensagem['nomeRemetente']}}
             &lt;{{mensagem['emailRemetente']}}&gt; <strong>para</strong> {{mensagem['usuariosDestinatarios']}}
@@ -42,7 +42,7 @@
         <div class="padder">
             <form class="panel text-small">
                 <div class="panel-body">
-                    {% if resposta %}
+        {% if resposta %}
                         Clique aqui para <a href="#" class="link-responder-mensagem">Responder</a>
                     {% endif %}
                 </div>
@@ -51,23 +51,23 @@
         {% if resposta %}
         <div class="padder block clearfix" id="div-resposta-mensagem" style="display: none;">
             {{ form('empresa/mensagem/responder-mensagem', 'class':'form-horizontal media', 'id':'form-responder-mensagem', 'method': 'post') }}
-                {{hidden_field("id",'value':mensagem['id_mensagem_pai'])}} 
-                <div class="col-lg-12">
-                    <p>
-                        {{ text_field("resposta-titulo", 'id':'resposta-titulo', 'placeholder': 'Informe um título', 'value':'','class': 'bg-focus form-control', 'style':'width:60%') }}
-                    </p>
-                </div>
-                <div class="col-lg-12">
-                    <p>
-                        {{ text_area("resposta-mensagem", 'id':'resposta-mensagem', 'placeholder': 'Descreva a resposta da mensagem','value':'','rows':'6', 'class':'bg-focus form-control') }}
-                    </p>
-                </div>
-                <div class="text-center padder">
-                    <button type="button" class="btn btn-sm btn-default m-t squared" id="btnCancelarResposta"> Cancelar</button>
-                    <button type="submit" class="btn btn-sm btn-facebook m-t squared" id="btnResponderMensagem"> Enviar</button>
-                </div>
+                    {{hidden_field("id",'value':mensagem['id_mensagem_pai'])}} 
+                    <div class="col-lg-12">
+                        <p>
+                            {{ text_field("resposta-titulo", 'id':'resposta-titulo', 'placeholder': 'Informe um título', 'value':'','class': 'bg-focus form-control', 'style':'width:60%') }}
+                        </p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p>
+                            {{ text_area("resposta-mensagem", 'id':'resposta-mensagem', 'placeholder': 'Descreva a resposta da mensagem','value':'','rows':'6', 'class':'bg-focus form-control') }}
+                        </p>
+                    </div>
+                    <div class="text-center padder">
+                        <button type="button" class="btn btn-sm btn-default m-t squared" id="btnCancelarResposta"> Cancelar</button>
+                        <button type="submit" class="btn btn-sm btn-facebook m-t squared" id="btnResponderMensagem"> Enviar</button>
+                    </div>
             {{endForm()}}
-        </div><br/>
+            </div><br/>
         {% else%}
             {{hidden_field("id",'value':mensagem['id_mensagem_pai'])}}
         {% endif %}

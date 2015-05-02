@@ -1,6 +1,8 @@
 var LerMensagem = {
     init: function() {
+        $("[data-toggle=tooltip]").tooltip();
         moment.locale('pt-br');
+        
         $(".moment").each(function(){
            $(this).html(moment($(this).html()).startOf().fromNow());
         });
@@ -48,7 +50,7 @@ var LerMensagem = {
          var id = $("#id").val();
         
         $.post( "mensagem/responder-mensagem", { 'id':id }, function(){
-             Mensagem.pesquisarMensagem(1);
+             ColaboradorMensagem.pesquisarMensagem(1);
         },'json');
     }
     
