@@ -8,7 +8,8 @@ use Phalcon\Paginator\Adapter\Model as Paginator,
 use Incentiv\Models\Usuario,
     Incentiv\Models\Mensagem,
     Incentiv\Models\MensagemDestinatario,
-    Incentiv\Models\MensagemExcluida;
+    Incentiv\Models\MensagemExcluida,
+    Incentiv\Models\UsuarioPontuacaoCredito;
 
 /**
  * Colaborador\Controllers\MensagemController
@@ -23,8 +24,9 @@ class MensagemController extends ControllerBase {
         $this->view->count_mensagens_recebidas = MensagemDestinatario::build()->quantMensagensRecebidas($this->_auth['id']);
         $this->view->count_mensagens_enviadas  = Mensagem::build()->quantMensagensEnviadas($this->_auth['id']);
         $this->view->count_mensagens_excluidas = MensagemExcluida::build()->count("usuarioId = {$this->_auth['id']}");
-        
+
         if (!$this->request->isAjax()) {
+            $this->view->count_pontuacao   = UsuarioPontuacaoCredito::build()->buscarPontuacaoUsuario($this->_auth['id']);
             $this->view->usuario_logado    = $this->auth->getName();
             $this->view->id                = $this->_auth['id'];
             $this->view->empresaId         = $this->_auth['empresaId'];

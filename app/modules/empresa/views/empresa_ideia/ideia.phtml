@@ -14,19 +14,16 @@
         <!-- scrollable inbox widget -->
         <section class="panel">
             <header class="panel-heading">
-                <div class="pull-left">
-                    <button type="button" class="btn btn-sm btn-facebook squared" id="btnMapearPontuacao">Mapear Pontuação</button>
-                </div>
-                <div class="col-sm-4 col-lg-offset-3">
-                    <div class="input-group">
+                    <div class="col-lg-4 pull-left">
+                        {% if perfilId == perfilAdmin %}
+                            <button type="button" class="btn btn-sm btn-facebook squared" id="btnMapearPontuacao">Mapear Pontuação</button>
+                        {% endif %}
+                    </div>
+                <div class="col-lg-3 input-group">
                         <input type="text" id="filterIdeias" class="input-sm form-control" placeholder="Pesquisar por ideias">
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-sm btn-white" id="btnPesquisarIdeias">Pesquisar</button>
                         </span>
-                    </div>
-                </div>
-                <div class="pull-right">
-                    <span class="label label-large bg-default" id="quantidade-ideia" data-placement="left" data-toggle="tooltip" data-original-title="Ideias Enviadas">{{count_ideias}}</span> Ideias 
                 </div>
             </header>
             <div id="pesquisarIdeia"></div>

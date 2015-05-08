@@ -40,11 +40,11 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">            
                 <span class="hidden-xs-only">{{usuario_logado}}</span>
                 {% if( avatar is empty ) %}
-                {% set avatar_user = 'bfdc40e956b123b24b4962cc9409485a.jpg' %} 
+                    {% set avatar_user = 'bfdc40e956b123b24b4962cc9409485a.jpg' %} 
                 {% else  %}
-                {% set avatar_user = empresaId~'/'~id~'/'~'40_'~avatar %} 
+                    {% set avatar_user = empresaId~'/'~id~'/'~'40_'~avatar %} 
                 {% endif %}
-                <span class="thumb-small avatar inline">{{image( 'img/users/'~avatar_user, 'class':'img-circle') }}</span>
+                <span class="thumb-small avatar inline">{{image( 'img/users/'~avatar_user, 'class':'img-circle','style':'width: 40px; height: 40px') }}</span>
                 <b class="caret hidden-xs-only"></b>
             </a>
             <ul class="dropdown-menu">
@@ -65,14 +65,11 @@
         <div id="sidebar"  class="nav-collapse ">
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
-                {% if( avatar is empty ) %}
-                    {% set avatar_user = 'bfdc40e956b123b24b4962cc9409485a.jpg' %} 
-                {% else  %}
-                    {% set avatar_user = empresaId~'/'~id~'/'~'60_'~avatar %} 
-                {% endif %}
-                <p class="centered">{{ link_to('colaborador/perfil', image( 'img/users/'~avatar_user,'class':'img-circle','width':'60px')) }}</p>
-                <h5 class="centered">{{usuario_logado}}</h5>
-
+                <h6 class="centered">
+                    <div class="badge badge-popular"><h2>{{count_pontuacao}}</h2></div>
+                </h6>
+                <h5 class="centered">incentivs ganhos</h5>
+                
                 <li class="mt">
                     <!--<a href="#" class="active btnBody" id="geral"><i class="fa fa-dashboard"></i><span>Geral</span></a>-->
                     {{ link_to('colaborador/geral', '<i class="fa fa-dashboard"></i><span>Geral</span>','class':'active') }}
@@ -83,15 +80,19 @@
                     {{ link_to('colaborador/ideia', '<i class="li_bulb"></i><span>Ideias</span>') }}
                 </li>
                 <li class="sub-menu">
+                    <!--<a href="#" class="btnBody" id="ideia"><i class="fa fa-dashboard"></i><span>Ideias</span></a>-->
+                    {{ link_to('colaborador/recompensa', '<i class="li_star"></i><span>Recompensas</span>') }}
+                </li>
+<!--                <li class="sub-menu">
                     <a href="javascript:;" >
                         <i class="fa fa-vk"></i>
                         <span>Recompensas</span>
                     </a>
                     <ul class="sub">
-                        <li>{{ link_to('colaborador/recompensa', 'Usar Pontos') }}</li>
+                        <li>{{ link_to('colaborador/recompensa', 'Usar Incentivs') }}</li>
                         <li>{{ link_to('colaborador/recompensa/2', 'Ver Recompensas') }}</li>
                     </ul>
-                </li>
+                </li>-->
 
 <!--                <li class="sub-menu">
                     <a href="javascript:;" >
@@ -105,9 +106,6 @@
                 </li>-->
                 <li class="sub-menu" id="menu-mensagem">
                      {{ link_to("colaborador/mensagens", '<i class="fa fa-envelope-o fa-lg"></i><span>Mensagens</span>') }}
-                </li>
-                <li class="sub-menu">
-                    {{ link_to('colaborador/perfil', '<i class="fa fa-cogs"></i><span>Perfil</span>') }}
                 </li>
                  
             </ul>

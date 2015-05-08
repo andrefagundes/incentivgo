@@ -76,6 +76,7 @@ class SecurityPlugin extends Plugin {
                             'salvarDesafio', 'ativarInativarDesafio','modalAnalisarDesafio','analisarDesafio'),
                     'empresa_noticia' => array('index','noticia','pesquisarNoticia','modalNoticia',
                             'salvarNoticia', 'ativarInativarNoticia'),
+                    'empresa_recompensa' => array('index','verPedidos','pesquisarPedidos'),
                     'empresa_perfil' => array('index','perfil'),
                     'empresa_mensagem' => array('index','mensagem','pesquisarMensagem','novaMensagem',
                                                 'salvarMensagem','lerMensagem','excluirMensagem','verificarMensagens',

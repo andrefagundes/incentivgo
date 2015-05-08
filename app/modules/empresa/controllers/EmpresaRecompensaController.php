@@ -2,10 +2,12 @@
 
 namespace Empresa\Controllers;
 
-use Phalcon\Paginator\Adapter\Model as Paginator,
-    Incentiv\Models\Recompensa,
+use Phalcon\Paginator\Adapter\Model as Paginator;
+use \Incentiv\Models\Recompensa,
     Incentiv\Models\Usuario,
-    Incentiv\Models\UsuarioPontuacaoDebito;
+    Incentiv\Models\Perfil,
+    Incentiv\Models\UsuarioPontuacaoDebito,
+    Incentiv\Models\UsuarioPedidoRecompensa;
 
 /**
  * Empresa\Controllers\RecompensaController
@@ -17,8 +19,9 @@ class EmpresaRecompensaController extends ControllerBase {
     
     public function initialize() {
         $this->_auth = $this->auth->getIdentity(); 
+        $this->view->perfilAdmin     = Perfil::ADMINISTRADOR;
+        $this->view->perfilId        = $this->_auth['perfilId'];
         if (!$this->request->isAjax()) {
-         
             $this->view->usuario_logado    = $this->auth->getName();
             $this->view->id                = $this->_auth['id'];
             $this->view->empresaId         = $this->_auth['empresaId'];
@@ -138,5 +141,33 @@ class EmpresaRecompensaController extends ControllerBase {
         }else{
             $this->response->redirect('empresa/recompensa/utilizar-recompensa');
         }
+    }
+    
+    public function verPedidosAction(){
+        
+    }
+    
+     public function pesquisarPedidosAction() {
+
+        $this->disableLayoutBefore();
+        
+        $auth = $this->auth->getIdentity();
+
+        $objPedidos = new \stdClass();
+        $objPedidos->ativo      = $this->request->getPost("ativo");
+        $objPedidos->filter     = $this->request->getPost("filter");
+        $objPedidos->empresaId  = $auth['empresaId'];
+
+        $resultPedidosRecompensa = UsuarioPedidoRecompensa::build()->fetchAllPedidos($objPedidos);
+
+        $numberPage = $this->request->getPost("page");
+        $paginator = new Paginator(array(
+            "data" => $resultPedidosRecompensa,
+            "limit" => 4,
+            "page" => $numberPage
+        ));
+
+        $this->view->page = $paginator->getPaginate();
+        $this->view->pick("empresa_recompensa/pesquisar-pedidos");
     }
 }

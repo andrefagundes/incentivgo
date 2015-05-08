@@ -1,0 +1,45 @@
+
+<table class="table table-responsive table-striped table-condensed">
+    <tbody>
+        {% for pedido in page.items %}
+            <tr class="row">
+                <td class="td-responsive">
+                    <span data-placement="right" data-toggle="tooltip" data-original-title="Data de cadastro do pedido" >{{pedido.cadastroDt}}</span> 
+                    <h6><strong>{{pedido.nome}} - {{ pedido.recompensa}}</strong></h6>
+                </td>
+            </tr>
+        {% elsefor %}
+            <tr class="row">
+                <td class="table-responsive">
+                    <h6 class="text-center text-info">Nenhum pedido feito.</h6>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<section class="panel-footer">
+    <footer>
+        <div class="row">
+            <div class="col-lg-1 text-center"  data-placement="bottom" data-toggle="tooltip" data-original-title="Pedidos Feitos: {{page.total_items}}">
+                <small class="text-muted inline m-t-small m-b-small"><span class="label label-large bg-default " id="quantidade-desafio">{{page.total_items}}</span> Pedidos </small>
+            </div>
+            <div class="col-sm-3 col-lg-offset-3 text-center">
+                <small class="text-muted inline m-t-small m-b-small">Mostrando {{ page.current }} de {{ page.total_pages }}</small>
+            </div>
+            <div class="col-sm-5 text-right text-center-sm">                
+                <ul class="pagination pagination-small m-t-none m-b-none">
+                    <li><a href="#" class="fa btnPaginacaoPedido" id="1"><i class="icons icon-fast-backward"></i> Primeiro</a></li>
+                    <li><a href="#" class="fa btnPaginacaoPedido" id="{{page.before}}"><i class="icons icon-step-backward"></i> Anterior</a></li>
+                    <li><a href="#" class="fa btnPaginacaoPedido" id="{{page.next}}"><i class="icons icon-step-forward"></i> Próximo</a></li>
+                    <li><a href="#" class="fa btnPaginacaoPedido" id="{{page.last}}">Último <i class="icons icon-fast-forward"></i> </a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</section>
+{{ javascript_include('js/empresa/recompensa/pesquisar-pedidos.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        pesquisarPedidos.init();
+    });
+</script>

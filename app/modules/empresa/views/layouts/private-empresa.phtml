@@ -58,7 +58,7 @@
             {{ link_to("empresa/geral", '<i class="fa fa-th fa-lg"></i><span>Geral</span>') }}
         </li>
         <li class="dropdown-submenu" id="menu-desafio">
-            {{ link_to("empresa/desafio",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Gere desafios aos seus colaboradores',  '<i class="fa fa-exclamation"></i><span>Desafios</span>') }}
+            {{ link_to("empresa/desafio",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Crie desafios aos seus colaboradores',  '<i class="fa fa-exclamation"></i><span>Desafios</span>') }}
         </li>
         <li class="dropdown-submenu" id="menu-noticia">
             {{ link_to("empresa/noticia",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Informe as novidades da empresa pra seus colaboradores', '<i class="fa fa-arrow-circle-right"></i><span>Notícias</span>') }}
@@ -72,8 +72,12 @@
         <li class="dropdown-submenu" id="menu-recompensa">
             <a href="#"><i class="fa fa-bars fa-lg"></i><span>Recompensas</span></a>
             <ul class="dropdown-menu">
-                <li>{{ link_to("empresa/recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Regra de uso das pontuações dos colaboradores', '<span>Criar/Alterar</span>') }}</li>
-                <li>{{ link_to("empresa/recompensa/utilizar-recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Debitar pontos do colaborador por uso de recompensa', 'Utilizar') }}</li>
+                {% if perfilId == perfilAdmin %}
+                    <li>{{ link_to("empresa/recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Regra de uso das pontuações dos colaboradores', '<span>Criar/Alterar</span>') }}</li>
+                    <li>{{ link_to("empresa/recompensa/utilizar-recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Debitar incentivs do colaborador por uso de recompensa', 'Utilizar') }}</li>
+                {% else %}
+                    <li>{{ link_to("empresa/recompensa/ver-pedidos-recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Pedidos de uso de incentivs dos colaboradores', '<span>Ver Pedidos</span>') }}</li>
+                {% endif %}
             </ul>
         </li>
        </li>

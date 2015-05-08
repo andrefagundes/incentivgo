@@ -4,8 +4,7 @@ namespace Incentiv\Models;
 use Phalcon\Mvc\Model,
     Phalcon\Mvc\Model\Validator\PresenceOf,
     Phalcon\Mvc\Model\Relation;
-use Phalcon\Events\Manager as EventsManager,
-	Phalcon\Mvc\Model\Manager as ModelsManager;
+
 /**
  * Incentiv\Models\Mensagem
  * Modelo de mensagens

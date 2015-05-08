@@ -7,6 +7,7 @@ use Phalcon\Paginator\Adapter\Model as Paginator,
 
 use Incentiv\Models\Mensagem,
     Incentiv\Models\MensagemDestinatario,
+    Incentiv\Models\Perfil,
     Incentiv\Models\MensagemExcluida;
 
 /**
@@ -19,6 +20,8 @@ class EmpresaMensagemController extends ControllerBase {
 
     public function initialize() {
         $this->_auth = $this->auth->getIdentity();
+        $this->view->perfilAdmin     = Perfil::ADMINISTRADOR;
+        $this->view->perfilId        = $this->_auth['perfilId'];
         $this->view->count_mensagens_recebidas = MensagemDestinatario::build()->quantMensagensRecebidas($this->_auth['id']);
         $this->view->count_mensagens_enviadas  = Mensagem::build()->quantMensagensEnviadas($this->_auth['id']);
         $this->view->count_mensagens_excluidas = MensagemExcluida::build()->count("usuarioId = {$this->_auth['id']}");

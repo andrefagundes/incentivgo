@@ -1302,7 +1302,7 @@ PANELS CONFIGURATIONS
 .white-panel {
 	text-align: center;
 	background: #ffffff;
-	color: #ccd1d9;
+	/*color: #ccd1d9;*/
 }
 
 .white-panel-ideia,.white-panel-meta {

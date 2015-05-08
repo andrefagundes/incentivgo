@@ -4,7 +4,8 @@ namespace Colaborador\Controllers;
 
 use Phalcon\Http\Response;
 use \Incentiv\Models\Ideia,
-     Incentiv\Models\IdeiaPontuacao;
+     Incentiv\Models\IdeiaPontuacao,
+     Incentiv\Models\UsuarioPontuacaoCredito;
 
 class IdeiaController extends ControllerBase {
 
@@ -13,7 +14,7 @@ class IdeiaController extends ControllerBase {
     public function initialize() {
         $this->_auth = $this->auth->getIdentity();
         if (!$this->request->isAjax()) {
-
+            $this->view->count_pontuacao        = UsuarioPontuacaoCredito::build()->buscarPontuacaoUsuario($this->_auth['id']);
             $this->view->usuario_id        = $this->_auth['id'];
             $this->view->usuario_logado    = $this->auth->getName();
             $this->view->avatar            = $this->_auth['avatar'];

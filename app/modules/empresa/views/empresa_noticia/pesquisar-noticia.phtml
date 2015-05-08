@@ -32,7 +32,10 @@
 <section class="panel-footer">
     <footer>
         <div class="row">
-            <div class="col-sm-4 col-sm-offset-3 text-center">
+            <div class="col-lg-1 text-center"  data-placement="bottom" data-toggle="tooltip" data-original-title="Notícias Cadastradas: {{page.total_items}}">
+                <small class="text-muted inline m-t-small m-b-small"><span class="label label-large bg-default " id="quantidade-desafio">{{page.total_items}}</span> Notícias </small>
+            </div>
+            <div class="col-sm-3 col-lg-offset-3 text-center">
                 <small class="text-muted inline m-t-small m-b-small">Mostrando {{ page.current }} de {{ page.total_pages }}</small>
             </div>
             <div class="col-sm-5 text-right text-center-sm">                

@@ -4,7 +4,8 @@ namespace Empresa\Controllers;
 
 use Phalcon\Paginator\Adapter\Model as Paginator;
 use Incentiv\Models\Ideia,
-    Incentiv\Models\IdeiaPontuacao;
+    Incentiv\Models\IdeiaPontuacao,
+    Incentiv\Models\Perfil;
 
 /**
  * Empresa\Controllers\Empresa_IdeiaController
@@ -16,6 +17,8 @@ class EmpresaIdeiaController extends ControllerBase {
 
     public function initialize() {
         $this->_auth = $this->auth->getIdentity(); 
+        $this->view->perfilAdmin     = Perfil::ADMINISTRADOR;
+        $this->view->perfilId        = $this->_auth['perfilId'];
         if (!$this->request->isAjax()) { 
             $this->view->usuario_logado    = $this->auth->getName();
             $this->view->id                = $this->_auth['id'];
@@ -49,7 +52,7 @@ class EmpresaIdeiaController extends ControllerBase {
         $numberPage = $this->request->getPost("page");
         $paginator  = new Paginator(array(
             "data"  => $resultIdeias,
-            "limit" => 3,
+            "limit" => 4,
             "page"  => $numberPage
         ));
 

@@ -9,7 +9,7 @@ var Index = {
             id = $(this).attr('id');
             if(id){
                 $("#myModalLabelDesafios").html('Analisar Desafio');
-                $("#modal-body-analisar-desafio").html('').load("empresa/desafio/modal-analisar-desafio/" + id);
+                $("#modal-body-analisar-desafio").html('').load("desafio/modal-analisar-desafio/" + id);
                 $("#modalAnalisarDesafio").modal('show');
             }
         });

@@ -174,7 +174,7 @@ class Ideia extends Model
             }
 
             $db->commit();
-            return array('status' => 'ok','message'=>"Parabéns você recebeu {$objCredito->pontuacaoTipo} pontos pela ideia enviada!!!");
+            return array('status' => 'ok','message'=>"Parabéns você recebeu {$objCredito->pontuacaoTipo} incentivs pela ideia enviada!!!");
         
         } catch (Exception $e) {
             $db->rollback();

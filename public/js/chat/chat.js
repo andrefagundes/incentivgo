@@ -1,6 +1,6 @@
 var Chat = {
     init: function(){
-        
+        $("[data-toggle=tooltip]").tooltip();
         Chat.container        = $('.chat-window-container');
         Chat.usuarioLogado    = $("#idUsuario").val();
         
@@ -64,12 +64,21 @@ var Chat = {
         Chat.socket.on('addUsuarioConectado', function(usuario){
             $("#user_"+usuario.idUsuario).addClass( "online" );
             $("#user_"+usuario.idUsuario).removeClass( "offline" );
+            $("#user_"+usuario.idUsuario +" .details span[data-toggle=tooltip]").tooltip('destroy');
+            $("#user_"+usuario.idUsuario +" .details span[data-toggle=tooltip]").tooltip({
+                title : 'online'
+            });
+
         });
         
         //escutando para saber o usuário que saiu
         Chat.socket.on('removeUsuarioConectado', function(usuario){
             $("#user_"+usuario.idUsuario).removeClass( "online" );
             $("#user_"+usuario.idUsuario).addClass( "offline" );
+            $("#user_"+usuario.idUsuario +" .details span[data-toggle=tooltip]").tooltip('destroy');
+            $("#user_"+usuario.idUsuario +" .details span[data-toggle=tooltip]").tooltip({
+                title : 'offline'
+            });
         });
         
         //escutando para verificar se o remetente já está aberto

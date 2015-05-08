@@ -15,7 +15,9 @@ class EmpresaColaboradorController extends ControllerBase {
     private $_auth;
     
     public function initialize() {
-        $this->_auth = $this->auth->getIdentity();  
+        $this->_auth = $this->auth->getIdentity();
+        $this->view->perfilAdmin     = Perfil::ADMINISTRADOR;
+        $this->view->perfilId        = $this->_auth['perfilId'];
         if (!$this->request->isAjax()) {
             $this->view->usuario_logado    = $this->auth->getName();
             $this->view->id                = $this->_auth['id'];
@@ -49,7 +51,7 @@ class EmpresaColaboradorController extends ControllerBase {
         $numberPage = $this->request->getPost("page");
         $paginator  = new Paginator(array(
             "data"  => $resultUsers,
-            "limit" => 3,
+            "limit" => 4,
             "page"  => $numberPage
         ));
 
@@ -62,7 +64,12 @@ class EmpresaColaboradorController extends ControllerBase {
         $this->disableLayoutBefore();
         
         $resultUsuario  = Usuario::build()->findFirst($this->dispatcher->getParam('code'));
-        $perfis         = Perfil::build()->find('id != '.Perfil::ADMINISTRADOR_INCENTIV);
+        
+        if($this->_auth['perfilId'] == Perfil::ADMINISTRADOR){
+            $perfis = Perfil::build()->find('id != '.Perfil::ADMINISTRADOR_INCENTIV);
+        }elseif ($this->_auth['perfilId'] == Perfil::GERENTE) {
+            $perfis = Perfil::build()->find('id = '.Perfil::COLABORADOR);
+        }
         
         $this->view->setVar("id",$resultUsuario->id);
         $this->view->setVar("perfilId", (!empty($resultUsuario->perfilId))? $resultUsuario->perfilId : Perfil::COLABORADOR);

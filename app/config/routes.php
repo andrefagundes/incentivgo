@@ -357,6 +357,23 @@ $router->add('/empresa/recompensa/debitar-recompensa', array(
     'action' => 'debitarRecompensa'
 ));
 
+$router->add('/empresa/recompensa/ver-pedidos-recompensa', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_recompensa',
+    'action' => 'verPedidos'
+));
+
+$router->add('/empresa/recompensa/pesquisar-pedidos', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_recompensa',
+    'action' => 'pesquisarPedidos'
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
 /******Rotas módulo empresa/colaborador**********/
 
 $router->add('/empresa/colaborador', array(

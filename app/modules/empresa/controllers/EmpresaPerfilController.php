@@ -3,14 +3,16 @@
 namespace Empresa\Controllers;
 
 use Phalcon\Image\Adapter\GD;
-use \Incentiv\Models\Usuario;
+use \Incentiv\Models\Usuario,
+    Incentiv\Models\Perfil;
 
 class EmpresaPerfilController extends ControllerBase {
 
     public function initialize() {
+        $auth = $this->auth->getIdentity();
+        $this->view->perfilAdmin     = Perfil::ADMINISTRADOR;
+        $this->view->perfilId        = $this->_auth['perfilId'];
         if (!$this->request->isAjax()) {
-            $auth = $this->auth->getIdentity();
-
             $this->view->usuario_logado = $this->auth->getName();
             $this->view->avatar = $auth['avatar'];
             $this->view->empresaId = $auth['empresaId'];

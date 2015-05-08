@@ -3,18 +3,21 @@
 namespace Colaborador\Controllers;
 
 use Phalcon\Image\Adapter\GD;
-use \Incentiv\Models\Usuario;
+use \Incentiv\Models\Usuario,    
+    Incentiv\Models\UsuarioPontuacaoCredito;
 
 class PerfilController extends ControllerBase {
 
+    private $_auth;
+
     public function initialize() {
         if (!$this->request->isAjax()) {
-            $auth = $this->auth->getIdentity();
-
+            $this->_auth = $this->auth->getIdentity(); 
+            $this->view->count_pontuacao        = UsuarioPontuacaoCredito::build()->buscarPontuacaoUsuario($this->_auth['id']);
             $this->view->usuario_logado = $this->auth->getName();
-            $this->view->avatar = $auth['avatar'];
-            $this->view->empresaId = $auth['empresaId'];
-            $this->view->id = $auth['id'];
+            $this->view->avatar = $this->_auth['avatar'];
+            $this->view->empresaId = $this->_auth['empresaId'];
+            $this->view->id = $this->_auth['id'];
             $this->view->setTemplateBefore('private-colaborador');
         }
     }
@@ -43,8 +46,7 @@ class PerfilController extends ControllerBase {
             }
         } 
         
-        $auth    = $this->auth->getIdentity();
-        $usuario = Usuario::build()->findFirst(array('id = ' . $auth['id'], 
+        $usuario = Usuario::build()->findFirst(array('id = ' . $this->_auth['id'], 
                                                 'columns' => 'id,
                                                 empresaId,
                                                 nome,
@@ -58,10 +60,8 @@ class PerfilController extends ControllerBase {
     private function upload() {
         if ($this->request->hasFiles() == true) {
 
-            $auth = $this->auth->getIdentity();
-
-            $pastaEmpresa = $auth['empresaId'];
-            $pastaUsuario = $auth['id'];
+            $pastaEmpresa = $this->_auth['empresaId'];
+            $pastaUsuario = $this->_auth['id'];
 
             foreach ($this->request->getUploadedFiles() as $file) {
 
@@ -93,12 +93,12 @@ class PerfilController extends ControllerBase {
                 unlink('img/users/' . $file->getName());
 
                 $this->session->set('auth-identity', array(
-                    'id'        => $auth['id'],
+                    'id'        => $this->_auth['id'],
                     'avatar'    => $nomeArquivo,
-                    'nome'      => $auth['nome'],
-                    'perfilId'  => $auth['perfilId'],
-                    'perfil'    => $auth['perfil'],
-                    'empresaId' => $auth['empresaId']
+                    'nome'      => $this->_auth['nome'],
+                    'perfilId'  => $this->_auth['perfilId'],
+                    'perfil'    => $this->_auth['perfil'],
+                    'empresaId' => $this->_auth['empresaId']
                 ));
 
                 return $nomeArquivo;

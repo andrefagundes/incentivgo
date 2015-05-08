@@ -2,10 +2,8 @@
 
 namespace Empresa\Controllers;
 
-use Phalcon\Paginator\Adapter\Model as Paginator,
-    Phalcon\Http\Response;
-use Incentiv\Models\Usuario,
-    Incentiv\Models\Noticia,
+use Phalcon\Paginator\Adapter\Model as Paginator;
+use Incentiv\Models\Noticia,
     Incentiv\Models\Perfil;
 
 /**
@@ -15,8 +13,10 @@ use Incentiv\Models\Usuario,
 class EmpresaNoticiaController extends ControllerBase {
 
     public function initialize() {
+        $auth = $this->auth->getIdentity();
+        $this->view->perfilAdmin     = Perfil::ADMINISTRADOR;
+        $this->view->perfilId        = $this->_auth['perfilId'];
         if (!$this->request->isAjax()) {
-            $auth = $this->auth->getIdentity();          
             $this->view->usuario_logado    = $this->auth->getName();
             $this->view->id                = $auth['id'];
             $this->view->empresaId         = $auth['empresaId'];
@@ -49,7 +49,7 @@ class EmpresaNoticiaController extends ControllerBase {
         $numberPage = $this->request->getPost("page");
         $paginator = new Paginator(array(
             "data" => $resultRegrasNoticias,
-            "limit" => 2,
+            "limit" => 4,
             "page" => $numberPage
         ));
 

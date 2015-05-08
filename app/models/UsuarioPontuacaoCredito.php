@@ -136,7 +136,7 @@ class UsuarioPontuacaoCredito extends Model
     }
     
     public function buscarPontuacaoUsuario($usuarioId){
-        $pontuacaoCredito = $this::sum(array( "column" => "pontuacao", "conditions" => "usuarioId = {$usuarioId}"));
+        $pontuacaoCredito = UsuarioPontuacaoCredito::sum(array( "column" => "pontuacao", "conditions" => "usuarioId = {$usuarioId}"));
         $pontuacaoDebito  = UsuarioPontuacaoDebito::sum(array("column" => "pontuacao", "conditions" => "usuarioId = {$usuarioId}"));
 
         $total = $pontuacaoCredito - $pontuacaoDebito;

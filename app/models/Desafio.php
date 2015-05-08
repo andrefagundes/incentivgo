@@ -178,6 +178,7 @@ class Desafio extends Model
         
         $desafios = Desafio::query()->columns(
                          array( 'Incentiv\Models\Desafio.id',
+                                'Incentiv\Models\Desafio.usuarioId',
                                 'Incentiv\Models\Desafio.desafio',
                                 'Incentiv\Models\Desafio.tipo',
                                 'desafioTipoId', 
@@ -189,7 +190,10 @@ class Desafio extends Model
         $desafios->innerjoin('Incentiv\Models\DesafioUsuario', 'Incentiv\Models\Desafio.id = DesafioUsuario.desafioId AND Incentiv\Models\Desafio.usuarioResponsavelId = DesafioUsuario.usuarioId', 'DesafioUsuario');
         
         $desafios->where("Incentiv\Models\Desafio.empresaId = {$objDesafio->empresaId}");
-        $desafios->andwhere("Incentiv\Models\Desafio.usuarioId = {$objDesafio->usuarioId}");
+        
+        if($objDesafio->perfilId == Perfil::GERENTE){
+            $desafios->andwhere("Incentiv\Models\Desafio.usuarioId = {$objDesafio->usuarioId}");
+        }
         
         $desafios->andwhere("DesafioUsuario.envioAprovacaoDt IS NULL");
         

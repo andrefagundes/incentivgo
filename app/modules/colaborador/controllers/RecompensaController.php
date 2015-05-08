@@ -71,7 +71,7 @@ class RecompensaController extends ControllerBase {
         $recompensas = Recompensa::build()->find(array("empresaId = {$this->_auth['empresaId']} AND ativo = 'Y'",'columns'=>'id, recompensa, pontuacao'));
 
         foreach ($recompensas as $recompensa) {
-           $recompensas_disponiveis[$recompensa->id] = '<strong>'.$recompensa->recompensa.'</strong> ( -'.$recompensa->pontuacao." pontos )"; 
+           $recompensas_disponiveis[$recompensa->id] = '<strong>'.$recompensa->recompensa.'</strong> ( '.$recompensa->pontuacao." incentivs )"; 
         }
 
         $resultPedidosRecompensa->cadastroDt = date('d/m/Y H:i:s',$resultPedidosRecompensa->cadastroDt);

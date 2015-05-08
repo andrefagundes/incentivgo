@@ -1,0 +1,32 @@
+<div class="clearfix">
+    <h4><i class="fa fa-edit"></i>Pedidos de uso</h4>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <!-- .breadcrumb -->
+        <ul class="breadcrumb">
+            <li><a href="#">Pedidos</a></li>
+        </ul>
+        <!-- / .breadcrumb -->
+    </div>
+    <div class="col-lg-10 col-lg-offset-1">
+        <!-- scrollable inbox widget -->
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="col-lg-4 col-lg-offset-4 input-group">
+                    <input type="text" id="filterPedido" class="input-sm form-control" placeholder="Pesquisar por usuário, descrição">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-sm btn-white" id="btnPesquisarPedido">Pesquisar</button>
+                    </span>
+                </div>
+            </header>
+            <div id="pesquisarPedido"></div>
+        </section>
+    </div>
+</div> 
+{{ javascript_include('js/empresa/recompensa/pedidos.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        Pedido.init();
+    });
+</script>

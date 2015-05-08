@@ -158,8 +158,7 @@ class Recompensa extends Model
 
         if (!$recompensa->save()) {
             foreach ($recompensa->getMessages() as $mensagem) {
-                die($mensagem);
-              $message =  $mensagem;
+              return array('status' => 'error', 'message' => $mensagem);
               break;
             }
             return array('status' => 'error', 'message' => 'Não foi possível salvar a recompensa!!!');

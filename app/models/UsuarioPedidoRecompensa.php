@@ -8,7 +8,7 @@ use Incentiv\Models\Recompensa;
 
 /**
  * Incentiv\Models\UsuarioPedidoRecompensa
- * Controla todos os pedidos de uso de recompensa(pontos) do colaborador.
+ * Controla todos os pedidos de uso de recompensa(inventivs) do colaborador.
  */
 class UsuarioPedidoRecompensa extends Model
 {
@@ -134,12 +134,19 @@ class UsuarioPedidoRecompensa extends Model
     
     public function salvarPedidoRecompensa($objPedidoRecompensa){
         
+        $pedidoRecompensa = $this::build()->findFirst(array("usuarioId = {$objPedidoRecompensa['usuarioId']} AND status = ".UsuarioPedidoRecompensa::PEDIDO_RECOMPENSA_ENVIADO." ",'columns' => 'id'));
+        
+        if($pedidoRecompensa){
+            return array('status' => 'error', 'message' => 'Desculpe!!! Só pode ser feito um pedido por vez.');
+            break;
+        }
+        
         $pontosUsuario    = UsuarioPontuacaoCredito::build()->buscarPontuacaoUsuario($objPedidoRecompensa['usuarioId']);
       
         $pontosRecompensa = Recompensa::build()->findFirst(array("id = {$objPedidoRecompensa['recompensaId']} AND empresaId = {$objPedidoRecompensa['empresaId']}",'columns' => 'pontuacao'));
 
         if($pontosUsuario < $pontosRecompensa->pontuacao ){
-            return array('status' => 'error', 'message' => 'Desculpe, você não possui pontos suficientes para uso da recompensa.');
+            return array('status' => 'error', 'message' => 'Desculpe, você não possui incentivs suficientes para uso da recompensa.');
             break;
         }
         
@@ -159,5 +166,30 @@ class UsuarioPedidoRecompensa extends Model
         } else {
             return array('status' => 'ok', 'message' => 'Pedido feito com sucesso. Entre em contato com seu gerente para uso da recompensa');
         }
+    }
+    
+    public function fetchAllPedidos(\stdClass $objPedidos) {
+        
+        $pedidosRecompensa = UsuarioPedidoRecompensa::query()->columns(
+                         array( 'Incentiv\Models\UsuarioPedidoRecompensa.id',
+                                'recompensa.recompensa',
+                                'usuario.nome',
+                                'Incentiv\Models\UsuarioPedidoRecompensa.observacaoUsuario',
+                                'cadastroDt' => "DATE_FORMAT( Incentiv\Models\UsuarioPedidoRecompensa.cadastroDt , '%d/%m/%Y %H:%i:%s' )",
+                                'Incentiv\Models\UsuarioPedidoRecompensa.status'));
+        
+        $pedidosRecompensa->innerjoin('Incentiv\Models\Recompensa', 'Incentiv\Models\UsuarioPedidoRecompensa.recompensaId = recompensa.id', 'recompensa');
+        $pedidosRecompensa->innerjoin('Incentiv\Models\Usuario', 'Incentiv\Models\UsuarioPedidoRecompensa.usuarioId = usuario.id', 'usuario');
+        
+        $pedidosRecompensa->andwhere("Incentiv\Models\UsuarioPedidoRecompensa.empresaId = {$objPedidos->empresaId}");
+        
+        if($objPedidos->filter)
+        {
+           $pedidosRecompensa->andwhere( "recompensa LIKE('%{$objPedidos->filter}%') OR usuario.nome LIKE('%{$objPedidos->filter}%')");
+        }
+        
+        $pedidosRecompensa->orderBy('Incentiv\Models\UsuarioPedidoRecompensa.id');
+
+        return $pedidosRecompensa->execute();
     }
 }

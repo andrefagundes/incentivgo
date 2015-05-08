@@ -18,12 +18,14 @@
                             <span class="label label-{{status}}" data-placement="left" data-toggle="tooltip" title="Status"> {{status_label}}</span>
            
                     </div>
-                    <div class="btn-group pull-right" data-placement="top" data-toggle="tooltip" data-original-title="Ações">
-                        <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
-                        <ul class="dropdown-menu pull-right">
-                            <li class="text-left"><a href="#" class="btnAnalisarIdeia" id="{{ideia.id}}"><i class="icon-pencil"></i> Analisar</a></li>
-                        </ul>
-                    </div>
+                    {% if perfilId == perfilAdmin %}
+                        <div class="btn-group pull-right" data-placement="top" data-toggle="tooltip" data-original-title="Ações">
+                            <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
+                            <ul class="dropdown-menu pull-right">
+                                <li class="text-left"><a href="#" class="btnAnalisarIdeia" id="{{ideia.id}}"><i class="icon-pencil"></i> Analisar</a></li>
+                            </ul>
+                        </div>
+                    {% endif %}
                     <h5>{{ideia.titulo}}</h5><h6>Enviada em: {{ date('d/m/Y', ideia.criacaoDt) }}</h6> 
                 </td>
             </tr>
@@ -39,10 +41,13 @@
 <section class="panel-footer">
     <footer>
         <div class="row">
-            <div class="col-sm-4 col-sm-offset-3 text-center">
+             <div class="col-lg-1 text-center"  data-placement="bottom" data-toggle="tooltip" data-original-title="Ideias Cadastradas: {{page.total_items}}">
+                <small class="text-muted inline m-t-small m-b-small"><span class="label label-large bg-default " id="quantidade-desafio">{{page.total_items}}</span> Ideias </small>
+            </div>
+            <div class="col-lg-3 col-lg-offset-3 text-center">
                 <small class="text-muted inline m-t-small m-b-small">Mostrando {{ page.current }} de {{ page.total_pages }}</small>
             </div>
-            <div class="col-sm-5 text-right text-center-sm">                
+            <div class="col-lg-5 text-right text-center-lg">                
                 <ul class="pagination pagination-small m-t-none m-b-none">
                     <li><a href="#" class="fa btnPaginacaoIdeia" id="1"><i class="icons icon-fast-backward"></i> Primeiro</a></li>
                     <li><a href="#" class="fa btnPaginacaoIdeia" id="{{page.before}}"><i class="icons icon-step-backward"></i> Anterior</a></li>

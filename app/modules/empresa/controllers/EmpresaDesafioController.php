@@ -20,6 +20,8 @@ class EmpresaDesafioController extends ControllerBase {
     
     public function initialize() {
         $this->_auth = $this->auth->getIdentity();
+        $this->view->perfilAdmin     = Perfil::ADMINISTRADOR;
+        $this->view->perfilId        = $this->_auth['perfilId'];
         if (!$this->request->isAjax()) {        
             $this->view->usuario_logado    = $this->auth->getName();
             $this->view->avatar            = $this->_auth['avatar'];
@@ -35,7 +37,11 @@ class EmpresaDesafioController extends ControllerBase {
         
     }
     
-    public function desafioAction() { }
+    public function desafioAction() { 
+       $this->view->perfilGerente   = Perfil::GERENTE;
+       $this->view->perfilAdmin     = Perfil::ADMINISTRADOR;
+       $this->view->perfilId        = $this->_auth['perfilId'];
+    }
     
     public function pesquisarDesafioAction() {
 
@@ -44,6 +50,7 @@ class EmpresaDesafioController extends ControllerBase {
         $objDesafio = new \stdClass();
         $objDesafio->usuarioId  = $this->_auth['id'];
         $objDesafio->empresaId  = $this->_auth['empresaId'];
+        $objDesafio->perfilId   = $this->_auth['perfilId'];
         $objDesafio->ativo      = $this->request->getPost("ativo");
         $objDesafio->filter     = $this->request->getPost("filter");
 
@@ -52,10 +59,11 @@ class EmpresaDesafioController extends ControllerBase {
         $numberPage = $this->request->getPost("page");
         $paginator = new Paginator(array(
             "data" => $resultRegrasDesafios,
-            "limit" => 3,
+            "limit" => 4,
             "page" => $numberPage
         ));
-
+        
+        $this->view->usuarioId = $this->_auth['id'];
         $this->view->page = $paginator->getPaginate();
         $this->view->pick("empresa_desafio/pesquisar-desafio");
     }
@@ -74,7 +82,7 @@ class EmpresaDesafioController extends ControllerBase {
         $desafios_tipo = DesafioTipo::build()->buscarTiposDesafio($this->_auth['empresaId']);
         
         foreach ($desafios_tipo as $desafios) {
-            $nivel_desafios[$desafios->id] = '<strong>'.$desafios->desafioTipo.'</strong> ( '.$desafios->pontuacao." pontos )"; 
+            $nivel_desafios[$desafios->id] = '<strong>'.$desafios->desafioTipo.'</strong> ( '.$desafios->pontuacao." incentivs )"; 
         }
  
         $this->view->setVar('nivel_desafios',$nivel_desafios);
@@ -95,7 +103,9 @@ class EmpresaDesafioController extends ControllerBase {
         
         $this->disableLayoutBefore();
 
-        $resultDesafio = Desafio::build()->findFirst($this->dispatcher->getParam('code'));
+        $resultDesafio    = Desafio::build()->findFirst($this->dispatcher->getParam('code'));
+        $pontuacaoDesafio = DesafioPontuacao::build()->findFirst(array("empresaId = {$this->_auth['empresaId']} AND 
+                            {$resultDesafio->desafioTipoId} AND ativo = 'Y'",'columns' => 'pontuacao'));
         
         $nomeParticipantes = $colaborador_responsavel = "";
         foreach ($resultDesafio->desafioUsuario as $participantes){
@@ -109,6 +119,7 @@ class EmpresaDesafioController extends ControllerBase {
         
         $this->view->setVar("id",       $resultDesafio->id);
         $this->view->setVar("desafio",  $resultDesafio->desafio);
+        $this->view->setVar("pontuacao",$pontuacaoDesafio->pontuacao);
         $this->view->setVar("desafioTipoId",$resultDesafio->desafioTipoId);
         $this->view->setVar("tipo",     ($resultDesafio->desafio == Desafio::DESAFIO_TIPO_INDIVIDUAL)?'Individual':'Por Equipe');
         $this->view->setVar("inicioDt", (!empty($resultDesafio->inicioDt))?date('d/m/Y',strtotime($resultDesafio->inicioDt)):'');

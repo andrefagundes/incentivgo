@@ -274,24 +274,30 @@ class Usuario extends Model
     
     public function fetchAllUsuarios(\stdClass $objUsuario){
         
-        $usuario = Usuario::query()->columns(array('id','nome','email', 'status' => 'ativo'));
+        $usuario = Usuario::query()->columns(array('Incentiv\Models\Usuario.id',
+                                                    'Incentiv\Models\Usuario.nome',
+                                                    'Incentiv\Models\Usuario.email',
+                                                    'perfil' => 'perfil.nome', 
+                                                    'status' => 'Incentiv\Models\Usuario.ativo'));
+        
+        $usuario->innerjoin('Incentiv\Models\Perfil', "Incentiv\Models\Usuario.perfilId = perfil.id", 'perfil');
         
         if($objUsuario->perfil)
         {
-            $usuario->where("perfilId = {$objUsuario->perfil}");
+            $usuario->where("Incentiv\Models\Usuario.perfilId = {$objUsuario->perfil}");
         }
         
         if($objUsuario->filter)
         {
-           $usuario->andwhere( "nome LIKE('%{$objUsuario->filter}%') OR 
-                                email LIKE ('%{$objUsuario->filter}%')");
+           $usuario->andwhere( "Incentiv\Models\Usuario.nome LIKE('%{$objUsuario->filter}%') OR 
+                                Incentiv\Models\Usuario.email LIKE ('%{$objUsuario->filter}%')");
         }
         if(isset($objUsuario->ativo) && $objUsuario->ativo != 'T' )
         {
-            $usuario->andwhere("ativo = '{$objUsuario->ativo}'");
+            $usuario->andwhere("Incentiv\Models\Usuario.ativo = '{$objUsuario->ativo}'");
         }
 
-        $usuario->orderBy('nome');
+        $usuario->orderBy('Incentiv\Models\Usuario.nome');
    
         return $usuario->execute();
     }
