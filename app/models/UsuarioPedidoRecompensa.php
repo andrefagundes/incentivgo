@@ -15,8 +15,9 @@ class UsuarioPedidoRecompensa extends Model
     
     private static $_instance;
     
-    CONST PEDIDO_RECOMPENSA_ENVIADO = 1;
-    CONST PEDIDO_RECOMPENSA_USADO = 2;
+    CONST PEDIDO_RECOMPENSA_ENVIADO     = 1;
+    CONST PEDIDO_RECOMPENSA_USADO       = 2;
+    CONST PEDIDO_RECOMPENSA_CANCELADO   = 3;
     
     /**
      * @var integer
@@ -93,6 +94,15 @@ class UsuarioPedidoRecompensa extends Model
     {
         $this->cadastroDt    = date('Y-m-d H:i:s');
         $this->status        = UsuarioPedidoRecompensa::PEDIDO_RECOMPENSA_ENVIADO;
+    }
+    
+    /**
+     * Define a data e hora antes de atualizar o status
+     */
+    public function beforeValidationOnUpdate()
+    {
+        // Seta a data e hora antes de atualizar o status
+        $this->respostaDt = date('Y-m-d H:i:s');
     }
 
     public function initialize()
@@ -173,6 +183,7 @@ class UsuarioPedidoRecompensa extends Model
         $pedidosRecompensa = UsuarioPedidoRecompensa::query()->columns(
                          array( 'Incentiv\Models\UsuarioPedidoRecompensa.id',
                                 'recompensa.recompensa',
+                                'recompensa.pontuacao',
                                 'usuario.nome',
                                 'Incentiv\Models\UsuarioPedidoRecompensa.observacaoUsuario',
                                 'cadastroDt' => "DATE_FORMAT( Incentiv\Models\UsuarioPedidoRecompensa.cadastroDt , '%d/%m/%Y %H:%i:%s' )",
@@ -191,5 +202,41 @@ class UsuarioPedidoRecompensa extends Model
         $pedidosRecompensa->orderBy('Incentiv\Models\UsuarioPedidoRecompensa.id');
 
         return $pedidosRecompensa->execute();
+    }
+    
+    public function alterarStatusPedidoRecompensa(\stdClass $objDadosPedido){
+        
+        $db = $this->getDI()->getShared('db');
+        
+        try {        
+            $db->begin();
+ 
+            $pedidoRecompensa = $this->findFirst("id = {$objDadosPedido->id_recompensa}");
+
+            if($objDadosPedido->resposta == 'Y'){
+                $pedidoRecompensa->status = UsuarioPedidoRecompensa::PEDIDO_RECOMPENSA_USADO;
+                $message = 'Recompensa usada com sucesso!!!';
+            }elseif ($objDadosPedido->resposta == 'N') {
+                $pedidoRecompensa->status = UsuarioPedidoRecompensa::PEDIDO_RECOMPENSA_CANCELADO;
+                $message = 'Pedido de recompensa cancelada com sucesso!!!';
+            }
+            
+            $pedidoRecompensa->save();
+
+            if($objDadosPedido->resposta == 'Y'){
+                $objDebitoUsuario = UsuarioPontuacaoDebito::build();
+                $objDebitoUsuario->empresaId    = $pedidoRecompensa->empresaId;
+                $objDebitoUsuario->usuarioId    = $pedidoRecompensa->usuarioId;
+                $objDebitoUsuario->recompensaId = $pedidoRecompensa->recompensaId;
+                $objDebitoUsuario->pontuacao    = $pedidoRecompensa->recompensa->pontuacao;
+                $objDebitoUsuario->save();
+            }
+
+            $db->commit();
+            return array('status' => 'ok', 'message' => $message);
+        } catch (Exception $exc) {
+            $db->rollback();
+            return array('status' => 'error', 'message' => $exc);
+        }
     }
 }

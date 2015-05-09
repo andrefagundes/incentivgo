@@ -6,6 +6,7 @@ use Incentiv\Models\Desafio,
     Incentiv\Models\Usuario,
     Incentiv\Models\Ideia,
     Incentiv\Models\Perfil,
+    Incentiv\Models\UsuarioPedidoRecompensa,
     Incentiv\Models\UsuarioPontuacaoCredito as Credito;
 
 /**
@@ -28,7 +29,9 @@ class EmpresaGeralController extends ControllerBase {
                 $this->view->count_desafios    = Desafio::build()->count("empresaId = ".$this->_auth['empresaId']);
             }
             
-            $this->view->count_usuarios    = Usuario::build()->count("empresaId = ".$this->_auth['empresaId']);
+            $this->view->count_usuarios            = Usuario::build()->count("empresaId = ".$this->_auth['empresaId']);
+            $this->view->count_pedidos_incentiv    = UsuarioPedidoRecompensa::build()->count("empresaId = {$this->_auth['empresaId']} AND 
+                                                        status = ".UsuarioPedidoRecompensa::PEDIDO_RECOMPENSA_ENVIADO);
             $this->view->count_pontuacao_total_gerada   = Credito::sum(array(
                                                             "column"     => "pontuacao",
                                                             "conditions" => "empresaId = {$this->_auth['empresaId']}"

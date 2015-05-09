@@ -374,6 +374,13 @@ $router->add('/empresa/recompensa/pesquisar-pedidos', array(
     }
     return false;
 });
+
+$router->add('/empresa/recompensa/resultado-uso-incentiv/{status}/{id_recompensa}', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_recompensa',
+    'action' => 'resultadoUsoIcentiv'
+));
+
 /******Rotas módulo empresa/colaborador**********/
 
 $router->add('/empresa/colaborador', array(

@@ -15,6 +15,8 @@
                             <span class="badge bg-important">Pedido enviado</span>
                         {%elseif(pedidoRecompensa.status == 2)%}
                             <span class="badge bg-success">Parabéns!!! Recompensa pode ser usada</span>
+                        {%elseif(pedidoRecompensa.status == 3)%}
+                            <span class="badge bg-theme04">Pedido Cancelado</span>
                         {%endif%}
                     </div>
                 </li>

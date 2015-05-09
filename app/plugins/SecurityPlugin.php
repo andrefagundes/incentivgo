@@ -58,7 +58,7 @@ class SecurityPlugin extends Plugin {
                             'salvarNoticia', 'ativarInativarNoticia'),
                     'empresa_recompensa' => array('index','recompensa','pesquisarRecompensa','modalRecompensa',
                                                   'salvarRecompensa','ativarInativarRecompensa','utilizarRecompensa',
-                                                  'debitarRecompensa'),
+                                                  'debitarRecompensa','verPedidos','pesquisarPedidos','resultadoUsoIcentiv'),
                     'empresa_perfil' => array('index','perfil'),
                     'empresa_mensagem' => array('index','mensagem','pesquisarMensagem','novaMensagem',
                                                 'salvarMensagem','lerMensagem','excluirMensagem','verificarMensagens',

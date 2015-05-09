@@ -45,16 +45,16 @@
             </div>
         </li>
     </ul>
-    {{ form(null, 'class':'navbar-form pull-left shift', 'data-toggle':'shift:appendTo','data-target':'.nav-primary') }}
+<!--    {{ form(null, 'class':'navbar-form pull-left shift', 'data-toggle':'shift:appendTo','data-target':'.nav-primary') }}
     <i class="fa fa-search text-muted"></i>
     <input type="text" class="input-sm form-control col-lg-6" placeholder="Colaboradores">
-    {{endForm()}}
+    {{endForm()}}-->
 </header>
 <!-- / header -->
 <!-- nav vertical -->
 <nav id="nav" class="nav-primary hidden-xs nav-vertical">
     <ul class="nav" data-spy="affix" data-offset-top="50">
-        <li class=" active dropdown-submenu" id="menu-geral">
+        <li class="dropdown-submenu" id="menu-geral">
             {{ link_to("empresa/geral", '<i class="fa fa-th fa-lg"></i><span>Geral</span>') }}
         </li>
         <li class="dropdown-submenu" id="menu-desafio">
@@ -70,14 +70,13 @@
             {{ link_to("empresa/ideia",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Ideias enviadas pelos colaboradores', '<i class="fa fa-lightbulb-o fa-lg"></i><span>Banco de ideias</span>') }}
         </li>
         <li class="dropdown-submenu" id="menu-recompensa">
-            <a href="#"><i class="fa fa-bars fa-lg"></i><span>Recompensas</span></a>
+            <a href="#"><i class="fa fa-info fa-lg"></i><span>Incentivs</span></a>
             <ul class="dropdown-menu">
                 {% if perfilId == perfilAdmin %}
-                    <li>{{ link_to("empresa/recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Regra de uso das pontuações dos colaboradores', '<span>Criar/Alterar</span>') }}</li>
-                    <li>{{ link_to("empresa/recompensa/utilizar-recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Debitar incentivs do colaborador por uso de recompensa', 'Utilizar') }}</li>
-                {% else %}
-                    <li>{{ link_to("empresa/recompensa/ver-pedidos-recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Pedidos de uso de incentivs dos colaboradores', '<span>Ver Pedidos</span>') }}</li>
+                    <li>{{ link_to("empresa/recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Regra de uso dos incentivs (pontos) dos colaboradores', '<span>Criar/Alterar Regras</span>') }}</li>
+                    <!--<li>{{ link_to("empresa/recompensa/utilizar-recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Debitar incentivs do colaborador por uso de recompensa', 'Utilizar') }}</li>-->                    
                 {% endif %}
+                <li>{{ link_to("empresa/recompensa/ver-pedidos-recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Pedidos de uso de incentivs (pontos) dos colaboradores', '<span>Ver Pedidos</span>') }}</li>
             </ul>
         </li>
        </li>

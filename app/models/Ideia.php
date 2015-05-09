@@ -135,10 +135,9 @@ class Ideia extends Model
     }
     
     public function salvarIdeia(\stdClass $objIdeia){
-
+        $db = $this->getDI()->getShared('db');
         try {
             
-            $db      = $this->getDI()->getShared('db');
             $db->begin();
             
             if($objIdeia->id){

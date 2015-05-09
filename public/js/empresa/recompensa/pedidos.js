@@ -3,7 +3,7 @@ var Pedido = {
         
         //marcar menu ativo
         $(".dropdown-submenu").removeClass('active');
-        $("#menu-pedido").addClass('active');
+        $("#menu-recompensa").addClass('active');
         
         //evento do botão de pesquisar pedido
         $("#btnPesquisarPedido").click(function(){

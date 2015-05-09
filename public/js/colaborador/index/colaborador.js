@@ -1,5 +1,9 @@
 var Colaborador = {
     init: function() {
+         //marcar menu ativo
+        $(".submenu a").removeClass('active');
+        $("#menu-geral-colaborador a").addClass('active');
+        
         //evento do botão encarar desafios
         $("#btnEncarar").click(function() {
             $("#myModalLabelDesafios").html('Desafios');

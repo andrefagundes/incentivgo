@@ -208,6 +208,10 @@ label.error {
 	color: white;
 }
 
+.dropdown-menu .divider {
+    height: 2px;
+}
+
 hr {
   margin-top: 20px;
   margin-bottom: 20px;

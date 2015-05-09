@@ -1,6 +1,10 @@
 var Index = {
     init: function(){
         
+        //marcar menu ativo
+        $(".dropdown-submenu").removeClass('active');
+        $("#menu-geral").addClass('active');
+        
         if($("div.alert")){
             $("div.alert").slideUp({duration: 3000});
         }

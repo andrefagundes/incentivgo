@@ -4,8 +4,31 @@
         {% for pedido in page.items %}
             <tr class="row">
                 <td class="td-responsive">
+                    {% if(pedido.status == 1) %}
+                        <div class="btn-group pull-right form-control-static" data-placement="right" data-toggle="tooltip" data-original-title="Ações">
+                            <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
+                            <ul class="dropdown-menu pull-right">
+                                <li class="text-left">{{linkTo('empresa/recompensa/resultado-uso-incentiv/Y/'~pedido.id, '<i class="icon-plus-sign"></i> Recompensa Usada')}}
+                                <li class="text-left">{{linkTo('empresa/recompensa/resultado-uso-incentiv/N/'~pedido.id, '<i class="fa fa-minus-square-o"></i> Cancelar Pedido')}}</li>
+                           </ul>
+                        </div>
+                    {% endif %}
                     <span data-placement="right" data-toggle="tooltip" data-original-title="Data de cadastro do pedido" >{{pedido.cadastroDt}}</span> 
-                    <h6><strong>{{pedido.nome}} - {{ pedido.recompensa}}</strong></h6>
+                    {% if(pedido.status == 1) %} 
+                        {% set status = 'info' %}
+                        {% set status_label = 'Pedido Enviado' %}
+                    {% elseif (pedido.status == 2)  %} 
+                        {% set status = 'success' %}
+                        {% set status_label = 'Pedido Acordado' %}
+                    {% else %}
+                        {% set status = 'danger' %}
+                        {% set status_label = 'Pedido Cancelado' %}
+                    {% endif %}
+                    <span data-toggle="tooltip" data-placement="right" class="label label-{{status}}" data-original-title="Status: {{status_label}}">{{status_label}}</span>
+                    <h6>{{pedido.nome}} - {{ pedido.recompensa}} <strong>( <span class="badge bg-info">{{pedido.pontuacao}}</span> incentivs válidos )</strong></h6>
+                    {% if pedido.observacaoUsuario %}
+                    <p class="title"><strong>Observação do Colaborador:</strong> {{pedido.observacaoUsuario}}</p>
+                    {% endif %}
                 </td>
             </tr>
         {% elsefor %}

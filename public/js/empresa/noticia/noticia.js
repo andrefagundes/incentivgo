@@ -34,10 +34,6 @@ var Noticia = {
         
         $.post( "noticia/pesquisar-noticia", { 'page': page, 'ativo':ativo, 'filter':filter }, function(data){
              $( "#pesquisarNoticia" ).empty().append( data );
-             Noticia.inserirQuantidadeNoticia($("#quantNoticia").val());
         },'html');
-    },
-    inserirQuantidadeNoticia:function(quantNoticia){
-       $("#quantidade-noticia").html('').html(quantNoticia);
     }
 };

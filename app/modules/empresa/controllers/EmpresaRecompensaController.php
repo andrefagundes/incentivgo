@@ -170,4 +170,23 @@ class EmpresaRecompensaController extends ControllerBase {
         $this->view->page = $paginator->getPaginate();
         $this->view->pick("empresa_recompensa/pesquisar-pedidos");
     }
+    
+    public function resultadoUsoIcentivAction() {
+        $this->view->disable();
+        
+        $objDadosPedido = new \stdClass();
+        $objDadosPedido->resposta        = $this->dispatcher->getParam('status');
+        $objDadosPedido->id_recompensa   = $this->dispatcher->getParam('id_recompensa');
+
+        $result = UsuarioPedidoRecompensa::build()->alterarStatusPedidoRecompensa($objDadosPedido);
+
+        if($result['status'] == 'ok')
+        {
+            $this->flashSession->success($result['message']);
+        }else{
+            $this->flashSession->error($result['message']);
+        }
+
+        $this->response->redirect('empresa/recompensa/ver-pedidos-recompensa');
+    }
 }

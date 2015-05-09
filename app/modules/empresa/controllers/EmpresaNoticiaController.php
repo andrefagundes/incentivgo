@@ -12,15 +12,17 @@ use Incentiv\Models\Noticia,
  */
 class EmpresaNoticiaController extends ControllerBase {
 
+    private $_auth;
+    
     public function initialize() {
-        $auth = $this->auth->getIdentity();
+        $this->_auth = $this->auth->getIdentity();
         $this->view->perfilAdmin     = Perfil::ADMINISTRADOR;
         $this->view->perfilId        = $this->_auth['perfilId'];
         if (!$this->request->isAjax()) {
             $this->view->usuario_logado    = $this->auth->getName();
-            $this->view->id                = $auth['id'];
-            $this->view->empresaId         = $auth['empresaId'];
-            $this->view->avatar            = $auth['avatar'];
+            $this->view->id                = $this->_auth['id'];
+            $this->view->empresaId         = $this->_auth['empresaId'];
+            $this->view->avatar            = $this->_auth['avatar'];
             $this->view->setTemplateAfter('private-empresa');
         }
     }
@@ -36,13 +38,11 @@ class EmpresaNoticiaController extends ControllerBase {
     public function pesquisarNoticiaAction() {
 
         $this->disableLayoutBefore();
-        
-        $auth = $this->auth->getIdentity();
 
         $objNoticia = new \stdClass();
         $objNoticia->ativo      = $this->request->getPost("ativo");
         $objNoticia->filter     = $this->request->getPost("filter");
-        $objNoticia->empresaId  = $auth['empresaId'];
+        $objNoticia->empresaId  = $this->_auth['empresaId'];
 
         $resultRegrasNoticias = Noticia::build()->fetchAllNoticias($objNoticia);
 
@@ -90,10 +90,8 @@ class EmpresaNoticiaController extends ControllerBase {
         $this->view->disable(); 
         if ($this->request->isPost()) {
             
-            $auth = $this->auth->getIdentity(); 
-            
             $dados  = $this->request->getPost('dados');
-            $dados['empresaId'] = $auth['empresaId'];
+            $dados['empresaId'] = $this->_auth['empresaId'];
 
             $resultCadastro = Noticia::build()->salvarNoticia($dados);
           

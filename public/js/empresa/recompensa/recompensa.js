@@ -16,7 +16,7 @@ var Recompensa = {
         
         //evento do botão de criar recompensa
         $("#btnCriarRecompensa").click(function() {
-            $("#myModalLabel").html('Criar Recompensa');
+            $("#myModalLabel").html('Criar Regra de Uso');
             $( "#modal-body-recompensa" ).html('').load( "recompensa/modal-recompensa/"+0 );
             $('#modalCriarRecompensa').modal('show'); 
         });
@@ -34,10 +34,6 @@ var Recompensa = {
         
         $.post( "recompensa/pesquisar-recompensa", { 'page': page, 'ativo':ativo, 'filter':filter }, function(data){
              $( "#pesquisarRecompensas" ).empty().append( data );
-             Recompensa.inserirQuantidadeRecompensa($("#quantRecompensa").val());
         },'html');
-    },
-    inserirQuantidadeRecompensa:function(quantRecompensa){
-       $("#quantidade-recompensa").html('').html(quantRecompensa);
     }
 };
