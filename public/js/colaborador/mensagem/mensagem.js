@@ -1,9 +1,10 @@
 var ColaboradorMensagem = {
     init: function(){  
+        
         $("[data-toggle=tooltip]").tooltip();
         //marcar menu ativo
-        $(".dropdown-submenu").removeClass('active');
-        $("#menu-mensagem").addClass('active');
+        $("[id^='menu-'] a").removeClass('active');
+        $("#menu-mensagem-colaborador a").addClass('active');
         
         if($("div.alert")){
             $("div.alert").slideUp({start:3000,duration: 5000});

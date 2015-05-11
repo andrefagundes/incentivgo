@@ -1,6 +1,7 @@
 var ModalAjudar = {
 
     init: function() {
+        $("[data-toggle=tooltip]").tooltip();
         $("#btnAjudaEnvio,#btnCancelarAjuda").off();
         $("#btnPedirAjuda").hide();
         $("#modal-footer-ajuda").show();

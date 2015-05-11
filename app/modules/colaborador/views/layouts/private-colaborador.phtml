@@ -71,16 +71,16 @@
                 
                 <li class="sub-menu mt" id="menu-geral-colaborador">
                     <!--<a href="#" class="active btnBody" id="geral"><i class="fa fa-dashboard"></i><span>Geral</span></a>-->
-                    {{ link_to('colaborador/geral', '<i class="fa fa-dashboard"></i><span>Geral</span>','class':'active') }}
+                    {{ link_to('colaborador/geral', '<i class="fa fa-dashboard"></i><span>Geral</span>') }}
                 </li>
 
                 <li class="sub-menu" id="menu-ideia-colaborador">
                     <!--<a href="#" class="btnBody" id="ideia"><i class="fa fa-dashboard"></i><span>Ideias</span></a>-->
-                    {{ link_to('colaborador/ideia', '<i class="li_bulb"></i><span>Ideias</span>') }}
+                    {{ link_to('colaborador/ideia', '<i class="li_bulb"></i><span>Ideias</span><span class="dcjq-icon"></span>') }}
                 </li>
                 <li class="sub-menu" id="menu-recompensa-colaborador">
                     <!--<a href="#" class="btnBody" id="ideia"><i class="fa fa-dashboard"></i><span>Ideias</span></a>-->
-                    {{ link_to('colaborador/recompensa', '<i class="li_star"></i><span>Incentivs</span>') }}
+                    {{ link_to('colaborador/recompensa', '<i class="fa fa-info"></i><span>Incentivs</span><span class="dcjq-icon"></span>') }}
                 </li>
 <!--                <li class="sub-menu">
                     <a href="javascript:;" >
@@ -103,8 +103,8 @@
                         <li>{{ link_to('colaborador/metas/2', 'Pessoais') }}</li>
                     </ul>
                 </li>-->
-                <li class="sub-menu" id="menu-mensagem">
-                     {{ link_to("colaborador/mensagens", '<i class="fa fa-envelope-o fa-lg"></i><span>Mensagens</span>') }}
+                <li class="sub-menu" id="menu-mensagem-colaborador">
+                     {{ link_to("colaborador/mensagens", '<i class="fa fa-envelope-o"></i><span>Mensagens</span><span class="dcjq-icon"></span>') }}
                 </li>
                  
             </ul>

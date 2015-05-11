@@ -6,6 +6,14 @@
             {% if(ajuda.ajudaId == "") %}
                 <div class="col-lg-12 ds">        
                     <div class="desc-ajuda">
+                        <div class="thumb pull-left">
+                             {% if( ajuda.usuario.avatar is empty ) %}
+                                {% set avatar_user = 'bfdc40e956b123b24b4962cc9409485a.jpg' %} 
+                            {% else  %}
+                                {% set avatar_user = ajuda.usuario.empresaId~'/'~ajuda.usuario.id~'/40_'~ajuda.usuario.avatar %} 
+                            {% endif %}
+                            {{image( 'img/users/'~avatar_user,'class':'img-circle','data-placement':'left','data-container':'body','data-title':ajuda.usuario.nome,'data-toggle':'tooltip','width':'40px','height':'40px','align':'') }}
+                        </div>
                         <div class="dm-message dm-with-text">
                             <div class="dm-text">
                                 <p lang="" data-aria-label-part="0" class="js-tweet-text tweet-text">{{ajuda.mensagem}}</p>
@@ -26,7 +34,7 @@
                             {% else  %}
                                 {% set avatar_user = ajuda.usuario.empresaId~'/'~ajuda.usuario.id~'/40_'~ajuda.usuario.avatar %} 
                             {% endif %}
-                            {{image( 'img/users/'~avatar_user,'class':'img-circle','width':'40px','height':'40px','align':'') }}
+                            {{image( 'img/users/'~avatar_user,'class':'img-circle','data-placement':'right','data-container':'body','data-title':ajuda.usuario.nome,'data-toggle':'tooltip','width':'40px','height':'40px','align':'') }}
                         </div>
                         <div class="dm-message dm-with-text">
                             <div class="dm-text">
