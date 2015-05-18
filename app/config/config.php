@@ -14,7 +14,6 @@ return new \Phalcon\Config(array(
         'pluginsDir'     => '/../../app/plugins/',
         'baseImage'      => __DIR__ . '/../../public/img/',
         'baseUrl'        => '/',
-        'baseUri'        => '/',
         'cryptSalt'      => 'G-KY^vSK@:(jW_+gvLU:HeRVi!ZK(KV{bDp=T%l.oGaWZ?mjht<N#7 _E#2]O_8^'
     ),
     'mail' => array(
