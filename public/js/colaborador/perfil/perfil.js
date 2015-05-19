@@ -13,7 +13,7 @@ var Perfil = {
         
         $("#input-avatar").fileinput({
             initialPreview: [
-                '<img src=/incentiv/img/users/'+avatar+'>'
+                '<img src=../img/users/'+avatar+'>'
             ],
             overwriteInitial: true,
             previewFileType: "image",
