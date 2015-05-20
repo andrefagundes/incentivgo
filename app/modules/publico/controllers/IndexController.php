@@ -24,12 +24,12 @@ class IndexController extends ControllerBase
         $form = new ContatoForm();
 
         if ($this->request->isPost()) {
-            //valida formulário de contato e envia email para Incentiv Educ
+            //valida formulário de contato e envia email para Incentiv Go
             if ($form->isValid($this->request->getPost()) != false) {
                 $this->getDI()
                     ->getMail()
                     ->send(array(
-                    'amfcom@gmail.com' => 'Incentiv Educ'
+                    'amfcom@gmail.com' => 'Incentiv Go'
                 ), "Contatos", 'contato', array(
                     'nome'      => $this->request->getPost('nome', 'striptags'),
                     'email'     => $this->request->getPost('email', 'email'),

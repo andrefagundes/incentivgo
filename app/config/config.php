@@ -15,6 +15,7 @@ return new \Phalcon\Config(array(
         'pluginsDir'     => '/../../app/plugins/',
         'baseImage'      => __DIR__ . '/../../public/img/',
         'baseUrl'        => '/',
+        'publicUrl'      => '/',
         'cryptSalt'      => 'G-KY^vSK@:(jW_+gvLU:HeRVi!ZK(KV{bDp=T%l.oGaWZ?mjht<N#7 _E#2]O_8^'
     ),
     'mail' => array(
@@ -25,7 +26,7 @@ return new \Phalcon\Config(array(
             'port'      => 465,
             'security'  => 'ssl',
             'username'  => 'amfcom@gmail.com',
-            'password'  => 'wivwgjkkvcksombb'
+            'password'  => 'febtwchxnsuvugbq'
         )
     ),
     'amazon' => array(
