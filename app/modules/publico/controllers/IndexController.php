@@ -18,7 +18,7 @@ class IndexController extends ControllerBase
     }
     
     public function contatoAction()
-    {
+    {            die('chegou');
         $this->view->setTemplateBefore('public_session');
         try {
         $form = new ContatoForm();
@@ -35,7 +35,7 @@ class IndexController extends ControllerBase
                     'email'     => $this->request->getPost('email', 'email'),
                     'mensagem'  => $this->request->getPost('description', 'striptags')  
                 ));
-                die('chegou');
+    
                 $this->flash->success('Mensagem enviada com sucesso, aguarde contato');
             } 
         }
