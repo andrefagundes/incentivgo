@@ -92,24 +92,24 @@ class Mail extends Component
         return $view->getContent();
     }
     
-    public function send($to, $subject,$nome,$params){
-        
-        // Settings
-        $mailSettings = $this->config->mail;
-        
-        $template = $this->getTemplate($nome, $params);
-        
-        $sendgrid = new SendGrid('amfcom', 'mfcom5841');
-        $email = new SendGrid\Email();
-        $email
-            ->addTo($to)
-            ->setFrom($mailSettings->fromName)
-            ->setSubject($subject)
-            ->setText('Incentiv Go')
-            ->setHtml($template);
-
-        $sendgrid->send($email);
-    }
+//    public function send($to, $subject,$nome,$params){
+//        
+//        // Settings
+//        $mailSettings = $this->config->mail;
+//        
+//        $template = $this->getTemplate($nome, $params);
+//        
+//        $sendgrid = new SendGrid('amfcom', 'mfcom5841');
+//        $email = new SendGrid\Email();
+//        $email
+//            ->addTo($to)
+//            ->setFrom($mailSettings->fromName)
+//            ->setSubject($subject)
+//            ->setText('Incentiv Go')
+//            ->setHtml($template);
+//
+//        $sendgrid->send($email);
+//    }
 
     /**
      * Envia e-mails via AmazonSES com base em modelos predefinidos
@@ -119,41 +119,41 @@ class Mail extends Component
      * @param string $nome
      * @param array $params
      */
-//    public function send($to, $subject, $nome, $params)
-//    {
-//
-//        // Settings
-//        $mailSettings = $this->config->mail;
-//
-//        $template = $this->getTemplate($nome, $params);
-//
-//        // Create the message
-//        $message = Message::newInstance()
-//            ->setSubject($subject)
-//            ->setTo($to)
-//            ->setFrom(array(
-//                $mailSettings->fromEmail => $mailSettings->fromName
-//            ))
-//            ->setBody($template, 'text/html');
-//
-//        if ($this->directSmtp) {
-//
-//            if (!$this->transport) {
-//                $this->transport = Smtp::newInstance(
-//                    $mailSettings->smtp->server,
-//                    $mailSettings->smtp->port,
-//                    $mailSettings->smtp->security
-//                )
-//                ->setUsername($mailSettings->smtp->username)
-//                ->setPassword($mailSettings->smtp->password);
-//            }
-//
-//            // Create the Mailer using your created Transport
-//            $mailer = \Swift_Mailer::newInstance($this->transport);
-//            
-//            return $mailer->send($message);
-//        } else {
-//            return $this->amazonSESSend($message->toString());
-//        }
-//    }
+    public function send($to, $subject, $nome, $params)
+    {
+
+        // Settings
+        $mailSettings = $this->config->mail;
+
+        $template = $this->getTemplate($nome, $params);
+
+        // Create the message
+        $message = Message::newInstance()
+            ->setSubject($subject)
+            ->setTo($to)
+            ->setFrom(array(
+                $mailSettings->fromEmail => $mailSettings->fromName
+            ))
+            ->setBody($template, 'text/html');
+
+        if ($this->directSmtp) {
+
+            if (!$this->transport) {
+                $this->transport = Smtp::newInstance(
+                    $mailSettings->smtp->server,
+                    $mailSettings->smtp->port,
+                    $mailSettings->smtp->security
+                )
+                ->setUsername($mailSettings->smtp->username)
+                ->setPassword($mailSettings->smtp->password);
+            }
+
+            // Create the Mailer using your created Transport
+            $mailer = \Swift_Mailer::newInstance($this->transport);
+            
+            return $mailer->send($message);
+        } else {
+            return $this->amazonSESSend($message->toString());
+        }
+    }
 }
