@@ -18,11 +18,11 @@ class IndexController extends ControllerBase
     }
     
     public function contatoAction()
-    {            die('chegou');
+    {       
         $this->view->setTemplateBefore('public_session');
         try {
         $form = new ContatoForm();
-
+     die('chegou');
         if ($this->request->isPost()) {
             //valida formulário de contato e envia email para Incentiv Go
             if ($form->isValid($this->request->getPost()) != false) {
