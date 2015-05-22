@@ -35,7 +35,7 @@ class IndexController extends ControllerBase
                     'email'     => $this->request->getPost('email', 'email'),
                     'mensagem'  => $this->request->getPost('description', 'striptags')  
                 ));
-                
+                die('chegou');
                 $this->flash->success('Mensagem enviada com sucesso, aguarde contato');
             } 
         }
