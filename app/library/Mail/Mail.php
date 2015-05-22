@@ -20,14 +20,14 @@ namespace Incentiv\Mail;
 use Phalcon\Mvc\User\Component,
     Phalcon\Mvc\View;
 
-//use Swift_Message as Message,
-//    Swift_SmtpTransport as Smtp;
+use Swift_Message as Message,
+    Swift_SmtpTransport as Smtp;
 
 /**
  * Autoloader classe Swift
  */
-//require_once __APP_ROOT__ . '/vendor/Swift/swift_required.php';
-require_once __APP_ROOT__ . '/vendor/sendgrid-php/sendgrid-php.php';
+require_once __APP_ROOT__ . '/vendor/Swift/swift_required.php';
+//require_once __APP_ROOT__ . '/vendor/sendgrid-php/sendgrid-php.php';
 
 /**
  * Incentiv\Mail\Mail
