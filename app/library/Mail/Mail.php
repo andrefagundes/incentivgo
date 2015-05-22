@@ -99,8 +99,10 @@ class Mail extends Component
 //        
 //        $template = $this->getTemplate($nome, $params);
 //        
-//        $sendgrid = new SendGrid('amfcom', 'mfcom5841');
-//        $email = new SendGrid\Email();
+//
+//        $sendgrid = new \SendGrid('amfcom', 'mfcom5841');
+//                die(var_dump('sdf'));
+//        $email = new \SendGrid\Email();
 //        $email
 //            ->addTo($to)
 //            ->setFrom($mailSettings->fromName)
@@ -111,14 +113,14 @@ class Mail extends Component
 //        $sendgrid->send($email);
 //    }
 
-    /**
-     * Envia e-mails via AmazonSES com base em modelos predefinidos
-     *
-     * @param array $to
-     * @param string $subject
-     * @param string $nome
-     * @param array $params
-     */
+//    /**
+//     * Envia e-mails via AmazonSES com base em modelos predefinidos
+//     *
+//     * @param array $to
+//     * @param string $subject
+//     * @param string $nome
+//     * @param array $params
+//     */
     public function send($to, $subject, $nome, $params)
     {
 
@@ -150,7 +152,7 @@ class Mail extends Component
 
             // Create the Mailer using your created Transport
             $mailer = \Swift_Mailer::newInstance($this->transport);
-            
+  
             return $mailer->send($message);
         } else {
             return $this->amazonSESSend($message->toString());
