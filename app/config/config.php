@@ -23,7 +23,7 @@ return new \Phalcon\Config(array(
         'fromEmail' => 'amfcom@gmail.com',
         'smtp' => array(
             'server'    => 'smtp.sendgrid.net',
-            'port'      => 465,
+            'port'      => 587,
             'security'  => 'ssl',
             'username'  => 'amfcom',
             'password'  => 'mfcom5841'
