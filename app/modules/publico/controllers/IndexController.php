@@ -18,16 +18,14 @@ class IndexController extends ControllerBase
     }
     
     public function contatoAction()
-    {       
+    {
         $this->view->setTemplateBefore('public_session');
-        try {
+         
         $form = new ContatoForm();
- 
+
         if ($this->request->isPost()) {
-                 
             //valida formulário de contato e envia email para Incentiv Go
             if ($form->isValid($this->request->getPost()) != false) {
-                die('chegou');
                 $this->getDI()
                     ->getMail()
                     ->send(array(
@@ -37,15 +35,12 @@ class IndexController extends ControllerBase
                     'email'     => $this->request->getPost('email', 'email'),
                     'mensagem'  => $this->request->getPost('description', 'striptags')  
                 ));
-    
+                
                 $this->flash->success('Mensagem enviada com sucesso, aguarde contato');
             } 
         }
 
-            $this->view->form = $form;
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
+        $this->view->form = $form;
     }
     
     public function route404Action(){
