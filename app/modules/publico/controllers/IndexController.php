@@ -24,9 +24,10 @@ class IndexController extends ControllerBase
         $form = new ContatoForm();
  
         if ($this->request->isPost()) {
-                 die('chegou');
+                 
             //valida formulário de contato e envia email para Incentiv Go
             if ($form->isValid($this->request->getPost()) != false) {
+                die('chegou');
                 $this->getDI()
                     ->getMail()
                     ->send(array(
