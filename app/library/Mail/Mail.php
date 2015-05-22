@@ -126,7 +126,7 @@ class Mail extends Component
 
         // Settings
         $mailSettings = $this->config->mail;
-die(var_dump($mailSettings->fromEmail));
+die(var_dump($mailSettings->fromName));
         $template = $this->getTemplate($nome, $params);
 
         // Create the message
