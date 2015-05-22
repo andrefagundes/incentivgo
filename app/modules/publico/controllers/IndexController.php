@@ -20,7 +20,7 @@ class IndexController extends ControllerBase
     public function contatoAction()
     {
         $this->view->setTemplateBefore('public_session');
-         
+        try {
         $form = new ContatoForm();
 
         if ($this->request->isPost()) {
@@ -40,7 +40,10 @@ class IndexController extends ControllerBase
             } 
         }
 
-        $this->view->form = $form;
+            $this->view->form = $form;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
     }
     
     public function route404Action(){
