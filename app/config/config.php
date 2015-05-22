@@ -22,11 +22,11 @@ return new \Phalcon\Config(array(
         'fromName'  => 'Incentiv Go',
         'fromEmail' => 'amfcom@gmail.com',
         'smtp' => array(
-            'server'    => 'smtp.gmail.com',
-            'port'      => 465,
+            'server'    => 'smtp.sendgrid.net',
+            'port'      => 587,
             'security'  => 'ssl',
-            'username'  => 'amfcom@gmail.com',
-            'password'  => 'febtwchxnsuvugbq'
+            'username'  => 'amfcom',
+            'password'  => 'mfcom5841'
         )
     ),
     'amazon' => array(
