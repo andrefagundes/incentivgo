@@ -126,7 +126,7 @@ class Mail extends Component
 
         // Settings
         $mailSettings = $this->config->mail;
-die(var_dump($mailSettings->fromName));
+
         $template = $this->getTemplate($nome, $params);
 
         // Create the message
@@ -152,7 +152,7 @@ die(var_dump($mailSettings->fromName));
 
             // Create the Mailer using your created Transport
             $mailer = \Swift_Mailer::newInstance($this->transport);
-  
+  die(var_dump($mailSettings->fromName));
             return $mailer->send($message);
         } else {
             return $this->amazonSESSend($message->toString());
