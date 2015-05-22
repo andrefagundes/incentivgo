@@ -152,8 +152,9 @@ class Mail extends Component
 
             // Create the Mailer using your created Transport
             $mailer = \Swift_Mailer::newInstance($this->transport);
-  die(var_dump($mailSettings->fromName));
-            return $mailer->send($message);
+
+            $teste = $mailer->send($message);
+            echo $teste;die;
         } else {
             return $this->amazonSESSend($message->toString());
         }
