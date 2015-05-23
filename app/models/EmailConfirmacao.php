@@ -74,7 +74,7 @@ class EmailConfirmacao extends Model
         $this->getDI()
             ->getMail()
             ->send(array(
-            $this->user->email => $this->user->nome
+            $this->user->nome => $this->user->email
         ), "Por favor, confirme seu e-mail", 'confirmation', array(
             'confirmUrl' => '/confirm/' . $this->codigo . '/' . $this->user->email
         ));

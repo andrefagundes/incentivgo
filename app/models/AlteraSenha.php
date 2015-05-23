@@ -78,7 +78,7 @@ class AlteraSenha extends Model
         $this->getDI()
             ->getMail()
             ->send(array(
-            $this->user->email => $this->user->nome
+            $this->user->nome => $this->user->email
         ), "Redefinir senha", 'reset', array(
             'resetUrl' => '/altera-senha/' . $this->codigo . '/' . $this->user->email
         ));
