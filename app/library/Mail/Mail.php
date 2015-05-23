@@ -99,9 +99,9 @@ class Mail extends Component
         
         $template = $this->getTemplate($nome, $params);
         
-die('sdf');
-        $sendgrid = new \SendGrid('amfcom', 'mfcom5841');
 
+        $sendgrid = new \SendGrid('amfcom', 'mfcom5841');
+die('sdf');
         $email = new \SendGrid\Email();
         $email
             ->addTo($to)
