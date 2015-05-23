@@ -110,8 +110,7 @@ class Mail extends Component
             ->setSubject($subject)
             ->setText('Incentiv Go')
             ->setHtml($template);
-        die('sdf');
-        $sendgrid->send($email);
+       return $sendgrid->send($email);
     }
 
 //    /**
