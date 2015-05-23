@@ -99,7 +99,7 @@ class Mail extends Component
         
         $template = $this->getTemplate($nome, $params);
         
-
+die('sdf');
         $sendgrid = new \SendGrid('amfcom', 'mfcom5841');
 
         $email = new \SendGrid\Email();
