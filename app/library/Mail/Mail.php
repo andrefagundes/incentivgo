@@ -20,8 +20,8 @@ namespace Incentiv\Mail;
 use Phalcon\Mvc\User\Component,
     Phalcon\Mvc\View;
 
-use Swift_Message as Message,
-    Swift_SmtpTransport as Smtp;
+//use Swift_Message as Message,
+//    Swift_SmtpTransport as Smtp;
 
 /**
  * Autoloader classe Swift
@@ -96,21 +96,24 @@ class Mail extends Component
         
         // Settings
         $mailSettings = $this->config->mail;
-        
         $template = $this->getTemplate($nome, $params);
-        
-
-        $sendgrid = new \SendGrid('amfcom', 'mfcom5841');
+        $sendgrid = new \SendGrid('amfcom','mfcom5841');
 
         $email = new \SendGrid\Email();
-
         $email
             ->addTo($to)
-            ->setFrom($mailSettings->fromName)
+            ->setFrom($mailSettings->fromEmail)
             ->setSubject($subject)
-            ->setText('Incentiv Go')
             ->setHtml($template);
-       return $sendgrid->send($email);
+
+        try {
+            $sendgrid->send($email);
+        } catch(\SendGrid\Exception $e) {
+            echo $e->getCode();
+            foreach($e->getErrors() as $er) {
+                echo $er;
+            }
+        }
     }
 
 //    /**

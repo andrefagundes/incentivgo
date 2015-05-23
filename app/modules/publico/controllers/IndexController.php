@@ -29,7 +29,7 @@ class IndexController extends ControllerBase
                 $this->getDI()
                     ->getMail()
                     ->send(array(
-                    'amfcom@gmail.com' => 'Incentiv Go'
+                    'Incentiv GO' => 'amfcom@gmail.com'
                 ), "Contatos", 'contato', array(
                     'nome'      => $this->request->getPost('nome', 'striptags'),
                     'email'     => $this->request->getPost('email', 'email'),
@@ -37,6 +37,7 @@ class IndexController extends ControllerBase
                 ));
                 
                 $this->flash->success('Mensagem enviada com sucesso, aguarde contato');
+                $form->clear();
             } 
         }
 
