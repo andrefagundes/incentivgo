@@ -1,5 +1,5 @@
 <?php
-die($_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"]);  
+die($_SERVER['HTTP_HOST']);  
 return new \Phalcon\Config(array(
     'database' => array(
         'adapter'   => 'Mysql',
@@ -16,7 +16,7 @@ return new \Phalcon\Config(array(
         'pluginsDir'     => '/../../app/plugins/',
         'baseImage'      => __DIR__ . '/../../public/img/',
         'baseUrl'        => '/',
-        'publicUrl'      => 'localhost/',
+        'publicUrl'      => $_SERVER['HTTP_HOST'],
         'cryptSalt'      => 'G-KY^vSK@:(jW_+gvLU:HeRVi!ZK(KV{bDp=T%l.oGaWZ?mjht<N#7 _E#2]O_8^'
     ),
     'mail' => array(
