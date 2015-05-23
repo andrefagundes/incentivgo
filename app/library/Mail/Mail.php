@@ -101,8 +101,9 @@ class Mail extends Component
         
 
         $sendgrid = new \SendGrid('amfcom', 'mfcom5841');
-die('sdf');
+
         $email = new \SendGrid\Email();
+        die('sdf');
         $email
             ->addTo($to)
             ->setFrom($mailSettings->fromName)
