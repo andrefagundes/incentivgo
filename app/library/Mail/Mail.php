@@ -103,14 +103,14 @@ class Mail extends Component
         $sendgrid = new \SendGrid('amfcom', 'mfcom5841');
 
         $email = new \SendGrid\Email();
-        die('sdf');
+
         $email
             ->addTo($to)
             ->setFrom($mailSettings->fromName)
             ->setSubject($subject)
             ->setText('Incentiv Go')
             ->setHtml($template);
-
+        die('sdf');
         $sendgrid->send($email);
     }
 
