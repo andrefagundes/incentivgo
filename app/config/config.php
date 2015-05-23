@@ -1,5 +1,5 @@
 <?php
-die(__APP_ROOT__);  
+die($_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"]);  
 return new \Phalcon\Config(array(
     'database' => array(
         'adapter'   => 'Mysql',
@@ -16,7 +16,7 @@ return new \Phalcon\Config(array(
         'pluginsDir'     => '/../../app/plugins/',
         'baseImage'      => __DIR__ . '/../../public/img/',
         'baseUrl'        => '/',
-        'publicUrl'      => __APP_ROOT__,
+        'publicUrl'      => 'localhost/',
         'cryptSalt'      => 'G-KY^vSK@:(jW_+gvLU:HeRVi!ZK(KV{bDp=T%l.oGaWZ?mjht<N#7 _E#2]O_8^'
     ),
     'mail' => array(
@@ -34,4 +34,3 @@ return new \Phalcon\Config(array(
         'AWSSecretKey'      => ''
     )
 ));
-
