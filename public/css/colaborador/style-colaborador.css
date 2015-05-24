@@ -335,7 +335,7 @@ ul.sidebar-menu , ul.sidebar-menu li ul.sub{
 }
 
 ul.sidebar-menu {
-    margin-top: 85px;
+    margin-top: 75px;
 }
 
 #sidebar > ul > li > ul.sub {
@@ -472,7 +472,7 @@ ul.sidebar-menu li a.active i {
 
 .wrapper {
     display: inline-block;
-    margin-top: 70px;
+    margin-top: 60px;
     padding-left: 15px;
     padding-right: 15px;
     padding-bottom: 15px;

@@ -6,7 +6,6 @@ use Phalcon\Paginator\Adapter\Model as Paginator,
     Phalcon\Http\Response;
 use Incentiv\Models\Recompensa,
     Incentiv\Models\UsuarioPontuacaoCredito,
-    Incentiv\Models\UsuarioPontuacaoDebito,
     Incentiv\Models\UsuarioPedidoRecompensa;
 
 /**
@@ -20,8 +19,7 @@ class RecompensaController extends ControllerBase {
     public function initialize() {
         $this->_auth = $this->auth->getIdentity(); 
         if (!$this->request->isAjax()) {
-            $this->view->count_pontuacao        = UsuarioPontuacaoCredito::build()->buscarPontuacaoUsuario($this->_auth['id']);
-            $this->view->count_pontuacao_usada  = (int) UsuarioPontuacaoDebito::build()->sum(array("column" => "pontuacao", "conditions" => "usuarioId = {$this->_auth['id']}"));
+            $this->view->count_pontuacao   = UsuarioPontuacaoCredito::build()->buscarPontuacaoUsuario($this->_auth['id']);
             $this->view->usuario_logado    = $this->auth->getName();
             $this->view->id                = $this->_auth['id'];
             $this->view->empresaId         = $this->_auth['empresaId'];
