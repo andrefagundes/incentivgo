@@ -102,21 +102,9 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
 
 #slide_1 {
 	background: #000 url(../img/slide_8.jpg) fixed no-repeat;
+    background-size: cover;
 }
 
-@media (min-width: 1280px) {
-	#slide_1 {
-		background-size: cover;
-	}
-}
-
-@media (max-width: 1024px) {
-	#slide_1 {
-		background-size: 1024px auto;
-		background-position: center top;
-		padding-top: 60px;
-	}
-}
 
 /* ==== Services / Details ==== */
 
