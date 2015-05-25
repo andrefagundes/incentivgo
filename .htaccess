@@ -3,7 +3,3 @@
 	RewriteRule  ^$ public/    [L]
 	RewriteRule  (.*) public/$1 [L]
 </IfModule>
-
-<IfModule mod_deflate.c> 
-AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/x-javascript application/javascript 
-</IfModule>
