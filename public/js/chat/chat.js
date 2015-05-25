@@ -5,7 +5,7 @@ var Chat = {
         Chat.usuarioLogado    = $("#idUsuario").val();
         
         // Criando a conexão com o Socket.io
-        Chat.socket = io.connect('http://45.55.205.37:8080',{
+        Chat.socket = io.connect('http://127.0.0.1:8080',{
              'reconnect': true
             ,'reconnection delay': 500
             ,'max reconnection attempts': 1000
