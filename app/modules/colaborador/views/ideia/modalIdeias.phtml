@@ -28,20 +28,18 @@
             </ul>
             <div id="ul_ideia" class="container-fluid box1" style="display: none">
                     <form role="form" class="form-ideia" id="form-ideia">
-                        <div class="task-title inline"> 
-                            <div>
-                                <input type="text" id="txt_titulo" name="txt_titulo" placeholder="Informe um título para a ideia!!!" class="form-control"></textarea>
-                           </div>
+                        <div class="form-group col-lg-12"> 
+                            <input type="text" id="txt_titulo" name="txt_titulo" placeholder="Informe um título para a ideia!!!" class="form-control"></textarea>
+                            <label id="txt_tituloId-error" class="error pull-left display-none"  for="txt_titulo">Campo obrigatório</label>
                         </div><br/>
-                        <div class="task-title inline"> 
-                                 <div>
-                                     <textarea id="txt_ideia" name="txt_ideia" placeholder="Descreva sua ideia, envie e seja reconhecido pela empresa!!!" class="form-control"></textarea>
-                                </div>
+                        <div class="form-group col-lg-12"> 
+                            <textarea id="txt_ideia" name="txt_ideia" placeholder="Descreva sua ideia, envie e seja reconhecido pela empresa!!!" class="form-control"></textarea>
+                            <label id="txt_ideiaId-error" class="error pull-left display-none"  for="txt_ideia">Campo obrigatório</label>
                         </div><br/>
                     </form>
-                    <div class="task-title pull-right">
-                        <button type="button" id="btnSalvarIdeia" class="btn btn-xs btn-theme03">Enviar</button>
-                        <button type="button" id="btnCancelarIdeia" class="btn btn-xs btn-theme04">Cancelar</button>
+                    <div class="form-group pull-right">
+                        <button type="button" id="btnSalvarIdeia" class="btn btn-xs btn-facebook">Enviar</button>
+                        <button type="button" id="btnCancelarIdeia" class="btn btn-xs btn-default">Cancelar</button>
                     </div>
             </div>
     </div>

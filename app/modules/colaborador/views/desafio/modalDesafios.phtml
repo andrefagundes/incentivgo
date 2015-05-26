@@ -1,5 +1,5 @@
 <section class="tasks-widget style-form">
-        <div class="task-content">
+        <div class="task-">
             <div id="mensagem-modal-resposta-desafio"><?php echo $this->flashSession->output(); ?></div>
             <ul class="task-list ui-sortable-modal " id="sortable">
                 {% for desafio in desafios %}
@@ -63,8 +63,8 @@
                        </form>
                     </div><br/>
                     <div id={{desafio['id']}} class="task-title pull-right">
-                        <button type="button" id="btnEnviarMotivoDescarte" class="btn btn-xs btn-theme03">Enviar</button>
-                        <button type="button" id="btnCancelarDescarte" class="btn btn-xs btn-theme04 btnCancelarDescarte">Cancelar</button>
+                        <button type="button" id="btnEnviarMotivoDescarte" class="btn btn-xs btn-facebook">Enviar</button>
+                        <button type="button" id="btnCancelarDescarte" class="btn btn-xs btn-default btnCancelarDescarte">Cancelar</button>
                     </div>
                 </li>
                 {% elsefor %}
