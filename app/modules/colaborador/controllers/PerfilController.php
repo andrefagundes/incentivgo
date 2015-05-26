@@ -88,8 +88,8 @@ class PerfilController extends ControllerBase {
                 }
 
                 $image->resize($width, $height)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/{$nomeArquivo}");
-                $image->resize($width_60, $height_60)->crop(60, 60)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/60_{$nomeArquivo}");
-                $image->resize($width_40, $height_40)->crop(40, 40)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/40_{$nomeArquivo}");
+                $image->resize($width_60, $height_60)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/60_{$nomeArquivo}");
+                $image->resize($width_40, $height_40)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/40_{$nomeArquivo}");
                 unlink('img/users/' . $file->getName());
 
                 $this->session->set('auth-identity', array(
