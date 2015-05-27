@@ -449,7 +449,7 @@ form, .carousel, .form-horizontal .control-group, .nav-tabs, .alert, .panel, .pr
 .media-mini{min-width: 50px}
 .media-small{min-width: 80px}
 .media-large{min-width: 90px}
-.avatar{border-radius: 500px;background-color: #fff;padding: 2px}
+.avatar{border-radius: 500px;background-color: #fff;padding: 8px}
 .thumb-mini{width: 24px;display: inline-block}
 .thumb-small{width: 36px;display: inline-block;text-align: center;}
 .thumb{display: inline-block}
