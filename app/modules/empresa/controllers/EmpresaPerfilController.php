@@ -66,7 +66,7 @@ class EmpresaPerfilController extends ControllerBase {
             $pastaUsuario = $auth['id'];
 
             foreach ($this->request->getUploadedFiles() as $file) {
-
+   
                 $file->moveTo('img/users/' . $file->getName());
                 $image = new GD('img/users/' . $file->getName());
 
@@ -74,13 +74,11 @@ class EmpresaPerfilController extends ControllerBase {
                 $height_60 = $width_60 = $height_40 = $width_40 = null;
 
                 if ($image->getWidth() >= $image->getHeight()) {
-                    $width = ($image->getWidth() < 200 ) ? $image->getWidth() : 200;
-                    $height_60 = 60;
-                    $height_40 = 40;
+                    $width  = ($image->getWidth() < 200 ) ? $image->getWidth() : 200;
+                    $height = ($image->getHeight() < 200 ) ? $image->getHeight() : 200;
                 } else {
                     $height = ($image->getHeight() < 300) ? $image->getHeight() : 300;
-                    $width_60 = 60;
-                    $width_40 = 40;
+                    $width  = ($image->getWidth() < 300) ? $image->getWidth() : 300;
                 }
 
                 $nomeArquivo = md5(uniqid(time())) . '.' . $file->getExtension();
@@ -89,9 +87,10 @@ class EmpresaPerfilController extends ControllerBase {
                     mkdir("img/users/{$pastaEmpresa}/{$pastaUsuario}", 0777, true);
                 }
 
-                $image->resize($width, $height)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/{$nomeArquivo}");
-                $image->resize($width_60, $height_60)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/60_{$nomeArquivo}");
-                $image->resize($width_40, $height_40)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/40_{$nomeArquivo}");
+                $image->resize($width, $height);
+                $image->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/{$nomeArquivo}");
+                $image->resize(60, 60)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/60_{$nomeArquivo}");
+                $image->resize(40, 40)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/40_{$nomeArquivo}");
                 unlink('img/users/' . $file->getName());
 
                 $this->session->set('auth-identity', array(

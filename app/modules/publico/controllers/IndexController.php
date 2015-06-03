@@ -20,7 +20,7 @@ class IndexController extends ControllerBase
     public function contatoAction()
     {
         $this->view->setTemplateBefore('public_session');
-         
+
         $form = new ContatoForm();
 
         if ($this->request->isPost()) {
@@ -35,7 +35,7 @@ class IndexController extends ControllerBase
                     'email'     => $this->request->getPost('email', 'email'),
                     'mensagem'  => $this->request->getPost('description', 'striptags')  
                 ));
-                
+
                 $this->flash->success('Mensagem enviada com sucesso, aguarde contato');
                 $form->clear();
             } 

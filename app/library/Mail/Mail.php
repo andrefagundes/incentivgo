@@ -33,12 +33,12 @@ class Mail extends Component
 {
     
     public function send($to, $subject,$nome,$params){
-        
+
         // Settings
         $mailSettings = $this->config->mail;
         $template = $this->getTemplate($nome, $params);
         $sendgrid = new \SendGrid('amfcom','mfcom5841');
-
+ 
         $email = new \SendGrid\Email();
         $email
             ->addTo($to)

@@ -5,11 +5,11 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">            
                 <span class="hidden-xs-only">{{usuario_logado}}</span>
                 {% if( avatar is empty ) %}
-                {% set avatar_user = 'bfdc40e956b123b24b4962cc9409485a.jpg' %} 
+                    {% set avatar_user = 'bfdc40e956b123b24b4962cc9409485a.jpg' %} 
                 {% else  %}
-                {% set avatar_user = empresaId~'/'~id~'/'~'60_'~avatar %} 
+                    {% set avatar_user = empresaId~'/'~id~'/'~'60_'~avatar %} 
                 {% endif %}
-                <span class="thumb-small avatar inline">{{image( 'img/users/'~avatar_user, 'class':'img-circle') }}</span>
+                <span class="avatar inline">{{image( 'img/users/'~avatar_user, 'class':'img-circle','width':'35px','height':'35px') }}</span>
                 <b class="caret hidden-xs-only"></b>
             </a>
             <ul class="dropdown-menu">

@@ -83,13 +83,13 @@ class MensagemDestinatario extends Model
     
     public function quantMensagensRecebidas($destinatarioId){
         $mensagensRecebidas = MensagemDestinatario::query()->columns(array('quant'=>'count(*)'));
-        
+
         $mensagensRecebidas->leftjoin('Incentiv\Models\MensagemExcluida', "Incentiv\Models\MensagemDestinatario.destinatarioId = mensagemExcluida.usuarioId AND Incentiv\Models\MensagemDestinatario.mensagemId = mensagemExcluida.mensagemId", 'mensagemExcluida');
         $mensagensRecebidas->andwhere( "Incentiv\Models\MensagemDestinatario.destinatarioId = {$destinatarioId}");
         $mensagensRecebidas->andwhere( "mensagemExcluida.id IS NULL");
         $count = $mensagensRecebidas->execute();
-        
-        return $count['quant']->quant;
+
+        return $count->quant;
     }
 
 }
