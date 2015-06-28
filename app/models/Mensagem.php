@@ -262,8 +262,8 @@ class Mensagem extends Model
         $mensagensRecebidas->andwhere( "mensagemExcluida.id IS NULL");
         $mensagensRecebidas->andwhere( "Incentiv\Models\Mensagem.mensagemId IS NULL");
         $count = $mensagensRecebidas->execute();
-        
-        return $count->quant;
+ 
+        return (int) $count->quant;
     }
     
     public function buscarMensagensRecebidas($destinatarioId){

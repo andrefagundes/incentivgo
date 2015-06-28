@@ -89,7 +89,7 @@ class MensagemDestinatario extends Model
         $mensagensRecebidas->andwhere( "mensagemExcluida.id IS NULL");
         $count = $mensagensRecebidas->execute();
 
-        return $count->quant;
+        return (int) $count->quant;
     }
 
 }
