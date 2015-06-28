@@ -65,9 +65,8 @@
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
                 <p class="centered">
-                    <a class="badge badge-popular" href="profile.html">
-                        <span class="btn-lg">{{count_pontuacao}}</span>
-                    </a>
+                    {{ link_to('colaborador/recompensa','class':'badge badge-popular', '<span class="btn-lg">'~count_pontuacao~'</span>') }}
+
                 </p>
                 <h5 class="centered">incentivs ganhos</h5>
                 
