@@ -1,6 +1,4 @@
 <?php
-echo "Aguarde um instante, atualização da plataforma!!!";
-phpinfo();die;
 error_reporting(E_ALL);
 try {
         /**
