@@ -296,6 +296,8 @@ class Usuario extends Model
         {
             $usuario->andwhere("Incentiv\Models\Usuario.ativo = '{$objUsuario->ativo}'");
         }
+        
+        $usuario->andwhere("Incentiv\Models\Usuario.empresaId = '{$objUsuario->empresaId}'");
 
         $usuario->orderBy('Incentiv\Models\Usuario.nome');
    

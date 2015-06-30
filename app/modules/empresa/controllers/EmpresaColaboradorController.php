@@ -42,9 +42,10 @@ class EmpresaColaboradorController extends ControllerBase {
 
         $objUsuario = new \stdClass();
 
-        $objUsuario->ativo  = $this->request->getPost("ativo");
-        $objUsuario->filter = $this->request->getPost("filter");
-        $objUsuario->perfil = $this->request->getPost("perfil");
+        $objUsuario->ativo      = $this->request->getPost("ativo");
+        $objUsuario->filter     = $this->request->getPost("filter");
+        $objUsuario->perfil     = $this->request->getPost("perfil");
+        $objUsuario->empresaId  = $this->_auth['empresaId'];
 
         $resultUsers = Usuario::build()->fetchAllUsuarios($objUsuario);
 
