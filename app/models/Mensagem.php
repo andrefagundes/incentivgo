@@ -198,9 +198,7 @@ class Mensagem extends Model
         foreach ($destinatarios as $id){
             $mensagemDestinatario[$id]                  = new MensagemDestinatario();
             $mensagemDestinatario[$id]->destinatarioId  = $id;
-            $this->assign(array(
-                'mensagemDestinatario' => $mensagemDestinatario
-            ));
+            $this->mensagemDestinatario = $mensagemDestinatario;
         }
             
         if (!$this->save()) {
@@ -225,9 +223,7 @@ class Mensagem extends Model
         $mensagemDestinatario = array();
         $mensagemDestinatario[$mensagemPai->remetenteId] = new MensagemDestinatario();
         $mensagemDestinatario[$mensagemPai->remetenteId]->destinatarioId  = $mensagemPai->remetenteId;
-        $this->assign(array(
-            'mensagemDestinatario' => $mensagemDestinatario
-        ));
+        $this->mensagemDestinatario = $mensagemDestinatario;
         
         if (!$this->save()) {
             return array('status' => 'error', 'message'=>'Não foi possível enviar a mensagem!!!');

@@ -188,7 +188,7 @@ class Desafio extends Model
                                 'status' => 'Incentiv\Models\Desafio.ativo'));
         
         $desafios->innerjoin('Incentiv\Models\DesafioUsuario', 'Incentiv\Models\Desafio.id = DesafioUsuario.desafioId AND Incentiv\Models\Desafio.usuarioResponsavelId = DesafioUsuario.usuarioId', 'DesafioUsuario');
-        
+    
         $desafios->where("Incentiv\Models\Desafio.empresaId = {$objDesafio->empresaId}");
         
         if($objDesafio->perfilId == Perfil::GERENTE){
@@ -206,8 +206,8 @@ class Desafio extends Model
             $desafios->andwhere("Incentiv\Models\Desafio.ativo = '{$objDesafio->ativo}'");
         }
         
-        $desafios->orderBy('Incentiv\Models\Desafio.desafio');
-
+        $desafios->orderBy('Incentiv\Models\Desafio.id desc');
+        
         return $desafios->execute();
     }
     
@@ -266,17 +266,30 @@ class Desafio extends Model
         $desafioUsuario = array();
         
         //grava os usuarios participantes
+        $usuarios_email = array();
         foreach ($colaboradores as $id){
             $desafioUsuario[$id]             = new DesafioUsuario();
             $desafioUsuario[$id]->usuarioId  = $id;
-            $desafio->assign(array(
-                'desafioUsuario' => $desafioUsuario,
-            ));
+            $desafio->desafioUsuario         = $desafioUsuario;
+            
+            $usuario = Usuario::build()->findFirst("id = ".$id);
+            $usuarios_email[$id]['email'] = $usuario->email;
+            $usuarios_email[$id]['nome']  = $usuario->nome;
         }
 
         if (!$desafio->save()) {
             $db->rollback();
             return array('status' => 'error', 'message'=>'Não foi possível salvar o desafio!!!');
+        }else{
+            //envio dos emails para os usuários que participam do desafio criado.
+            foreach ($usuarios_email as $usuario){
+                $this->getDI()
+                    ->getMail()
+                    ->send($usuario['email'], "Novo Desafio", 'novo_desafio', array(
+                    'nome'      => $usuario['nome'],  
+                    'loginUrl' => '/session/login'
+                ));
+            } 
         }
 
         $db->commit();

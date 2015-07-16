@@ -9,10 +9,10 @@
  * @category    Empresas
  * @name        Mail.php
  * @author      André Maciel Fagundes <amfcom@gmail.com>
- * @copyright   Â© 2014 - Incentiv - All Rights Reserved
+ * @copyright   Â© 2015 - Incentiv - All Rights Reserved
  * @link        ...
  * @version     1.0.0 
- * @since       2014-03-05
+ * @since       2015-03-05
  */
 
 namespace Incentiv\Mail;
