@@ -21,7 +21,7 @@ return new \Phalcon\Config(array(
         'cryptSalt'      => 'G-KY^vSK@:(jW_+gvLU:HeRVi!ZK(KV{bDp=T%l.oGaWZ?mjht<N#7 _E#2]O_8^'
     ),
     'mail' => array(
-        'fromEmail' => 'amfcom@gmail.com',
+        'fromEmail' => 'incentivgo@gmail.com',
         'smtp' => array(
             'server'    => 'smtp.sendgrid.net',
             'port'      => 465,
