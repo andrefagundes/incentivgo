@@ -30,7 +30,16 @@ class CorporationController extends ControllerBase {
                     $funcoes = $this->getDI()->getShared('funcoes');
                    $empresa =  Empresa::build()->findFirst(array("id = {$this->request->getPost('empresa')}",'columns'=>'subdominio'));
                    $dominio = $funcoes->after('.', $this->config->application->publicUrl); 
-                   $this->response->redirect("http://{$empresa->subdominio}.{$dominio}/session/login", true);
+                   
+                   //verificar como resolver este problema(quando não se tem o subdominio
+                   if($dominio == 'com.br')
+                   {
+                       $dominio = $funcoes->before('.com.br', $this->config->application->publicUrl);   
+                   }else{
+                       $dominio = $funcoes->before('.com.br', $dominio);
+                   }
+
+                   $this->response->redirect("http://{$empresa->subdominio}.{$dominio}.com.br/session/login", true);
                 }                
             }  
         } catch (AuthException $e) {

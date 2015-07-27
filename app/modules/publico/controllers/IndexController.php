@@ -11,7 +11,7 @@ class IndexController extends ControllerBase
         $funcoes = $this->getDI()->getShared('funcoes');
         $subdominio = $funcoes->before('.incentivgo', $this->config->application->publicUrl);
 
-        if($subdominio != "" && $subdominio != 'www')
+        if($subdominio != "" && $subdominio != 'www' && $subdominio != 'beta')
         {
             $dominio = $funcoes->after('.', $this->config->application->publicUrl); 
             $this->response->redirect("http://www.{$dominio}/corporation", true);
