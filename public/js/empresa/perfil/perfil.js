@@ -17,7 +17,7 @@ var Perfil = {
             ],
             overwriteInitial: true,
             previewFileType: "image",
-            allowedFileExtensions: ["jpg","jpeg","bmp","gif","png"],
+            allowedFileExtensions: ["jpg","jpeg","gif","png"],
             maxFileSize: 1000,
             showUpload: false,
             showCaption: false,
@@ -28,6 +28,7 @@ var Perfil = {
             msgSizeTooLarge:'O arquivo "{name}" ({size} KB) é maior que o permitido {maxSize} KB.',
             msgFileNotFound :'Arquivo "{name}" não encontrado!',
             msgInvalidFileType :'Tipo inválido. Apenas "{types}" arquivos são suportados.',
+            msgInvalidFileExtension:'Extensão inválida. Apenas "{extensions}" são suportadas.',
             elErrorContainer: "#errorBlock43"
         });
         

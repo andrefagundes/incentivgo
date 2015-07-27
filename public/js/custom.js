@@ -78,7 +78,7 @@ $(document).ready(function() {
       preventDefaultEvents: false
     });
   });
-
+  
   //animated elements
   if ($('.no-touch').length) {
     skrollr.init({

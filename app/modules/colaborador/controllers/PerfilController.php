@@ -32,7 +32,7 @@ class PerfilController extends ControllerBase {
             $objUsuario = new \stdClass();
             $objUsuario->dados = $this->request->getPost('dados');
 
-            if ($this->request->hasFiles() == true) {
+            if ($this->request->hasFiles(true)) {
                 $resposta_upload = $this->upload();
                 $objUsuario->dados['avatar'] = $resposta_upload;
             }
@@ -58,7 +58,7 @@ class PerfilController extends ControllerBase {
     }
 
     private function upload() {
-        if ($this->request->hasFiles() == true) {
+        if ($this->request->hasFiles(true)) {
 
             $pastaEmpresa = $this->_auth['empresaId'];
             $pastaUsuario = $this->_auth['id'];

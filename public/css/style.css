@@ -1,8 +1,10 @@
 body {
-	padding: 0;
+	padding: 0px;
+    margin: 0px;
 	font-family: 'Raleway', sans-serif;
 	background: #fff;
 	color: #25272B;
+    overflow-y:hidden;
 }
 
 ::selection {

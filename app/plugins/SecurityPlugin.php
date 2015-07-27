@@ -60,6 +60,7 @@ class SecurityPlugin extends Plugin {
                                                   'salvarRecompensa','ativarInativarRecompensa','utilizarRecompensa',
                                                   'debitarRecompensa','verPedidos','pesquisarPedidos','resultadoUsoIcentiv'),
                     'empresa_perfil' => array('index','perfil'),
+                    'empresa_personalizar' => array('index','perfil'),
                     'empresa_mensagem' => array('index','mensagem','pesquisarMensagem','novaMensagem',
                                                 'salvarMensagem','lerMensagem','excluirMensagem','verificarMensagens',
                                                 'responderMensagem')
@@ -119,6 +120,7 @@ class SecurityPlugin extends Plugin {
                 'index'             => array('index','contato','route404'),
                 'errors'            => array('show401','show404', 'show500'),
                 'session'           => array('index', 'cadastro', 'login', 'esqueceuSenha','enviarSugestao','mensagem','logout'),
+                'corporation'       => array('index', 'corporation','pesquisarEmpresa'),
                 'usuario_control'   => array('index', 'confirmEmail','resetPassword')
             );
             foreach ($publicResources as $resource => $actions) {

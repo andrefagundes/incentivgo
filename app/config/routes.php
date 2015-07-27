@@ -37,6 +37,24 @@ $router->add('/admin', array(
 ));
 
 /******Rotas módulo público**********/
+$router->add('/corporation', array(
+    'controller' => 'corporation',
+    'action' => 'corporation'
+));
+
+$router->add('/corporation/pesquisar-empresa/filter/{get}', array(
+    'module' => 'publico',
+    'controller' => 'corporation',
+    'action' => 'pesquisarEmpresa',
+    'get' => 1
+))->beforeMatch(function() {
+    //Verifica se a requisição é Ajax
+    if ($_SERVER['HTTP_X_REQUESTED_WITH']  == 'XMLHttpRequest') {
+        return true;
+    }
+    return false;
+});
+
 $router->add('/session/login', array(
     'controller' => 'session',
     'action' => 'login'
@@ -668,6 +686,12 @@ $router->add('/empresa/ideia/modal-mapear-pontuacao', array(
 $router->add('/empresa/perfil', array(
     'module' => 'empresa',
     'controller' => 'empresa_perfil',
+    'action' => 'perfil'
+));
+
+$router->add('/empresa/personalizar', array(
+    'module' => 'empresa',
+    'controller' => 'empresa_personalizar',
     'action' => 'perfil'
 ));
 

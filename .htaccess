@@ -2,6 +2,9 @@
 	RewriteEngine on
 	RewriteRule  ^$ public/    [L]
 	RewriteRule  (.*) public/$1 [L]
+    Options +FollowSymLinks
+    rewritecond %{HTTP_HOST} ^incentivgo\.com\.br$ [nc]
+    rewriterule ^(.*)$ http://www.incentivgo.com.br/$1 [R=301,L]
 </IfModule>
 
 <IfModule mod_deflate.c> 

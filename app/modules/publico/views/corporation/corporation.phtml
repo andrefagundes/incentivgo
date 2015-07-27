@@ -1,0 +1,37 @@
+<section class="components">
+    <div class="container margin">
+        <div class="row col-sm-offset-4 col-lg-offset-4">
+            {{ form('class': 'form-horizontal form-login','role': 'form','id':'form-corporation') }}
+            <div class="form-group">
+                <div class="col-sm-5 col-lg-5 text-center">
+                    {{ link_to("session/enviarSugestao", 'class':'btn btn-link',
+                    "Sua empresa não está no Incentiv?<p> Envie uma sugestão para participar!!!</p>") }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-5 col-lg-5">
+                    <?php echo $this->flashSession->output(); ?>
+                    {{ content() }}
+                </div>
+            </div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                        {{ form.render('empresa') }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-lg-5">
+                        {{ form.render('go') }}
+                    </div>
+                </div>
+                {{ form.render('csrf') }}
+            {{endform}}
+        </div>
+    </div>
+</section>
+{{ javascript_include('js/publico/corporation/corporation.js') }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        Corporation.init();
+    });
+</script>

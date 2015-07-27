@@ -20,6 +20,16 @@ class Empresa extends Model
      * @var string
      */
     public $nome;
+    
+    /**
+     * @var string
+     */
+    public $subdominio;
+    
+    /**
+     * @var string
+     */
+    public $logo;
 
     /**
      * @var string
@@ -103,5 +113,56 @@ class Empresa extends Model
                 'message' => 'A  empresa não pode ser excluída porque ela possui domínio cadastrado.'
             )
         ));
+    }
+    
+    public function salvarEmpresaPerfil(\stdClass $dados){
+
+        try {
+            
+            if($dados->dados['id']){
+               $empresa = $this->findFirst("id = ".$dados->dados['id']);
+            }else{
+               $empresa = $this;
+            }
+            
+            if(isset($dados->dados['logo'])){
+                $empresa->logo = $dados->dados['logo'];
+            }
+
+            $empresa->assign(array(
+                'nome'          => $dados->dados['nome']
+            ));
+
+            if (!$empresa->save()) {
+
+                foreach ($this->getMessages() as $mensagem) {
+                  $message =  $mensagem;
+                  break;
+                }
+
+                return array('status' => 'error', 'message'=> $message );
+            }
+
+            return array('status' => 'ok','message'=>'Perfil da empresa salvo com sucesso!!!');
+        
+        } catch (Exception $e) {
+            echo $e->getTraceAsString();
+        }
+    }
+    
+    public function findEmpresa(\stdClass $objEmpresa){
+
+        $empresa = $this::query()->columns(array('id','subdominio','nome'));
+        
+        if($objEmpresa->filter)
+        {
+           $empresa->andwhere( "nome LIKE('%{$objEmpresa->filter}%')");
+        }
+       
+        $empresa->andwhere("ativo = 'Y'");
+  
+        $empresa->orderBy('nome');
+
+        return $empresa->execute()->toArray();
     }
 }

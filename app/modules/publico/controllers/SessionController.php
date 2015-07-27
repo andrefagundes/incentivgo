@@ -24,6 +24,20 @@ use Publico\Forms\LoginForm,
 class SessionController extends ControllerBase {
 
     public function initialize() {
+        $this->view->logo = 'incentivgo.png';
+        $this->view->nome = 'Incentiv Go';
+        
+        $funcoes = $this->getDI()->getShared('funcoes');
+        $subdominio = $funcoes->before('.incentivgo', $this->config->application->publicUrl);
+
+        $empresa_dominio = Empresa::findFirstBySubdominio($subdominio);
+        if($empresa_dominio){
+            if($empresa_dominio->logo){
+                $this->view->logo = $empresa_dominio->id.'/logo/'.$empresa_dominio->logo;
+                $this->view->nome = $empresa_dominio->nome;
+            }
+        }
+
         $this->view->setTemplateBefore('public_session');
     }
 
@@ -49,7 +63,7 @@ class SessionController extends ControllerBase {
 
                     $filter = new \Phalcon\Filter();
 
-                    //Using an anonymous function
+                    //uso de função anônima
                     $filter->add('telefone', function($value) {
                                 return preg_replace('/[^0-9]/', '', $value);
                             });
@@ -74,9 +88,6 @@ class SessionController extends ControllerBase {
         $this->view->form = $form;
     }
 
-    /**
-     * Inicia uma sessão no backend de administração
-     */
     public function loginAction() {
         $form = new LoginForm();
 

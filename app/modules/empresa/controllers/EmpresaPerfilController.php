@@ -14,9 +14,9 @@ class EmpresaPerfilController extends ControllerBase {
         $this->view->perfilId        = $this->_auth['perfilId'];
         if (!$this->request->isAjax()) {
             $this->view->usuario_logado = $this->auth->getName();
-            $this->view->avatar = $auth['avatar'];
-            $this->view->empresaId = $auth['empresaId'];
-            $this->view->id = $auth['id'];
+            $this->view->avatar         = $auth['avatar'];
+            $this->view->empresaId      = $auth['empresaId'];
+            $this->view->id             = $auth['id'];
             $this->view->setTemplateBefore('private-empresa');
         }
     }
@@ -31,7 +31,7 @@ class EmpresaPerfilController extends ControllerBase {
             $objUsuario = new \stdClass();
             $objUsuario->dados = $this->request->getPost('dados');
 
-            if ($this->request->hasFiles() == true) {
+            if ($this->request->hasFiles(true)) {
                 $resposta_upload = $this->upload();
                 $objUsuario->dados['avatar'] = $resposta_upload;
             }
@@ -58,7 +58,7 @@ class EmpresaPerfilController extends ControllerBase {
     }
 
     private function upload() {
-        if ($this->request->hasFiles() == true) {
+        if ($this->request->hasFiles(true)) {
 
             $auth = $this->auth->getIdentity();
 

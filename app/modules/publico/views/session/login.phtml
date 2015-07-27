@@ -1,13 +1,15 @@
 <section class="components">
     <div class="container margin">
-        
+       
+        <div class="row col-sm-offset-4 col-lg-3 col-sm-3 col-lg-offset-4 text-center">
+                {{image( 'img/users/'~logo, 'class':'img-thumbnail text-center','width':'100px','height':'100px') }}
+        </div>
         <div class="row col-sm-offset-4 col-lg-offset-4">
-            
             {{ form('class': 'form-horizontal form-login','role': 'form') }}
             <div class="form-group">
                 <div class="col-sm-5 col-lg-5">
-                    {{ link_to("session/enviarSugestao", 'class':'btn btn-link',
-                    "Sua empresa não está no Incentiv?<p> Envie uma sugestão para participar!!!</p>") }}
+<!--                    {{ link_to("session/enviarSugestao", 'class':'btn btn-link',
+                    "Sua empresa não está no Incentiv?<p> Envie uma sugestão para participar!!!</p>") }}-->
                 </div>
             </div>
             <div class="form-group">
@@ -40,7 +42,7 @@
                     </div>
                 </div>
                 {{ form.render('csrf') }}
-            </form>
+            {{endform}}
         </div>
     </div>
 </section>
