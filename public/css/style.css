@@ -5,6 +5,7 @@ body {
 	background: #fff;
 	color: #25272B;
     overflow-y:hidden;
+    overflow-x: hidden;
 }
 
 ::selection {
@@ -469,7 +470,7 @@ blockquote p {
 
 #footer {
 	background-color: #eeeff2;
-	padding: 0 0 60px 0;
+	padding: 0px;
 	border-top: 1px solid #e9ebed;
 }
 
@@ -602,11 +603,6 @@ input[type="password"] {
         box-shadow:rgba(0, 0, 0, 0.498039) 0 1px 5px;
 }
 
-.navbar-brand {
-	padding: 18px 15px;
-	margin-left: -15px;
-}
-
 .nav a {
 	color: #25272B !important;
 }
@@ -703,6 +699,11 @@ input[type="password"] {
 
 .carousel {
 	margin-bottom: 0;
+      -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+    left: 0;
 }
 
 .header-extended .carousel {

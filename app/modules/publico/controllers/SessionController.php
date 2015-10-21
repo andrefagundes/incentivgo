@@ -151,7 +151,8 @@ class SessionController extends ControllerBase {
                 }
             } else {
 
-                $user = Usuario::findFirstByEmail($this->request->getPost('email'));
+                $user = Usuario::findFirst(array("email = '{$this->request->getPost('email')}'",'columns'=>'id,ativo'));
+              
                 if (!$user) {
                     $this->flash->error($this->_lang['nenhuma_conta_associada']);
                 } else {
@@ -230,15 +231,15 @@ class SessionController extends ControllerBase {
         $form = new CadastroUsuarioForm();
 
         //verifica se empresa tem autorização externa de cadastro
-//        $autorizacao = EmpresaDominio::build()->findFirst("empresaId = {$this->dispatcher->getParam("empresaId")} AND codigoAutorizacaoCadastro = '{$this->dispatcher->getParam("code")}' AND status = 'Y'");
-//        if(isset($autorizacao->status) && $autorizacao->status == 'Y')
-//        {
+        $autorizacao = EmpresaDominio::build()->findFirst("empresaId = {$this->dispatcher->getParam("empresaId")} AND codigoAutorizacaoCadastro = '{$this->dispatcher->getParam("code")}' AND status = 'Y'");
+        if(isset($autorizacao->status) && $autorizacao->status == 'Y')
+        {
             $this->view->empresaId = 1;
             $this->view->codigo    = 3;
-//        }else{
-//            $this->flashSession->error($this->_lang['nao_possui_autorizacao_cadastro']);
-//             return $this->response->redirect('session/mensagem');
-//        }
+        }else{
+            $this->flashSession->error($this->_lang['nao_possui_autorizacao_cadastro']);
+             return $this->response->redirect('session/mensagem');
+        }
         
         if ($this->request->isPost()) {
 

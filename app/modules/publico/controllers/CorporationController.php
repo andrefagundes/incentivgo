@@ -12,9 +12,9 @@ use Publico\Forms\CorporationForm;
  * Método publico de pré-login das empresas.
  */
 class CorporationController extends ControllerBase {
-
+    
     public function initialize() {
-        parent::initialize();
+        $this->_lang = parent::initialize();
         $this->view->setTemplateBefore('public_session');
     }
 

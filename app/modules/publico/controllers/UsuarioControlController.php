@@ -13,10 +13,11 @@ use Publico\Forms\AlteraSenhaForm;
  */
 class UsuarioControlController extends ControllerBase
 {
-
+    private $_lang = array();
+    
     public function initialize()
     {
-        parent::initialize();
+        $this->_lang = parent::initialize();
         if ($this->session->has('auth-identity')) {
             $this->view->setTemplateBefore('private');
         }
@@ -53,7 +54,7 @@ class UsuarioControlController extends ControllerBase
          * Altera a confirmação para "confirmar"
          */
         if (!$confirmation->save()) {
-            $this->flashSession->error('Não foi possível fazer a confirmação.');
+            $this->flashSession->error($this->lang['nao_possivel_confirmar']);
             return $this->response->redirect('session/mensagem');
         }
       
@@ -61,7 +62,7 @@ class UsuarioControlController extends ControllerBase
         $usuario->ativo = 'Y';
         
         if (!$usuario->save()) {
-            $this->flashSession->error('Não foi possível ativar usuário.');
+            $this->flashSession->error($this->lang['nao_possivel_ativar_usuario']);
             return $this->response->redirect('session/mensagem');
         }
 
@@ -70,7 +71,7 @@ class UsuarioControlController extends ControllerBase
             $alteraSenha = new AlteraSenha();
             $alteraSenha->usuarioId = $confirmation->usuarioId;
             if ($alteraSenha->save()) {
-                $this->flashSession->success('Sucesso! Por favor, verifique seu e-mail para criar senha.');
+                $this->flashSession->success($this->lang['verifique_email_criar_senha']);
             } else {
                 foreach ($alteraSenha->getMessages() as $message) {
                     $this->flashSession->error($message);
@@ -78,7 +79,7 @@ class UsuarioControlController extends ControllerBase
             }
             return $this->response->redirect('session/mensagem');
         }else{
-            $this->flashSession->success('E-mail confirmado e usuário ativado com sucesso.');
+            $this->flashSession->success($this->lang['email_confirmado_usuario_ativo']);
             return $this->response->redirect('session/login');
         }
     }
@@ -109,7 +110,7 @@ class UsuarioControlController extends ControllerBase
                 $alteracaoSenha->userAgent  = $this->request->getUserAgent();
 
                 if (!$alteracaoSenha->save()) {
-                    $this->flashSession->error('Erro ao alterar senha.');
+                    $this->flashSession->error($this->lang['erro_alterar_senha']);
                 } else {
                     //se alterar a senha seta o pedido de alteração para Y
                     $resetPassword->reset   = 'Y';
@@ -126,12 +127,12 @@ class UsuarioControlController extends ControllerBase
                         ));
                     }
 
-                    $this->flashSession->success('Sua senha foi alterada com sucesso.');
+                    $this->flashSession->success($this->lang['senha_alterada_sucesso']);
                     $form->clear();
                     return $this->response->redirect('session/login');
                 }
                 }else{
-                    $this->flashSession->error('Usuário não encontrado ou inativo.');
+                    $this->flashSession->error($this->lang['usuario_nao_encontrado']);
                 }
             }
         }else{

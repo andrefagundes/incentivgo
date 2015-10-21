@@ -132,32 +132,3 @@ $di->set('mail', function () {
 $di->set('funcoes', function () {
     return new Funcoes();
 });
-
-$di->set('lang', function () use ($di) {
-
-    $request = $di->get('request');
-    $session = $di->get('session');
-
-    $language = $request->getBestLanguage();
-
-    // TODO mraspor Add cookie check for lang
-    if ($session->has('lang') && null != $session->get('lang')) {
-        $language = $session->get('lang');
-    }
-    
-    $lang = strtolower(substr($language,0,2));
-    
-    // Use the user's language, if the file doesn't exist use the default one,
-    if (file_exists(__DIR__ . '/../messages/' . $lang . '.php')) {
-        require_once __DIR__ . '/../messages/' . $lang . '.php';
-    } else {
-        // Default language
-        require_once __DIR__ . '/../messages/pt.php';
-    }
-    
-    // Return translated content
-    return new \Phalcon\Translate\Adapter\NativeArray(array(
-        'content' => $messages,
-    ));
-
-}, true);

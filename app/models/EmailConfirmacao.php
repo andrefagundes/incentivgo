@@ -71,12 +71,17 @@ class EmailConfirmacao extends Model
      */
     public function afterCreate()
     {
+        $lang = $this->getDI()->getShared('lang');
+        
         $this->getDI()
             ->getMail()
             ->send(array(
             $this->user->nome => $this->user->email
-        ), "Por favor, confirme seu e-mail", 'confirmation', array(
-            'confirmUrl' => '/confirm/' . $this->codigo . '/' . $this->user->email
+        ), $lang['favor_confirme_email'], 'confirmation', array(
+            'confirmUrl' => '/confirm/' . $this->codigo . '/' . $this->user->email,
+            'confirme_email' => $lang['confirme_email'],
+            'txt_confirme_email' => $lang['txt_confirme_email'],
+            'confirmar' => $lang['confirmar']
         ));
     }
 

@@ -1,18 +1,7 @@
 var Corporation = {
     init: function(lang) {
         Corporation.lang = lang;
-        
         formataSelectEmpresa();
-        $("#form-corporation").validate({
-            rules: {
-                'dados[desafio_tipo_id]': {
-                    required: true
-                }
-            },
-            messages: {
-                'dados[desafio_tipo_id]': (Corporation.lang === 'en' ? 'Required' : 'Campo obrigatório')
-            }
-        });
     }
 };
 

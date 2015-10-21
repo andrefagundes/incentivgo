@@ -6,6 +6,8 @@ use Publico\Forms\ContatoForm;
 
 class IndexController extends ControllerBase
 {
+    private $_lang = array();
+    
     public function initialize()
     {
 //        $senha = '';
@@ -20,7 +22,7 @@ class IndexController extends ControllerBase
             $this->response->redirect("http://www.{$dominio}/corporation", true);
         }
         
-        parent::initialize();
+        $this->_lang = parent::initialize();
         $this->view->setTemplateBefore('public');
     }
     
@@ -44,12 +46,14 @@ class IndexController extends ControllerBase
                     ->send(array(
                     'Incentiv GO' => 'amfcom@gmail.com'
                 ), "Contatos", 'contato', array(
-                    'nome'      => $this->request->getPost('nome', 'striptags'),
-                    'email'     => $this->request->getPost('email', 'email'),
-                    'mensagem'  => $this->request->getPost('description', 'striptags')  
+                    'nome_usuario'  => $this->request->getPost('nome', 'striptags'),
+                    'email'         => $this->request->getPost('email', 'email'),
+                    'mensagem'      => $this->request->getPost('description', 'striptags'), 
+                    'nome'          => $this->_lang['nome'], 
+                    'contato'       => $this->_lang['contato'] 
                 ));
 
-                $this->flash->success('Mensagem enviada com sucesso, aguarde contato');
+                $this->flash->success($this->_lang['mensagem_enviada']);
                 $form->clear();
             } 
         }
