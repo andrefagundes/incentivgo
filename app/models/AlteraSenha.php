@@ -75,12 +75,16 @@ class AlteraSenha extends Model
      */
     public function afterCreate()
     {
+        $lang = $this->getDI()->getShared('lang');
         $this->getDI()
             ->getMail()
             ->send(array(
             $this->user->nome => $this->user->email
-        ), "Redefinir senha", 'reset', array(
-            'resetUrl' => '/altera-senha/' . $this->codigo . '/' . $this->user->email
+        ), $lang['redefinir_senha'], 'reset', array(
+            'resetUrl' => '/altera-senha/' . $this->codigo . '/' . $this->user->email,
+            'txt_redefinir_senha' => $lang['txt_redefinir_senha'],
+            'redefinir' => $lang['redefinir'],
+            'redefinir_sua_senha' => $lang['redefinir_sua_senha'],
         ));
     }
 

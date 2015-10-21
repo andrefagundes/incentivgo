@@ -5,7 +5,7 @@
             <div class="form-group">
                 <div class="col-sm-5 col-lg-5 text-center">
                     {{ link_to("session/enviarSugestao", 'class':'btn btn-link',
-                    "Sua empresa não está no Incentiv?<p> Envie uma sugestão para participar!!!</p>") }}
+                    lang['empresa_incentiv_1']~"?<p>"~lang['empresa_incentiv_2']~"!!!</p>") }}
                 </div>
             </div>
             <div class="form-group">
@@ -17,6 +17,7 @@
                 <div class="form-group">
                     <div class="col-sm-5 col-lg-5">
                         {{ form.render('empresa') }}
+                        {{ form.messages('empresa') }}
                     </div>
                 </div>
                 <div class="form-group">
@@ -28,10 +29,11 @@
             {{endform}}
         </div>
     </div>
+    {{hidden_field("lang",'value':lang['lang'])}}
 </section>
 {{ javascript_include('js/publico/corporation/corporation.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        Corporation.init();
+        Corporation.init($("#lang").val());
     });
 </script>

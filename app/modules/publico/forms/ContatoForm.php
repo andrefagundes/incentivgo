@@ -13,15 +13,17 @@ class ContatoForm extends Form
 
     public function initialize()
     {
+       $lang = $this->getDI()->getShared('lang');
+
         $nome = new Text('nome', array(
-            'placeholder'   => 'Informe seu nome',
+            'placeholder'   => $lang['informe_seu_nome'],
             'class'         => 'required form-control',
             'required'      => ''
         ));
 
         $nome->addValidators(array(
             new PresenceOf(array(
-                'message' => 'O nome é obrigatório'
+                'message' => $lang['nome_obrigatorio']
             ))
         ));
 
@@ -29,17 +31,17 @@ class ContatoForm extends Form
 
         // Email
         $email = new Text('email', array(
-            'placeholder'   => 'Informe seu e-mail',
+            'placeholder'   => $lang['informe_seu_email'],
             'class'         => 'required form-control',
             'required'      => ''
         ));
 
         $email->addValidators(array(
             new PresenceOf(array(
-                'message' => 'O e-mail é obrigatório'
+                'message' => $lang['email_obrigatorio']
             )),
             new Email(array(
-                'message' => 'O e-mail não é válido'
+                'message' => $lang['email_nao_valido']
             ))
         ));
         
@@ -47,7 +49,7 @@ class ContatoForm extends Form
         
         // Mensagem
         $description = new textArea('description', array(
-            'placeholder'   => 'Informe sua mensagem',
+            'placeholder'   => $lang['informe_sua_mensagem'],
             'class'         => 'required form-control',
             "rows"          => 6,
             'required'      => ''
@@ -55,7 +57,7 @@ class ContatoForm extends Form
 
         $description->addValidators(array(
             new PresenceOf(array(
-                'message' => 'A mensagem é obrigatória'
+                'message' => $lang['mensagem_obrigatoria']
             ))
         ));
 
@@ -64,7 +66,7 @@ class ContatoForm extends Form
         // Sign Up
         $this->add(new Submit('go', array(
             'class' => 'btn btn-fancy squared',
-            'Enviar'
+            $lang['enviar']
         )));
     }
 

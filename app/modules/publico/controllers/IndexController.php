@@ -8,6 +8,9 @@ class IndexController extends ControllerBase
 {
     public function initialize()
     {
+//        $senha = '';
+//        $senhacript = $this->security->hash($senha);
+//        echo $senhacript;die;
         $funcoes = $this->getDI()->getShared('funcoes');
         $subdominio = $funcoes->before('.incentivgo', $this->config->application->publicUrl);
 
@@ -17,6 +20,7 @@ class IndexController extends ControllerBase
             $this->response->redirect("http://www.{$dominio}/corporation", true);
         }
         
+        parent::initialize();
         $this->view->setTemplateBefore('public');
     }
     

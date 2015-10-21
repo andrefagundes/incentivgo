@@ -5,21 +5,21 @@
             <div class="active item" id="slide_1" data-start="background-position: center 0px;" data-1440="background-position: center -250px;">
                 <div class="row ">
                     <h1 style="font-size: 42px;" data-start="opacity:1; top: 20%;" data-250="opacity: 0; top: 10%;"> 
-                        <p>Colaboradores motivados, gerando melhores resultados</p>
-                        <p class="hidden-xs">através de desafios com pontuação, prêmios e melhor comunicação.</p>
-                        <p class="hidden-xs" style="font-size: 30px;">Plataforma Corporativa para gerenciar desafios e motivar os colaboradores através de bonificações</p>
+                        <p>{{lang['colaboradores_motivados_1']}}</p>
+                        <p class="hidden-xs">{{lang['colaboradores_motivados_2']}}</p>
+                        <p class="hidden-xs" style="font-size: 30px;">{{lang['plataforma_corporativa']}}</p>
                     </h1>
                 </div>
                 <div class="row margin">
                     <h1 class="margin row">
-                        <p>{{ link_to("session/cadastro", 'class':'btn btn-sun btn-lg btn-cool squared', "Comece Agora Grátis") }}</p>
+                        <p>{{ link_to("session/cadastro", 'class':'btn btn-sun btn-lg btn-cool squared',lang['comece_agora_gratis']) }}</p>
                     </h1>
                 </div>
             </div>
         </div>
     </div>
     <div class="hidden-sm more">
-        <a href="#services" class="btn btn-default squared" data-start="opacity:1; margin-top: 0%;" data-250="opacity:0; margin-top: -10%;"><i class="icon-angle-down"></i> Saiba mais</a>
+        <a href="#services" class="btn btn-default squared" data-start="opacity:1; margin-top: 0%;" data-250="opacity:0; margin-top: -10%;"><i class="icon-angle-down"></i> {{lang['saiba_mais']}}</a>
     </div>
 </section>
 <!--end intro section-->
@@ -29,33 +29,33 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-sm-6 col-xs-12">
-                <h1>Desafios</h1>
+                <h1>{{ lang['desafios']}}</h1>
                 <div class="col-lg-6 col-sm-6 margin">
                     <i class="icon-cogs red" data-bottom-center="opacity: 0;" data-bottom-bottom="opacity: 1;"></i>
-                    <h3>Interaja</h3>
-                    <h5>Lance desafios</h5>
-                    <p><small>Lance desafios aos seus colaboradores e tenham resultados incríveis através de metas e incentivos</small></p>
+                    <h3>{{ lang['interaja']}}</h3>
+                    <h5>{{ lang['crie_desafios']}}</h5>
+                    <p><small>{{ lang['txt_crie_desafios']}}</small></p>
                 </div>
                 <div class="col-lg-6 col-sm-6 margin">
                     <i class="icon-tablet yellow" data-bottom-center="opacity: 0;" data--60-bottom-bottom="opacity: 1;"></i>
-                    <h3>Gamificação</h3>
-                    <h5>Pontuações</h5>
-                    <p><small>Gere pontuações aos seus colaboradores através desafios e tenha um crescimento acima do esperado</small></p>
+                    <h3>{{ lang['gamificacao']}}</h3>
+                    <h5>{{ lang['pontos']}}</h5>
+                    <p><small>{{ lang['txt_gamificacao']}}</small></p>
                 </div>
             </div>
             <div class="col-lg-6  col-sm-6 col-xs-12">
-                <h1>Carreira</h1>
+                <h1>{{ lang['carreira']}}</h1>
                  <div class="col-lg-6 col-sm-6 margin">
                     <i class="icon-eye-open green" data-bottom-center="opacity: 0;" data--120-bottom-bottom="opacity: 1;"></i>
-                    <h3>Talentos</h3>
-                    <h5>Acompanhe de perto</h5>
-                    <p><small>Descubra pessoas capazes e crie grandes talentos dentro de sua empresa através de planos orientado a metas</small></p>
+                    <h3>{{ lang['talentos']}}</h3>
+                    <h5>{{ lang['acompanhe_de_perto']}}</h5>
+                    <p><small>{{ lang['txt_talentos']}}</small></p>
                 </div>
                 <div class="col-lg-6 col-sm-6 margin">
                     <i class="icon-eye-open green" data-bottom-center="opacity: 0;" data--120-bottom-bottom="opacity: 1;"></i>
-                    <h3>Resultados</h3>
-                    <h5>Tenha métricas</h5>
-                    <p><small>Colaboradores mais engajados e antenados, gerando com isso, melhores resultados para sua empresa</small></p>
+                    <h3>{{ lang['resultados']}}</h3>
+                    <h5>{{ lang['tenha_metricas']}}</h5>
+                    <p><small>{{ lang['txt_resultados']}}</small></p>
                 </div>
             </div>
         </div>
@@ -77,5 +77,5 @@
 </section>
 <!--end footer section-->
 <!--start back to top button-->
-<a href="#intro" class="hidden-sm go-top" data-0="opacity: 0;" data-1000="opacity: 1;">Início</a>
+<a href="#intro" class="hidden-sm go-top" data-0="opacity: 0;" data-1000="opacity: 1;">{{lang['inicio']}}</a>
 <!--end back to top button-->

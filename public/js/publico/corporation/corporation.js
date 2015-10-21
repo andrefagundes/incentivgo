@@ -1,5 +1,7 @@
 var Corporation = {
-    init: function() {
+    init: function(lang) {
+        Corporation.lang = lang;
+        
         formataSelectEmpresa();
         $("#form-corporation").validate({
             rules: {
@@ -8,7 +10,7 @@ var Corporation = {
                 }
             },
             messages: {
-                'dados[desafio_tipo_id]': 'Campo obrigatório'
+                'dados[desafio_tipo_id]': (Corporation.lang === 'en' ? 'Required' : 'Campo obrigatório')
             }
         });
     }
@@ -18,32 +20,39 @@ function formatoResultadoCorporation(data) {
    return data.nome;
 }
 function formatoSelectCorporation(data) {
-    return data.nome;
+    if(data.nome){
+        return data.nome;
+    }else{
+        return (Corporation.lang === 'en' ? 'Enter your company...' : 'Informe sua empresa...');
+    }
 }
 
 function formataSelectEmpresa() {
     $("#empresa").select2({
-        placeholder: "Pesquise sua empresa...",
+        language:Corporation.lang,
         minimumInputLength: 3,
         maximumSelectionSize: 1,
-        openOnEnter:true,
+        delay: 250,
         ajax: {
             url: "corporation/pesquisar-empresa/filter/",
             dataType: 'json',
-            quietMillis: 100,
-            data: function(term,page) {
+            data: function (params) {
                 return {
-                    filter: term,
-                    page:page,
-                    page_limit: 10
+                  filter: params.term, // search term
+                  page: params.page
                 };
-            },       
-            results: function(data,page) {
-                return {results: data,more:page};
-            }
+              },
+            processResults: function (data, page) {
+                // parse the results into the format expected by Select2.
+                // since we are using custom formatting functions we do not need to
+                // alter the remote JSON data
+                return {
+                  results: data
+                };
+              }
         },
-        formatResult: formatoResultadoCorporation,
-        formatSelection: formatoSelectCorporation,
-        dropdownCssClass: "bigdrop"
+        templateResult: formatoResultadoCorporation,
+        templateSelection: formatoSelectCorporation,
+        cache:true
     });
 }

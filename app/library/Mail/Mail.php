@@ -1,11 +1,11 @@
 <?php
 /**
- * Incentiv
+ * Incentiv Go
  * Plataforma online de incentivo para colaboradores de empresas
  *
  * Componente para envio de email
  *
- * @package     Incentiv
+ * @package     incentiv
  * @category    Empresas
  * @name        Mail.php
  * @author      André Maciel Fagundes <amfcom@gmail.com>
@@ -37,6 +37,7 @@ class Mail extends Component
         // Settings
         $mailSettings = $this->config->mail;
         $template = $this->getTemplate($nome, $params);
+        die($template);
         $sendgrid = new \SendGrid('amfcom','mfcom5841');
  
         $email = new \SendGrid\Email();

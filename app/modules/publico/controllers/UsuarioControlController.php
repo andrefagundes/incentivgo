@@ -16,6 +16,7 @@ class UsuarioControlController extends ControllerBase
 
     public function initialize()
     {
+        parent::initialize();
         if ($this->session->has('auth-identity')) {
             $this->view->setTemplateBefore('private');
         }

@@ -12,39 +12,41 @@ class EnviarSugestaoForm extends Form
 
     public function initialize()
     {
+        $lang = $this->getDI()->getShared('lang');
+        
         $nome = new Text('nome', array(
-            'placeholder'   => 'Informe seu nome',
+            'placeholder'   => $lang['informe_seu_nome'],
             'class'         => 'required form-control',
             'required'      => ''
         ));
 
         $nome->addValidators(array(
             new PresenceOf(array(
-                'message' => 'O nome é obrigatório'
+                'message' =>  $lang['nome_obrigatorio']
             ))
         ));
 
         $this->add($nome);
         
         $email = new Text('email', array(
-            'placeholder'   => 'Informe seu e-mail',
+            'placeholder'   => $lang['informe_seu_email'],
             'class'         => 'required form-control',
             'required'      => ''
         ));
 
         $email->addValidators(array(
             new PresenceOf(array(
-                'message' => 'O e-mail é obrigatório'
+                'message' => $lang['email_obrigatorio']
             )),
             new Email(array(
-                'message' => 'O e-mail não é válido'
+                'message' => $lang['email_nao_valido']
             ))
         ));
 
         $this->add($email);
         
         $email_empresa = new Text('email_empresa', array(
-            'placeholder'   => 'Informe o e-mail da empresa ou gerente',
+            'placeholder'   => $lang['informe_email_empresa_gerente'],
             'class'         => 'required form-control',
             'required'      => '',
             'email'         => ''
@@ -52,10 +54,10 @@ class EnviarSugestaoForm extends Form
 
         $email_empresa->addValidators(array(
             new PresenceOf(array(
-                'message' => 'O e-mail da empresa é obrigatório'
+                'message' => $lang['email_obrigatorio']
             )),
             new Email(array(
-                'message' => 'O e-mail da empresa não é válido'
+                'message' => $lang['email_nao_valido']
             ))
         ));
 
@@ -63,7 +65,7 @@ class EnviarSugestaoForm extends Form
 
         $this->add(new Submit('go', array(
             'class' => 'btn btn-syndicate squared form-control',
-            'Enviar'
+            $lang['enviar']
         )));
     }
     

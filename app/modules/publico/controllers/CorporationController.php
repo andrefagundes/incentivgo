@@ -14,6 +14,7 @@ use Publico\Forms\CorporationForm;
 class CorporationController extends ControllerBase {
 
     public function initialize() {
+        parent::initialize();
         $this->view->setTemplateBefore('public_session');
     }
 

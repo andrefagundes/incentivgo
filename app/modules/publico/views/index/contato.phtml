@@ -3,8 +3,8 @@
     <div class="container">
         <div class="row margin">
             <div class="col-lg-8 col-sm-offset-2">
-                <h1 class="text-center">Contatos</h1>
-                <p class="text-center">Olá, se tiver alguma dúvida ou sugestão, entre em contato conosco.</p>
+                <h1 class="text-center">{{lang['contato']}}</h1>
+                <p class="text-center">{{lang['txt_contato']}}</p>
             </div>
             <div class="col-lg-6 col-sm-offset-3">
                 <div class="row">
@@ -15,7 +15,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputNome" class="col-sm-2 control-label">Nome:</label>
+                            <label for="inputNome" class="col-sm-2 control-label">{{lang['name']}}:</label>
                             <div class="col-sm-8 col-lg-8">
                                 {{ form.render('nome') }}
                                 {{ form.messages('nome') }}
@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputMessage" class="col-sm-2 control-label">Mensagem:</label>
+                            <label for="inputMessage" class="col-sm-2 control-label">{{lang['mensagem']}}:</label>
                             <div class="col-sm-8 col-lg-8">
                                 {{ form.render('description') }}
                                 {{ form.messages('description') }}

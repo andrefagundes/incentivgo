@@ -2,7 +2,7 @@
 namespace Publico\Forms;
     
 use Phalcon\Forms\Form,
-    Phalcon\Forms\Element\Text,
+    Phalcon\Forms\Element\Select,
     Phalcon\Forms\Element\Submit,
     Phalcon\Forms\Element\Hidden,
     Phalcon\Validation\Validator\PresenceOf,
@@ -13,17 +13,19 @@ class CorporationForm extends Form
 
     public function initialize()
     {
+        $lang = $this->getDI()->getShared('lang');
         //empresa
-        $empresa = new Text('empresa', array(
-            'placeholder'   => 'Informe sua empresa...',
-            'class'         => 'required multi',
+        $empresa = new Select('empresa',array(), array(
+            'useEmpty'      => true,
+            'class'         => 'required',
             'style'         => 'width:100%;',
-            'required'      => ''
+            'lang'          => 'pt-BR',
+            'required'      => '',
         ));
 
         $empresa->addValidators(array(
             new PresenceOf(array(
-                'message' => 'A empresa é obrigatória'
+                'message' => $lang['empresa_obrigatoria']
             ))
         ));
 
@@ -44,7 +46,7 @@ class CorporationForm extends Form
 
         $this->add(new Submit('go', array(
             'class' => 'btn btn-syndicate squared form-control',
-            'Continuar'
+            $lang['continuar'],
         )));
     }
     

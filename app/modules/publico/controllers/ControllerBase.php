@@ -10,6 +10,13 @@ use Phalcon\Mvc\Controller,
  */
 class ControllerBase extends Controller
 {
+    //multi linguas(services.php)
+    public function initialize(){
+        $lang = $this->getDI()->getShared('lang');
+        $this->view->lang = $lang;
+        return $lang;
+    }
+
     public function disableLayoutBefore(){
         return $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }

@@ -19,6 +19,7 @@ class LoginForm extends Form
 
     public function initialize()
     {
+        $lang = $this->getDI()->getShared('lang');
 //        $select = new Select('empresaId', Empresa::find("ativo = 'Y'"), array(
 //            'using' => array(
 //                'id',
@@ -40,17 +41,17 @@ class LoginForm extends Form
 //        $this->add($select);
         // Email
         $email = new Text('email', array(
-            'placeholder'   => 'Informe seu e-mail',
+            'placeholder'   => $lang['informe_seu_email'],
             'class'         => 'required form-control',
             'required'      => ''
         ));
 
         $email->addValidators(array(
             new PresenceOf(array(
-                'message' => 'O e-mail é obrigatório'
+                'message' => $lang['email_obrigatorio']
             )),
             new Email(array(
-                'message' => 'O e-mail não é válido'
+                'message' => $lang['email_nao_valido']
             ))
         ));
 
@@ -58,7 +59,7 @@ class LoginForm extends Form
 
         // Password
         $password = new Password('password', array(
-            'placeholder'   => 'Informe sua senha',
+            'placeholder'   => $lang['informe_sua_senha'],
             'class'         => 'required form-control',
             'required'      => ''
         ));
@@ -74,7 +75,7 @@ class LoginForm extends Form
             'value'         => 'no'
         ));
 
-        $remember->setLabel('Lembrar');
+        $remember->setLabel($lang['lembrar']);
 
         $this->add($remember);
 

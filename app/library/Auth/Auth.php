@@ -23,18 +23,19 @@ class Auth extends Component
      */
     public function check($credentials)
     {
+        $lang = $this->getDI()->getShared('lang');
 
         // Verifique se o usuário existe
         $user = Usuario::findFirstByEmail($credentials['email']);
         if ($user == false) {
             $this->registerUserThrottling(0);
-            throw new Exception('E-mail ou senha inválidos');
+            throw new Exception($lang['email_senha_invalidos']);
         }
 
         // Verifica a senha
         if (!$this->security->checkHash($credentials['senha'], $user->senha)) {
             $this->registerUserThrottling($user->id);
-            throw new Exception('E-mail ou senha inválidos');
+            throw new Exception($lang['email_senha_invalidos']);
         }
 
         // Verifique se o usuário está ativo

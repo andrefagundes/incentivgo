@@ -6,17 +6,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="#intro" class="navbar-brand margin"><span class="incentiv">Incentiv </span><span class="go">Go</span> <span class="h6">beta</span></a>
+            <a href="#intro" class="navbar-brand margin"><span class="incentiv">Incentiv </span><span class="go">Go</span></a>
             <div class="collapse navbar-collapse navbar-responsive-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#intro">Início</a></li>
-                    <li><a href="#services">Como funciona?</a></li>
-                    <li>{{ link_to("contato", "Contato") }}</li>
+                    <li><a href="#intro">{{lang['inicio']}}</a></li>
+                    <li><a href="#services">{{lang['como_funciona']}}</a></li>
+                    <li>{{ link_to("contato", lang['contato']) }}</li>
                 </ul>
                 <div class="navbar-right navbar-responsive-collapse">
                     <div class="navbar-btn">
-                        {{ link_to("corporation", 'class':'btn btn-syndicate squared', "Entrar") }}
-                        {{ link_to("session/cadastro", 'class':'btn btn-sun squared', "Cadastrar Empresa") }}
+                        {{ link_to("corporation", 'class':'btn btn-syndicate squared', lang['entrar']) }}
+                        {{ link_to("session/cadastro", 'class':'btn btn-sun squared', lang['cadastrar_empresa']) }}
                     </div>
                 </div>
             </div>

@@ -15,30 +15,32 @@ class AlteraSenhaForm extends Form
 
     public function initialize()
     {
+        $lang = $this->getDI()->getShared('lang');
+        
         // senha
-        $password = new Password('senha',array('placeholder'   => 'Informe a nova senha','class' => 'required form-control'));
+        $password = new Password('senha',array('placeholder'   => $lang['informe_nova_senha'],'class' => 'required form-control'));
 
         $password->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Senha é obrigatória'
+                'message' => $lang['senha_obrigatoria']
             )),
             new StringLength(array(
                 'min' => 6,
-                'messageMinimum' => 'Senha curta. Mínimo 6 caracteres'
+                'messageMinimum' => $lang['senha_curta']
             ))
         ));
 
         $this->add($password);
 
         // Confirma senha
-        $confirmSenha = new Password('confirmSenha',array('placeholder'   => 'Confirme a nova senha','class' => 'required form-control'));
+        $confirmSenha = new Password('confirmSenha',array('placeholder'   => $lang['confirme_nova_senha'],'class' => 'required form-control'));
 
         $confirmSenha->addValidators(array(
             new PresenceOf(array(
-                'message' => 'A confirmação de senha é obrigatória'
+                'message' => $lang['confirmacao_obrigatoria']
             )),
             new Confirmation(array(
-                'message' => 'A senha não confere',
+                'message' => $lang['senha_nao_confere'],
                 'with' => 'senha'
             ))
         ));
@@ -60,7 +62,7 @@ class AlteraSenhaForm extends Form
         
         $this->add(new Submit('go', array(
             'class' => 'btn btn-syndicate squared form-control',
-            'Alterar Senha'
+            $lang['alterar_senha']
         )));
     }
     

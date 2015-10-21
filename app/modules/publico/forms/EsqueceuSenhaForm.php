@@ -12,18 +12,20 @@ class EsqueceuSenhaForm extends Form
 
     public function initialize()
     {
+        $lang = $this->getDI()->getShared('lang');
+        
         $email = new Text('email', array(
-            'placeholder'   => 'Informe seu e-mail',
+            'placeholder'   => $lang['informe_seu_email'],
             'class'         => 'required form-control',
             'required'      => ''
         ));
 
         $email->addValidators(array(
             new PresenceOf(array(
-                'message' => 'O e-mail é obrigatório'
+                'message' => $lang['email_obrigatorio']
             )),
             new Email(array(
-                'message' => 'O e-mail não é válido'
+                'message' => $lang['email_nao_valido']
             ))
         ));
 
@@ -31,7 +33,7 @@ class EsqueceuSenhaForm extends Form
 
         $this->add(new Submit('go', array(
             'class' => 'btn btn-syndicate squared form-control',
-            'Enviar'
+            $lang['enviar'],
         )));
     }
     

@@ -8,6 +8,7 @@ use Phalcon\Forms\Form,
     Phalcon\Forms\Element\Submit,
     Phalcon\Validation\Validator\PresenceOf,
     Phalcon\Validation\Validator\Email,
+    Phalcon\Validation\Validator\StringLength,
     Phalcon\Validation\Validator\Identical,
     Phalcon\Validation\Validator\Confirmation;
 
@@ -15,15 +16,17 @@ class CadastroUsuarioForm extends Form
 {
     public function initialize()
     {
+        $lang = $this->getDI()->getShared('lang');
+        
         $this->id = 'cadastro';
         $nome = new Text('nome', array(
-            'placeholder'   => 'Informe o seu nome',
+            'placeholder'   => $lang['informe_seu_nome'],
             'class'         => 'required form-control',
         ));
 
         $nome->addValidators(array(
             new PresenceOf(array(
-                'message' => 'O nome é obrigatório'
+                'message' => $lang['nome_obrigatorio']
             ))
         ));
 
@@ -31,16 +34,16 @@ class CadastroUsuarioForm extends Form
 
         // Email
         $email = new Text('email', array(
-            'placeholder'   => 'Informe seu e-email',
+            'placeholder'   => $lang['informe_seu_email'],
             'class'         => 'required form-control',
         ));
 
         $email->addValidators(array(
             new PresenceOf(array(
-                'message' => 'O e-mail é obrigatório'
+                'message' => $lang['email_obrigatorio']
             )),
             new Email(array(
-                'message' => 'O e-mail não é válido'
+                'message' => $lang['email_nao_valido']
             ))
         ));
 
@@ -48,14 +51,18 @@ class CadastroUsuarioForm extends Form
 
         // senha
         $password = new Password('senha', array(
-            'placeholder'   => 'Informe sua senha',
+            'placeholder'   => $lang['informe_sua_senha'],
             'class'         => 'required form-control',
             'required'      => ''
         ));
 
         $password->addValidators(array(
             new PresenceOf(array(
-                'message' => 'A senha é obrigatória'
+                'message' => $lang['senha_obrigatoria']
+            )),
+            new StringLength(array(
+                'min' => 6,
+                'messageMinimum' => $lang['senha_curta']
             ))
         ));
 
@@ -63,17 +70,17 @@ class CadastroUsuarioForm extends Form
         
         // Confirma Matrícula
         $confirmSenha = new Password('confirmSenha', array(
-            'placeholder'   => 'Confirme sua senha',
+            'placeholder'   => $lang['confirme_sua_senha'],
             'class'         => 'required form-control',
             'required'      => ''
         ));
         
         $confirmSenha->addValidators(array(
             new PresenceOf(array(
-                'message' => 'A confirmação de senha é obrigatória'
+                'message' => $lang['confirmacao_obrigatoria']
             )),
             new Confirmation(array(
-                'message' => 'A senha não confere',
+                'message' => $lang['senha_nao_confere'],
                 'with' => 'senha'
             ))
         ));
@@ -96,7 +103,7 @@ class CadastroUsuarioForm extends Form
         // Sign Up
         $this->add(new Submit('go', array(
             'class' => 'btn btn-syndicate squared form-control',
-            'Cadastrar'
+            $lang['cadastrar']
         )));
     }
 

@@ -16,15 +16,17 @@ class CadastroForm extends Form
 {
     public function initialize()
     {
+        $lang = $this->getDI()->getShared('lang');
+        
         $this->id = 'cadastro';
         $nome = new Text('nome', array(
-            'placeholder'   => 'Informe o nome da empresa',
+            'placeholder'   => $lang['informe_nome_empresa'],
             'class'         => 'required form-control',
         ));
 
         $nome->addValidators(array(
             new PresenceOf(array(
-                'message' => 'O nome da empresa é obrigatório'
+                'message' => $lang['nome_obrigatorio']
             ))
         ));
 
@@ -32,16 +34,16 @@ class CadastroForm extends Form
 
         // Email
         $email = new Text('email', array(
-            'placeholder'   => 'Informe um e-mail de contato',
+            'placeholder'   => $lang['informe_email_contato'],
             'class'         => 'required form-control',
         ));
 
         $email->addValidators(array(
             new PresenceOf(array(
-                'message' => 'O e-mail é obrigatório'
+                'message' => $lang['email_obrigatorio']
             )),
             new Email(array(
-                'message' => 'O e-mail não é válido'
+                'message' => $lang['email_nao_valido']
             ))
         ));
 
@@ -49,14 +51,14 @@ class CadastroForm extends Form
 
         // telefone
         $telefone = new Text('telefone', array(
-            'placeholder'   => 'Informe um telefone de contato',
+            'placeholder'   => $lang['informe_telefone_contato'],
             'class'         => 'required form-control',
             'id'         => 'telefone',
         ));
 
         $telefone->addValidators(array(
             new PresenceOf(array(
-                'message' => 'O telefone é obrigatório'
+                'message' => $lang['telefone_obrigatorio']
             ))  
         ));
 
@@ -78,7 +80,7 @@ class CadastroForm extends Form
         // Sign Up
         $this->add(new Submit('go', array(
             'class' => 'btn btn-syndicate squared form-control',
-            'Enviar Pré-Cadastro'
+            $lang['enviar_pre_cadastro']
         )));
     }
 
