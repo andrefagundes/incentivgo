@@ -8,7 +8,7 @@
         <meta name="author" content="André Maciel Fagundes">
         <meta name="keywords" content="incentivo, empresas, business, corporações, corporation"/>
         <meta name="robots" content="index,follow,noodp,noydir" />
-        <title>Bem-vindo ao Incentiv</title>
+        <title>{{lang['bem_vindo']}}</title>
 
         <link rel="canonical" href="http://www.incentivgo.com.br/" />
         <link rel="shortcut icon" href="" />
@@ -18,12 +18,14 @@
         {{ stylesheet_link('css/bootstrap/bootstrap.min.css') }}
         {{ stylesheet_link('css/bootstrap/fileinput.min.css') }}
         {{ stylesheet_link('css/empresa/style-empresa.css') }}
-        {{ stylesheet_link('css/fonts/font.css') }}
         {{ stylesheet_link('css/fonts/font-awesome.min.css') }}
+        {{ stylesheet_link('css/fonts/font.css') }}
         {{ stylesheet_link('css/select2.css') }}
+        {{ stylesheet_link('css/select2-bootstrap.css') }}
+        {{ stylesheet_link('css/bootstrap-datetimepicker.min.css') }}
         {{ stylesheet_link('css/empresa/plugin.css') }}
         
-        {{ stylesheet_link('http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', false) }}
+<!--        {{ stylesheet_link('http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', false) }}-->
 <!--        {{ stylesheet_link('http://fonts.googleapis.com/css?family=Raleway:200,400', false) }}-->
         
         {{ javascript_include('js/jquery.min.js') }}
@@ -35,7 +37,7 @@
         <![endif]-->
         <!--[if lte IE 8]>
                 {{ javascript_include('js/empresa/js-library/ie/respond.min.js') }}
-	<![endif]-->
+        <![endif]-->
     </head>
 
     <body  data-spy="scroll" data-target=".navbar" data-offset='61' >
@@ -58,8 +60,8 @@
         {{ javascript_include('js/moment.locale.min.js') }}
         
         <!--select2--> 
-        {{ javascript_include('js/select2.min.js') }}
-        {{ javascript_include('js/select2_locale_pt-BR.js') }}
+        {{ javascript_include('js/select2/select2.min.js') }}
+        {{ javascript_include('js/select2/i18n/pt-BR.js') }}
 
          <!--app--> 
         {{ javascript_include('js/empresa/js-library/app.js') }}
@@ -71,8 +73,8 @@
         <!--fuelux--> 
         {{ javascript_include('js/empresa/js-library/fuelux/fuelux.js') }}
          <!--datepicker--> 
-        {{ javascript_include('js/empresa/js-library/datepicker/bootstrap-datepicker.js') }}
-        {{ javascript_include('js/empresa/js-library/datepicker/locales/bootstrap-datepicker.pt-BR.js') }}
+        {{ javascript_include('js/empresa/js-library/datepicker/bootstrap-datetimepicker-min.js') }}
+        <!--{{ javascript_include('js/empresa/js-library/datepicker/locales/bootstrap-datepicker.pt-BR.js') }}-->
          <!--slider--> 
         <!--{{ javascript_include('js/empresa/js-library/slider/bootstrap-slider.js') }}-->
          <!--file input-->   

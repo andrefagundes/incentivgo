@@ -306,7 +306,7 @@ class Usuario extends Model
     
     public function fetchAllUsuariosDesafio(\stdClass $objUsuario){
 
-        $usuario = Usuario::query()->columns(array('id','nome','email'));
+        $usuario = Usuario::query()->columns(array('id','text'=>'nome'));
         
         if($objUsuario->filter)
         {

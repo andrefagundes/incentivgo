@@ -28,6 +28,7 @@ class EmpresaRecompensaController extends ControllerBase {
             $this->view->avatar            = $this->_auth['avatar'];
             $this->view->setTemplateBefore('private-empresa');
         }
+        parent::initialize();
     }
     /**
      * Action padrão, mostra o formulário de busca

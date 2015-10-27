@@ -39,14 +39,16 @@ var NovaMensagem = {
 };
 
 function formatoResultado(data) {
-   return data.nome;
+   return data.text;
 }
 function formatoSelect(data) {
-    return data.nome;
+    return data.text;
 }
 
 function formataSelectColaboradores() {
     $("#destinatarios-mensagem").select2({
+        allowClear: true,
+        theme: "bootstrap",
         placeholder: "Pesquise o colaborador",
         minimumInputLength: 3,
         multiple: true,
@@ -55,20 +57,25 @@ function formataSelectColaboradores() {
             url: "desafio/pesquisar-colaborador/filter/",
             dataType: 'json',
             quietMillis: 100,
-            data: function(term,page) {
+            data: function (params) {
                 return {
-                    filter: term,
-                    page:page,
-                    page_limit: 10
+                  filter: params.term, // search 
+                  page_limit: 10,
+                  page: params.page
                 };
-            },
-                     
-            results: function(data,page) {
-                return {results: data,more:page};
+            },       
+            processResults: function (data, page) {
+                // parse the results into the format expected by Select2.
+                // since we are using custom formatting functions we do not need to
+                // alter the remote JSON data
+                
+                return {
+                  results: data
+                };
             }
         },
         formatResult: formatoResultado,
         formatSelection: formatoSelect,
-        dropdownCssClass: "bigdrop"
+        cache:false
     });
 }

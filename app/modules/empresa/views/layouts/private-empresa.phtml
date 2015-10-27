@@ -13,14 +13,14 @@
                 <b class="caret hidden-xs-only"></b>
             </a>
             <ul class="dropdown-menu">
-                <li>{{ link_to("empresa/perfil", 'Meu Perfil') }}</li>
-                <li>{{ link_to("empresa/personalizar", 'Perfil Empresa') }}</li>
+                <li>{{ link_to("empresa/perfil", lang['meu_perfil']) }}</li>
+                <li>{{ link_to("empresa/personalizar", lang['perfil_empresa']) }}</li>
                 <li class="divider"></li>
-                <li>{{ link_to('session/logout', 'Sair') }}</li>
+                <li>{{ link_to('session/logout', lang['sair']) }}</li>
             </ul>
         </li>
     </ul>
-    <a class="navbar-brand" href="#">Incentiv Go</a>
+    {{ link_to("", 'class':'navbar-brand', '<img title="Incentiv Go" class="logo" src="/img/logotipo-incentiv-go-curvas-04-p.png">') }}
     <button type="button" class="btn btn-link pull-left nav-toggle visible-xs" data-toggle="class:slide-nav slide-nav-left" data-target="body">
         <i class="fa fa-bars fa-lg text-default"></i>
     </button>
@@ -30,7 +30,7 @@
                 <a href="#mensagens" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope-o fa-fw fa-lg text-default"></i><b class="badge badge-notes bg-danger count-n">0</b></a>
                 <section class="dropdown-menu m-l-small m-t-mini">
                     <section class="panel panel-large arrow arrow-top">
-                        <header class="panel-heading bg-white"><span class="h5"><strong>Você tem <span class="count-n">0</span> mensagens não lidas</strong></span></header>
+                        <header class="panel-heading bg-white"><span class="h5"><strong><?php echo $lang->_("mensagens_totais", array("count" => '<span class="count-n">0</span>')); ?></strong></span></header>
                         <div class="list-group">
                             <a href="#" class="media list-group-item" style="display: none">
                                 <span class="media-body block m-b-none">
@@ -39,7 +39,7 @@
                         </div>
                         <footer class="panel-footer text-small">
                             <a href="#" class="pull-right"><i class="fa fa-cog"></i></a>
-                            {{ link_to('empresa/mensagens', 'Mostrar todas as mensagens') }}
+                            {{ link_to('empresa/mensagens', lang['mostrar_todas_mensagens']) }}
                         </footer>
                     </section>
                 </section>
@@ -56,33 +56,33 @@
 <nav id="nav" class="nav-primary hidden-xs nav-vertical">
     <ul class="nav" data-spy="affix" data-offset-top="50">
         <li class="dropdown-submenu" id="menu-geral">
-            {{ link_to("empresa/geral", '<i class="fa fa-th fa-lg"></i><span>Geral</span>') }}
+            {{ link_to("empresa/geral", '<i class="fa fa-th fa-lg"></i><span>'~lang['geral']~'</span>') }}
         </li>
         <li class="dropdown-submenu" id="menu-desafio">
-            {{ link_to("empresa/desafio",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Crie desafios aos seus colaboradores',  '<i class="fa fa-exclamation"></i><span>Desafios</span>') }}
+            {{ link_to("empresa/desafio",'data-toggle':'tooltip','data-placement':'right','data-original-title':lang['crie_desafios'],  '<i class="fa fa-exclamation"></i><span>'~lang['desafios']~'</span>') }}
         </li>
         <li class="dropdown-submenu" id="menu-noticia">
-            {{ link_to("empresa/noticia",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Informe as novidades da empresa pra seus colaboradores', '<i class="fa fa-arrow-circle-right"></i><span>Notícias</span>') }}
+            {{ link_to("empresa/noticia",'data-toggle':'tooltip','data-placement':'right','data-original-title':lang['informe_novidades'], '<i class="fa fa-arrow-circle-right"></i><span>'~lang['noticias']~'</span>') }}
         </li>
         <li class="dropdown-submenu" id="menu-colaborador">
-            {{ link_to("empresa/colaborador",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Cadastro e alteração dos usuários',  '<i class="fa fa-users fa-lg"></i><span>Usuários</span>') }}
+            {{ link_to("empresa/colaborador",'data-toggle':'tooltip','data-placement':'right','data-original-title':lang['cadastro_alteracao_usuarios'],  '<i class="fa fa-users fa-lg"></i><span>'~lang['usuarios']~'</span>') }}
         </li>
         <li class="dropdown-submenu" id="menu-ideia">
-            {{ link_to("empresa/ideia",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Ideias enviadas pelos colaboradores', '<i class="fa fa-lightbulb-o fa-lg"></i><span>Banco de ideias</span>') }}
+            {{ link_to("empresa/ideia",'data-toggle':'tooltip','data-placement':'right','data-original-title':lang['ideias_enviadas_colaboradores'], '<i class="fa fa-lightbulb-o fa-lg"></i><span>'~lang['banco_de_ideias']~'</span>') }}
         </li>
         <li class="dropdown-submenu" id="menu-recompensa">
             <a href="#"><i class="fa fa-info fa-lg"></i><span>Incentivs</span></a>
             <ul class="dropdown-menu">
                 {% if perfilId == perfilAdmin %}
-                    <li>{{ link_to("empresa/recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Regra de uso dos incentivs (pontos) dos colaboradores', '<span>Criar/Alterar Regras</span>') }}</li>
+                    <li>{{ link_to("empresa/recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':lang['regras_uso_incentivs'], '<span>'~lang['criar_alterar_regras']~'</span>') }}</li>
                     <!--<li>{{ link_to("empresa/recompensa/utilizar-recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Debitar incentivs do colaborador por uso de recompensa', 'Utilizar') }}</li>-->                    
                 {% endif %}
-                <li>{{ link_to("empresa/recompensa/ver-pedidos-recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':'Pedidos de uso de incentivs (pontos) dos colaboradores', '<span>Ver Pedidos</span>') }}</li>
+                <li>{{ link_to("empresa/recompensa/ver-pedidos-recompensa",'data-toggle':'tooltip','data-placement':'right','data-original-title':lang['pedidos_uso_incentivs'], '<span>'~lang['ver_pedidos']~'</span>') }}</li>
             </ul>
         </li>
        </li>
         <li class="dropdown-submenu" id="menu-mensagem">
-            {{ link_to("empresa/mensagens", 'data-toggle':'tooltip','data-placement':'right','data-original-title':'Todas as mensagens', '<i class="fa fa-envelope-o fa-lg"></i><span>Mensagens</span>') }}
+            {{ link_to("empresa/mensagens", 'data-toggle':'tooltip','data-placement':'right','data-original-title':lang['todas_mensagens'], '<i class="fa fa-envelope-o fa-lg"></i><span>'~lang['mensagens']~'</span>') }}
         </li>
 <!--        <li class="dropdown-submenu">
             <a href="#"><i class="fa fa-calendar fa-lg"></i><span>Eventos</span></a>

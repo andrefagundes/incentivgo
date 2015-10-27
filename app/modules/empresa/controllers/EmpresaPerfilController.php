@@ -19,6 +19,7 @@ class EmpresaPerfilController extends ControllerBase {
             $this->view->id             = $auth['id'];
             $this->view->setTemplateBefore('private-empresa');
         }
+        parent::initialize();
     }
 
     public function indexAction() {

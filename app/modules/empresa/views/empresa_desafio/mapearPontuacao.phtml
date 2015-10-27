@@ -3,10 +3,14 @@
         <div class="col-sm-12">
             {% for tipoDesafio in tipo_desafios %}
                 <div class="form-group">
-                    <label class="col-lg-5 control-label" data-placement="left" data-toggle="tooltip" data-original-title="Pontuação em que desafio é considerado {{tipoDesafio.desafioTipo|convert_encoding('latin1', 'utf8')}}.">{{tipoDesafio.desafioTipo|convert_encoding('latin1', 'utf8')}}:</label>
+                    {% if lang['lang'] == "pt-BR" %}
+                        <label class="col-lg-5 control-label" data-placement="left" data-toggle="tooltip" data-original-title="{{lang['pontuacao_desafio_status']}} {{tipoDesafio.desafioTipo|convert_encoding('latin1', 'utf8')}}.">{{tipoDesafio.desafioTipo|convert_encoding('latin1', 'utf8')}}:</label>
+                    {% else %}
+                        <label class="col-lg-5 control-label" data-placement="left" data-toggle="tooltip" data-original-title="{{lang['pontuacao_desafio_status']}} {{tipoDesafio.desafioTipoEn|convert_encoding('latin1', 'utf8')}}.">{{tipoDesafio.desafioTipoEn|convert_encoding('latin1', 'utf8')}}:</label>
+                    {% endif %}
                     <div class="col-lg-7">
                         <div class="spinner input-group col-lg-3 form-control-static" id="MySpinner">
-                            {{ text_field("dados[tipos]["~tipoDesafio.id~"]", 'id':tipoDesafio.id,'value':tipoDesafio.pontuacao, 'class':"required messa tipoDesafio input-sm spinner-input form-control", 'title':'Campo Obrigatório') }}
+                            {{ text_field("dados[tipos]["~tipoDesafio.id~"]", 'id':tipoDesafio.id,'value':tipoDesafio.pontuacao, 'class':"required messa tipoDesafio input-sm spinner-input form-control", 'title':lang['campo_obrigatorio']) }}
                             <div class="btn-group btn-group-vertical input-group-btn">
                                 <button class="btn btn-white spinner-up" type="button">
                                     <i class="fa fa-chevron-up"></i>
@@ -16,7 +20,7 @@
                                 </button>
                             </div>
                         </div>
-                         <label id="ideia-error" class="error" style="display: none;" for="{{tipoDesafio.id}}">Campo obrigatório</label>
+                         <label id="ideia-error" class="error" style="display: none;" for="{{tipoDesafio.id}}">{{lang['campo_obrigatorio']}}</label>
                     </div>   
                 </div>
             {% endfor %}

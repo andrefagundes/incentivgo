@@ -6,6 +6,15 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 a{color:#3a5a7a}
 a:hover, a:focus{text-decoration:none;}
 
+.form-group.required .control-label::after {
+    color: red;
+    content: "*";
+}
+
+.navbar-brand {
+  padding:0px;
+}
+
 img{max-width: 100%}
 /*primary nav*/
 .nav-primary:before, .nav-primary:after {display: table;content: " ";}
@@ -476,7 +485,7 @@ input[type="text"], select, textarea{min-width: 40px;height: auto;}
 /* Header */
 .navbar{border:none;border-bottom: 1px solid #d1d4d7;box-shadow:0 0 5px rgba(0,0,0,.1);z-index: 1010;border-radius: 0;padding:0;margin-bottom: 0}
 .navbar.bg{border-bottom: 1px solid #162636;}
-.navbar-brand{min-width:90px; text-align: center;}
+.navbar-brand{min-width:96px; text-align: center;}
 .navbar-brand img{max-height: 50px}
 .navbar-form{position: relative;margin: 10px;padding: 0}
 .navbar-form input[type="text"]{border-radius: 17px;font-weight: 700;text-indent: 1.5em;}

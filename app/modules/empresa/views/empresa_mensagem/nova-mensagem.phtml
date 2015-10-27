@@ -5,7 +5,14 @@
             <div class="form-group">
                 <label class="col-lg-3 control-label">Enviar para:</label>
                 <div class="col-lg-9 select2-allowclear">
-                    {{ text_field("dados[destinatarios-mensagem]", 'id':'destinatarios-mensagem','value':'','class': 'multi', 'style':'width:90%;') }}
+                     <?php 
+                        echo Phalcon\Tag::select(array('id'=>'destinatarios-mensagem',
+                                                    'class'=>'form-control select2',
+                                                    'multiple'=>'multiple',
+                                                    'value' =>[],
+                                                    'name'=>'dados[destinatarios-mensagem]','style'=>'width:90%'),
+                               array());
+                         ?>
                 </div>
             </div>
             <div class="form-group" id="div_colab_resp">

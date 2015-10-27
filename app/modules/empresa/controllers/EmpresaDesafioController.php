@@ -17,6 +17,7 @@ use Incentiv\Models\Usuario,
  */
 class EmpresaDesafioController extends ControllerBase {
     private $_auth;
+    private $_lang = array();
     
     public function initialize() {
         $this->_auth = $this->auth->getIdentity();
@@ -29,6 +30,7 @@ class EmpresaDesafioController extends ControllerBase {
             $this->view->empresaId         = $this->_auth['empresaId'];
             $this->view->setTemplateAfter('private-empresa');
         }
+       $this->_lang = parent::initialize();
     }
     /**
      * Action padrão, mostra o formulário de busca
@@ -74,28 +76,48 @@ class EmpresaDesafioController extends ControllerBase {
 
         $resultDesafio = Desafio::build()->findFirst($this->dispatcher->getParam('code'));
         
-        $idsParticipantes = "";
+        $arrayParticipantes = $arrayUsuarioResponsavelId = array();
+        $idsParticipantes = $idUsuarioResponsavel = array();
         foreach ($resultDesafio->desafioUsuario as $participantes){
-            $idsParticipantes .= $participantes->usuarioId.',';
+            $arrayParticipantes[$participantes->usuarioId] = utf8_decode($participantes->usuario->nome);
+            $idsParticipantes[] = $participantes->usuarioId;
         }
-        
+//        die(var_dump($arrayParticipantes));
+        if($resultDesafio->tipo == Desafio::DESAFIO_TIPO_EQUIPE){
+                $usuarioResp = Usuario::build()->findFirst($resultDesafio->usuarioResponsavelId);
+                $arrayUsuarioResponsavelId[$usuarioResp->id] = $usuarioResp->nome;
+                $idUsuarioResponsavel = $usuarioResp->id;
+        }
+
         $desafios_tipo = DesafioTipo::build()->buscarTiposDesafio($this->_auth['empresaId']);
-        
+
         foreach ($desafios_tipo as $desafios) {
-            $nivel_desafios[$desafios->id] = '<strong>'.$desafios->desafioTipo.'</strong> ( '.$desafios->pontuacao." incentivs )"; 
+            $desafioTipo = ($this->_lang['lang'] == 'pt-BR')?$desafios->desafioTipo:$desafios->desafioTipoEn;
+            $nivel_desafios[$desafios->id] = '<strong>'.$desafioTipo.'</strong> ( '.$desafios->pontuacao." incentivs )"; 
         }
- 
+
+        $dt_inicio = $dt_fim = '';
+        if($resultDesafio->inicioDt){
+            $dt_inicio = $this->di->get('funcoes')->formatarDataSaida($resultDesafio->inicioDt,$this->_lang['lang']);
+        }
+        if($resultDesafio->fimDt){
+            $dt_fim = $this->di->get('funcoes')->formatarDataSaida($resultDesafio->fimDt,$this->_lang['lang']);
+        }
+
         $this->view->setVar('nivel_desafios',$nivel_desafios);
 
         $this->view->setVar("id",       $resultDesafio->id);
         $this->view->setVar("desafio",  $resultDesafio->desafio);
         $this->view->setVar("desafioTipoId",$resultDesafio->desafioTipoId);
         $this->view->setVar("tipo",     $resultDesafio->tipo);
-        $this->view->setVar("inicioDt", (!empty($resultDesafio->inicioDt))?date('d/m/Y',strtotime($resultDesafio->inicioDt)):'');
-        $this->view->setVar("fimDt",    (!empty($resultDesafio->fimDt))?date('d/m/Y',strtotime($resultDesafio->fimDt)):'');
+        $this->view->setVar("inicioDt", $dt_inicio);
+        $this->view->setVar("fimDt",    $dt_fim);
         $this->view->setVar("premiacao",$resultDesafio->premiacao);
-        $this->view->setVar("colaborador_responsavel",$resultDesafio->usuarioResponsavelId);
-        $this->view->setVar("colaboradores",  substr($idsParticipantes,0, strlen($idsParticipantes)-1));
+        $this->view->setVar("colaborador_responsavel",$arrayUsuarioResponsavelId);
+        $this->view->setVar("id_colaborador_responsavel",$idUsuarioResponsavel);
+        $this->view->setVar("colaboradores",  $arrayParticipantes);
+//        die(substr($idsParticipantes,0, strlen($idsParticipantes)-2));
+        $this->view->setVar("arr_colaboradores_participantes", $idsParticipantes);
 
     }
     
@@ -117,13 +139,21 @@ class EmpresaDesafioController extends ControllerBase {
             }
         }
         
+        $dt_inicio = $dt_fim = '';
+        if($resultDesafio->inicioDt){
+            $dt_inicio = $this->di->get('funcoes')->formatarDataSaida($resultDesafio->inicioDt,$this->_lang['lang']);
+        }
+        if($resultDesafio->fimDt){
+            $dt_fim = $this->di->get('funcoes')->formatarDataSaida($resultDesafio->fimDt,$this->_lang['lang']);
+        }
+
         $this->view->setVar("id",       $resultDesafio->id);
         $this->view->setVar("desafio",  $resultDesafio->desafio);
         $this->view->setVar("pontuacao",$pontuacaoDesafio->pontuacao);
         $this->view->setVar("desafioTipoId",$resultDesafio->desafioTipoId);
         $this->view->setVar("tipo",     ($resultDesafio->desafio == Desafio::DESAFIO_TIPO_INDIVIDUAL)?'Individual':'Por Equipe');
-        $this->view->setVar("inicioDt", (!empty($resultDesafio->inicioDt))?date('d/m/Y',strtotime($resultDesafio->inicioDt)):'');
-        $this->view->setVar("fimDt",    (!empty($resultDesafio->fimDt))?date('d/m/Y',strtotime($resultDesafio->fimDt)):'');
+        $this->view->setVar("inicioDt", $dt_inicio);
+        $this->view->setVar("fimDt", $dt_fim);
         $this->view->setVar("premiacao",$resultDesafio->premiacao);
         $this->view->setVar("colaborador_responsavel",$colaborador_responsavel);
         $this->view->setVar("colaboradores",  substr($nomeParticipantes,0, strlen($nomeParticipantes)-2));

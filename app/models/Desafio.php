@@ -187,8 +187,8 @@ class Desafio extends Model
                                 'Incentiv\Models\Desafio.premiacao',
                                 'status' => 'Incentiv\Models\Desafio.ativo'));
         
-        $desafios->innerjoin('Incentiv\Models\DesafioUsuario', 'Incentiv\Models\Desafio.id = DesafioUsuario.desafioId AND Incentiv\Models\Desafio.usuarioResponsavelId = DesafioUsuario.usuarioId', 'DesafioUsuario');
-    
+        $desafios->leftjoin('Incentiv\Models\DesafioUsuario', 'Incentiv\Models\Desafio.id = DesafioUsuario.desafioId AND Incentiv\Models\Desafio.usuarioResponsavelId = DesafioUsuario.usuarioId', 'DesafioUsuario');
+     
         $desafios->where("Incentiv\Models\Desafio.empresaId = {$objDesafio->empresaId}");
         
         if($objDesafio->perfilId == Perfil::GERENTE){
@@ -205,9 +205,9 @@ class Desafio extends Model
         {
             $desafios->andwhere("Incentiv\Models\Desafio.ativo = '{$objDesafio->ativo}'");
         }
-        
+              
         $desafios->orderBy('Incentiv\Models\Desafio.id desc');
-        
+ 
         return $desafios->execute();
     }
     
@@ -236,6 +236,7 @@ class Desafio extends Model
         //traz os serviços funcoes e db para o model
         $funcoes = $this->getDI()->getShared('funcoes');
         $db      = $this->getDI()->getShared('db');
+        $lang    = $this->getDI()->getShared('lang');
         
         $db->begin();
 
@@ -247,7 +248,7 @@ class Desafio extends Model
         }
         
         if($dados['tipo_desafio'] == Desafio::DESAFIO_TIPO_INDIVIDUAL){
-            $dados['colaborador-responsavel'] = $dados['colaboradores-participantes'];
+            $dados['colaborador-responsavel'] = $dados['colaboradores-participantes'][0];
         }
 
         $desafio->assign(array(
@@ -258,11 +259,11 @@ class Desafio extends Model
             'usuarioResponsavelId'  => $dados['colaborador-responsavel'],
             'desafioTipoId'     => (int) $dados['desafio_tipo_id'],
             'premiacao'     => $dados['premiacao'],
-            'inicioDt'      => $funcoes->formatarData($dados['data_inicio']),
-            'fimDt'         => $funcoes->formatarData($dados['data_fim'])
+            'inicioDt'      => ($lang['lang'] == 'pt-BR')?$funcoes->formatarData($dados['data_inicio']):$funcoes->formatarDataEn($dados['data_inicio']),
+            'fimDt'         => ($lang['lang'] == 'pt-BR')?$funcoes->formatarData($dados['data_fim']):$funcoes->formatarDataEn($dados['data_fim']),
         ));
-        
-        $colaboradores = explode(',', $dados['colaboradores-participantes']);
+
+        $colaboradores = $dados['colaboradores-participantes'];
         $desafioUsuario = array();
         
         //grava os usuarios participantes
@@ -283,12 +284,12 @@ class Desafio extends Model
         }else{
             //envio dos emails para os usuários que participam do desafio criado.
             foreach ($usuarios_email as $usuario){
-                $this->getDI()
-                    ->getMail()
-                    ->send($usuario['email'], "Novo Desafio", 'novo_desafio', array(
-                    'nome'      => $usuario['nome'],  
-                    'loginUrl' => '/session/login'
-                ));
+//                $this->getDI()
+//                    ->getMail()
+//                    ->send($usuario['email'], "Novo Desafio", 'novo_desafio', array(
+//                    'nome'      => $usuario['nome'],  
+//                    'loginUrl' => '/session/login'
+//                ));
             } 
         }
 

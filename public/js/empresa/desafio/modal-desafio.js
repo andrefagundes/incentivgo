@@ -1,36 +1,41 @@
 var ModalDesafio = {
     
-    init: function() {
-        
-        var DESAFIO_TIPO_INDIVIDUAL = 1;
-        var DESAFIO_TIPO_EQUIPE     = 2;
-        
+    init: function(lang) {
+        ModalDesafio.lang = lang;
+        ModalDesafio.DESAFIO_TIPO_INDIVIDUAL = 1;
+        ModalDesafio.DESAFIO_TIPO_EQUIPE     = 2;
+
         if($("#hidden_id").val() == ""){
             $("#colaboradores-participantes").prop("disabled", true);
             $("#div_colab_resp").hide();
         }else{
-            if($("#tipoDesafio").val() == DESAFIO_TIPO_INDIVIDUAL){
+            if($("#tipoDesafio").val() == ModalDesafio.DESAFIO_TIPO_INDIVIDUAL){
                 $("#div_colab_resp").hide();
-            }else if($("#tipoDesafio").val() == DESAFIO_TIPO_EQUIPE){
+            }else if($("#tipoDesafio").val() == ModalDesafio.DESAFIO_TIPO_EQUIPE){
                 $("#div_colab_resp").show();
             }
         }
-        
+        $.fn.modal.Constructor.prototype.enforceFocus =function(){};
         $("#tipoDesafio").change(ModalDesafio.verificarTipoDesafio);
 
         ModalDesafio.formataInputData();
         formataSelectColaboradores();
         formataSelectColaboradorResp();
+        
+        $.validator.setDefaults({
+            ignore: []
+        });
 
         $("#form-desafio").validate({
             rules: {
+                debug: true,
                 'dados[desafio_tipo_id]': {
                     required: true
                 },
                 'dados[tipo_desafio]': {
                     required: true
                 },
-                'dados[colaboradores-participantes]': {
+                'dados[colaboradores-participantes][]': {
                     validarParticipantes: true
                 },
                 'dados[colaborador-responsavel]': {
@@ -40,80 +45,54 @@ var ModalDesafio = {
                     required: true
                 },
                 'dados[data_inicio]': {
-                    required: true,
-                    validarData: true
+                    required: true
                 },
                 'dados[data_fim]': {
-                    required: true,
-                    validarData: true
+                    required: true
                 }
             },
             messages: {
-                'dados[desafio_tipo_id]': 'Campo obrigatório',
-                'dados[tipo_desafio]': 'Campo obrigatório',
-                'dados[desafio]': 'Campo obrigatório',
-                'dados[data_inicio]': 'Campo obrigatório',
-                'dados[data_fim]': 'Campo obrigatório',
-                'dados[colaboradores-participantes]':'Campo obrigatório',
-                'dados[colaborador-responsavel]':'Campo obrigatório'
+                'dados[desafio_tipo_id]': (ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório'),
+                'dados[tipo_desafio]': (ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório'),
+                'dados[desafio]': (ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório'),
+                'dados[data_inicio]': (ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório'),
+                'dados[data_fim]': (ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório'),
+                'dados[colaboradores-participantes][]':{
+                    required:(ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório'),
+                    minlength:(ModalDesafio.lang === 'en' ? 'Selecione um colaborador' : 'Selecione um colaborador')
+                },
+                'dados[colaborador-responsavel]':(ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório')
             }
         });
         
         jQuery.validator.addMethod("validarParticipantes", function() {
-            if($("#colaboradores-participantes").val() === '')
+            if($("#colaboradores-participantes").val() === '' || $("#colaboradores-participantes").val() === null )
             {
                 return false;
             }
             return true;
-        }, "Campo obrigatório");
+        }, (ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório'));
         
         jQuery.validator.addMethod("validarParticipanteResponsavel", function() {
-            if($("#tipoDesafio").val() == 2 && $("#colaborador-responsavel").val() == '' )
+            if($("#tipoDesafio").val() == 2 && ($("#colaborador-responsavel").val() == '' || $("#colaborador-responsavel").val() === null ) )
             {
                 return false;
             }
             return true;
-        }, "Campo obrigatório");
-
-        jQuery.validator.addMethod("validarData", function(value, element) {
-            var date = value;
-            var ardt = new Array;
-            var ExpReg = new RegExp("(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}");
-            ardt = date.split("/");
-            erro = false;
-            if (date.search(ExpReg) === -1) {
-                erro = true;
-            }
-            else if (((ardt[1] === 4) || (ardt[1] === 6) || (ardt[1] === 9) || (ardt[1] === 11)) && (ardt[0] > 30))
-                erro = true;
-            else if (ardt[1] === 2) {
-                if ((ardt[0] > 28) && ((ardt[2] % 4) !== 0))
-                    erro = true;
-                if ((ardt[0] > 29) && ((ardt[2] % 4) === 0))
-                    erro = true;
-            }
-            if (erro) {
-                element.focus();
-                element.value = "";
-                return false;
-            }
-
-            return true;
-
-        }, "Data inválida");
+        }, (ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório'));
     },
     formataInputData: function() {
-        $('.datepickerDesafio').datepicker({
-            language: "pt-BR",
-            dateFormat: "dd/mm/yyyy",
-            multidate: false,
-            keyboardNavigation: false,
-            autoclose: true,
-            todayHighlight: true
+
+        $('.data-desafio').datetimepicker({
+            locale: ModalDesafio.lang,
+            format:'L',
+            icons: {
+                    date: "fa fa-calendar"
+                }
         });
     },
     verificarTipoDesafio:function(){
-        $("#colaboradores-participantes,#colaborador-responsavel").val(null).trigger("change");
+        $("#colaboradores-participantes,#colaborador-responsavel").val(null).select2().select2('destroy');
         $("#colaboradores-participantes").prop("disabled", false);
         
         if($(this).val() == 1){
@@ -131,92 +110,74 @@ var ModalDesafio = {
 };
 
 function formatoResultado(data) {
-   return data.nome;
+   return data.text;
 }
 function formatoSelect(data) {
-    return data.nome;
+    return data.text;
 }
 
 function formataSelectColaboradores(quantColaboradores) {
     $("#colaboradores-participantes").select2({
-        placeholder: "Pesquise por colaborador",
+        allowClear: true,
+        theme: "bootstrap",
+        language:ModalDesafio.lang,
+        maximumSelectionLength:quantColaboradores,
+        placeholder:(ModalDesafio.lang === 'en' ? 'Select participants employees...' : 'Selecione os colaboradores participantes...'),
         minimumInputLength: 3,
-        maximumSelectionSize: quantColaboradores,
-        multiple: true,
-        openOnEnter:true,
         ajax: {
             url: "desafio/pesquisar-colaborador/filter/",
             dataType: 'json',
-            quietMillis: 100,
-            data: function(term,page) {
+            delay:150,
+            quietMillis: 250,
+            data: function (params) {
                 return {
-                    filter: term,
-                    page:page,
-                    page_limit: 10
+                  filter: params.term, // search 
+                  page_limit: 10,
+                  page: params.page
                 };
-            },
-                     
-            results: function(data,page) {
-                return {results: data,more:page};
+            },       
+            processResults: function (data, page) {        
+                return {
+                  results: data
+                };
             }
         },
-        initSelection: function(element,callback) {
-    
-            var id_colaboradores = $(element).val();
-            if (id_colaboradores !== "")
-            {
-                $.ajax("desafio/pesquisar-colaborador/filter/?colaboradores=" + id_colaboradores, {
-                    dataType: "json",
-                    results: function(data) {
-                        return {results: data};
-                    }
-                }).done(function(data) { callback(data); });     
-            }
-        },
-        formatResult: formatoResultado,
-        formatSelection: formatoSelect,
-        dropdownCssClass: "bigdrop"
+        templateResult: formatoResultado,
+        templateSelection: formatoSelect,
+        cache:false
     });
 }
 
 function formataSelectColaboradorResp() {
     $("#colaborador-responsavel").select2({
-        placeholder: "Pesquise por colaborador",
+        theme: "bootstrap",
+        allowClear: true,
+        language:ModalDesafio.lang,
+        placeholder:(ModalDesafio.lang === 'en' ? 'Select the employee responsible...' : 'Selecione o colaborador responsável...'),
         minimumInputLength: 3,
-        maximumSelectionSize: 1,
-        multiple: true,
-        openOnEnter:true,
+        maximumSelectionLength: 1,
         ajax: {
             url: "desafio/pesquisar-colaborador/filter/",
             dataType: 'json',
+            delay:150,
             quietMillis: 100,
-            data: function(term,page) {
+            data: function (params) {
                 return {
-                    filter: term,
-                    page:page,
-                    page_limit: 10
+                  filter: params.term, // search term
+                  page: params.page
                 };
-            },
-                     
-            results: function(data,page) {
-                return {results: data,more:page};
-            }
+              },
+            processResults: function (data, page) {
+                // parse the results into the format expected by Select2.
+                // since we are using custom formatting functions we do not need to
+                // alter the remote JSON data
+                return {
+                  results: data
+                };
+              }
         },
-        initSelection: function(element,callback) {
-    
-            var id_colaboradores = $(element).val();
-            if (id_colaboradores !== "")
-            {
-                $.ajax("desafio/pesquisar-colaborador/filter/?colaboradores=" + id_colaboradores, {
-                    dataType: "json",
-                    results: function(data) {
-                        return {results: data};
-                    }
-                }).done(function(data) { callback(data); });     
-            }
-        },
-        formatResult: formatoResultado,
-        formatSelection: formatoSelect,
-        dropdownCssClass: "bigdrop"
+        templateResult: formatoResultado,
+        templateSelection: formatoSelect,
+        cache:false
     });
 }

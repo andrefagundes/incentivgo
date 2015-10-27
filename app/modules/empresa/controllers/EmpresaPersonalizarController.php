@@ -21,6 +21,7 @@ class EmpresaPersonalizarController extends ControllerBase {
             $this->view->id             = $this->_auth['id'];
             $this->view->setTemplateBefore('private-empresa');
         }
+        parent::initialize();
     }
 
     public function indexAction() {

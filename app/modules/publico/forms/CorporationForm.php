@@ -19,7 +19,6 @@ class CorporationForm extends Form
             'useEmpty'      => true,
             'class'         => 'required',
             'style'         => 'width:100%;',
-            'lang'          => 'pt-BR',
             'required'      => '',
         ));
 

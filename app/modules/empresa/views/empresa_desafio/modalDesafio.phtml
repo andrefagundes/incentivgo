@@ -3,77 +3,105 @@
     <div class="row">
         <div class="col-sm-11">
             <div class="form-group">
-                <label class="col-lg-3 control-label">Nível do Desafio</label>
+                <label class="col-lg-3 control-label">{{lang['nivel_do_desafio']}}</label>
                 <div class="col-lg-9 select2-allowclear">
                   <?php 
                         echo Phalcon\Tag::select(array(
                         "desafioTipoId",
-                        'class'=>'form-control',
+                        'class'=>'form-control required',
                         'name'=>'dados[desafio_tipo_id]','value'=>$desafioTipoId,
                         $nivel_desafios,
                         "using" => array("id", "desafioTipo"),
                         'useEmpty' => true,
-                        'emptyText' => 'Selecione o nível do desafio...',
+                        'emptyText' => $lang['selecione_nivel_desafio'],
                         'emptyValue' => ''
                     )); ?>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 control-label">Tipo de Desafio</label>
+                <label class="col-lg-3 control-label">{{lang['tipo_de_desafio']}}</label>
                 <div class="col-lg-9 select2-allowclear">
                   <?php 
     
                      echo Phalcon\Tag::select(array('id'=>'tipoDesafio',
-                                                    'class'=>'form-control',
+                                                    'class'=>'form-control required',
                                                     'name'=>'dados[tipo_desafio]','value'=>$tipo) ,
-                                              array(''=>'Selecione o tipo de desafio...',
-                                                    1 => "Individual", 
-                                                    2 => "Por equipe")) ?>
+                                              array(''=>$lang['selecione_tipo_desafio'],
+                                                    1 => $lang['individual'], 
+                                                    2 => $lang['por_equipe'])) ?>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 control-label">Colaboradores participantes</label>
-                <div class="col-lg-9 select2-allowclear">
-                    {{ text_field("dados[colaboradores-participantes]", 'id':'colaboradores-participantes','value':colaboradores,'class': 'multi', 'style':'width:353px;') }}
+                <label class="col-lg-3 control-label">{{lang['colaboradores_participantes']}}</label>
+                <div class="col-lg-9">
+                    <?php 
+                        echo Phalcon\Tag::select(array('id'=>'colaboradores-participantes',
+                                                    'class'=>'form-control select2-multiple required',
+                                                    'multiple'=>'multiple',
+                                                    'using' => ['id', 'nome'],
+                                                    'value' => $arr_colaboradores_participantes,
+                                                    'name'=>'dados[colaboradores-participantes][]','style'=>'width:100%'),
+                                                    $colaboradores);
+                         ?>
+                    <label id="colaboradores-participantes-error" class="error" for="colaboradores-participantes" style="display: none;"></label>
                 </div>
             </div>
             <div class="form-group" id="div_colab_resp">
-                <label class="col-lg-3 control-label">Colaborador responsável</label>
-                <div class="col-lg-9 select2-allowclear">
-                    {{ text_field("dados[colaborador-responsavel]", 'id':'colaborador-responsavel','value':colaborador_responsavel,'class': 'multi', 'style':'width:353px;') }}
+                <label class="col-lg-3 control-label">{{lang['colaborador_responsavel']}}</label>
+                <div class="col-lg-9"><?php
+                     echo Phalcon\Tag::select(array('id'=>'colaborador-responsavel',
+                                                    'class'=>'form-control select2',
+                                                    'name'=>'dados[colaborador-responsavel]',
+                                                    'value'=>[$id_colaborador_responsavel],'style'=>'width:100%'),
+                                             $colaborador_responsavel);
+                         ?>
+                    <label id="colaboradores-participantes-error" class="error" for="colaborador-responsavel" style="display: none;"></label>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 control-label">Desafio</label>
+                <label class="col-lg-3 control-label">{{lang['desafio']}}</label>
                 <div class="col-lg-9">
-                    {{ text_area("dados[desafio]", 'id':'desafio', 'placeholder': 'Ex: Concluir vinte vendas até o final do mês.','value':desafio,'rows':'3', 'class':'bg-focus form-control') }}
+                    {{ text_area("dados[desafio]", 'id':'desafio', 'placeholder': 'Ex: '~lang['concluir_ex'],'value':desafio,'rows':'3', 'class':'bg-focus form-control required') }}
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 control-label">Data início</label>
+                <label class="col-lg-3 control-label">{{lang['data_inicio']}}</label>
                 <div class="col-lg-4">
-                    {{ text_field("dados[data_inicio]", 'id':'data_inicio','value':inicioDt,'data-date-format': 'dd/mm/yyyy','autocomplete':'off', 'class':'form-control datepickerDesafio') }}
-                </div>   
-            </div>
-            <div class="form-group">
-                <label class="col-lg-3 control-label">Data fim</label>
-                <div class="col-lg-4">
-                    {{ text_field('dados[data_fim]', 'id':'data_fim','value':fimDt,'data-date-format': 'dd/mm/yyyy','autocomplete':'off', 'class':'form-control datepickerDesafio') }}
+                    <div class="input-group date data-desafio">
+                        {{ text_field('dados[data_inicio]', 'id':'data_inicio','value':inicioDt, 'class':'form-control') }}
+                        <span class="input-group-addon">
+                            <span class="fa fa-calendar"></span>
+                        </span>
+                    </div>
+                    <label id="data_inicio-error" class="error" for="data_inicio" style="display: none">Campo obrigatório</label>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 control-label">Premiação</label>
+                <label class="col-lg-3 control-label">{{lang['data_fim']}}</label>
+                <div class="col-lg-4">
+                    <div class="input-group date data-desafio">
+                        {{ text_field('dados[data_fim]', 'id':'data_fim','value':fimDt, 'class':'form-control') }}
+                        <span class="input-group-addon">
+                            <span class="fa fa-calendar"></span>
+                        </span>
+                    </div>
+                    <label id="data_fim-error" class="error" for="data_fim" style="display: none">Campo obrigatório</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">{{lang['premiacao']}}</label>
                 <div class="col-lg-9">
-                    {{ text_area("dados[premiacao]", 'id':'premiacao','value':premiacao, 'placeholder': 'Ex: Almoço pago pela empresa em uma sexta-feira.','rows':'2', 'class':'form-control') }}
+                    {{ text_area("dados[premiacao]", 'id':'premiacao','value':premiacao, 'placeholder': 'Ex: '~lang['almocao_ex'],'rows':'2', 'class':'form-control') }}
                 </div>
             </div>
         </div>
     </div>
+    {{hidden_field("lang",'value':lang['lang'])}}
 </section>
 <!-- Fim Modal Criar Regra -->
 {{ javascript_include('js/empresa/desafio/modal-desafio.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        ModalDesafio.init();
+        ModalDesafio.init($("#lang").val());
     });
 </script>

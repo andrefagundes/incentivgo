@@ -21,6 +21,7 @@ class EmpresaGeralController extends ControllerBase {
         $this->_auth = $this->auth->getIdentity();
         $this->view->perfilAdmin     = Perfil::ADMINISTRADOR;
         $this->view->perfilId        = $this->_auth['perfilId'];
+        parent::initialize();
         if (!$this->request->isAjax()) {
             
             if($this->_auth['perfilId'] == \Incentiv\Models\Perfil::GERENTE){

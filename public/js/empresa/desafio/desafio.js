@@ -1,6 +1,6 @@
 var Desafio = {
-    init: function(){
-        
+    init: function(lang){
+        Desafio.lang = lang;
         //marcar menu ativo
         $(".dropdown-submenu").removeClass('active');
         $("#menu-desafio").addClass('active');
@@ -16,13 +16,13 @@ var Desafio = {
         
         //evento do botão de criar desafio
         $("#btnCriarDesafio").click(function() {
-            $("#myModalLabel").html('Criar Desafio');
+            $("#myModalLabel").html((Desafio.lang === 'en' ? 'Create Challenge' : 'Criar Desafio'));
             $( "#modal-body-desafio" ).html('').load( "desafio/modal-desafio/"+0 );
             $('#modalCriarDesafio').modal('show'); 
         });
         
         $("#btnMapearPontuacaoDesafio").click(function(){
-            $("#myModalLabelMapearDesafio").html('Mapear Pontuação de Desafios');
+            $("#myModalLabelMapearDesafio").html((Desafio.lang === 'en' ? 'Map Challenges Score' : 'Mapear Pontuação de Desafios'));
             $("#modal-body-mapear-desafio").html('').load( "desafio/modal-mapear-pontuacao-desafio" );
             $("#modalMapearPontuacaoDesafio").modal('show'); 
         });

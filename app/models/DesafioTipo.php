@@ -21,9 +21,14 @@ class DesafioTipo extends Model
     public $id; 
     
     /**
-     * @var integer
+     * @var char
      */
     public $desafioTipo;
+    
+    /**
+     * @var char
+     */
+    public $desafioTipo_en;
    
     /**
      * @var char
@@ -66,6 +71,7 @@ class DesafioTipo extends Model
         $desafios = $this::query()->columns(
                          array( 'Incentiv\Models\DesafioTipo.id',
                                 'Incentiv\Models\DesafioTipo.desafioTipo',
+                                'Incentiv\Models\DesafioTipo.desafioTipoEn',
                                 'desafioPontuacao.pontuacao'));
         
         $desafios->leftjoin('Incentiv\Models\DesafioPontuacao', "Incentiv\Models\DesafioTipo.id = desafioPontuacao.desafioTipoId AND desafioPontuacao.empresaId = {$empresaId} AND desafioPontuacao.ativo = 'Y'", 'desafioPontuacao');

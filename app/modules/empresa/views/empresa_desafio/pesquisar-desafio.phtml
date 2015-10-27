@@ -6,16 +6,20 @@
             <td class="td-responsive">
                 <div class="pull-right text-muted">
                     {% if(desafio.desafioTipoId == 1) %}
-                        {% set nivel_label = 'Fácil' %}
+                        {% set h_nivel_label = lang['h_n_facil'] %}
+                        {% set nivel_label = lang['n_facil'] %}
                     {% elseif(desafio.desafioTipoId == 2)  %}
-                        {% set nivel_label = 'Médio' %}
+                        {% set h_nivel_label = lang['h_n_medio'] %}
+                        {% set nivel_label = lang['n_medio'] %}
                     {% elseif(desafio.desafioTipoId == 3)  %}
-                        {% set nivel_label = 'Difícil' %} 
+                        {% set h_nivel_label = lang['h_n_dificil'] %} 
+                        {% set nivel_label = lang['n_dificil'] %} 
                     {% elseif(desafio.desafioTipoId == 4)  %}
-                        {% set nivel_label = 'Super Difícil' %}
+                        {% set h_nivel_label = lang['h_n_super_dificil'] %}
+                        {% set nivel_label = lang['n_super_dificil'] %}
                     {% endif %}
                     <small>
-                    <span class="label label-info" data-placement="left" data-toggle="tooltip" data-original-title="Nível {{nivel_label}}">
+                    <span class="label label-info" data-placement="left" data-toggle="tooltip" data-original-title="{{h_nivel_label}}">
                             {{nivel_label}}
                         </span>
                     </small>
@@ -23,10 +27,10 @@
                     <small>
                         {% if(desafio.status == 'N') %}
                         {% set status = 'danger' %} 
-                        {% set status_label = 'Inativo' %}
+                        {% set status_label = lang['inativo'] %}
                         {% else  %}
                         {% set status = 'success' %} 
-                        {% set status_label = 'Ativo' %}
+                        {% set status_label = lang['ativo'] %}
                         {% endif %}
                         <span class="label label-{{status}}" data-placement="right" data-toggle="tooltip" data-original-title="Status {{status_label}}">
                             {{status_label}}
@@ -35,23 +39,23 @@
                 </div>
                 {% if(desafio.tipo is 1) %}
                 {% set tipo = 'info' %} 
-                {% set tipo_label = 'Individual' %}
+                {% set tipo_label = lang['individual'] %}
                 {% elseif(desafio.tipo is 2)  %}
                 {% set tipo = 'success' %} 
-                {% set tipo_label = 'Por Equipe' %}
+                {% set tipo_label = lang['por_equipe'] %}
                 {% endif %}
-                <span class="label label-{{tipo}}" data-placement="left" data-toggle="tooltip" title="Desafio {{tipo_label}}"> {{tipo_label}}</span>
+                <span class="label label-{{tipo}}" data-placement="left" data-toggle="tooltip" title="{{lang['desafio']}} {{tipo_label}}"> {{tipo_label}}</span>
                {% if usuarioId == desafio.usuarioId %}
                     <!--<span data-placement="left" data-toggle="tooltip" data-original-title="Período Válido" >{{desafio.inicioDt}} a {{desafio.fimDt}} </span>--> 
-                   <div class="btn-group" data-placement="right" data-toggle="tooltip" data-original-title="Ações">
+                   <div class="btn-group" data-placement="right" data-toggle="tooltip" data-original-title="{{lang['acoes']}}">
                        <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
                        <ul class="dropdown-menu pull-left">
-                           <li class="text-left"><a href="#" class="btnAlterarDesafio" id="{{desafio.id}}"><i class="icon-pencil"></i> Alterar</a></li>
+                           <li class="text-left"><a href="#" class="btnAlterarDesafio" id="{{desafio.id}}"><i class="icon-pencil"></i> {{lang['alterar']}}</a></li>
                            <li class="divider"></li>
                            {% if(desafio.status == 'N') %}
-                               <li class="text-left">{{linkTo('empresa/desafio/ativar-inativar-desafio/Y/'~desafio.id, '<i class="icon-plus-sign"></i> Ativar')}}
+                               <li class="text-left">{{linkTo('empresa/desafio/ativar-inativar-desafio/Y/'~desafio.id, '<i class="icon-plus-sign"></i>'~lang['ativar'])}}
                            {% else %}
-                               <li class="text-left">{{linkTo('empresa/desafio/ativar-inativar-desafio/N/'~desafio.id, '<i class="fa fa-minus-square-o"></i> Inativar')}}</li>
+                               <li class="text-left">{{linkTo('empresa/desafio/ativar-inativar-desafio/N/'~desafio.id, '<i class="fa fa-minus-square-o"></i>'~lang['inativar'])}}</li>
                            {% endif %}
                            <!--                           
                                                        <li class="text-left"><a href="#" id="{{desafio.id}}"><i class="icon-remove"></i> Deletar</a> </li>-->
@@ -64,7 +68,7 @@
         {% elsefor %}
             <tr class="row">
                 <td class="table-responsive">
-                    <h6 class="text-center text-info">Nenhum desafio cadastrado.</h6>
+                    <h6 class="text-center text-info">{{lang['nenhum_desafio']}}</h6>
                 </td>
             </tr>
         {% endfor %}
@@ -73,26 +77,27 @@
 <section class="panel-footer">
     <footer>
         <div class="row">
-            <div class="col-lg-1 text-center"  data-placement="bottom" data-toggle="tooltip" data-original-title="Desafios Cadastrados: {{page.total_items}}">
-                <small class="text-muted inline m-t-small m-b-small"><span class="label label-large bg-default " id="quantidade-desafio">{{page.total_items}}</span> Desafios </small>
+            <div class="col-lg-1 text-center"  data-placement="bottom" data-toggle="tooltip" data-original-title="{{lang['desafios_cadastrados']}}: {{page.total_items}}">
+                <small class="text-muted inline m-t-small m-b-small"><span class="label label-large bg-default " id="quantidade-desafio">{{page.total_items}}</span> {{lang['desafios']}} </small>
             </div>
             <div class="col-lg-3 col-lg-offset-3 text-center">
-                <small class="text-muted inline m-t-small m-b-small">Mostrando {{ page.current }} de {{ page.total_pages }}</small>
+                <small class="text-muted inline m-t-small m-b-small">{{lang['p_mostrando']}} {{ page.current }} de {{ page.total_pages }}</small>
             </div>
             <div class="col-lg-5 text-right text-center-lg">                
                 <ul class="pagination pagination-small m-t-none m-b-none">
-                    <li><a href="#" class="fa btnPaginacaoDesafio" id="1"><i class="icons icon-fast-backward"></i> Primeiro</a></li>
-                    <li><a href="#" class="fa btnPaginacaoDesafio" id="{{page.before}}"><i class="icons icon-step-backward"></i> Anterior</a></li>
-                    <li><a href="#" class="fa btnPaginacaoDesafio" id="{{page.next}}"><i class="icons icon-step-forward"></i> Próximo</a></li>
-                    <li><a href="#" class="fa btnPaginacaoDesafio" id="{{page.last}}">Último <i class="icons icon-fast-forward"></i> </a></li>
+                    <li><a href="#" class="fa btnPaginacaoDesafio" id="1"><i class="icons icon-fast-backward"></i> {{lang['p_primeiro']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoDesafio" id="{{page.before}}"><i class="icons icon-step-backward"></i> {{lang['p_anterior']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoDesafio" id="{{page.next}}"><i class="icons icon-step-forward"></i> {{lang['p_proximo']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoDesafio" id="{{page.last}}">{{lang['p_ultimo']}} <i class="icons icon-fast-forward"></i> </a></li>
                 </ul>
             </div>
         </div>
     </footer>
 </section>
+{{hidden_field("lang",'value':lang['lang'])}}
 {{ javascript_include('js/empresa/desafio/pesquisar-desafio.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        pesquisarDesafio.init();
+        pesquisarDesafio.init($("#lang").val());
     });
 </script>

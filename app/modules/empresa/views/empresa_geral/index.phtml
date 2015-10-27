@@ -5,7 +5,7 @@
             <div class="col-xs-6">              
                 <section class="panel">
                     <header class="panel-heading bg-white">
-                        <div class="text-center h5">Desafios Criados</div>
+                        <div class="text-center h5">{{lang['desafios_criados']}}</div>
                     </header>
                     <div class="panel-body pull-in text-center">
                         <div class="inline">
@@ -19,7 +19,7 @@
             <div class="col-xs-6">
                 <section class="panel">
                     <header class="panel-heading bg-white">
-                        <div class="text-center h5">Usuários</div>
+                        <div class="text-center h5">{{lang['usuarios']}}</div>
                     </header>
                     <div class="panel-body pull-in text-center">
                         <div class="inline">
@@ -35,18 +35,18 @@
         <section class="panel">
             <div class="panel-body text-muted l-h-2x text-center">
                 <span class="badge bg-info">{{count_pontuacao_total_gerada}}</span>
-                <span class="m-r-small">Pontuação total gerada</span>
+                <span class="m-r-small">{{lang['pontuacao_total_gerada']}}</span>
                 <span class="badge bg-danger">{{count_pedidos_incentiv}}</span>
-                <span class="m-r-small">{{ link_to("empresa/recompensa/ver-pedidos-recompensa",'data-toggle':'tooltip','data-placement':'bottom','data-original-title':'Pedidos de uso de incentivs (pontos) dos colaboradores para baixa', 'Pedidos de uso de incentivs') }}</span>
+                <span class="m-r-small">{{ link_to("empresa/recompensa/ver-pedidos-recompensa",'data-toggle':'tooltip','data-placement':'bottom','data-original-title':lang['pedidos_uso_incentivs_baixa'], lang['pedidos_uso_incentivs']) }}</span>
                 <span class="badge bg-danger">{{count_ideias_aprovacao}}</span>
-                <span class="m-r-small">{{ link_to("empresa/ideia",'data-toggle':'tooltip','data-placement':'bottom','data-original-title':'Ideias enviadas pelos colaboradores para aprovação', 'Ideias para aprovação') }}</span>
+                <span class="m-r-small">{{ link_to("empresa/ideia",'data-toggle':'tooltip','data-placement':'bottom','data-original-title':lang['ideias_enviadas_aprovacao'], lang['ideias_aprovacao']) }}</span>
             </div>
         </section>
     </div>
     <div class="col-lg-6">
         <section class="panel">
             <header class="panel-heading">
-                <span class="label label-large bg-default">{{count_desafios_cumpridos}}</span> Desafios Cumpridos para Aprovação
+                <span class="label label-large bg-default">{{count_desafios_cumpridos}}</span> {{lang['desafios_aprovacao']}}
             </header>
             <?php echo $this->flashSession->output(); ?>
             <table class="table table-responsive table-striped table-condensed">
@@ -56,16 +56,16 @@
                             <td class="td-responsive">
                                 {% if(desafio['tipo'] is 1) %}
                                 {% set tipo = 'info' %} 
-                                {% set tipo_label = 'Individual' %}
+                                {% set tipo_label = lang['individual'] %}
                                 {% elseif(desafio['tipo'] is 2)  %}
                                 {% set tipo = 'success' %} 
-                                {% set tipo_label = 'Por Equipe' %}
+                                {% set tipo_label = lang['por_equipe'] %}
                                 {% endif %}
-                                <span class="label label-{{tipo}}" data-placement="left" data-toggle="tooltip" title="Tipo de Desafio"> {{tipo_label}}</span>
-                                <div class="btn-group" data-placement="right" data-toggle="tooltip" data-original-title="Ações">
+                                <span class="label label-{{tipo}}" data-placement="left" data-toggle="tooltip" title="{{lang['tipo_de_desafio']}}"> {{tipo_label}}</span>
+                                <div class="btn-group" data-placement="right" data-toggle="tooltip" data-original-title="{{lang['acoes']}}">
                                     <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
                                     <ul class="dropdown-menu pull-left">
-                                        <li class="text-left"><a href="#" class="btnAnalisar" id="{{desafio['id']}}"><i class="icon-angle-down"></i> Analisar</a></li>
+                                        <li class="text-left"><a href="#" class="btnAnalisar" id="{{desafio['id']}}"><i class="icon-angle-down"></i> {{lang['analisar']}}</a></li>
                                     </ul>
                                 </div>
                                 <h6>{{desafio['desafio']}}</h6>
@@ -74,7 +74,7 @@
                     {% elsefor %}
                         <tr class="row">
                             <td class="table-responsive">
-                                <h6 class="text-center text-info">Nenhum desafio para aprovação neste momento.</h6>
+                                <h6 class="text-center text-info">{{lang['nenhum_desafio']}}.</h6>
                             </td>
                         </tr>
                     {% endfor %}
@@ -89,14 +89,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{{lang['fechar']}}</span></button>
                 <h4 class="modal-title" id="myModalLabelDesafios"></h4>
             </div>
             <div class="modal-body" id="modal-body-analisar-desafio"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnReprovarDesafio">Reprovar</button>
-                <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnAprovarDesafio">Aprovar</button>
+                <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">{{lang['cancelar']}}</button>
+                <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnReprovarDesafio">lang['reprovar']</button>
+                <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnAprovarDesafio">lang['aprovar']</button>
             </div>
         </div>
     </div>

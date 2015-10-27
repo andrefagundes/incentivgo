@@ -33,6 +33,7 @@ class EmpresaMensagemController extends ControllerBase {
             $this->view->avatar            = $this->_auth['avatar'];
             $this->view->setTemplateBefore('private-empresa');
         }
+        parent::initialize();
     }
     
     public function mensagemAction(){

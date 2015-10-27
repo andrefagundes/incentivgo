@@ -27,6 +27,7 @@ class EmpresaIdeiaController extends ControllerBase {
             $this->view->count_ideias      = Ideia::build()->count("status = 'Y' AND empresaId = {$this->_auth['empresaId']}");
             $this->view->setTemplateAfter('private-empresa');
         }
+        parent::initialize();
     }
     /**
      * Action padrão, mostra o formulário de busca

@@ -1,11 +1,11 @@
 <div class="clearfix">
-    <h4><i class="fa fa-exclamation"></i> Desafios</h4>
+    <h4><i class="fa fa-exclamation"></i> {{lang['desafios']}}</h4>
 </div>
 <div class="row">
     <div class="col-lg-12">
         <!-- .breadcrumb -->
         <ul class="breadcrumb">
-            <li><a href="#">Desafios</a></li>
+            <li><a href="#">{{lang['desafios']}}</a></li>
         </ul>
         <!-- / .breadcrumb -->
     </div>
@@ -15,15 +15,15 @@
         <section class="panel">
             <header class="panel-heading">
                 <div class="pull-left col-lg-4">
-                        <button type="button" class="btn btn-sm btn-facebook squared" id="btnCriarDesafio">Criar Desafio</button>
+                        <button type="button" class="btn btn-sm btn-facebook squared" id="btnCriarDesafio">{{lang['criar_desafio']}}</button>
                     {% if perfilId == perfilAdmin %}
-                        <button type="button" class="btn btn-sm btn-facebook squared" id="btnMapearPontuacaoDesafio">Mapear Pontuação</button>
+                        <button type="button" class="btn btn-sm btn-facebook squared" id="btnMapearPontuacaoDesafio">{{lang['mapear_pontuacao']}}</button>
                     {% endif %}
                 </div>
                 <div class="col-lg-4 input-group">
-                    <input type="text" id="filterDesafio" class="input-sm form-control" placeholder="Pesquisar por desafios">
+                    <input type="text" id="filterDesafio" class="input-sm form-control" placeholder="{{lang['pesquisar_por_desafios']}}">
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-sm btn-white" id="btnPesquisarDesafio">Pesquisar</button>
+                        <button type="button" class="btn btn-sm btn-white" id="btnPesquisarDesafio">{{lang['pesquisar']}}</button>
                     </span>
                 </div>
             </header>
@@ -37,13 +37,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{{lang['fechar']}}</span></button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body" id="modal-body-desafio"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnSalvarDesafio">Salvar desafio</button>
+                <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">{{lang['cancelar']}}</button>
+                <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnSalvarDesafio">{{lang['salvar_desafio']}}</button>
             </div>
         </div>
     </div>
@@ -56,22 +56,23 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{{lang['fechar']}}</span></button>
                     <h4 class="modal-title" id="myModalLabelMapearDesafio"></h4>
                 </div>
                 <div class="modal-body" id="modal-body-mapear-desafio"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnSalvarDesafio">Salvar</button>
+                    <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">{{lang['cancelar']}}</button>
+                    <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnSalvarDesafio">{{lang['salvar']}}</button>
                 </div>
             </div>
         </div>
     {{endForm()}}
+    {{hidden_field("lang",'value':lang['lang'])}}
 </div>
 <!-- Fim Modal Criar Desafio -->
 {{ javascript_include('js/empresa/desafio/desafio.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        Desafio.init();
+        Desafio.init($("#lang").val());
     });
 </script>
