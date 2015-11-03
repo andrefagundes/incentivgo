@@ -4,13 +4,13 @@
         <div class="col-sm-11">
             
             <div class="form-group">
-                <label class="col-lg-4 control-label">Recompensa</label>
+                <label class="col-lg-4 control-label">{{lang['recompensa']}}</label>
                 <div class="col-lg-8">
-                    {{ text_area("dados[recompensa]", 'id':'recompensa', 'placeholder': 'Ex: Tirar um dia de folga','value':recompensa,'rows':'3', 'class':'bg-focus form-control') }}
+                    {{ text_area("dados[recompensa]", 'id':'recompensa', 'placeholder': 'Ex:'~lang['tirar_dia_folga'],'value':recompensa,'rows':'3', 'class':'bg-focus form-control') }}
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label">Pontuação Debitada</label>
+                <label class="col-lg-4 control-label">{{lang['pontuacao_debitada']}}</label>
                 <div class="col-lg-8">
                     <div class="spinner input-group col-lg-3" id="MySpinner">
                         {{ text_field("dados[pontuacao]", 'id':'pontuacao','value':pontuacao, 'class':'input-sm spinner-input form-control') }}
@@ -23,23 +23,24 @@
                             </button>
                         </div>
                     </div>
-                     <label id="pontuacao-error" class="error" style="display: none;" for="pontuacao">Campo obrigatório</label>
+                     <label id="pontuacao-error" class="error" style="display: none;" for="pontuacao">{{lang['campo_obrigatorio']}}</label>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label">Observação</label>
+                <label class="col-lg-4 control-label">{{lang['observacao']}}</label>
                 <div class="col-lg-8">
-                    {{ text_area("dados[observacao]", 'id':'observacao', 'placeholder': 'Observações','value':observacao,'rows':'3', 'class':'bg-focus form-control') }}
+                    {{ text_area("dados[observacao]", 'id':'observacao', 'placeholder': lang['observacoes'],'value':observacao,'rows':'3', 'class':'bg-focus form-control') }}
                 </div>
             </div>
         </div>
     </div>
+    {{hidden_field("lang",'value':lang['lang'])}}
 </section>
 <!-- Fim Modal Criar Recompensa -->
 {{ javascript_include('js/empresa/recompensa/modal-recompensa.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        ModalRecompensa.init();
+        ModalRecompensa.init($("#lang").val());
     });
 </script>
 

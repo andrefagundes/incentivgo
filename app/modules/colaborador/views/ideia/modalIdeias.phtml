@@ -8,7 +8,13 @@
                         <span class="task-title-sp">{{ideia.descricao}}</span>
                     </div><br/>
                     <div class="task-title pull-left">
-                        <span class="sp-title">Enviada em: {{ date('d/m/Y', ideia.criacaoDt) }}</span>
+                        <span class="sp-title">Enviada em: 
+                            {% if(lang['lang'] == 'en') %}
+                                {{ date('m/d/Y', ideia.criacaoDt) }}
+                            {% else %}
+                                {{ date('d/m/Y', ideia.criacaoDt) }}
+                            {% endif %}
+                        </span>
                     </div>
                     <div id={{ideia.id}} class="task-title pull-right">
                         {%if(ideia.criacaoDt != '' AND ideia.resposta == '' )%}

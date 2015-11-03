@@ -8,6 +8,8 @@ use \Incentiv\Models\Usuario,
 
 class EmpresaPerfilController extends ControllerBase {
 
+    private $_lang;
+    
     public function initialize() {
         $auth = $this->auth->getIdentity();
         $this->view->perfilAdmin     = Perfil::ADMINISTRADOR;
@@ -19,7 +21,7 @@ class EmpresaPerfilController extends ControllerBase {
             $this->view->id             = $auth['id'];
             $this->view->setTemplateBefore('private-empresa');
         }
-        parent::initialize();
+        $this->_lang = parent::initialize();
     }
 
     public function indexAction() {
@@ -46,15 +48,17 @@ class EmpresaPerfilController extends ControllerBase {
             }
         } 
         
+        $whereDate = ($this->_lang['lang'] == 'pt-BR')?'%d/%m/%Y':'%m/%d/%Y';
+        
         $auth    = $this->auth->getIdentity();
         $usuario = Usuario::build()->findFirst(array('id = ' . $auth['id'], 
-                                                'columns' => 'id,
+                                                'columns' => "id,
                                                 empresaId,
                                                 nome,
                                                 email,
                                                 cargo,
-                                                DATE_FORMAT( nascimentoDt , "%d/%m/%Y" ) as nascimentoDt,
-                                                avatar'));
+                                                DATE_FORMAT( nascimentoDt , '{$whereDate}' ) as nascimentoDt,
+                                                avatar"));
         $this->view->usuario = $usuario; 
     }
 

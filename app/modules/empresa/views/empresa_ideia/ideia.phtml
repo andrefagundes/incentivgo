@@ -1,11 +1,11 @@
 <div class="clearfix">
-    <h4><i class="fa fa-lightbulb-o"></i> Ideias</h4>
+    <h4><i class="fa fa-lightbulb-o"></i> {{lang['ideias']}}</h4>
 </div>
 <div class="row">
     <div class="col-lg-12">
         <!-- .breadcrumb -->
         <ul class="breadcrumb">
-            <li><a href="#">Ideias</a></li>
+            <li><a href="#">{{lang['ideias']}}</a></li>
         </ul>
         <!-- / .breadcrumb -->
     </div>
@@ -16,13 +16,13 @@
             <header class="panel-heading">
                     <div class="col-lg-4 pull-left">
                         {% if perfilId == perfilAdmin %}
-                            <button type="button" class="btn btn-sm btn-facebook squared" id="btnMapearPontuacao">Mapear Pontuação</button>
+                            <button type="button" class="btn btn-sm btn-facebook squared" id="btnMapearPontuacao">{{lang['mapear_pontuacao']}}</button>
                         {% endif %}
                     </div>
                 <div class="col-lg-3 input-group">
-                        <input type="text" id="filterIdeias" class="input-sm form-control" placeholder="Pesquisar por ideias">
+                        <input type="text" id="filterIdeias" class="input-sm form-control" placeholder="{{lang['pesquisar_por_ideias']}}">
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-sm btn-white" id="btnPesquisarIdeias">Pesquisar</button>
+                            <button type="button" class="btn btn-sm btn-white" id="btnPesquisarIdeias">{{lang['pesquisar']}}</button>
                         </span>
                 </div>
             </header>
@@ -36,14 +36,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{{lang['fechar']}}</span></button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body" id="modal-body-ideia"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-sm btn-round squared" id="btnGuardarIdeia" data-placement="bottom" data-toggle="tooltip" title="Se a ideia não for válida no momento, guarde-a para quem sabe ser analisada novamente">Guardar</button>
-                <button type="button" class="btn btn-sm btn-syndicate squared" id="btnAprovarIdeia" data-placement="bottom">Aprovar</button>
+                <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">{{lang['cancelar']}}</button>
+                <button type="button" class="btn btn-sm btn-round squared" id="btnGuardarIdeia" data-placement="bottom" data-toggle="tooltip" title="{{lang['ideia_nao_valida_agora']}}">{{lang['guardar']}}</button>
+                <button type="button" class="btn btn-sm btn-syndicate squared" id="btnAprovarIdeia" data-placement="bottom">{{lang['aprovar']}}</button>
             </div>
         </div>
     </div>
@@ -56,22 +56,23 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{{lang['fechar']}}</span></button>
                     <h4 class="modal-title" id="myModalLabelMapear"></h4>
                 </div>
                 <div class="modal-body" id="modal-body-mapear"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnSalvarDesafio">Salvar</button>
+                    <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">{{lang['cancelar']}}</button>
+                    <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnSalvarDesafio">{{lang['salvar']}}</button>
                 </div>
             </div>
         </div>
     {{endForm()}}
 </div>
+{{hidden_field("lang",'value':lang['lang'])}}
 <!-- Fim Modal Criar Desafio -->
 {{ javascript_include('js/empresa/ideia/ideia.js') }}
 <script type="text/javascript">  
     $(document).ready(function(){
-        Ideia.init();
+        Ideia.init($("#lang").val());
     });   
 </script>

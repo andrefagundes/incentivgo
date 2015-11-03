@@ -1,6 +1,6 @@
 var Recompensa = {
-    init: function(){
-        
+    init: function(lang){
+        Recompensa.lang = lang;
         //marcar menu ativo
         $(".dropdown-submenu").removeClass('active');
         $("#menu-recompensa").addClass('active');
@@ -16,7 +16,7 @@ var Recompensa = {
         
         //evento do botão de criar recompensa
         $("#btnCriarRecompensa").click(function() {
-            $("#myModalLabel").html('Criar Regra de Uso');
+            $("#myModalLabel").html((Recompensa.lang === 'en' ? 'Create Rule of Use' : 'Criar Regra de Uso'));
             $( "#modal-body-recompensa" ).html('').load( "recompensa/modal-recompensa/"+0 );
             $('#modalCriarRecompensa').modal('show'); 
         });

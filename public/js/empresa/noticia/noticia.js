@@ -1,6 +1,6 @@
 var Noticia = {
-    init: function(){
-        
+    init: function(lang){
+        Noticia.lang = lang;
         //marcar menu ativo
         $(".dropdown-submenu").removeClass('active');
         $("#menu-noticia").addClass('active');
@@ -16,7 +16,7 @@ var Noticia = {
         
         //evento do botão de criar noticia
         $("#btnCriarNoticia").click(function() {
-            $("#myModalLabel").html('Criar Notícia');
+            $("#myModalLabel").html((Noticia.lang === 'en' ? 'Create News' : 'Criar Notícia'));
             $( "#modal-body-noticia" ).html('').load( "noticia/modal-noticia/"+0 );
             $('#modalCriarNoticia').modal('show'); 
         });

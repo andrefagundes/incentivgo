@@ -2,15 +2,15 @@
 // app/messages/en.php
 $messages = array(
     "lang"          => 'en',
-    "bem_vindo"     => "Welcome to Incentive Go",
+    "bem_vindo"     => "Welcome! | Incentiv Go",
     "desafios"      => "Challenges",
     "carreira"      => "Career",
     "interaja"      => "Interact",
     "crie_desafios" => "Create Challenges",
-    "txt_crie_desafios" => "Create challenges to its employees and get incredible results through targets and incentives",
+    "txt_crie_desafios" => "Create challenges to its employees and get incredible results through targets and incentivs",
     "gamificacao"       => "Gamification",
     "pontos"            => "Points",
-    "txt_gamificacao"   => "Creates incentives(points) to its employees through challenges and has higher growth than expected",
+    "txt_gamificacao"   => "Creates incentivs(points) to its employees through challenges and has higher growth than expected",
     "talentos"          => "Talent",
     "acompanhe_de_perto" => "FOLLOW CLOSELY",
     "txt_talentos"       => "Discover capable and create talent within your company through plans oriented goals",

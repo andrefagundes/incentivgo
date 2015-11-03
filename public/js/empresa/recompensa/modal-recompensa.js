@@ -1,5 +1,6 @@
 var ModalRecompensa = {
-    init: function() {
+    init: function(lang) {
+        ModalRecompensa.lang = lang;
         $("#form-recompensa").validate({
             rules: {
                 'dados[recompensa]': {
@@ -10,8 +11,8 @@ var ModalRecompensa = {
                 }
             },
             messages: {
-                'dados[recompensa]': 'Campo obrigatório',
-                'dados[pontuacao]': 'Campo obrigatório'
+                'dados[recompensa]': (ModalRecompensa.lang === 'en' ? 'Required' : 'Campo obrigatório'),
+                'dados[pontuacao]': (ModalRecompensa.lang === 'en' ? 'Required' : 'Campo obrigatório')
             }
         });
     }

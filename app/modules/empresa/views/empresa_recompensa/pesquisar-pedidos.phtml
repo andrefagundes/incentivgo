@@ -5,36 +5,38 @@
             <tr class="row">
                 <td class="td-responsive">
                     {% if(pedido.status == 1) %}
-                        <div class="btn-group pull-right form-control-static" data-placement="right" data-toggle="tooltip" data-original-title="Ações">
+                        <div class="btn-group pull-right form-control-static" data-placement="right" data-toggle="tooltip" data-original-title="{{lang['acoes']}}">
                             <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
                             <ul class="dropdown-menu pull-right">
-                                <li class="text-left">{{linkTo('empresa/recompensa/resultado-uso-incentiv/Y/'~pedido.id, '<i class="icon-plus-sign"></i> Recompensa Usada')}}
-                                <li class="text-left">{{linkTo('empresa/recompensa/resultado-uso-incentiv/N/'~pedido.id, '<i class="fa fa-minus-square-o"></i> Cancelar Pedido')}}</li>
+                                <li class="text-left">{{linkTo('empresa/recompensa/resultado-uso-incentiv/Y/'~pedido.id, '<i class="icon-plus-sign"></i>'~lang['recompensa_usada'])}}
+                                <li class="text-left">{{linkTo('empresa/recompensa/resultado-uso-incentiv/N/'~pedido.id, '<i class="fa fa-minus-square-o"></i>'~lang['cancelar_pedido'])}}</li>
                            </ul>
                         </div>
                     {% endif %}
-                    <span data-placement="right" data-toggle="tooltip" data-original-title="Data de cadastro do pedido" >{{pedido.cadastroDt}}</span> 
+                    <span data-placement="top" data-toggle="tooltip" data-original-title="{{lang['data_cadastro_pedido']}}" >
+                        {{pedido.cadastroDt}}
+                    </span> 
                     {% if(pedido.status == 1) %} 
                         {% set status = 'info' %}
-                        {% set status_label = 'Pedido Enviado' %}
+                        {% set status_label = lang['pedido_enviado'] %}
                     {% elseif (pedido.status == 2)  %} 
                         {% set status = 'success' %}
-                        {% set status_label = 'Pedido Acordado' %}
+                        {% set status_label = lang['pedido_acordado'] %}
                     {% else %}
                         {% set status = 'danger' %}
-                        {% set status_label = 'Pedido Cancelado' %}
+                        {% set status_label = lang['pedido_cancelado'] %}
                     {% endif %}
                     <span data-toggle="tooltip" data-placement="right" class="label label-{{status}}" data-original-title="Status: {{status_label}}">{{status_label}}</span>
-                    <h6>{{pedido.nome}} - {{ pedido.recompensa}} <strong>( <span class="badge bg-info">{{pedido.pontuacao}}</span> incentivs válidos )</strong></h6>
+                    <h6>{{pedido.nome}} - {{ pedido.recompensa}} <strong>( <span class="badge bg-info">{{pedido.pontuacao}}</span> incentivs {{lang['validos']}} )</strong></h6>
                     {% if pedido.observacaoUsuario %}
-                    <p class="title"><strong>Observação do Colaborador:</strong> {{pedido.observacaoUsuario}}</p>
+                        <p class="title"><strong>{{lang['observacao_colaborador']}}:</strong> {{pedido.observacaoUsuario}}</p>
                     {% endif %}
                 </td>
             </tr>
         {% elsefor %}
             <tr class="row">
                 <td class="table-responsive">
-                    <h6 class="text-center text-info">Nenhum pedido feito.</h6>
+                    <h6 class="text-center text-info">{{lang['nenhum_pedido']}}</h6>
                 </td>
             </tr>
         {% endfor %}
@@ -43,18 +45,18 @@
 <section class="panel-footer">
     <footer>
         <div class="row">
-            <div class="col-lg-1 text-center"  data-placement="bottom" data-toggle="tooltip" data-original-title="Pedidos Feitos: {{page.total_items}}">
-                <small class="text-muted inline m-t-small m-b-small"><span class="label label-large bg-default " id="quantidade-desafio">{{page.total_items}}</span> Pedidos </small>
+            <div class="col-lg-1 text-center"  data-placement="bottom" data-toggle="tooltip" data-original-title="{{lang['pedidos_feitos']}}: {{page.total_items}}">
+                <small class="text-muted inline m-t-small m-b-small"><span class="label label-large bg-default " id="quantidade-desafio">{{page.total_items}}</span> {{lang['pedidos']}} </small>
             </div>
             <div class="col-sm-3 col-lg-offset-3 text-center">
-                <small class="text-muted inline m-t-small m-b-small">Mostrando {{ page.current }} de {{ page.total_pages }}</small>
+                <small class="text-muted inline m-t-small m-b-small">{{lang['p_mostrando']}} {{ page.current }} de {{ page.total_pages }}</small>
             </div>
             <div class="col-sm-5 text-right text-center-sm">                
                 <ul class="pagination pagination-small m-t-none m-b-none">
-                    <li><a href="#" class="fa btnPaginacaoPedido" id="1"><i class="icons icon-fast-backward"></i> Primeiro</a></li>
-                    <li><a href="#" class="fa btnPaginacaoPedido" id="{{page.before}}"><i class="icons icon-step-backward"></i> Anterior</a></li>
-                    <li><a href="#" class="fa btnPaginacaoPedido" id="{{page.next}}"><i class="icons icon-step-forward"></i> Próximo</a></li>
-                    <li><a href="#" class="fa btnPaginacaoPedido" id="{{page.last}}">Último <i class="icons icon-fast-forward"></i> </a></li>
+                    <li><a href="#" class="fa btnPaginacaoPedido" id="1"><i class="icons icon-fast-backward"></i> {{lang['p_primeiro']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoPedido" id="{{page.before}}"><i class="icons icon-step-backward"></i> {{lang['p_anterior']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoPedido" id="{{page.next}}"><i class="icons icon-step-forward"></i> {{lang['p_proximo']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoPedido" id="{{page.last}}">{{lang['p_ultimo']}} <i class="icons icon-fast-forward"></i> </a></li>
                 </ul>
             </div>
         </div>

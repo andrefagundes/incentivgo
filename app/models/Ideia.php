@@ -14,6 +14,8 @@ class Ideia extends Model
     const NOT_DELETED   = 'Y';
     
     private static $_instance;
+    
+    private $_lang = array();
    
     /**
      * @var integer
@@ -76,6 +78,7 @@ class Ideia extends Model
 
     public function initialize()
     {
+        $this->_lang    = $this->getDI()->getShared('lang');
         
         $this->belongsTo('usuarioId', 'Incentiv\Models\Usuario', 'id', array(
             'alias' => 'usuario',
@@ -173,34 +176,55 @@ class Ideia extends Model
             }
 
             $db->commit();
-            return array('status' => 'ok','message'=>"Parabéns você recebeu {$objCredito->pontuacaoTipo} incentivs pela ideia enviada!!!");
+            return array('status' => 'ok','message'=> $this->_lang->_("MSG26", array("pontos" => $objCredito->pontuacaoTipo)));
         
         } catch (Exception $e) {
             $db->rollback();
-            return array('status' => 'error','message'=>'Não foi possível enviar a ideia, tente novamente mais tarde');
+            return array('status' => 'error','message'=>$this->_lang['MSG27']);
         }
     }
     
     public function guardarAprovarIdeia(\stdClass $dados){
-
+        $db = $this->getDI()->getShared('db');
+        $db->begin();
+        
         $ideia = $this->findFirst("id = ".$dados->id);
         
-        $ideia->assign(array(
-            'resposta'         => $dados->resposta
-        ));
+        if($ideia->resposta != 'Y'){
+            $ideia->assign(array(
+                'resposta'         => $dados->resposta
+            ));
 
-        if (!$ideia->save()) {
-            foreach ($ideia->getMessages() as $mensagem) {
-              $message =  $mensagem;
-              break;
+            if ($ideia->save()) {
+                //verifica se a ideia foi aprovada para dar pontos ao usuario que enviou a ideia
+                if($dados->resposta == 'Y' && ($ideia->resposta == null || $ideia->resposta == 'N')){
+                    $pontuacaoIdeia = IdeiaPontuacao::build()->findFirst("empresaId = {$ideia->empresaId} AND ativo = 'Y'");
+
+                    $objCredito = new \stdClass();
+                    $objCredito->empresaId      = $ideia->empresaId;
+                    $objCredito->usuarioId      = $ideia->usuarioId;
+                    $objCredito->pontuacao      = $pontuacaoIdeia->pontuacaoIdeiaEnviada;
+                    $objCredito->pontuacaoTipo  = UsuarioPontuacaoCredito::PONTUACAO_IDEIA_APROVADA;
+
+                    UsuarioPontuacaoCredito::build()->creditarUsuario($objCredito);
+                }
+                $db->commit();
+                if($dados->resposta == 'N'){
+                    return array('status' => 'ok', 'message' => $this->_lang["MSG69"]);
+                }else{
+                    return array('status' => 'ok', 'message' => $this->_lang["MSG28"]);
+                }  
+            } else {
+                $db->rollback();
+                foreach ($ideia->getMessages() as $mensagem) {
+                  $message =  $mensagem;
+                  break;
+                }
+                return array('status' => 'error', 'message' => $message);
             }
-            return array('status' => 'error', 'message' => $message);
-        } else {
-            if($dados->resposta == 'N'){
-                return array('status' => 'ok', 'message' => 'Ideia guardada com sucesso!!!');
-            }else{
-                return array('status' => 'ok', 'message' => 'Ideia aprovada com sucesso!!!');
-            }  
+            return array('status' => 'ok', 'message' => $this->_lang["MSG69"]);
+        }else{
+            return array('status' => 'error', 'message' => $this->_lang["MSG70"]);
         }
     }
 }

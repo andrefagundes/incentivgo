@@ -10,6 +10,8 @@ use Phalcon\Mvc\Model;
 class MensagemExcluida extends Model
 {
      public static $_instance;
+     
+     private $_lang = array();
 
     /**
      *
@@ -46,6 +48,8 @@ class MensagemExcluida extends Model
 
     public function initialize()
     {
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->belongsTo('mensagemId', 'Incentiv\Models\Mensagem', 'id', array(
             'alias' => 'mensagemId'
         ));
@@ -74,9 +78,9 @@ class MensagemExcluida extends Model
               die($mensagem);
               break;
             }
-            return array('status' => 'error', 'message'=>'Não foi possível excluir a mensagem!!!');
+            return array('status' => 'error', 'message'=> $this->_lang['MSG56']);
         }
 
-        return array('status' => 'ok','message'=>'Mensagem excluída com sucesso!!!');
+        return array('status' => 'ok','message'=> $this->_lang->_("MSG11", array("campo" => $this->_lang['mensagem'])));
     }
 }

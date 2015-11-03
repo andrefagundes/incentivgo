@@ -8,26 +8,36 @@
                         <span>
                             {% if(colaborador.status == 'N') %}
                                 {% set status = 'danger' %} 
-                                {% set status_label = 'Inativo' %}
+                                {% set status_label = lang['inativo'] %}
                             {% else  %}
                                 {% set status = 'success' %} 
-                                {% set status_label = 'Ativo' %}
+                                {% set status_label = lang['ativo'] %}
                             {% endif %}
-                            <span class="label label-info" data-placement="left" data-toggle="tooltip" title="Perfil {{colaborador.perfil}}"> {{colaborador.perfil}}</span>
+                            {% if(colaborador.perfil == 'colaborador') %}
+                                {% set p_perfil = lang['p_colaborador'] %} 
+                                {% set h_perfil = lang['h_perfil_colaborador'] %}
+                            {% elseif(colaborador.perfil == 'gerente') %}
+                                {% set p_perfil = lang['p_gerente'] %} 
+                                {% set h_perfil = lang['h_perfil_gerente'] %}
+                            {% elseif(colaborador.perfil == 'administrador') %}
+                                {% set p_perfil = lang['p_administrador'] %} 
+                                {% set h_perfil = lang['h_perfil_administrador'] %}
+                            {% endif %}
+                            <span class="label label-info" data-placement="left" data-toggle="tooltip" title="{{h_perfil}}"> {{p_perfil}}</span>
                             <span class="label label-{{status}}" data-placement="right" data-toggle="tooltip" title="Status"> {{status_label}}</span>
                         </span>
                         <!--<span class="label label-info" data-placement="right" data-toggle="tooltip" title="Incentivs Acumulados">{{count_pontuacao}} incentivs</span>-->
                     </div>
-                    <div class="btn-group pull-right" data-placement="top" data-toggle="tooltip" data-original-title="Ações">
+                    <div class="btn-group pull-right" data-placement="top" data-toggle="tooltip" data-original-title="{{lang['acoes']}}">
                         <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
                         <ul class="dropdown-menu pull-right">
-                            <li class="text-left"><a href="#" class="btnAlterarColaborador" id="{{colaborador.id}}"><i class="icon-pencil"></i> Alterar</a></li>
+                            <li class="text-left"><a href="#" class="btnAlterarColaborador" id="{{colaborador.id}}"><i class="icon-pencil"></i>{{lang['alterar']}}</a></li>
                             <li class="divider"></li>
                             {% if(colaborador.status == 'N') %}
-                            <li class="text-left">{{linkTo('empresa/colaborador/ativar-inativar-colaborador/Y/'~colaborador.id, '<i class="icon-plus-sign"></i> Ativar')}}
-                                {% else %}
-                            <li class="text-left">{{linkTo('empresa/colaborador/ativar-inativar-colaborador/N/'~colaborador.id, '<i class="fa fa-minus-square-o"></i> Inativar')}}</li>
-                                {% endif %}
+                                <li class="text-left">{{linkTo('empresa/colaborador/ativar-inativar-colaborador/Y/'~colaborador.id, '<i class="icon-plus-sign"></i>'~lang['ativar'])}}
+                            {% else %}
+                                <li class="text-left">{{linkTo('empresa/colaborador/ativar-inativar-colaborador/N/'~colaborador.id, '<i class="fa fa-minus-square-o"></i>'~lang['inativar'])}}</li>
+                            {% endif %}
                             <!--<li class="text-left"><a href="#" id="{{colaborador.id}}"><i class="icon-remove"></i> Deletar</a> </li>-->
                         </ul>
                     </div>
@@ -37,7 +47,7 @@
         {% elsefor %}
             <tr class="row">
                 <td class="table-responsive">
-                    <h6 class="text-center text-info">Nenhum usuário cadastrado.</h6>
+                    <h6 class="text-center text-info">{{lang['nenhum_usuario']}}</h6>
                 </td>
             </tr>
         {% endfor %}
@@ -46,27 +56,28 @@
 <section class="panel-footer">
     <footer>
         <div class="row">
-            <div class="col-lg-1 text-center"  data-placement="bottom" data-toggle="tooltip" data-original-title="Usuários Cadastrados: {{page.total_items}}">
-                <small class="text-muted inline m-t-small m-b-small"><span class="label label-large bg-default " id="quantidade-desafio">{{page.total_items}}</span> Usuários </small>
+            <div class="col-lg-1 text-center"  data-placement="bottom" data-toggle="tooltip" data-original-title="{{lang['usuarios_cadastrados']}}: {{page.total_items}}">
+                <small class="text-muted inline m-t-small m-b-small"><span class="label label-large bg-default " id="quantidade-desafio">{{page.total_items}}</span> {{lang['usuarios']}} </small>
             </div>
             <div class="col-lg-3 col-lg-offset-3 text-center">
-                <small class="text-muted inline m-t-small m-b-small">Mostrando {{ page.current }} de {{ page.total_pages }}</small>
+                <small class="text-muted inline m-t-small m-b-small">{{lang['p_mostrando']}} {{ page.current }} de {{ page.total_pages }}</small>
             </div>
             <div class="col-lg-5 text-right text-center-lg">                
                 <ul class="pagination pagination-small m-t-none m-b-none">
-                    <li><a href="#" class="fa btnPaginacaoColaborador" id="1"><i class="icons icon-fast-backward"></i> Primeiro</a></li>
-                    <li><a href="#" class="fa btnPaginacaoColaborador" id="{{page.before}}"><i class="icons icon-step-backward"></i> Anterior</a></li>
-                    <li><a href="#" class="fa btnPaginacaoColaborador" id="{{page.next}}"><i class="icons icon-step-forward"></i> Próximo</a></li>
-                    <li><a href="#" class="fa btnPaginacaoColaborador" id="{{page.last}}">Último <i class="icons icon-fast-forward"></i> </a></li>
+                    <li><a href="#" class="fa btnPaginacaoColaborador" id="1"><i class="icons icon-fast-backward"></i> {{lang['p_primeiro']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoColaborador" id="{{page.before}}"><i class="icons icon-step-backward"></i> {{lang['p_anterior']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoColaborador" id="{{page.next}}"><i class="icons icon-step-forward"></i> {{lang['p_proximo']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoColaborador" id="{{page.last}}">{{lang['p_ultimo']}} <i class="icons icon-fast-forward"></i> </a></li>
                 </ul>
                 {{hidden_field("quantColaborador","value":page.total_items )}}
             </div>
         </div>
     </footer>
+    {{hidden_field("lang",'value':lang['lang'])}}
 </section>
 {{ javascript_include('js/empresa/colaborador/pesquisar-colaborador.js') }}
 <script type="text/javascript">  
     $(document).ready(function(){
-        pesquisarColaborador.init();
+        pesquisarColaborador.init($("#lang").val());
     });       
 </script>

@@ -14,6 +14,8 @@ class DesafioTipo extends Model
     const NOT_DELETED               = 'Y';
     
     private static $_instance;
+    
+    private $_lang = array();
    
     /**
      * @var integer
@@ -51,11 +53,13 @@ class DesafioTipo extends Model
     }
 
     public function initialize()
-    {  
+    { 
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->hasMany('id', 'Incentiv\Models\DesafioPontuacao', 'desafioTipoId', array(
             'alias' => 'desafioTipo',
             'foreignKey' => array(
-                'message' => 'O desafio não pode ser excluído porque ele possui pontuação lançada.'
+                'message' => $this->_lang['MSG44']
             )
         ));
         

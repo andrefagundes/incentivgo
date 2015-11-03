@@ -2,7 +2,7 @@
 // app/messages/pt.php
 $messages = array(
     "lang"          => 'pt-BR',
-    "bem_vindo"     => "Bem-vindo ao Incentiv Go",
+    "bem_vindo"     => "Bem-vindo! | Incentiv Go",
     "desafios"      => "Desafios",
     "carreira"      => "Carreira",
     "interaja"      => "Interaja",

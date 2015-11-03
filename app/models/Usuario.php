@@ -16,6 +16,8 @@ class Usuario extends Model
     const NOT_DELETED   = 'Y';
     
     private static $_instance;
+    
+    private $_lang = array();
    
     /**
      * @var integer
@@ -131,7 +133,7 @@ class Usuario extends Model
             if ($emailConfirmacao->save()) {
                 $this->getDI()
                     ->getFlash()
-                    ->notice('Um e-mail de confirmação foi enviado para ' . $this->email);
+                    ->notice($this->_lang['MSG13'] . $this->email);
             }
         }
     }
@@ -143,12 +145,12 @@ class Usuario extends Model
     {
         $this->validate(new Email(array(
             "field"     => "email",
-            "message"   => "O e-mail é inválido!!!"
+            "message"   => $this->getDI()->getShared('lang')->_("MSG14", array("campo" => 'e-mail'))
         )));
         
         $this->validate(new Uniqueness(array(
             "field"     => "email",
-            "message"   => "O e-mail já está registrado!!!"
+            "message"   => $this->getDI()->getShared('lang')->_("MSG15", array("campo" => 'e-mail'))
         )));
 
         return $this->validationHasFailed() != true;
@@ -156,6 +158,8 @@ class Usuario extends Model
 
     public function initialize()
     {
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->belongsTo('perfilId', 'Incentiv\Models\Perfil', 'id', array(
             'alias' => 'perfil',
             'reusable' => true
@@ -169,98 +173,98 @@ class Usuario extends Model
         $this->hasMany('id', 'Incentiv\Models\SucessoLogin', 'usuarioId', array(
             'alias' => 'sucessoLogin',
             'foreignKey' => array(
-                'message' => 'O colaborador não pode ser excluído porque ele tem atividade no sistema'
+                'message' => $this->_lang['MSG16']
             )
         ));
 
         $this->hasMany('id', 'Incentiv\Models\AlteracaoSenha', 'usuarioId', array(
             'alias' => 'passwordChanges',
             'foreignKey' => array(
-                'message' => 'O colaborador não pode ser excluído porque ele tem atividade no sistema'
+                'message' => $this->_lang['MSG16']
             )
         ));
 
         $this->hasMany('id', 'Incentiv\Models\AlteraSenha', 'usuarioId', array(
             'alias' => 'alteraSenha',
             'foreignKey' => array(
-                'message' => 'O colaborador não pode ser excluído porque ele tem atividade no sistema'
+                'message' => $this->_lang['MSG16']
             )
         ));
         
         $this->hasMany('id', 'Incentiv\Models\DesafioUsuario', 'usuarioId', array(
             'alias' => 'desafioUsuario',
             'foreignKey' => array(
-                'message' => 'O colaborador não pode ser excluído porque ele possui desafios.'
+                'message' => $this->_lang['MSG17']
             )
         ));
         
         $this->hasMany('id', 'Incentiv\Models\Ajuda', 'usuarioId', array(
             'alias' => 'ajudaUsuario',
             'foreignKey' => array(
-                'message' => 'O colaborador não pode ser excluído porque ele possui ajudas.'
+                'message' => $this->_lang['MSG18']
             )
         ));
         
         $this->hasMany('id', 'Incentiv\Models\Ideia', 'usuarioId', array(
             'alias' => 'ideiaUsuario',
             'foreignKey' => array(
-                'message' => 'O colaborador não pode ser excluído porque ele possui ideias.'
+                'message' => $this->_lang['MSG19']
             )
         ));
         
         $this->hasMany('id', 'Incentiv\Models\Desafio', 'usuarioResponsavelId', array(
             'alias' => 'responsavelUsuario',
             'foreignKey' => array(
-                'message' => 'O colaborador não pode ser excluído porque ele possui desafio como responsavel.'
+                'message' => $this->_lang['MSG20']
             )
         ));
         
         $this->hasMany('id', 'Incentiv\Models\Desafio', 'usuarioId', array(
             'alias' => 'desafioUsuarioCadastro',
             'foreignKey' => array(
-                'message' => 'O colaborador não pode ser excluído porque ele possui desafio cadastrado.'
+                'message' => $this->_lang->_("MSG21", array("campo" => $this->_lang['desafio']))
             )
         ));
         
         $this->hasMany('id', 'Incentiv\Models\UsuarioPontuacaoCredito', 'usuarioId', array(
             'alias' => 'creditoUsuario',
             'foreignKey' => array(
-                'message' => 'O colaborador não pode ser excluído porque ele possui crédito cadastrado.'
+                'message' => $this->_lang->_("MSG21", array("campo" => $this->_lang['credito']))
             )
         ));
         
         $this->hasMany('id', 'Incentiv\Models\UsuarioPontuacaoDebito', 'usuarioId', array(
             'alias' => 'debitoUsuario',
             'foreignKey' => array(
-                'message' => 'O colaborador não pode ser excluído porque ele possui débito cadastrado.'
+                'message' => $this->_lang->_("MSG21", array("campo" => $this->_lang['debito']))
             )
         ));
         
         $this->hasMany('id', 'Incentiv\Models\UsuarioPedidoRecompensa', 'usuarioId', array(
             'alias' => 'recompensaUsuario',
             'foreignKey' => array(
-                'message' => 'O colaborador não pode ser excluído porque ele possui recompensa cadastrada.'
+                'message' => $this->_lang->_("MSG22", array("campo" => $this->_lang['recompensa']))
             )
         ));
         
         $this->hasMany('id', 'Incentiv\Models\Mensagem', 'remetenteId', array(
             'alias' => 'usuarioRemetente',
             'foreignKey' => array(
-                'message' => 'O colaborador não pode ser excluído porque ele possui mensagem como remetente.'
+                'message' => $this->_lang->_("MSG23", array("campo" => $this->_lang['remetente']))
             )
         ));
         
         $this->hasMany('id', 'Incentiv\Models\Mensagem', 'destinatarioId', array(
             'alias' => 'usuarioDestinatario',
             'foreignKey' => array(
-                'message' => 'O colaborador não pode ser excluído porque ele possui mensagem como destinatário.'
+                'message' => $this->_lang->_("MSG23", array("campo" => $this->_lang['destinatario']))
             )
         ));
         
         $this->hasMany('id', 'Incentiv\Models\MensagemExcluida', 'usuarioId', array(
             'alias' => 'usuarioMensagemExcluida',
             'foreignKey' => array(
-                'message' => 'O usuário não pode ser excluído porque ela possui exclusão na tabela mensagem_excluida.'
+                'message' => $this->_lang['MSG24']
             )
         ));
         
@@ -337,7 +341,7 @@ class Usuario extends Model
             foreach ($dominios as $dominio){
                 $dominioUsuario = explode('@', $dados->email);
                 if($dominioUsuario[1] != $dominio->dominio){
-                    return array('status' => 'error', 'message'=> "E-mails autorizados somente com o final @{$dominio->dominio}" );
+                    return array('status' => 'error', 'message'=> "{$this->_lang['MSG25']} @{$dominio->dominio}" );
                 }
             }
             
@@ -364,7 +368,7 @@ class Usuario extends Model
                 return array('status' => 'error', 'message'=> $message );
             }
 
-            return array('status' => 'ok','message'=>'Colaborador salvo com sucesso!!!');
+            return array('status' => 'ok','message'=> $this->_lang->_("MSG04", array("campo" => $this->_lang['p_colaborador'])));
         
         } catch (Exception $e) {
             echo $e->getTraceAsString();
@@ -409,7 +413,7 @@ class Usuario extends Model
                 return array('status' => 'error', 'message'=> $message );
             }
 
-            return array('status' => 'ok','message'=>'Perfil salvo com sucesso!!!');
+            return array('status' => 'ok','message'=> $this->_lang->_("MSG04", array("campo" => $this->_lang['perfil'])));
         
         } catch (Exception $e) {
             echo $e->getTraceAsString();
@@ -432,9 +436,9 @@ class Usuario extends Model
             return array('status' => 'error', 'message' => $message);
         } else {
             if($dados->status == 'N'){
-                return array('status' => 'ok', 'message' => 'Colaborador inativado com sucesso!!!');
+                return array('status' => 'ok', 'message' => $this->_lang->_("MSG05", array("campo" => $this->_lang['p_colaborador'])));
             }else{
-                return array('status' => 'ok', 'message' => 'Colaborador ativado com sucesso!!!');
+                return array('status' => 'ok', 'message' => $this->_lang->_("MSG06", array("campo" => $this->_lang['p_colaborador'])));
             }  
         }
     }

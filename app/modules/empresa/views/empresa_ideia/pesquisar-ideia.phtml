@@ -7,32 +7,38 @@
                     <div class="text-muted">
                             {% if(ideia.status is 'Y' and ideia.resposta is empty) %}
                                 {% set status = 'info' %} 
-                                {% set status_label = 'Enviada' %}
+                                {% set status_label = lang['enviada'] %}
                             {% elseif(ideia.resposta is 'Y')  %}
                                 {% set status = 'success' %} 
-                                {% set status_label = 'Aprovada' %}
+                                {% set status_label = lang['aprovada'] %}
                             {% elseif(ideia.resposta is 'N')  %}
                                 {% set status = 'danger' %} 
-                                {% set status_label = 'Guardada' %}
+                                {% set status_label = lang['guardada'] %}
                             {% endif %}
                             <span class="label label-{{status}}" data-placement="left" data-toggle="tooltip" title="Status"> {{status_label}}</span>
            
                     </div>
                     {% if perfilId == perfilAdmin %}
-                        <div class="btn-group pull-right" data-placement="top" data-toggle="tooltip" data-original-title="Ações">
+                        <div class="btn-group pull-right" data-placement="top" data-toggle="tooltip" data-original-title="{{lang['acoes']}}">
                             <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
                             <ul class="dropdown-menu pull-right">
-                                <li class="text-left"><a href="#" class="btnAnalisarIdeia" id="{{ideia.id}}"><i class="icon-pencil"></i> Analisar Ideia</a></li>
+                                <li class="text-left"><a href="#" class="btnAnalisarIdeia" id="{{ideia.id}}"><i class="icon-pencil"></i> {{lang['analisar_ideia']}}</a></li>
                             </ul>
                         </div>
                     {% endif %}
-                    <h5>{{ideia.titulo}}</h5><h6>Enviada em: {{ date('d/m/Y', ideia.criacaoDt) }}</h6> 
+                    <h5>{{ideia.titulo}}</h5><h6>{{lang['enviada_em']}}: 
+                        {% if(lang['lang'] == 'en') %}
+                            {{ date('m/d/Y', ideia.criacaoDt) }}
+                        {% else %}
+                            {{ date('d/m/Y', ideia.criacaoDt) }}
+                        {% endif %}
+                    </h6> 
                 </td>
             </tr>
         {% elsefor %}
             <tr class="row">
                 <td class="table-responsive">
-                    <h6 class="text-center text-info">Nenhuma ideia cadastrada.</h6>
+                    <h6 class="text-center text-info">{{lang['nenhuma_ideia']}}</h6>
                 </td>
             </tr>
         {% endfor %}
@@ -41,27 +47,28 @@
 <section class="panel-footer">
     <footer>
         <div class="row">
-             <div class="col-lg-1 text-center"  data-placement="bottom" data-toggle="tooltip" data-original-title="Ideias Cadastradas: {{page.total_items}}">
-                <small class="text-muted inline m-t-small m-b-small"><span class="label label-large bg-default " id="quantidade-desafio">{{page.total_items}}</span> Ideias </small>
+             <div class="col-lg-1 text-center"  data-placement="bottom" data-toggle="tooltip" data-original-title="{{lang['ideias_cadastradas']}}: {{page.total_items}}">
+                <small class="text-muted inline m-t-small m-b-small"><span class="label label-large bg-default " id="quantidade-desafio">{{page.total_items}}</span> {{lang['ideias']}} </small>
             </div>
             <div class="col-lg-3 col-lg-offset-3 text-center">
-                <small class="text-muted inline m-t-small m-b-small">Mostrando {{ page.current }} de {{ page.total_pages }}</small>
+                <small class="text-muted inline m-t-small m-b-small">{{lang['p_mostrando']}} {{ page.current }} de {{ page.total_pages }}</small>
             </div>
             <div class="col-lg-5 text-right text-center-lg">                
                 <ul class="pagination pagination-small m-t-none m-b-none">
-                    <li><a href="#" class="fa btnPaginacaoIdeia" id="1"><i class="icons icon-fast-backward"></i> Primeiro</a></li>
-                    <li><a href="#" class="fa btnPaginacaoIdeia" id="{{page.before}}"><i class="icons icon-step-backward"></i> Anterior</a></li>
-                    <li><a href="#" class="fa btnPaginacaoIdeia" id="{{page.next}}"><i class="icons icon-step-forward"></i> Próximo</a></li>
-                    <li><a href="#" class="fa btnPaginacaoIdeia" id="{{page.last}}">Último <i class="icons icon-fast-forward"></i> </a></li>
+                    <li><a href="#" class="fa btnPaginacaoIdeia" id="1"><i class="icons icon-fast-backward"></i> {{lang['p_primeiro']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoIdeia" id="{{page.before}}"><i class="icons icon-step-backward"></i> {{lang['p_anterior']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoIdeia" id="{{page.next}}"><i class="icons icon-step-forward"></i> {{lang['p_proximo']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoIdeia" id="{{page.last}}">{{lang['p_ultimo']}} <i class="icons icon-fast-forward"></i> </a></li>
                 </ul>
                 {{hidden_field("quantIdeia","value":page.total_items )}}
             </div>
         </div>
     </footer>
 </section>
+{{hidden_field("lang",'value':lang['lang'])}}
 {{ javascript_include('js/empresa/ideia/pesquisar-ideia.js') }}
 <script type="text/javascript">  
     $(document).ready(function(){
-        pesquisarIdeia.init();
+        pesquisarIdeia.init($("#lang").val());
     });       
 </script>

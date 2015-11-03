@@ -15,6 +15,8 @@ class UsuarioPedidoRecompensa extends Model
     
     private static $_instance;
     
+    private $_lang = array();
+    
     CONST PEDIDO_RECOMPENSA_ENVIADO     = 1;
     CONST PEDIDO_RECOMPENSA_USADO       = 2;
     CONST PEDIDO_RECOMPENSA_CANCELADO   = 3;
@@ -71,17 +73,17 @@ class UsuarioPedidoRecompensa extends Model
     {
         $this->validate(new PresenceOf(array(
           'field' => 'empresaId',
-          'message' => 'O id da empresa é obrigatório!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG40")
         )));
         
         $this->validate(new PresenceOf(array(
           'field' => 'usuarioId',
-          'message' => 'O id do usuário é obrigatório!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG57")
         )));
         
         $this->validate(new PresenceOf(array(
           'field' => 'recompensaId',
-          'message' => 'O id da recompensa é obrigatório!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG58")
         )));
 
         return $this->validationHasFailed() != true;
@@ -107,6 +109,8 @@ class UsuarioPedidoRecompensa extends Model
 
     public function initialize()
     {  
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->belongsTo('empresaId', 'Incentiv\Models\Empresa', 'id', array(
             'alias' => 'empresa',
             'reusable' => true
@@ -147,7 +151,7 @@ class UsuarioPedidoRecompensa extends Model
         $pedidoRecompensa = $this::build()->findFirst(array("usuarioId = {$objPedidoRecompensa['usuarioId']} AND status = ".UsuarioPedidoRecompensa::PEDIDO_RECOMPENSA_ENVIADO." ",'columns' => 'id'));
         
         if($pedidoRecompensa){
-            return array('status' => 'error', 'message' => 'Desculpe!!! Só pode ser feito um pedido por vez.');
+            return array('status' => 'error', 'message' => $this->_lang['MSG59']);
             break;
         }
         
@@ -156,7 +160,7 @@ class UsuarioPedidoRecompensa extends Model
         $pontosRecompensa = Recompensa::build()->findFirst(array("id = {$objPedidoRecompensa['recompensaId']} AND empresaId = {$objPedidoRecompensa['empresaId']}",'columns' => 'pontuacao'));
 
         if($pontosUsuario < $pontosRecompensa->pontuacao ){
-            return array('status' => 'error', 'message' => 'Desculpe, você não possui incentivs suficientes para uso da recompensa.');
+            return array('status' => 'error', 'message' => $this->_lang['MSG60']);
             break;
         }
         
@@ -172,13 +176,15 @@ class UsuarioPedidoRecompensa extends Model
               return array('status' => 'error', 'message' => $mensagem);
               break;
             }
-            return array('status' => 'error', 'message' => 'Não foi possível fazer o pedido.');
+            return array('status' => 'error', 'message' => $this->_lang['MSG61']);
         } else {
-            return array('status' => 'ok', 'message' => 'Pedido feito com sucesso. Entre em contato com seu gerente para uso da recompensa');
+            return array('status' => 'ok', 'message' => $this->_lang['MSG62']);
         }
     }
     
     public function fetchAllPedidos(\stdClass $objPedidos) {
+        
+        $whereDate = ($this->_lang['lang'] == 'pt-BR')?'%d/%m/%Y %H:%i:%s':'%m/%d/%Y %H:%i:%s';
         
         $pedidosRecompensa = UsuarioPedidoRecompensa::query()->columns(
                          array( 'Incentiv\Models\UsuarioPedidoRecompensa.id',
@@ -186,7 +192,7 @@ class UsuarioPedidoRecompensa extends Model
                                 'recompensa.pontuacao',
                                 'usuario.nome',
                                 'Incentiv\Models\UsuarioPedidoRecompensa.observacaoUsuario',
-                                'cadastroDt' => "DATE_FORMAT( Incentiv\Models\UsuarioPedidoRecompensa.cadastroDt , '%d/%m/%Y %H:%i:%s' )",
+                                'cadastroDt' => "DATE_FORMAT( Incentiv\Models\UsuarioPedidoRecompensa.cadastroDt , '{$whereDate}' )",
                                 'Incentiv\Models\UsuarioPedidoRecompensa.status'));
         
         $pedidosRecompensa->innerjoin('Incentiv\Models\Recompensa', 'Incentiv\Models\UsuarioPedidoRecompensa.recompensaId = recompensa.id', 'recompensa');
@@ -215,10 +221,10 @@ class UsuarioPedidoRecompensa extends Model
 
             if($objDadosPedido->resposta == 'Y'){
                 $pedidoRecompensa->status = UsuarioPedidoRecompensa::PEDIDO_RECOMPENSA_USADO;
-                $message = 'Recompensa usada com sucesso!!!';
+                $message = $this->_lang['MSG63'];
             }elseif ($objDadosPedido->resposta == 'N') {
                 $pedidoRecompensa->status = UsuarioPedidoRecompensa::PEDIDO_RECOMPENSA_CANCELADO;
-                $message = 'Pedido de recompensa cancelada com sucesso!!!';
+                $message = $this->_lang['MSG64'];
             }
             
             $pedidoRecompensa->save();

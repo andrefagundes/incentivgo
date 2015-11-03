@@ -15,6 +15,8 @@ class Perfil extends Model
     const GERENTE                   = 4;
     
     public static $_instance;
+    
+    private $_lang = array();
 
     /**
      * ID
@@ -43,10 +45,12 @@ class Perfil extends Model
      */
     public function initialize()
     {
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->hasMany('id', 'Incentiv\Models\Usuario', 'perfilId', array(
             'alias' => 'usuario',
             'foreignKey' => array(
-                'message' => 'Perfil não pode ser excluído porque ele é usado em Usuário'
+                'message' => $this->_lang['MSG39']
             )
         ));
 

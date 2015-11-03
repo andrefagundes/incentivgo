@@ -1,7 +1,7 @@
 var NovaMensagem = {
     
-    init: function() {
-        
+    init: function(lang) {
+        NovaMensagem.lang = lang;
         formataSelectColaboradores();
         
         $("#btnCancelarNovaMensagem").click(function(){
@@ -22,9 +22,9 @@ var NovaMensagem = {
                 } 
             },
             messages: {
-                'dados[destinatarios-mensagem]':'Destinatário obrigatório',
-                'dados[titulo]': 'Título obrigatório',
-                'dados[mensagem]': 'Mensagem obrigatória'
+                'dados[destinatarios-mensagem]':(NovaMensagem.lang === 'en' ? 'recipient mandatory' : 'Destinatário obrigatório'),
+                'dados[titulo]': (NovaMensagem.lang === 'en' ? 'mandatory title' : 'Título obrigatório'),
+                'dados[mensagem]': (NovaMensagem.lang === 'en' ? 'mandatory message' : 'Mensagem obrigatória')
             }
         });
         
@@ -34,7 +34,7 @@ var NovaMensagem = {
                 return false;
             }
             return true;
-        }, "Campo obrigatório");
+        }, (NovaMensagem.lang === 'en' ? 'required' : 'Campo obrigatório'));
     }
 };
 
@@ -49,7 +49,7 @@ function formataSelectColaboradores() {
     $("#destinatarios-mensagem").select2({
         allowClear: true,
         theme: "bootstrap",
-        placeholder: "Pesquise o colaborador",
+        placeholder: (NovaMensagem.lang === 'en' ? 'Search collaborator...' : "Pesquise o colaborador..."),
         minimumInputLength: 3,
         multiple: true,
         openOnEnter:true,

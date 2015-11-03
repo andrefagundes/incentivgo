@@ -16,6 +16,8 @@ class Mensagem extends Model
     const MENSAGENS_TIPO_EXCLUIDA   = 3;
     
     public static $_instance;
+    
+    private $_lang = array();
    
     /**
      * @var integer
@@ -76,12 +78,12 @@ class Mensagem extends Model
     {
         $this->validate(new PresenceOf(array(
           'field' => 'titulo',
-          'message' => 'O título da mensagem é obrigatória!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG33", array("campo" => $this->_lang['titulo']))
         )));
         
         $this->validate(new PresenceOf(array(
           'field' => 'mensagem',
-          'message' => 'A descrição da mensagem é obrigatória!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG33", array("campo" => $this->_lang['descricao']))
         )));
         
         return $this->validationHasFailed() != true;
@@ -89,6 +91,8 @@ class Mensagem extends Model
 
     public function initialize()
     {
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->belongsTo('remetenteId', 'Incentiv\Models\Usuario', 'id', array(
             'alias' => 'usuarioRemetente',
             'reusable' => true
@@ -97,7 +101,7 @@ class Mensagem extends Model
         $this->hasMany('id', 'Incentiv\Models\MensagemDestinatario', 'mensagemId', array(
             'alias' => 'mensagemDestinatario',
             'foreignKey' => array(
-                'message' => 'A mensagem não pode ser excluída porque ela possui destinatários.',
+                'message' => $this->_lang['MSG34'],
                 'action' => Relation::ACTION_CASCADE
             )
         ));
@@ -105,7 +109,7 @@ class Mensagem extends Model
         $this->hasMany('id', 'Incentiv\Models\MensagemExcluida', 'mensagemId', array(
             'alias' => 'mensagemExcluida',
             'foreignKey' => array(
-                'message' => 'A mensagem não pode ser excluída porque ela possui exclusão na tabela mensagem_excluida.'
+                'message' => $this->_lang['MSG35']
             )
         ));
     }
@@ -191,7 +195,7 @@ class Mensagem extends Model
             'remetenteId'       => $arrMensagem['remetente']
         ));
         
-        $destinatarios = explode(',', $arrMensagem['destinatarios-mensagem']);
+        $destinatarios = $arrMensagem['destinatarios-mensagem'];
         $mensagemDestinatario = array();
 
         //grava os usuarios participantes
@@ -202,10 +206,10 @@ class Mensagem extends Model
         }
             
         if (!$this->save()) {
-            return array('status' => 'error', 'message'=>'Não foi possível enviar a mensagem!!!');
+            return array('status' => 'error', 'message' => $this->_lang['MSG36']);
         }
         
-        return array('status' => 'ok','message'=>'Mensagem enviada com sucesso!!!');
+        return array('status' => 'ok','message' => $this->_lang['MSG37']);
         
     }
     public function salvarMensagemResposta($arrMensagem){
@@ -226,10 +230,10 @@ class Mensagem extends Model
         $this->mensagemDestinatario = $mensagemDestinatario;
         
         if (!$this->save()) {
-            return array('status' => 'error', 'message'=>'Não foi possível enviar a mensagem!!!');
+            return array('status' => 'error', 'message'=> $this->_lang['MSG36']);
         }
         
-        return array('status' => 'ok','message'=>'Mensagem respondida com sucesso!!!');
+        return array('status' => 'ok','message'=> $this->_lang['MSG38']);
         
     }
     public function responderMensagem(\stdClass $objMensagem){
@@ -243,10 +247,10 @@ class Mensagem extends Model
         ));
 
         if (!$this->save()) {
-            return array('status' => 'error', 'message'=>'Não foi possível responder a mensagem!!!');
+            return array('status' => 'error', 'message'=> $this->_lang['MSG36']);
         }
 
-        return array('status' => 'ok','message'=>'Mensagem respondida com sucesso!!!');
+        return array('status' => 'ok','message'=> $this->_lang['MSG38']);
         
     }
     

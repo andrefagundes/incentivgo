@@ -15,6 +15,8 @@ class DesafioPontuacao extends Model
     const NOT_DELETED               = 'Y';
     
     private static $_instance;
+    
+    private $_lang = array();
    
     /**
      * @var integer
@@ -58,12 +60,12 @@ class DesafioPontuacao extends Model
     {
         $this->validate(new PresenceOf(array(
           'field' => 'empresaId',
-          'message' => 'O id da empresa é obrigatório!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG40")
         )));
         
         $this->validate(new PresenceOf(array(
           'field' => 'desafioTipoId',
-          'message' => 'O id do tipo de desafio é obrigatório!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG41")
         )));
 
         return $this->validationHasFailed() != true;
@@ -80,6 +82,8 @@ class DesafioPontuacao extends Model
 
     public function initialize()
     {  
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->belongsTo('empresaId', 'Incentiv\Models\Empresa', 'id', array(
             'alias' => 'empresa',
             'reusable' => true
@@ -119,7 +123,7 @@ class DesafioPontuacao extends Model
                     
                     if(!$desafioTipo->save()) {
                         $db->rollback();
-                        return array('status' => 'error', 'message'=>'Não foi possível fazer o mapeamento!!!');
+                        return array('status' => 'error', 'message' => $this->_lang['MSG42']);
                     }
                 }else{
                     $desafioTipo = new DesafioPontuacao();
@@ -134,14 +138,14 @@ class DesafioPontuacao extends Model
                         
                         if(!$desafioTipo->save()) {
                             $db->rollback();
-                            return array('status' => 'error', 'message'=>'Não foi possível fazer o mapeamento!!!');
+                            return array('status' => 'error', 'message'=> $this->_lang['MSG42']);
                         }
                     }
                 }
             }
             
             $db->commit();
-            return array('status' => 'ok','message'=>'Mapeamento salvo com sucesso!!!');
+            return array('status' => 'ok','message'=> $this->_lang['MSG43']);
         
         } catch (Exception $message) {
             return array('status' => 'error', 'message'=> $message );

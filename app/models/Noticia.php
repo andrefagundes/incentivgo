@@ -12,6 +12,8 @@ class Noticia extends Model
 {
     
     public static $_instance;
+    
+    private $_lang = array();
    
     /**
      * @var integer
@@ -67,12 +69,12 @@ class Noticia extends Model
     {
         $this->validate(new PresenceOf(array(
           'field' => 'titulo',
-          'message' => 'O título da notícia é obrigatória!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG07", array("campo" => $this->_lang['titulo']))
         )));
         
         $this->validate(new PresenceOf(array(
           'field' => 'noticia',
-          'message' => 'A descrição da notícia é obrigatória!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG01", array("campo" => $this->_lang['descricao']))
         )));
         
         return $this->validationHasFailed() != true;
@@ -80,6 +82,8 @@ class Noticia extends Model
 
     public function initialize()
     {
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->belongsTo('empresaId', 'Incentiv\Models\Empresa', 'id', array(
             'alias' => 'empresa',
             'reusable' => true
@@ -92,7 +96,7 @@ class Noticia extends Model
                          array( 'id',
                                 'titulo',
                                 'noticia', 
-                                'criacaoDt' => "DATE_FORMAT( criacaoDt , '%d/%m/%Y' )",
+                                'criacaoDt',
                                 'status'    => 'ativo'));
         
         if($objNoticia->filter)
@@ -130,11 +134,10 @@ class Noticia extends Model
               $message =  $mensagem;
               break;
             }
-            die($message);
-            return array('status' => 'error', 'message'=>'Não foi possível salvar a notícia!!!');
+            return array('status' => 'error', 'message'=> $this->_lang->_("MSG08", array("campo" => $this->_lang['noticia'])));
         }
 
-        return array('status' => 'ok','message'=>'Notícia salva com sucesso!!!');
+        return array('status' => 'ok','message'=> $this->_lang->_("MSG09", array("campo" => $this->_lang['noticia'])));
         
     }
     
@@ -143,12 +146,38 @@ class Noticia extends Model
         $noticia = $this::findFirst($objNoticia->noticiaId);
         if ($noticia != false) {
             if ($noticia->delete() == false) {
-                return array('status' => 'error', 'message'=>'Não foi possível excluir a notícia!!!');
+                return array('status' => 'error', 'message'=> $this->_lang->_("MSG10", array("campo" => $this->_lang['noticia'])));
             } else {
-                return array('status' => 'ok','message'=>'Notícia excluída com sucesso!!!');
+                return array('status' => 'ok','message'=> $this->_lang->_("MSG11", array("campo" => $this->_lang['noticia'])));
             }
         }else{
-              return array('status' => 'error', 'message'=>'Notícia não foi encontrada!!!');
+              return array('status' => 'error', 'message'=>$this->_lang->_("MSG12", array("campo" => $this->_lang['noticia'])));
         }
     }
+    
+    public function ativarInativarNoticia(\stdClass $dados){
+
+        $noticia = $this->findFirst("id = ".$dados->id);
+        
+        $noticia->assign(array(
+            'ativo'         => $dados->status
+        ));
+
+        if (!$noticia->save()) {
+            foreach ($noticia->getMessages() as $mensagem) {
+              $message =  $mensagem;
+              break;
+            }
+            return array('status' => 'error', 'message' => $message);
+        } else {
+            if($dados->status == 'N'){
+                return array('status' => 'ok', 'message' => $this->_lang->_("MSG05", array("campo" => $this->_lang['noticia'])));
+            }else{
+                return array('status' => 'ok', 'message' => $this->_lang->_("MSG06", array("campo" => $this->_lang['noticia'])));
+            }  
+        }
+    }
+    
+    
+    
 }

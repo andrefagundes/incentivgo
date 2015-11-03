@@ -6,12 +6,12 @@
     <!-- .sidebar -->
     <aside class="sidebar bg-lighter sidebar-small">
       <div class="text-center clearfix bg-white">
-          <button class="btn btn-sm btn-facebook m-t m-b squared" id="btnNovaMensagem"><i class="fa fa-edit"></i> Novo</button>
+          <button class="btn btn-sm btn-facebook m-t m-b squared" id="btnNovaMensagem"><i class="fa fa-edit"></i> {{lang['novo']}}</button>
       </div>
       <div class="list-group list-normal m-b-none">
-          <a href="#" class="list-group-item btnMensagem active" id="btnMensagensEntrada"><i class="fa fa-fw fa-inbox"></i><span class="badge m-r">{{count_mensagens_recebidas}}</span> Entrada</a>
-        <a href="#" class="list-group-item btnMensagem" id="btnMensagensEnviadas"><i class="fa fa-fw fa-envelope-o"></i><span class="badge m-r">{{count_mensagens_enviadas}}</span> Enviadas</a>
-        <a href="#" class="list-group-item btnMensagem" id="btnMensagensExcluidas"><i class="fa fa-fw fa-trash-o"></i><span class="badge m-r">{{count_mensagens_excluidas}}</span> Excluídas</a>
+          <a href="#" class="list-group-item btnMensagem active" id="btnMensagensEntrada"><i class="fa fa-fw fa-inbox"></i><span class="badge m-r">{{count_mensagens_recebidas}}</span> {{lang['entrada']}}</a>
+        <a href="#" class="list-group-item btnMensagem" id="btnMensagensEnviadas"><i class="fa fa-fw fa-envelope-o"></i><span class="badge m-r">{{count_mensagens_enviadas}}</span> {{lang['enviadas']}}</a>
+        <a href="#" class="list-group-item btnMensagem" id="btnMensagensExcluidas"><i class="fa fa-fw fa-trash-o"></i><span class="badge m-r">{{count_mensagens_excluidas}}</span> {{lang['excluidas']}}</a>
       </div>
     </aside>
     <!-- /.sidebar -->
@@ -19,14 +19,14 @@
     <aside class="sidebar sidebar-large">
       <div class="padder header-bar bg clearfix" id="grupo-filtros">
           <div class="btn-group m-t m-b">
-          <button class="btn btn-white btn-sm dropdown-toggle squared" data-toggle="dropdown">Filtro <span class="caret"></span></button>
+          <button class="btn btn-white btn-sm dropdown-toggle squared" data-toggle="dropdown">{{lang['filtro']}} <span class="caret"></span></button>
           <ul class="dropdown-menu text-left text-small">
-              <li><a href="#" id="btnFiltroTodas">Todas</a></li>
-              <li><a href="#" id="btnFiltroLidas">Lidas</a></li>
-              <li><a href="#" id="btnFiltroNaoLidas">Não lidas</a></li>
+              <li><a href="#" id="btnFiltroTodas">{{lang['todas']}}</a></li>
+              <li><a href="#" id="btnFiltroLidas">{{lang['lidas']}}</a></li>
+              <li><a href="#" id="btnFiltroNaoLidas">{{lang['nao_lidas']}}</a></li>
           </ul>
         </div>
-          <button class="btn btn-sm btn-white squared" id="btnAtualizarPesquisa" data-toggle="tooltip" data-title="Atualizar"><i class="fa fa-refresh"></i></button>
+          <button class="btn btn-sm btn-white squared" id="btnAtualizarPesquisa" data-toggle="tooltip" data-title="{{lang['atualizar']}}"><i class="fa fa-refresh"></i></button>
       </div>
       <div class="list-normal m-t-n-xmini scroll-y scrollbar" style="max-height:100%">
           <?php echo $this->flashSession->output(); ?>

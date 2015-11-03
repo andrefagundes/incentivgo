@@ -13,6 +13,8 @@ class UsuarioPontuacaoDebito extends Model
     
     private static $_instance;
     
+    private $_lang = array();
+    
     CONST PONTUACAO_DESAFIO_APROVADO = 1;
     CONST PONTUACAO_IDEIA_ENVIADA = 2;
     CONST PONTUACAO_IDEIA_APROVADA = 3;
@@ -64,22 +66,22 @@ class UsuarioPontuacaoDebito extends Model
     {
         $this->validate(new PresenceOf(array(
           'field' => 'empresaId',
-          'message' => 'O id da empresa é obrigatório!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG40")
         )));
         
         $this->validate(new PresenceOf(array(
           'field' => 'usuarioId',
-          'message' => 'O id do usuário é obrigatório!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG57")
         )));
         
         $this->validate(new PresenceOf(array(
           'field' => 'pontuacao',
-          'message' => 'A pontuação é obrigatória!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG65")
         )));
         
         $this->validate(new PresenceOf(array(
           'field' => 'recompensaId',
-          'message' => 'O id da recompensa é obrigatória!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG67")
         )));
 
         return $this->validationHasFailed() != true;
@@ -95,6 +97,8 @@ class UsuarioPontuacaoDebito extends Model
 
     public function initialize()
     {  
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->belongsTo('recompensaId', 'Incentiv\Models\Recompensa', 'id', array(
             'alias' => 'recompensa',
             'reusable' => true
@@ -136,7 +140,7 @@ class UsuarioPontuacaoDebito extends Model
                 return array('status' => 'error', 'message'=> $message );
             }
 
-            return array('status' => 'ok','message'=>'Recompensa debitada de usuário com sucesso.');
+            return array('status' => 'ok','message'=> $this->_lang['MSG68']);
         
         } catch (Exception $e) {
             echo $e->getTraceAsString();

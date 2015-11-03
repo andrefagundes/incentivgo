@@ -22,6 +22,7 @@ var ModalDesafio = {
         formataSelectColaboradores();
         formataSelectColaboradorResp();
         
+        //select está hidden, por isso ignoro o default que é não validar campos hidden
         $.validator.setDefaults({
             ignore: []
         });

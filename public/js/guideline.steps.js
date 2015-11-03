@@ -7,7 +7,7 @@ tour.addStep({
 	showAt: "#intro",
     content:
 		"<div class='gl-overlay'>"+
-			"<h1>Welcome to Syndicate!</h1>"+
+			"<h1>Welcome | Incentiv Go!</h1>"+
 			"<p>This is tour that you can use or not.</p>"+
 			"<button class='btn btn-syndicate squared start-tour'>Start tour</button>"+
 			" "+

@@ -13,6 +13,7 @@ use Incentiv\Models\Noticia,
 class EmpresaNoticiaController extends ControllerBase {
 
     private $_auth;
+    private $_lang;
     
     public function initialize() {
         $this->_auth = $this->auth->getIdentity();
@@ -25,7 +26,7 @@ class EmpresaNoticiaController extends ControllerBase {
             $this->view->avatar            = $this->_auth['avatar'];
             $this->view->setTemplateAfter('private-empresa');
         }
-        parent::initialize();
+       $this->_lang = parent::initialize();
     }
     /**
      * Action padrão, mostra o formulário de busca

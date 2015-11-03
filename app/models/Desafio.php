@@ -17,7 +17,9 @@ class Desafio extends Model
     const DESAFIO_TIPO_EQUIPE       = 2;
     
     public static $_instance;
-   
+    
+    private $_lang = array();
+
     /**
      * @var integer
      */
@@ -104,32 +106,32 @@ class Desafio extends Model
         // Seta status do desafio para ativo
         $this->ativo = Desafio::NOT_DELETED;
     }
-    
+        
     /**
      * Valida campos obrigatórios
      */
     public function validation()
-    {
+    {    
         $this->validate(new PresenceOf(array(
           'field' => 'desafio',
-          'message' => 'A descrição do desafio é obrigatória!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG01", array("campo" => $this->_lang['descricao']))
         )));
         
         $this->validate(new PresenceOf(array(
           'field' => 'desafioTipoId',
-          'message' => 'A pontuação do desafio é obrigatória!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG01", array("campo" => $this->_lang['pontuacao']))
         )));
         
         $this->validate(new PresenceOf(array(
           'field' => 'inicioDt',
-          'message' => 'A data de início do desafio é obrigatória!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG01", array("campo" => $this->_lang['data_inicio']))
         )));
         
         $this->validate(new PresenceOf(array(
           'field' => 'fimDt',
-          'message' => 'A data de fim do desafio é obrigatória!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG01", array("campo" => $this->_lang['data_fim']))
         )));
-
+        
         return $this->validationHasFailed() != true;
     }
 
@@ -143,7 +145,9 @@ class Desafio extends Model
     }
 
     public function initialize()
-    {
+    {    
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->belongsTo('empresaId', 'Incentiv\Models\Empresa', 'id', array(
             'alias' => 'empresa',
             'reusable' => true
@@ -162,10 +166,10 @@ class Desafio extends Model
         $this->hasMany('id', 'Incentiv\Models\DesafioUsuario', 'desafioId', array(
             'alias' => 'desafioUsuario',
             'foreignKey' => array(
-                'message' => 'O desafio não pode ser excluído porque ele possui usuarios.'
+                'message' => $this->_lang['MSG02']
             )
         ));
-        
+
         $this->addBehavior(new SoftDelete(
             array(
                 'field' => 'ativo',
@@ -232,11 +236,10 @@ class Desafio extends Model
     }
     
     public function salvarDesafio($dados){
-
+            
         //traz os serviços funcoes e db para o model
         $funcoes = $this->getDI()->getShared('funcoes');
         $db      = $this->getDI()->getShared('db');
-        $lang    = $this->getDI()->getShared('lang');
         
         $db->begin();
 
@@ -259,8 +262,8 @@ class Desafio extends Model
             'usuarioResponsavelId'  => $dados['colaborador-responsavel'],
             'desafioTipoId'     => (int) $dados['desafio_tipo_id'],
             'premiacao'     => $dados['premiacao'],
-            'inicioDt'      => ($lang['lang'] == 'pt-BR')?$funcoes->formatarData($dados['data_inicio']):$funcoes->formatarDataEn($dados['data_inicio']),
-            'fimDt'         => ($lang['lang'] == 'pt-BR')?$funcoes->formatarData($dados['data_fim']):$funcoes->formatarDataEn($dados['data_fim']),
+            'inicioDt'      => ($this->_lang['lang'] == 'pt-BR')?$funcoes->formatarData($dados['data_inicio']):$funcoes->formatarDataEn($dados['data_inicio']),
+            'fimDt'         => ($this->_lang['lang'] == 'pt-BR')?$funcoes->formatarData($dados['data_fim']):$funcoes->formatarDataEn($dados['data_fim']),
         ));
 
         $colaboradores = $dados['colaboradores-participantes'];
@@ -280,7 +283,7 @@ class Desafio extends Model
 
         if (!$desafio->save()) {
             $db->rollback();
-            return array('status' => 'error', 'message'=>'Não foi possível salvar o desafio!!!');
+            return array('status' => 'error', 'message'=> $this->_lang->_("MSG03", array("campo" => $this->_lang['desafio'])));
         }else{
             //envio dos emails para os usuários que participam do desafio criado.
             foreach ($usuarios_email as $usuario){
@@ -293,8 +296,8 @@ class Desafio extends Model
             } 
         }
 
-        $db->commit();
-        return array('status' => 'ok','message'=>'Desafio salvo com sucesso!!!');
+        $db->commit();        
+        return array('status' => 'ok','message' => $this->_lang->_("MSG04", array("campo" => $this->_lang['desafio'])));
         
     }
     
@@ -314,9 +317,9 @@ class Desafio extends Model
             return array('status' => 'error', 'message' => $message);
         } else {
             if($dados->status == 'N'){
-                return array('status' => 'ok', 'message' => 'Desafio inativado com sucesso!!!');
+                return array('status' => 'ok', 'message' => $this->_lang->_("MSG05", array("campo" => $this->_lang['desafio'])));
             }else{
-                return array('status' => 'ok', 'message' => 'Desafio ativado com sucesso!!!');
+                return array('status' => 'ok', 'message' => $this->_lang->_("MSG06", array("campo" => $this->_lang['desafio'])));
             }  
         }
     }

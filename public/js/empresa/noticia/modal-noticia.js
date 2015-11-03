@@ -1,6 +1,6 @@
 var ModalNoticia = {
-    init: function() {
-
+    init: function(lang) {
+        ModalNoticia.lang = lang;
         $("#form-noticia").validate({
             rules: {
                 'dados[titulo]': {
@@ -11,8 +11,8 @@ var ModalNoticia = {
                 }
             },
             messages: {
-                'dados[titulo]': 'Campo obrigatório',
-                'dados[noticia]': 'Campo obrigatório'
+                'dados[titulo]': (ModalNoticia.lang === 'en' ? 'Required' : 'Campo obrigatório'),
+                'dados[noticia]': (ModalNoticia.lang === 'en' ? 'Required' : 'Campo obrigatório')
             }
         });
     }

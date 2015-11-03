@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group">
-                <label class="col-lg-5 control-label" data-placement="left" data-toggle="tooltip" data-original-title="Pontuação dada ao colaborador que enviar um ideia para empresa.">Ideia Enviada:</label>
+                <label class="col-lg-5 control-label" data-placement="left" data-toggle="tooltip" data-original-title="{{lang['pontuacao_dada_enviar']}}">{{lang['ideia_enviada']}}:</label>
                 <div class="col-lg-7">
                     <div class="spinner input-group col-lg-3 form-control-static" id="MySpinner">
                         {{ text_field("dados[pontuacao_ideia_enviada]", 'id':'ideia-enviada','value':pontuacao_ideia_enviada, 'class':'input-sm spinner-input form-control') }}
@@ -16,11 +16,11 @@
                             </button>
                         </div>
                     </div>
-                     <label id="ideia-error" class="error" style="display: none;" for="ideia-enviada">Campo obrigatório</label>
+                     <label id="ideia-error" class="error" style="display: none;" for="ideia-enviada">{{lang['campo_obrigatorio']}}</label>
                 </div>   
             </div>
             <div class="form-group">
-                <label class="col-lg-5 control-label" data-placement="left" data-toggle="tooltip" data-original-title="Pontuação dada ao colaborador para a ideia que for aprovada para ser implementada na empresa." >Ideia Aprovada:</label>
+                <label class="col-lg-5 control-label" data-placement="left" data-toggle="tooltip" data-original-title="{{lang['pontuacao_dada_aprovada']}}" >{{lang['ideia_aprovada']}}:</label>
                 <div class="col-lg-7">
                     <div class="spinner input-group col-lg-3 form-control-static" id="MySpinner">
                         {{ text_field("dados[pontuacao_ideia_aprovada]", 'id':'ideia-aprovada','value':pontuacao_ideia_aprovada, 'class':'input-sm spinner-input form-control') }}
@@ -33,15 +33,16 @@
                             </button>
                         </div>
                     </div>
-                     <label id="ideia-error" class="error" style="display: none;" for="ideia-aprovada">Campo obrigatório</label>
+                     <label id="ideia-error" class="error" style="display: none;" for="ideia-aprovada">{{lang['campo_obrigatorio']}}</label>
                 </div>   
             </div>
         </div>
     </div>
 </section>
+{{hidden_field("lang",'value':lang['lang'])}}
 {{ javascript_include('js/empresa/ideia/mapear-pontuacao.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        ModalMapearPontuacao.init();
+        ModalMapearPontuacao.init($("#lang").val());
     });
 </script>

@@ -5,30 +5,36 @@
             <tr class="row">
                 <td class="td-responsive">
                     <div class="pull-right text-muted">
-                        <strong class="h3 text-info text-center" data-placement="left" data-toggle="tooltip" data-original-title="Incentivs válidos">{{recompensa.pontuacao}}</strong> incentivs<br>
+                        <strong class="h3 text-info text-center" data-placement="left" data-toggle="tooltip" data-original-title="{{incentivs_validos}}">{{recompensa.pontuacao}}</strong> incentivs<br>
                         <small>
                             {% if(recompensa.status == 'N') %}
                             {% set status = 'danger' %} 
-                            {% set status_label = 'Inativo' %}
+                            {% set status_label = lang['inativo'] %}
                             {% else  %}
                             {% set status = 'success' %} 
-                            {% set status_label = 'Ativo' %}
+                            {% set status_label = lang['ativo'] %}
                             {% endif %}
                             <span class="label label-{{status}}" data-placement="left" data-toggle="tooltip" data-original-title="Status">
                                 {{status_label}}
                             </span>
                         </small>
                     </div>
-                    <span data-placement="left" data-toggle="tooltip" data-original-title="Data de Cadastro" >{{date('d/m/Y',recompensa.criacaoDt)}} </span> 
-                    <div class="btn-group" data-placement="top" data-toggle="tooltip" data-original-title="Ações">
+                    <span data-placement="left" data-toggle="tooltip" data-original-title="{{lang['data_de_cadastro']}}" >
+                        {% if(lang['lang'] == 'en') %}
+                            {{ date('m/d/Y', recompensa.criacaoDt) }}
+                        {% else %}
+                            {{ date('d/m/Y', recompensa.criacaoDt) }}
+                        {% endif %}
+                    </span> 
+                    <div class="btn-group" data-placement="top" data-toggle="tooltip" data-original-title="{{lang['acoes']}}">
                         <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
                         <ul class="dropdown-menu">
-                            <li class="text-left"><a href="#" class="btnAlterarRecompensa" id="{{recompensa.id}}"><i class="icon-pencil"></i> Alterar</a></li>
+                            <li class="text-left"><a href="#" class="btnAlterarRecompensa" id="{{recompensa.id}}"><i class="icon-pencil"></i> {{lang['alterar']}}</a></li>
                             <li class="divider"></li>
                             {% if(recompensa.status == 'N') %}
-                            <li class="text-left">{{linkTo('empresa/recompensa/ativar-inativar-recompensa/Y/'~recompensa.id, '<i class="icon-plus-sign"></i> Ativar')}}
+                            <li class="text-left">{{linkTo('empresa/recompensa/ativar-inativar-recompensa/Y/'~recompensa.id, '<i class="icon-plus-sign"></i>'~lang['ativar'])}}
                                 {% else %}
-                            <li class="text-left">{{linkTo('empresa/recompensa/ativar-inativar-recompensa/N/'~recompensa.id, '<i class="fa fa-minus-square-o"></i> Inativar')}}</li>
+                            <li class="text-left">{{linkTo('empresa/recompensa/ativar-inativar-recompensa/N/'~recompensa.id, '<i class="fa fa-minus-square-o"></i>'~lang['inativar'])}}</li>
                                 {% endif %}
                             <!--<li class="text-left"><a href="#" id="{{recompensa.id}}"><i class="icon-remove"></i> Deletar</a> </li>-->
                         </ul>
@@ -39,7 +45,7 @@
         {% elsefor %}
             <tr class="row">
                 <td class="table-responsive">
-                    <h6 class="text-center text-info">Nenhuma recompensa cadastrada.</h6>
+                    <h6 class="text-center text-info">{{lang['nenhuma_recompensa']}}</h6>
                 </td>
             </tr>
         {% endfor %}
@@ -48,27 +54,29 @@
 <section class="panel-footer">
     <footer>
         <div class="row">
-            <div class="col-lg-1 text-center"  data-placement="bottom" data-toggle="tooltip" data-original-title="Recompensas cadastradas: {{page.total_items}}">
-                <small class="text-muted inline m-t-small m-b-small"><span class="label label-large bg-default " id="quantidade-desafio">{{page.total_items}}</span> Recompensas </small>
+            <div class="col-lg-1 text-center"  data-placement="bottom" data-toggle="tooltip" data-original-title="{{lang['recompensas_cadastradas']}}: {{page.total_items}}">
+                <small class="text-muted inline m-t-small m-b-small"><span class="label label-large bg-default " id="quantidade-desafio">{{page.total_items}}</span> {{lang['recompensas']}} </small>
             </div>
             <div class="col-lg-3 col-lg-offset-3 text-center">
-                <small class="text-muted inline m-t-small m-b-small">Mostrando {{ page.current }} de {{ page.total_pages }}</small>
+                <small class="text-muted inline m-t-small m-b-small">{{lang['p_mostrando']}} {{ page.current }} de {{ page.total_pages }}</small>
             </div>
             <div class="col-lg-5 text-right text-center-lg">                
                 <ul class="pagination pagination-small m-t-none m-b-none">
-                    <li><a href="#" class="fa btnPaginacaoRecompensa" id="1"><i class="icons icon-fast-backward"></i> Primeiro</a></li>
-                    <li><a href="#" class="fa btnPaginacaoRecompensa" id="{{page.before}}"><i class="icons icon-step-backward"></i> Anterior</a></li>
-                    <li><a href="#" class="fa btnPaginacaoRecompensa" id="{{page.next}}"><i class="icons icon-step-forward"></i> Próximo</a></li>
-                    <li><a href="#" class="fa btnPaginacaoRecompensa" id="{{page.last}}">Último <i class="icons icon-fast-forward"></i> </a></li>
+                    <li><a href="#" class="fa btnPaginacaoRecompensa" id="1"><i class="icons icon-fast-backward"></i> {{lang['p_primeiro']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoRecompensa" id="{{page.before}}"><i class="icons icon-step-backward"></i> {{lang['p_anterior']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoRecompensa" id="{{page.next}}"><i class="icons icon-step-forward"></i> {{lang['p_proximo']}}</a></li>
+                    <li><a href="#" class="fa btnPaginacaoRecompensa" id="{{page.last}}">{{lang['p_ultimo']}} <i class="icons icon-fast-forward"></i> </a></li>
                 </ul>
                 {{hidden_field("quantRecompensa","value":page.total_items )}}
             </div>
         </div>
     </footer>
+    {{hidden_field("lang",'value':lang['lang'])}}
 </section>
+
 {{ javascript_include('js/empresa/recompensa/pesquisar-recompensa.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        pesquisarRecompensa.init();
+        pesquisarRecompensa.init($("#lang").val());
     });
 </script>

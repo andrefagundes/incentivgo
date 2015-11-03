@@ -1,6 +1,6 @@
 var Ideia = {
-    init: function(){
-
+    init: function(lang){
+        Ideia.lang = lang;
         //marcar menu ativo
         $(".dropdown-submenu").removeClass('active');
         $("#menu-ideia").addClass('active');
@@ -14,7 +14,7 @@ var Ideia = {
         });
         
         $("#btnMapearPontuacao").click(function(){
-            $("#myModalLabelMapear").html('Mapear Pontuação de Ideias');
+            $("#myModalLabelMapear").html((Ideia.lang === 'en' ? 'Map Ideas Score' : 'Mapear Pontuação de Ideias'));
             $("#modal-body-mapear").html('').load( "ideia/modal-mapear-pontuacao" );
             $("#modalMapearPontuacao").modal('show'); 
         });

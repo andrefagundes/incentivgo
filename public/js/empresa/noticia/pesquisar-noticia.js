@@ -1,5 +1,6 @@
 var pesquisarNoticia = {
-    init: function(){
+    init: function(lang){
+        pesquisarNoticia.lang = lang;
         $("[data-toggle=tooltip]").tooltip();
         
         $('.btnPaginacaoNoticia').on('click', function() {
@@ -7,7 +8,7 @@ var pesquisarNoticia = {
         }); 
        
         $('.btnAlterarNoticia').click(function() {
-            $("#myModalLabel").html('Alterar Notícia');
+            $("#myModalLabel").html((pesquisarNoticia.lang === 'en' ? 'Create News' : 'Alterar Notícia'));
             $( "#modal-body-noticia" ).html('').load( "noticia/modal-noticia/"+this.id );
             $('#modalCriarNoticia').modal('show'); 
         });

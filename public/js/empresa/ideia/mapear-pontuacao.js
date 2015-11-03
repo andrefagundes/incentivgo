@@ -1,5 +1,6 @@
 var ModalMapearPontuacao = {
-    init: function(){
+    init: function(lang){
+        ModalMapearPontuacao.lang = lang;
         $("[data-toggle=tooltip]").tooltip();
         $("form#form-mapear-pontuacao").validate({
             rules: {
@@ -11,8 +12,8 @@ var ModalMapearPontuacao = {
                 }
             },
             messages: {
-                "dados[pontuacao_ideia_enviada]": 'Campo obrigatório',
-                "dados[pontuacao_ideia_aprovada]":'Campo obrigatório'
+                "dados[pontuacao_ideia_enviada]": (ModalMapearPontuacao.lang === 'en' ? 'Required' : 'Campo obrigatório'),
+                "dados[pontuacao_ideia_aprovada]":(ModalMapearPontuacao.lang === 'en' ? 'Required' : 'Campo obrigatório')
             }
         });
     }

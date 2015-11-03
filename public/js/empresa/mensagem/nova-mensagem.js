@@ -1,17 +1,21 @@
 var NovaMensagem = {
     
-    init: function() {
-        
+    init: function(lang) {
+        NovaMensagem.lang = lang;
         formataSelectColaboradores();
-        
         $("#btnCancelarNovaMensagem").click(function(){
             Mensagem.pesquisarMensagem(1);
             $("#grupo-filtros").show();
         });
 
+        //select está hidden, por isso ignoro o default que é não validar campos hidden
+        $.validator.setDefaults({
+            ignore: []
+        });
+        
         $("#form-nova-mensagem").validate({
             rules: {
-                'dados[destinatarios-mensagem]': {
+                'dados[destinatarios-mensagem][]': {
                     validarParticipantes: true
                 },
                 'dados[titulo]': {
@@ -22,19 +26,20 @@ var NovaMensagem = {
                 } 
             },
             messages: {
-                'dados[destinatarios-mensagem]':'Destinatário obrigatório',
-                'dados[titulo]': 'Título obrigatório',
-                'dados[mensagem]': 'Mensagem obrigatória'
+                'dados[destinatarios-mensagem][]':(NovaMensagem.lang === 'en' ? 'recipient mandatory' : 'Destinatário obrigatório'),
+                'dados[titulo]': (NovaMensagem.lang === 'en' ? 'mandatory title' : 'Título obrigatório'),
+                'dados[mensagem]': (NovaMensagem.lang === 'en' ? 'mandatory message' : 'Mensagem obrigatória')
             }
         });
         
         jQuery.validator.addMethod("validarParticipantes", function() {
-            if($("#destinatarios-mensagem").val() === '')
+
+            if($("#destinatarios-mensagem").val() === '' || $("#destinatarios-mensagem").val() === null )
             {
                 return false;
             }
             return true;
-        }, "Campo obrigatório");
+        }, (NovaMensagem.lang === 'en' ? 'required' : 'Campo obrigatório'));
     }
 };
 
@@ -49,7 +54,7 @@ function formataSelectColaboradores() {
     $("#destinatarios-mensagem").select2({
         allowClear: true,
         theme: "bootstrap",
-        placeholder: "Pesquise o colaborador",
+        placeholder: (NovaMensagem.lang === 'en' ? 'Search collaborator...' : "Pesquise o colaborador..."),
         minimumInputLength: 3,
         multiple: true,
         openOnEnter:true,
@@ -60,15 +65,10 @@ function formataSelectColaboradores() {
             data: function (params) {
                 return {
                   filter: params.term, // search 
-                  page_limit: 10,
                   page: params.page
                 };
             },       
-            processResults: function (data, page) {
-                // parse the results into the format expected by Select2.
-                // since we are using custom formatting functions we do not need to
-                // alter the remote JSON data
-                
+            processResults: function (data, page) {            
                 return {
                   results: data
                 };

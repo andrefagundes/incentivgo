@@ -4,31 +4,37 @@
     <div class="row">
         <div class="col-sm-11">
             
-            <div class="form-group" data-placement="left" data-toggle="tooltip" title="Colaborador que enviou a ideia">
-                <label class="col-lg-3 control-label">Colaborador:</label>
+            <div class="form-group" data-placement="left" data-toggle="tooltip" title="{{lang['colaborador_enviou_ideia']}}">
+                <label class="col-lg-3 control-label">{{lang['p_colaborador']}}:</label>
                 <div class="col-lg-9">
                    <p class="form-control-static">{{colaborador}}</p>
                 </div>
             </div>
             
             <div class="form-group">
-                <label class="col-lg-3 control-label">Título:</label>
+                <label class="col-lg-3 control-label">{{lang['titulo']}}:</label>
                 <div class="col-lg-9">
                    <p class="form-control-static">{{titulo}}</p>
                 </div>
             </div>
             
-            <div class="form-group" data-placement="left" data-toggle="tooltip" title="Descrição da ideia">
-                <label class="col-lg-3 control-label">Descrição:</label>
+            <div class="form-group" data-placement="left" data-toggle="tooltip" title="{{lang['descricao_ideia']}}">
+                <label class="col-lg-3 control-label">{{lang['descricao']}}:</label>
                 <div class="col-lg-9">
                    <p class="form-control-static">{{descricao}}</p>
                 </div>
             </div>
             
-            <div class="form-group" data-placement="left" data-toggle="tooltip" title="Data em que a ideia foi enviada para a empresa">
-                <label class="col-lg-3 control-label">Data de envio:</label>
+            <div class="form-group" data-placement="left" data-toggle="tooltip" title="{{lang['data_de_envio_empresa']}}">
+                <label class="col-lg-3 control-label">{{lang['data_de_envio']}}:</label>
                 <div class="col-lg-4">
-                    <p class="form-control-static">{{ date('d/m/Y', dt_envio) }}</p>
+                    <p class="form-control-static">
+                        {% if(lang['lang'] == 'en') %}
+                            {{ date('m/d/Y', dt_envio) }}
+                        {% else %}
+                            {{ date('d/m/Y', dt_envio) }}
+                        {% endif %}
+                    </p>
                 </div>   
             </div>
         </div>

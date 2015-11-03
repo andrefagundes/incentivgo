@@ -1,5 +1,6 @@
 var ModalColaborador = {
-    init: function() {
+    init: function(lang) {
+        ModalColaborador.lang = lang;
         $("#form-colaborador").validate({
             rules: {
                 'nome': {
@@ -14,9 +15,9 @@ var ModalColaborador = {
                 }
             },
             messages: {
-                'nome': 'Campo obrigatório',
-                'email':{required:'Campo obrigatório',email:'E-mail inválido'},
-                'perfilId': 'Campo obrigatório'
+                'nome': (ModalColaborador.lang === 'en' ? 'Required' : 'Campo obrigatório'),
+                'email':{required:(ModalColaborador.lang === 'en' ? 'Required' : 'Campo obrigatório'),email:(ModalColaborador.lang === 'en' ? 'Invalid email' : 'E-mail inválido')},
+                'perfilId': (ModalColaborador.lang === 'en' ? 'Required' : 'Campo obrigatório'),
             }
         });
     }

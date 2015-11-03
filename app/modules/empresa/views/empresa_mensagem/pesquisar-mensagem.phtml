@@ -1,13 +1,13 @@
 {% for mensagem in page.items %}
 <a href="#" class="list-group-item bg mensagem-entrada" id="{{mensagem.id}}"><small class="pull-right text-muted moment">{{ mensagem.envioDt }}</small><strong>{{mensagem.nome}}</strong><br><small>{{mensagem.titulo}}</small></a>
 {% elsefor %}
-    <a href="#" class="list-group-item bg text-center text-info">Nenhuma mensagem no momento.</a>
+    <a href="#" class="list-group-item bg text-center text-info">{{lang['nenhuma_mensagem']}}</a>
 {% endfor %}
 <section class="panel-footer">
     <footer>
         <div class="row">
             <div class="col-sm-3 col-sm-offset-4 text-center">
-                <small class="text-muted inline m-t-small m-b-small">Mostrando {{ page.current }} de {{ page.total_pages }}</small>
+                <small class="text-muted inline m-t-small m-b-small">{{lang['p_mostrando']}} {{ page.current }} de {{ page.total_pages }}</small>
             </div>
             <div class="col-sm-5 text-right text-center-sm">                
                 <ul class="pagination pagination-small m-t-none m-b-none">

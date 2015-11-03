@@ -1,6 +1,6 @@
 var Colaborador = {
-    init: function(){
-        
+    init: function(lang){
+        Colaborador.lang = lang;
         //marcar menu ativo
         $(".dropdown-submenu").removeClass('active');
         $("#menu-colaborador").addClass('active');
@@ -15,7 +15,7 @@ var Colaborador = {
         
         //evento do botão de criar desafio
         $("#btnCriarColaborador").click(function() {
-            $("#myModalLabel").html('Cadastrar Usuário');
+            $("#myModalLabel").html((Colaborador.lang === 'en' ? 'Subscribe User' : 'Cadastrar Usuário'));
             $("#modal-body-colaborador").html('').load( "colaborador/modal-colaborador/"+0 );
             $("#modalCriarColaborador").modal('show'); 
         });

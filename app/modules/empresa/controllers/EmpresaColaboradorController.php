@@ -13,6 +13,7 @@ use Incentiv\Models\Usuario,
 class EmpresaColaboradorController extends ControllerBase {
 
     private $_auth;
+    private $_lang;
     
     public function initialize() {
         $this->_auth = $this->auth->getIdentity();
@@ -25,7 +26,7 @@ class EmpresaColaboradorController extends ControllerBase {
             $this->view->avatar            = $this->_auth['avatar'];
             $this->view->setTemplateAfter('private-empresa');
         }
-        parent::initialize();
+        $this->_lang = parent::initialize();
     }
     /**
      * Action padrão, mostra o formulário de busca
@@ -73,11 +74,21 @@ class EmpresaColaboradorController extends ControllerBase {
             $perfis = Perfil::build()->find('id = '.Perfil::COLABORADOR);
         }
         
+        foreach ($perfis as $perfil){
+            if($perfil->id == Perfil::ADMINISTRADOR){
+                $arrayPerfisUsuarios[$perfil->id] = $this->_lang['p_administrador'];
+            }elseif ($perfil->id == Perfil::COLABORADOR) {
+                $arrayPerfisUsuarios[$perfil->id] = $this->_lang['p_colaborador'];
+            }elseif ($perfil->id == Perfil::GERENTE) {
+                $arrayPerfisUsuarios[$perfil->id] = $this->_lang['p_gerente'];
+            }
+        }
+
         $this->view->setVar("id",$resultUsuario->id);
         $this->view->setVar("perfilId", (!empty($resultUsuario->perfilId))? $resultUsuario->perfilId : Perfil::COLABORADOR);
         $this->view->setVar("nome", $resultUsuario->nome);
         $this->view->setVar("email",$resultUsuario->email);
-        $this->view->setVar("perfis",$perfis);
+        $this->view->setVar("perfis",$arrayPerfisUsuarios);
     }
     
     public function salvarColaboradorAction() {

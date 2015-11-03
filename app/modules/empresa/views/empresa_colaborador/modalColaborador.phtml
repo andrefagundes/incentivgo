@@ -3,30 +3,31 @@
     <div class="row">
         <div class="col-sm-11">
             <div class="form-group">
-                <label class="col-lg-3 control-label">Perfil</label>
+                <label class="col-lg-3 control-label">{{lang['perfil']}}</label>
                 <div class="col-lg-9">
                     {{ select("perfilId", perfis, 'using': ['id', 'nome'], 'value': perfilId, 'class':'bg-focus form-control') }}
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 control-label">Nome</label>
+                <label class="col-lg-3 control-label">{{lang['nome']}}</label>
                 <div class="col-lg-9">
-                    {{ text_field("nome", 'id':'nome', 'placeholder': 'Informe o nome','value':nome, 'class':'bg-focus form-control') }}
+                    {{ text_field("nome", 'id':'nome', 'placeholder': lang['informe_nome'],'value':nome, 'class':'bg-focus form-control') }}
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 control-label">Email</label>
+                <label class="col-lg-3 control-label">{{lang['email']}}</label>
                 <div class="col-lg-9">
-                    {{ email_field(["email", 'id':'email', 'placeholder': 'Informe o e-mail','value':email, 'class':'bg-focus form-control']) }}
+                    {{ email_field(["email", 'id':'email', 'placeholder': lang['informe_email'],'value':email, 'class':'bg-focus form-control']) }}
                 </div>
             </div>
             
         </div>
     </div>
+    {{hidden_field("lang",'value':lang['lang'])}}
 </section>
 {{ javascript_include('js/empresa/colaborador/modal-colaborador.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        ModalColaborador.init();
+        ModalColaborador.init($("#lang").val());
     });
 </script>

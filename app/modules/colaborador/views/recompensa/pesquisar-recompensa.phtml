@@ -19,7 +19,13 @@
                             </span>
                         </small>
                     </div>
-                    <span data-placement="left" data-toggle="tooltip" data-original-title="Data de Cadastro" >{{date('d/m/Y',recompensa.criacaoDt)}} </span> 
+                    <span data-placement="left" data-toggle="tooltip" data-original-title="Data de Cadastro" >
+                        {% if(lang['lang'] == 'en') %}
+                            {{ date('m/d/Y', recompensa.criacaoDt) }}
+                        {% else %}
+                            {{ date('d/m/Y', recompensa.criacaoDt) }}
+                        {% endif %}
+                    </span> 
                     <div class="btn-group" data-placement="top" data-toggle="tooltip" data-original-title="Ações">
                         <button class="dropdown-toggle" role="button" data-toggle="dropdown" ><i class="fa fa-gear"></i></button>
                         <ul class="dropdown-menu">

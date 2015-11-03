@@ -15,6 +15,8 @@ class IdeiaPontuacao extends Model
     const NOT_DELETED               = 'Y';
     
     private static $_instance;
+    
+    private $_lang = array();
    
     /**
      * @var integer
@@ -63,17 +65,17 @@ class IdeiaPontuacao extends Model
     {
         $this->validate(new PresenceOf(array(
           'field' => 'empresaId',
-          'message' => 'O id da empresa é obrigatório!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG40")
         )));
         
         $this->validate(new PresenceOf(array(
           'field' => 'pontuacaoIdeiaEnviada',
-          'message' => 'A pontuação para ideia enviada é obrigatória!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG54")
         )));
         
         $this->validate(new PresenceOf(array(
           'field' => 'pontuacaoIdeiaAprovada',
-          'message' => 'A pontuação para ideia aprovada é obrigatória!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG55")
         )));
 
         return $this->validationHasFailed() != true;
@@ -90,6 +92,8 @@ class IdeiaPontuacao extends Model
 
     public function initialize()
     {  
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->belongsTo('empresaId', 'Incentiv\Models\Empresa', 'id', array(
             'alias' => 'empresa',
             'reusable' => true
@@ -133,7 +137,7 @@ class IdeiaPontuacao extends Model
                 return array('status' => 'error', 'message'=> $message );
             }
 
-            return array('status' => 'ok','message'=>'Mapeamento salvo com sucesso!!!');
+            return array('status' => 'ok','message'=> $this->_lang['MSG43']);
         
         } catch (Exception $e) {
             echo $e->getTraceAsString();

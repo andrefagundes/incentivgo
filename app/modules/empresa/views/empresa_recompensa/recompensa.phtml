@@ -1,11 +1,11 @@
 <div class="clearfix">
-    <h4><i class="fa fa-info"></i> Regras de Uso de Incentivs</h4>
+    <h4><i class="fa fa-info"></i> {{lang['regra_de_uso_incentiv']}}</h4>
 </div>
 <div class="row">
     <div class="col-lg-12">
         <!-- .breadcrumb -->
         <ul class="breadcrumb">
-            <li><a href="#">Incentivs >> Criar/Alterar Regras</a></li>
+            <li><a href="#">Incentivs >> {{lang['criar_alterar_regras']}}</a></li>
         </ul>
         <!-- / .breadcrumb -->
     </div>
@@ -15,12 +15,12 @@
         <section class="panel">
             <header class="panel-heading">
                 <div class="pull-left">
-                    <button type="button" class="btn btn-sm btn-facebook squared" id="btnCriarRecompensa">Criar Regra de Uso</button>
+                    <button type="button" class="btn btn-sm btn-facebook squared" id="btnCriarRecompensa">{{lang['criar_regra_uso']}}</button>
                 </div>
                 <div class="col-lg-4 input-group col-lg-offset-3">
-                    <input type="text" id="filterRecompensas" class="input-sm form-control" placeholder="Pesquisar por recompensas">
+                    <input type="text" id="filterRecompensas" class="input-sm form-control" placeholder="{{lang['pesquisar_por_recompensas']}}">
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-sm btn-white" id="btnPesquisarRecompensas">Pesquisar</button>
+                        <button type="button" class="btn btn-sm btn-white" id="btnPesquisarRecompensas">{{lang['pesquisar']}}</button>
                     </span>
                 </div>
             </header>
@@ -34,22 +34,23 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{{lang['fechar']}}</span></button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body" id="modal-body-recompensa"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnSalvarRecompensa">Salvar recompensa</button>
+                <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">{{lang['cancelar']}}</button>
+                <button type="submit" class="btn btn-sm btn-syndicate squared" id="btnSalvarRecompensa">{{lang['salvar_recompensa']}}</button>
             </div>
         </div>
     </div>
     {{endForm()}}
 </div>
+{{hidden_field("lang",'value':lang['lang'])}}
 <!-- Fim Modal Criar Recompensa -->
 {{ javascript_include('js/empresa/recompensa/recompensa.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        Recompensa.init();
+        Recompensa.init($("#lang").val());
     });
 </script>

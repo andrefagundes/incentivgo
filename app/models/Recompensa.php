@@ -14,6 +14,8 @@ class Recompensa extends Model
     const NOT_DELETED           = 'Y';
     
     public static $_instance;
+    
+    private $_lang = array();
    
     /**
      * @var integer
@@ -88,6 +90,8 @@ class Recompensa extends Model
 
     public function initialize()
     {
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->belongsTo('empresaId', 'Incentiv\Models\Empresa', 'id', array(
             'alias' => 'empresa',
             'reusable' => true
@@ -96,14 +100,14 @@ class Recompensa extends Model
         $this->hasMany('id', 'Incentiv\Models\UsuarioPontuacaoDebito', 'recompensaId', array(
             'alias' => 'recompensa',
             'foreignKey' => array(
-                'message' => 'A  recompensa não pode ser excluída porque ela possui débito cadastrado.'
+                'message' => $this->_lang['MSG31']
             )
         ));
         
         $this->hasMany('id', 'Incentiv\Models\UsuarioPedidoRecompensa', 'recompensaId', array(
             'alias' => 'pedidoRecompensa',
             'foreignKey' => array(
-                'message' => 'A  recompensa não pode ser excluída porque ela possui pedido de usuário.'
+                'message' => $this->_lang['MSG32']
             )
         ));
         
@@ -161,9 +165,9 @@ class Recompensa extends Model
               return array('status' => 'error', 'message' => $mensagem);
               break;
             }
-            return array('status' => 'error', 'message' => 'Não foi possível salvar a recompensa!!!');
+            return array('status' => 'error', 'message' => $this->_lang->_("MSG08", array("campo" => $this->_lang['recompensa'])));
         } else {
-            return array('status' => 'ok', 'message' => 'Recompensa salva com sucesso!!!');
+            return array('status' => 'ok', 'message' => $this->_lang->_("MSG09", array("campo" => $this->_lang['recompensa'])));
         }
     }
     
@@ -183,9 +187,9 @@ class Recompensa extends Model
             return array('status' => 'error', 'message' => $message);
         } else {
             if($dados->status == 'N'){
-                return array('status' => 'ok', 'message' => 'Recompensa inativada com sucesso!!!');
+                return array('status' => 'ok', 'message' => $this->_lang->_("MSG29", array("campo" => $this->_lang['recompensa'])));
             }else{
-                return array('status' => 'ok', 'message' => 'Recompensa ativada com sucesso!!!');
+                return array('status' => 'ok', 'message' => $this->_lang->_("MSG30", array("campo" => $this->_lang['recompensa'])));
             }  
         }
     }
