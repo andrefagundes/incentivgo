@@ -1,5 +1,7 @@
 var Perfil = {
-    init: function(){
+    init: function(lang){
+
+        Perfil.lang = lang;
         
         if($("#mensagem-modal-resposta-perfil")){
             $("#mensagem-modal-resposta-perfil").slideUp({start:2000,duration: 3000});
@@ -10,25 +12,26 @@ var Perfil = {
         }else{
            avatar = 'bfdc40e956b123b24b4962cc9409485a.jpg';
         }
-        
+
         $("#input-avatar").fileinput({
             initialPreview: [
-                '<img src=../img/users/'+avatar+'>'
+                '<img class="file-preview-image" style="width:100%;height:100%;" src=../img/users/'+avatar+'>'
             ],
+            language: Perfil.lang,
             overwriteInitial: true,
             previewFileType: "image",
             allowedFileExtensions: ["jpg","jpeg","gif","png"],
-            maxFileSize: 1000,
+            maxFileSize: 200,
             showUpload: false,
             showCaption: false,
             showRemove: false,
             browseClass: "btn btn-facebook btn-file-avatar form-control",
-            browseLabel: "Alterar avatar",
+            browseLabel: (Perfil.lang === 'pt-BR' ? 'Alterar avatar' : 'Change avatar'),
             browseIcon: '',
-            msgSizeTooLarge:'O arquivo "{name}" ({size} KB) é maior que o permitido {maxSize} KB.',
-            msgFileNotFound :'Arquivo "{name}" não encontrado!',
-            msgInvalidFileType :'Tipo inválido. Apenas "{types}" arquivos são suportados.',
-            msgInvalidFileExtension:'Extensão inválida. Apenas "{extensions}" são suportadas.',
+            msgSizeTooLarge:(Perfil.lang === 'pt-BR' ? 'O arquivo "{name}" ({size} KB) é maior que o permitido {maxSize} KB.' : 'The file "{name}" ({size} KB) is greater than the allowed {maxSize} KB.'),
+            msgFileNotFound :(Perfil.lang === 'pt-BR' ? 'Arquivo "{name}" não encontrado!' : 'File "{name}" not found!'),
+            msgInvalidFileType :(Perfil.lang === 'pt-BR' ? 'Tipo inválido. Apenas "{types}" arquivos são suportados.' : 'Invalid type. Only "{types}" files are supported.'),
+            msgInvalidFileExtension:(Perfil.lang === 'pt-BR' ? 'Extensão inválida. Apenas "{extensions}" são suportadas.' : 'Invalid extension. Only "{extensions}" are supported.'),
             elErrorContainer: "#errorBlock43"
         });
         
@@ -40,33 +43,26 @@ var Perfil = {
                 "dados[email]": {
                     required: true,
                     email:true
-                },
-                "dados[dt_nascimento]": {
-                    dateBR:true
                 }
             },
             messages: {
-                "dados[nome]": 'Campo obrigatório',
-                "dados[email]": {required:'Campo obrigatório',email:'Email inválido'}
+               "dados[nome]": (Perfil.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required'),
+                "dados[email]": {
+                    required:(Perfil.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required'),
+                    email:(Perfil.lang === 'pt-BR' ? 'Email inválido' : 'Invalid email')}
             }
         });
         
-        jQuery.validator.addMethod("dateBR", function(value) {
-           if(value.length == "") return true;
-           if(value.length!=10) return false;
-           var data        = value;
-           var dia         = data.substr(0,2);
-           var barra1      = data.substr(2,1);
-           var mes         = data.substr(3,2);
-           var barra2      = data.substr(5,1);
-           var ano         = data.substr(6,4);
-           if(data.length!=10||barra1!="/"||barra2!="/"||isNaN(dia)||isNaN(mes)||isNaN(ano)||dia>31||mes>12)return false;
-           if((mes==4||mes==6||mes==9||mes==11)&&dia==31)return false;
-           if(mes==2 && (dia>29||(dia==29&&ano%4!=0)))return false;
-           if(ano < 1900)return false;
-           return true;
-       }, "Data inválida");
-        
-        $("#dt-nascimento").mask('##/##/####');
+        Perfil.formataInputData();
+    },
+    formataInputData: function() {
+        $('#dt-nascimento').datetimepicker({
+            locale: Perfil.lang,
+            widgetPositioning:{ horizontal: 'auto', vertical: 'bottom'},
+            format:'L',
+            icons: {
+                    date: "fa fa-calendar"
+                }
+        });
     }
 };

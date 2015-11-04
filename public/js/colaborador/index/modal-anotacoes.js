@@ -1,7 +1,7 @@
 var ModalAnotacoes = {
     
-    init: function() {
-        
+    init: function(lang) {
+        ModalAnotacoes.lang = lang;
         $("#form-anotacao").validate({
             rules: {
                 'txt_anotacao': {
@@ -9,7 +9,7 @@ var ModalAnotacoes = {
                 }
             },
             messages: {
-                'txt_anotacao': 'Campo obrigatório'
+                'txt_anotacao': (ModalAnotacoes.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required')
             }
         });
         

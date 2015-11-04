@@ -1,6 +1,6 @@
 <div class="col-lg-3 ds pull-right">
     {{hidden_field("idUsuario",'value':usuario_id)}}
-    <h3>Colaboradores</h3>
+    <h3>{{lang['colaboradores']}}</h3>
     {% for usuario in usuarios %}
         {% if(usuario['id'] != usuario_id) %}
             <div class="desc chat-contacts offline"  data-user-id="{{usuario['id']}}" id="user_{{usuario['id']}}">

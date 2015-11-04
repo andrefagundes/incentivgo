@@ -1,6 +1,6 @@
 var ModalAjudas = {
-    init: function() {
-
+    init: function(lang) {
+        ModalAjudas.lang = lang;
         $("#btnPedirAjuda").show();
         $("#modal-footer-ajuda").hide();
 
@@ -11,7 +11,7 @@ var ModalAjudas = {
                 }
             },
             messages: {
-                'txt_mensagem_ajuda': 'Campo obrigatório'
+                'txt_mensagem_ajuda': (ModalAjudas.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required')
             }
         });
 
@@ -21,7 +21,7 @@ var ModalAjudas = {
         moment.locale('pt-br');
 
         $(".moment").each(function() {
-            $(this).html("Enviada " + moment($(this).html()).startOf().fromNow());
+            $(this).html((ModalAjudas.lang === 'pt-BR' ? 'Enviada ' : 'Sent ') + moment($(this).html()).locale(ModalAjudas.lang).startOf().fromNow());
         });
 
         $(".btnAjudar").click(ModalAjudas.ajudar);

@@ -142,7 +142,7 @@ class Usuario extends Model
      * Validar que e-mails são únicos entre os usuários 
      */
     public function validation()
-    {
+    {       
         $this->validate(new Email(array(
             "field"     => "email",
             "message"   => $this->getDI()->getShared('lang')->_("MSG14", array("campo" => 'e-mail'))
@@ -164,7 +164,7 @@ class Usuario extends Model
             'alias' => 'perfil',
             'reusable' => true
         ));
-        
+
         $this->belongsTo('empresaId', 'Incentiv\Models\Empresa', 'id', array(
             'alias' => 'empresa',
             'reusable' => true
@@ -176,7 +176,7 @@ class Usuario extends Model
                 'message' => $this->_lang['MSG16']
             )
         ));
-
+   
         $this->hasMany('id', 'Incentiv\Models\AlteracaoSenha', 'usuarioId', array(
             'alias' => 'passwordChanges',
             'foreignKey' => array(
@@ -190,7 +190,7 @@ class Usuario extends Model
                 'message' => $this->_lang['MSG16']
             )
         ));
-        
+     
         $this->hasMany('id', 'Incentiv\Models\DesafioUsuario', 'usuarioId', array(
             'alias' => 'desafioUsuario',
             'foreignKey' => array(
@@ -204,7 +204,7 @@ class Usuario extends Model
                 'message' => $this->_lang['MSG18']
             )
         ));
-        
+                
         $this->hasMany('id', 'Incentiv\Models\Ideia', 'usuarioId', array(
             'alias' => 'ideiaUsuario',
             'foreignKey' => array(
@@ -267,7 +267,7 @@ class Usuario extends Model
                 'message' => $this->_lang['MSG24']
             )
         ));
-        
+
         $this->addBehavior(new SoftDelete(
             array(
                 'field' => 'ativo',

@@ -4,20 +4,38 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-        <meta name="description" content="Plataforma Web Corporativa de incentivo, motivação a colaboradores de empresas" >
+        <meta name="description" content="Plataforma Web Corporativa de incentivo, motivação e engajamento de colaboradores de empresas" >
         <meta name="author" content="André Maciel Fagundes">
         <meta name="keywords" content="incentivo, motivação, desafios, empresas, business, corporações, corporation">
         <meta name="robots" content="index,follow,noodp,noydir" >
-        <title>Bem-vindo ao Incentiv Go</title>
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="{{publicUrl}}/img/favicon/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        <title>{{lang['bem_vindo']}}</title>
 
-        <link rel="canonical" href="http://beta.incentivgo.com.br/" >
-        <link rel="shortcut icon" href="" >
+        <link rel="canonical" href="http://incentivgo.com.br/" >
+        <link rel="canonical" href="http://www.incentivgo.com.br/" />
+        <link rel="apple-touch-icon" sizes="57x57" href="{{publicUrl}}/img/favicon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="{{publicUrl}}/img/favicon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="{{publicUrl}}/img/favicon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="{{publicUrl}}/img/favicon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="{{publicUrl}}/img/favicon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="{{publicUrl}}/img/favicon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="{{publicUrl}}/img/favicon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="{{publicUrl}}/img/favicon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{publicUrl}}/img/favicon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="{{publicUrl}}/img/favicon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{publicUrl}}/img/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="{{publicUrl}}/img/favicon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{publicUrl}}/img/favicon/favicon-16x16.png">
+        <link rel="manifest" href="{{publicUrl}}/img/favicon/manifest.json">
 
         {{ javascript_include('js/modernizr.js') }}
         <!-- Le styles -->
         {{ stylesheet_link('css/bootstrap/bootstrap.min.css') }}
         {{ stylesheet_link('css/style.css') }}
-        {{ stylesheet_link('http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', false) }}
+        {{ stylesheet_link('css/fonts/font-awesome.min.css') }}
+        <!--{{ stylesheet_link('http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', false) }}-->
         {{ stylesheet_link('http://fonts.googleapis.com/css?family=Raleway:200,400', false) }}
         {{ stylesheet_link('css/select2.css') }}
         <!--[if lt IE 9]>
@@ -25,7 +43,7 @@
         <![endif]-->
     </head>
 
-    <body data-spy="scroll" data-target=".navbar" data-offset='61'>
+    <body>
         {{ javascript_include('js/jquery.min.js') }}
         {{ javascript_include('js/bootstrap.min.js') }}
         {{ content() }}
@@ -41,11 +59,11 @@
         {{ javascript_include('js/skrollr.js') }}
         {{ javascript_include('js/jquery.touchwipe.min.js') }}
         {{ javascript_include('js/jquery.mask.min.js') }}
-        
+
         <!--select2--> 
-        {{ javascript_include('js/select2.min.js') }}
-        {{ javascript_include('js/select2_locale_pt-BR.js') }}
-        
+        {{ javascript_include('js/select2/select2.min.js') }}
+        {{ javascript_include('js/select2/i18n/pt-BR.js') }}
+
         <!--[if lt IE 9]>
             {{ javascript_include('js/skrollr.ie.min.js') }}
         <![endif]-->
@@ -53,7 +71,7 @@
         {{ javascript_include('js/toucheffects.js') }}
         <!--{{ javascript_include('js/modals.js') }}-->
         <!--{{ javascript_include('js/jquery.form.js') }}-->
-        <script type="text/javascript">
+<!--        <script type="text/javascript">
             if ($('.navbar-toggle:visible').length) {
                     $('.navbar a').click(function () { $(".nav-collapse").collapse("hide"); });
             }
@@ -63,7 +81,7 @@
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
             ga('create', 'UA-65622189-1', 'auto');
             ga('send', 'pageview');
-        </script>
+        </script>-->
         {{ javascript_include('js/custom.js') }}
     </body>
 </html>

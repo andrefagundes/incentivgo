@@ -9,6 +9,7 @@ use \Incentiv\Models\Usuario,
 class PerfilController extends ControllerBase {
 
     private $_auth;
+    private $_lang;
 
     public function initialize() {
         if (!$this->request->isAjax()) {
@@ -20,6 +21,8 @@ class PerfilController extends ControllerBase {
             $this->view->id = $this->_auth['id'];
             $this->view->setTemplateBefore('private-colaborador');
         }
+        
+        $this->_lang = parent::initialize();
     }
 
     public function indexAction() {
@@ -27,11 +30,11 @@ class PerfilController extends ControllerBase {
     }
 
     public function perfilAction() {
-        
+  
         if ($this->request->isPost()) {
             $objUsuario = new \stdClass();
             $objUsuario->dados = $this->request->getPost('dados');
-
+      
             if ($this->request->hasFiles(true)) {
                 $resposta_upload = $this->upload();
                 $objUsuario->dados['avatar'] = $resposta_upload;
@@ -46,14 +49,16 @@ class PerfilController extends ControllerBase {
             }
         } 
         
+        $whereDate = ($this->_lang['lang'] == 'pt-BR')?'%d/%m/%Y':'%m/%d/%Y';
+        
         $usuario = Usuario::build()->findFirst(array('id = ' . $this->_auth['id'], 
-                                                'columns' => 'id,
+                                                'columns' => "id,
                                                 empresaId,
                                                 nome,
                                                 email,
                                                 cargo,
-                                                DATE_FORMAT( nascimentoDt , "%d/%m/%Y" ) as nascimentoDt,
-                                                avatar'));
+                                                DATE_FORMAT( nascimentoDt , '{$whereDate}' ) as nascimentoDt,
+                                                avatar"));
         $this->view->usuario = $usuario; 
     }
 
@@ -64,21 +69,18 @@ class PerfilController extends ControllerBase {
             $pastaUsuario = $this->_auth['id'];
 
             foreach ($this->request->getUploadedFiles() as $file) {
-
+   
                 $file->moveTo('img/users/' . $file->getName());
                 $image = new GD('img/users/' . $file->getName());
 
                 $height = $width = null;
-                $height_60 = $width_60 = $height_40 = $width_40 = null;
 
                 if ($image->getWidth() >= $image->getHeight()) {
-                    $width = ($image->getWidth() < 200 ) ? $image->getWidth() : 200;
-                    $height_60 = 60;
-                    $height_40 = 40;
+                    $width  = ($image->getWidth() < 200 ) ? $image->getWidth() : 200;
+                    $height = ($image->getHeight() < 200 ) ? $image->getHeight() : 200;
                 } else {
                     $height = ($image->getHeight() < 300) ? $image->getHeight() : 300;
-                    $width_60 = 60;
-                    $width_40 = 40;
+                    $width  = ($image->getWidth() < 300) ? $image->getWidth() : 300;
                 }
 
                 $nomeArquivo = md5(uniqid(time())) . '.' . $file->getExtension();
@@ -87,9 +89,10 @@ class PerfilController extends ControllerBase {
                     mkdir("img/users/{$pastaEmpresa}/{$pastaUsuario}", 0777, true);
                 }
 
-                $image->resize($width, $height)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/{$nomeArquivo}");
-                $image->resize($width_60, $height_60)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/60_{$nomeArquivo}");
-                $image->resize($width_40, $height_40)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/40_{$nomeArquivo}");
+                $image->resize($width, $height);
+                $image->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/{$nomeArquivo}");
+                $image->resize(60, 60)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/60_{$nomeArquivo}");
+                $image->resize(40, 40)->save("img/users/{$pastaEmpresa}/{$pastaUsuario}/40_{$nomeArquivo}");
                 unlink('img/users/' . $file->getName());
 
                 $this->session->set('auth-identity', array(

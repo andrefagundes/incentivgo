@@ -12,7 +12,9 @@ class ControllerBase extends Controller
 {
     //multi linguas(services.php)
     public function initialize(){
-        $this->view->lang = $this->getDI()->getShared('lang');
+        $lang = $this->getDI()->getShared('lang');
+        $this->view->lang = $lang;
+        return $lang;
     }
     
     public function disableLayoutBefore(){

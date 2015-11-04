@@ -13,7 +13,7 @@ var PerfilEmpresa = {
         
         $("#input-logo").fileinput({
             initialPreview: [
-                '<img src=../img/users/'+logo+'>'
+                '<img class="file-preview-image" style="width:100%;height:100%;" src=../img/users/'+logo+'>'
             ],
             overwriteInitial: true,
             previewFileType: "image",

@@ -9,9 +9,9 @@
                     {% endif %}
                     <div class="task-title">
                         {% if(desafio['tipo'] == 1) %}
-                            {% set tipo_desafio = 'Individual' %}
+                            {% set tipo_desafio = lang['individual'] %}
                         {% else %}
-                            {% set tipo_desafio = 'Por Equipe' %}
+                            {% set tipo_desafio = lang['por_equipe'] %}
                         {% endif %}
                         {% if loop.first %}
                             {% set direcao = 'bottom' %}
@@ -20,37 +20,37 @@
                         {%endif%}
                         <span class="task-title-sp">{{desafio['desafio']}}</span>  
                         {% if(desafio['tipo'] == 2) %}
-                            <span class="badge bg-primary" data-container="body" data-placement="{{direcao}}" data-title="Colaboradores Participantes" data-trigger="hover"  data-content="{{desafio['usuariosParticipantes']}}<br/> <strong>Responsável pelo Desafio:</strong> {{desafio['usuarioResponsavel']}}" data-toggle="popover">{{tipo_desafio}}</span>   
+                            <span class="badge bg-primary" data-container="body" data-placement="{{direcao}}" data-title="{{lang['colaboradores_participantes']}}" data-trigger="hover"  data-content="{{desafio['usuariosParticipantes']}}<br/> <strong>{{lang['responsavel_pelo_desafio']}}:</strong> {{desafio['usuarioResponsavel']}}" data-toggle="popover">{{tipo_desafio}}</span>   
                         {% else %}
-                            <span class="badge bg-primary" data-placement="{{direcao}}" data-title="Colaboradores Participantes" data-trigger="hover"  data-content="Somente Você" data-toggle="popover">{{tipo_desafio}}</span>   
+                            <span class="badge bg-primary" data-placement="{{direcao}}" data-title="Colaboradores Participantes" data-trigger="hover"  data-content="{{lang['somente_voce']}}" data-toggle="popover">{{tipo_desafio}}</span>   
                         {% endif %}
-                        <span class="badge bg-primary" data-placement="right" data-title="Incentivs Válidos" data-toggle="tooltip">+ {{desafio['pontuacao']}}</span>   
+                        <span class="badge bg-primary" data-placement="right" data-title="{{lang['incentivs_validos']}}" data-toggle="tooltip">+ {{desafio['pontuacao']}}</span>   
                     </div><br/>
                     {% if(desafio['premiacao'] != '') %}   
                     <div class="task-title">
-                        <span class="task-title-sp">Premiação: {{desafio['premiacao']}}</span>
+                        <span class="task-title-sp">{{lang['premiacao']}}: {{desafio['premiacao']}}</span>
                     </div><br/>
                     {% endif %}
                     <div class="task-title pull-left">
-                        <span class="sp-title">{{desafio['inicioDt']}} até {{desafio['fimDt']}}</span>
+                        <span class="sp-title">{{desafio['inicioDt']}} {{lang['ate']}} {{desafio['fimDt']}}</span>
                     </div>
                     {% if(desafio['usuarioResposta'] == 'Y') %}
                      {% if(desafio['tipo'] == 1) %}
                         <div id={{desafio['id']}} class="task-title pull-right">
-                            <button type="button" id="btnDesafioCumprido" class="btn btn-xs btn-theme03 btnDesafioCumprido">Desafio Cumprido</button>
+                            <button type="button" id="btnDesafioCumprido" class="btn btn-xs btn-theme03 btnDesafioCumprido">{{lang['desafio_cumprido']}}</button>
                         </div>
                         {% else %}
                             {% if(desafio['tipo'] == 2 AND desafio['usuarioResponsavelId'] == usuarioId ) %}
                                 <div id={{desafio['id']}} class="col-lg-3 pull-right right">
-                                    <button type="button" id="btnDesafioCumprido" class="btn btn-xs btn-theme03 btnDesafioCumprido">Desafio Cumprido</button>
+                                    <button type="button" id="btnDesafioCumprido" class="btn btn-xs btn-theme03 btnDesafioCumprido">{{lang['desafio_cumprido']}}</button>
                                 </div>
                             {% endif%}
                         {% endif%}
                    
                     {% else %}
                     <div id={{desafio['id']}} class="pull-right inline">
-                        <button type="button" id="btnAceitarDesafio" class="btn btn-xs btn-theme03">Aceitar</button>
-                        <button type="button" id="btnDescartarDesafio" class="btn btn-xs btn-theme04">Descartar</button>
+                        <button type="button" id="btnAceitarDesafio" class="btn btn-xs btn-theme03">{{lang['aceitar']}}</button>
+                        <button type="button" id="btnDescartarDesafio" class="btn btn-xs btn-theme04">{{lang['descartar']}}</button>
                     </div>
                     {% endif %}
                 </li>
@@ -58,29 +58,30 @@
                     <div class="task-title inline"> 
                         <form role="form" class="form-cadastro" id="form_desafio_{{desafio['id']}}">
                              <div>
-                                 <textarea id="txt_motivo_{{desafio['id']}}" placeholder="Informe o motivo de não aceitar o desafio!!!" class="form-control"></textarea>
+                                 <textarea id="txt_motivo_{{desafio['id']}}" placeholder="{{lang['informe_motivo']}}" class="form-control"></textarea>
                             </div>
                        </form>
                     </div><br/>
                     <div id={{desafio['id']}} class="task-title pull-right">
-                        <button type="button" id="btnEnviarMotivoDescarte" class="btn btn-xs btn-facebook">Enviar</button>
-                        <button type="button" id="btnCancelarDescarte" class="btn btn-xs btn-default btnCancelarDescarte">Cancelar</button>
+                        <button type="button" id="btnEnviarMotivoDescarte" class="btn btn-xs btn-facebook">{{lang['enviar']}}</button>
+                        <button type="button" id="btnCancelarDescarte" class="btn btn-xs btn-default btnCancelarDescarte">{{lang['cancelar']}}</button>
                     </div>
                 </li>
                 {% elsefor %}
                 <li class="list-primary text-center">
                     <div class="task-title">
-                        <span class="task-title-sp">Nenhum desafio para você no momento!!!</span>
+                        <span class="task-title-sp">{{lang['nenhum_desafio_momento']}}</span>
                     </div>
                 </li>
                 {% endfor %}
             </ul>
         </div>
+    {{hidden_field("lang",'value':lang['lang'])}}
 </section>
 <!-- Fim Modal Cadastro colaborador -->
 {{ javascript_include('js/colaborador/desafio/modal-desafios.js') }}
 <script type="text/javascript">  
     $(document).ready(function(){
-        ModalDesafios.init();
+        ModalDesafios.init($("#lang").val());
     });   
 </script>

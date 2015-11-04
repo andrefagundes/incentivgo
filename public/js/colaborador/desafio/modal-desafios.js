@@ -1,6 +1,7 @@
 var ModalDesafios = {
 
-    init: function() {
+    init: function(lang) {
+        ModalDesafios.lang = lang;
         $("[data-toggle=popover]").popover({html:true});
         $("[data-toggle=tooltip]").tooltip();
         if($("#mensagem-modal-resposta-desafio")){
@@ -29,7 +30,7 @@ var ModalDesafios = {
              $("#txt_motivo_"+desafioId).rules("add", {
                     required:true,
                     messages: {
-                         required:"Campo Obrigatório"
+                         required:(ModalDesafios.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required')
                     }
              });
              return false;

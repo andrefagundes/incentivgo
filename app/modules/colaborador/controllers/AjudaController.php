@@ -7,11 +7,14 @@ use Incentiv\Models\Ajuda;
 
 class AjudaController extends ControllerBase
 {
+    private $_lang = array();
+    
     public function initialize()
     {
         if (!$this->request->isAjax()) {
             $this->view->setTemplateBefore('private-colaborador');
         }
+        $this->_lang = parent::initialize();
     }
     
     public function indexAction(){}

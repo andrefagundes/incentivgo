@@ -9,13 +9,14 @@ var Perfil = {
         if($("#avatar").val()){
            avatar = $("#empresaId").val()+'/'+$("#usuarioId").val()+'/'+$("#avatar").val();
         }else{
-           avatar = 'bfdc40e956b123b24b4962cc9409485a.jpg';
+           avatar = '60_bfdc40e956b123b24b4962cc9409485a.jpg';
         }
         
         $("#input-avatar").fileinput({
             initialPreview: [
-                '<img src=../img/users/'+avatar+'>'
+                '<img class="file-preview-image" style="width:100%;height:100%;" src=../img/users/'+avatar+'>'
             ],
+            language: Perfil.lang,
             overwriteInitial: true,
             previewFileType: "image",
             allowedFileExtensions: ["jpg","jpeg","gif","png"],
@@ -53,7 +54,6 @@ var Perfil = {
         
     },
     formataInputData: function() {
-
         $('#dt-nascimento').datetimepicker({
             locale: Perfil.lang,
             format:'L',
@@ -62,5 +62,4 @@ var Perfil = {
                 }
         });
     }
-    
 };

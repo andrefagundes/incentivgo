@@ -12,6 +12,8 @@ use Incentiv\Models\DesafioUsuario,
 
 class ColaboradorController extends ControllerBase
 {
+    private $_lang;
+     
     public function initialize()
     {
         $auth = $this->auth->getIdentity();
@@ -31,6 +33,7 @@ class ColaboradorController extends ControllerBase
         if (!$this->request->isAjax()) {
             $this->view->setTemplateBefore('private-colaborador');
         }
+        $this->_lang = parent::initialize();
     }
     
     public function indexAction(){}

@@ -5,6 +5,9 @@ namespace Colaborador\Controllers;
 use Incentiv\Models\Noticia;
 
 class NoticiaController extends ControllerBase {
+    
+    private $_lang = array();
+
 
     public function initialize() {
         if (!$this->request->isAjax()) {
@@ -16,6 +19,7 @@ class NoticiaController extends ControllerBase {
             $this->view->id                = $auth['id'];
             $this->view->setTemplateBefore('private-colaborador');
         }
+        $this->_lang = parent::initialize();
     }
 
     public function indexAction() {}

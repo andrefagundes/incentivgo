@@ -7,16 +7,16 @@
                         <span class="task-title-sp">{{noticia.titulo}}</span>
                     </div><br/>
                     <div class="task-title pull-left">
-                        <label>Enviada em:</label> {{date('d/m/Y',noticia.criacaoDt)}}
+                        <label>{{lang['enviada_em']}}:</label> {{date('d/m/Y',noticia.criacaoDt)}}
                     </div>
                     <div class="task-title pull-right">
-                        <button type="button" id="{{noticia.id}}" class="btn btn-xs btn-facebook btnLerNoticia">Ler Notícia</button>
+                        <button type="button" id="{{noticia.id}}" class="btn btn-xs btn-facebook btnLerNoticia">{{lang['ler_noticia']}}</button>
                     </div>
                 </li>
                 {% elsefor %}
                 <li class="list-primary text-center">
                     <div class="task-title">
-                        <span class="task-title-sp">Nenhuma notícia no momento!!!</span>
+                        <span class="task-title-sp">{{lang['nenhuma_noticia_momento']}}</span>
                     </div>
                 </li>
                 {% endfor %}

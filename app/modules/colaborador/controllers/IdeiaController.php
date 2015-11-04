@@ -10,6 +10,7 @@ use \Incentiv\Models\Ideia,
 class IdeiaController extends ControllerBase {
 
     private $_auth;
+    private $_lang;
     
     public function initialize() {
         $this->_auth = $this->auth->getIdentity();
@@ -22,6 +23,7 @@ class IdeiaController extends ControllerBase {
             $this->view->id                = $this->_auth['id'];
             $this->view->setTemplateBefore('private-colaborador');
         }
+        $this->_lang = parent::initialize();
     }
 
     public function indexAction() {

@@ -8,6 +8,7 @@ use Incentiv\Models\DesafioUsuario;
 class DesafioController extends ControllerBase
 {
     private $_auth;
+    private $_lang;
     
     public function initialize()
     {
@@ -15,6 +16,7 @@ class DesafioController extends ControllerBase
         if (!$this->request->isAjax()) {
             $this->view->setTemplateBefore('private-colaborador');
         }
+        $this->_lang = parent::initialize();
     }
     
     public function indexAction(){}

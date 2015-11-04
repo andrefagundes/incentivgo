@@ -18,6 +18,7 @@ use Incentiv\Models\Usuario,
 class MensagemController extends ControllerBase {
     
     private $_auth;
+    private $_lang;
 
     public function initialize() {
         $this->_auth = $this->auth->getIdentity();
@@ -33,6 +34,7 @@ class MensagemController extends ControllerBase {
             $this->view->avatar            = $this->_auth['avatar'];
             $this->view->setTemplateBefore('private-colaborador');
         }
+        $this->_lang = parent::initialize();
     }
     
     public function mensagemAction(){
