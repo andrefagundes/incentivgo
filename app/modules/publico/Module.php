@@ -84,10 +84,17 @@ class Module implements ModuleDefinitionInterface {
 
             $language = $request->getBestLanguage();
 
-            // TODO mraspor Add cookie check for lang
-            if ($session->has('lang') && null != $session->get('lang')) {
+            
+            //para corrigir a questão do subdominio na transiçao da pagina de escolha de empresa para de login(melhorar isso depois)
+            $addressLang = \Incentiv\Models\Lang::build()->findFirst("ipaddress = '{$request->getClientAddress()}'");
+
+            if($addressLang->lang){
+                $language = $addressLang->lang;
+                $session->set('lang',$language);
+            }elseif ($session->has('lang') && null != $session->get('lang')) {
                 $language = $session->get('lang');
             }
+            
 
             $lang = strtolower(substr($language,0,2));
 

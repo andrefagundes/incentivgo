@@ -13,9 +13,11 @@ use Publico\Forms\CorporationForm;
  */
 class CorporationController extends ControllerBase {
     
+    private $_lang = array();
+
     public function initialize() {
-        $this->_lang = parent::initialize();
         $this->view->setTemplateBefore('public_session');
+        $this->_lang = parent::initialize();
     }
 
     public function indexAction() {
@@ -24,7 +26,7 @@ class CorporationController extends ControllerBase {
     
     public function corporationAction(){
         $form = new CorporationForm();
-
+          
         try {
             if($this->request->isPost()){
                 if ($form->isValid($this->request->getPost()) != false) {
@@ -39,7 +41,7 @@ class CorporationController extends ControllerBase {
                    }else{
                        $dominio = $funcoes->before('.com.br', $dominio);
                    }
-
+  
                    $this->response->redirect("http://{$empresa->subdominio}.{$dominio}.com.br/session/login", true);
                 }                
             }  

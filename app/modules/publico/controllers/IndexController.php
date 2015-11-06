@@ -2,7 +2,8 @@
 
 namespace Publico\Controllers;
 
-use Publico\Forms\ContatoForm;
+use Publico\Forms\ContatoForm,
+    \Incentiv\Models\Lang;
 
 class IndexController extends ControllerBase
 {
@@ -61,6 +62,19 @@ class IndexController extends ControllerBase
         $this->view->form = $form;
     }
     
+    public function langAction(){
+//        $this->session->remove("lang");
+        $lang = $this->dispatcher->getParam("lang");
+        
+        if($lang == 'pt-br' || $lang == 'en' ){
+            $this->session->set('lang', $lang);
+            $ipaddress = $this->request->getClientAddress();
+            Lang::build()->inserirAlterarLang($ipaddress,$lang);
+        }
+
+        $this->response->redirect('');
+    }
+
     public function route404Action(){
         echo 'Ops, deu errado';
     }

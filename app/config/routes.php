@@ -28,6 +28,12 @@ $router->add('/session/logout', array(
     'action' => 'logout'
 ));
 
+$router->add('/language/{lang}', array(
+    'module' => 'publico',
+    'controller' => 'index',
+    'action' => 'lang'
+));
+
 /******Rotas módulo admin**********/
 $router->add('/admin', array(
     'namespace' => 'Admin\Controllers',

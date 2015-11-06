@@ -117,7 +117,7 @@ class SecurityPlugin extends Plugin {
             
             // Recursos área pública
             $publicResources = array(
-                'index'             => array('index','contato','route404'),
+                'index'             => array('index','contato','lang','route404'),
                 'errors'            => array('show401','show404', 'show500'),
                 'session'           => array('index', 'cadastro', 'login', 'esqueceuSenha','enviarSugestao','mensagem','logout'),
                 'corporation'       => array('index', 'corporation','pesquisarEmpresa'),
