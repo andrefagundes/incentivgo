@@ -22,6 +22,10 @@ class Funcoes extends Component
     public function formatarDataSaida($data,$lang){
         return ($lang == 'pt-BR')?date('d/m/Y',strtotime($data)):date('m/d/Y',strtotime($data));
     }
+    
+    public function formatarDataHoraSaida($data,$lang){
+        return ($lang == 'pt-BR')?date('d/m/Y H:m:s',strtotime($data)):date('m/d/Y H:m:s',strtotime($data));
+    }
 
 
     /**

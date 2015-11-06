@@ -39,6 +39,7 @@
         {{ stylesheet_link('http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', false) }}
         {{ stylesheet_link('css/colaborador/style-colaborador.css') }}
         {{ stylesheet_link('css/select2.css') }}
+        {{ stylesheet_link('css/select2-bootstrap.css') }}
         {{ stylesheet_link('css/bootstrap-datetimepicker.min.css') }}
         
         {{ javascript_include('js/jquery.min.js') }}
@@ -62,8 +63,8 @@
     {{ javascript_include('js/colaborador/app.data.js') }}
     {{ javascript_include('js/moment.min.js') }}
     {{ javascript_include('js/moment.locale.min.js') }}
-    {{ javascript_include('js/select2.min.js') }}
-    {{ javascript_include('js/select2_locale_pt-BR.js') }}
+    {{ javascript_include('js/select2/select2.min.js') }}
+    {{ javascript_include('js/select2/i18n/pt-BR.js') }}
     {{ javascript_include('js/empresa/js-library/datepicker/bootstrap-datetimepicker-min.js') }}
     </body>
 </html>

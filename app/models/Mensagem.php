@@ -127,7 +127,16 @@ class Mensagem extends Model
         $mensagem->innerjoin('Incentiv\Models\Usuario', "Incentiv\Models\Mensagem.remetenteId = usuario.id", 'usuario');
          
         if($objMensagem->tipo == Mensagem::MENSAGENS_TIPO_ENTRADA)
-        {
+        {   
+            //substitui as colunas de cima, não achei como adicionar somente a coluna que quero
+            $mensagem->columns(array('Incentiv\Models\Mensagem.id',
+                                                'Incentiv\Models\Mensagem.titulo',
+                                                'Incentiv\Models\Mensagem.mensagem',
+                                                'Incentiv\Models\Mensagem.mensagemId',
+                                                'Incentiv\Models\Mensagem.remetenteId',
+                                                'Incentiv\Models\Mensagem.envioDt',
+                                                'usuario.nome','MensagemDestinatario.lida'));
+            
             $mensagem->innerjoin('Incentiv\Models\MensagemDestinatario', "MensagemDestinatario.mensagemId = Incentiv\Models\Mensagem.id", 'MensagemDestinatario');
             $mensagem->leftjoin('Incentiv\Models\MensagemExcluida', "MensagemDestinatario.destinatarioId = mensagemExcluidaDestinatario.usuarioId AND MensagemDestinatario.mensagemId = mensagemExcluidaDestinatario.mensagemId", 'mensagemExcluidaDestinatario');
             $mensagem->where( "MensagemDestinatario.destinatarioId = {$objMensagem->destinatarioId}");
@@ -255,15 +264,14 @@ class Mensagem extends Model
     }
     
     public function quantMensagensEnviadas($remetenteId){
-        $mensagensRecebidas = Mensagem::query()->columns(array('quant'=>'count(*)'));
+        $mensagensRecebidas = Mensagem::query()->columns('mensagemExcluida.mensagemId');
         
         $mensagensRecebidas->leftjoin('Incentiv\Models\MensagemExcluida', "Incentiv\Models\Mensagem.id = mensagemExcluida.mensagemId AND Incentiv\Models\Mensagem.remetenteId = mensagemExcluida.usuarioId", 'mensagemExcluida');
         $mensagensRecebidas->andwhere( "Incentiv\Models\Mensagem.remetenteId = {$remetenteId}");
         $mensagensRecebidas->andwhere( "mensagemExcluida.id IS NULL");
         $mensagensRecebidas->andwhere( "Incentiv\Models\Mensagem.mensagemId IS NULL");
-        $count = $mensagensRecebidas->execute();
  
-        return (int) $count->quant;
+        return (int) $mensagensRecebidas->execute()->count();
     }
     
     public function buscarMensagensRecebidas($destinatarioId){

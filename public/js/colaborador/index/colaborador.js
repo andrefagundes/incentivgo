@@ -14,7 +14,7 @@ var Colaborador = {
 
         //evento do botão pedir ajuda
         $("#btnAjuda").click(function() {
-            $("#myModalLabelAjudas").html((Colaborador.lang === 'pt-BR' ? 'Ajudas' : 'Help'));
+            $("#myModalLabelAjudas").html((Colaborador.lang === 'pt-BR' ? 'Ajudas' : 'Aid'));
             $("#modal-body-ajudas").html('').load("modal-ajudas/" + 0);
             $("#modalAjudas").modal('show');
         });

@@ -1,45 +1,48 @@
 <section class="main media">
     <div class="row media">
-        <div class="col-sm-11">
+        <div class="col-sm-12">
             {{ form('colaborador/mensagem/salvar-mensagem', 'class':'form-horizontal media', 'id':'form-nova-mensagem', 'method': 'post') }}
             <div class="form-group">
-                <label class="col-lg-3 control-label">Enviar para:</label>
-                <div class="col-lg-9 select2-allowclear">
+                <label class="col-lg-2 control-label">{{lang['enviar_para']}}:</label>
+                <div class="col-lg-10">
                     <?php 
                         echo Phalcon\Tag::select(array('id'=>'destinatarios-mensagem',
-                                                    'class'=>'form-control select2',
+                                                    'class'=>'form-control select2-multiple required',
+                                                    'using' => ['id', 'nome'],
                                                     'multiple'=>'multiple',
                                                     'value' =>[],
-                                                    'name'=>'dados[destinatarios-mensagem]','style'=>'width:90%'),
+                                                    'name'=>'dados[destinatarios-mensagem][]','style'=>'width:90%'),
                                array());
                          ?>
+                    <label id="destinatarios-mensagem-error" class="error" for="destinatarios-mensagem" style="display: none;"></label>
                 </div>
             </div>
             <div class="form-group" id="div_colab_resp">
-                <label class="col-lg-3 control-label">Título:</label>
-                <div class="col-lg-9 select2-allowclear">
+                <label class="col-lg-2 control-label">{{lang['titulo']}}:</label>
+                <div class="col-lg-10 select2-allowclear">
                     {{ text_field("dados[titulo]", 'id':'titulo','value':'','class': 'bg-focus form-control', 'style':'width:60%') }}
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-3 control-label">Mensagem:</label>
-                <div class="col-lg-9">
-                    {{ text_area("dados[mensagem]", 'id':'mensagem', 'placeholder': 'Descreva a mensagem','value':'','rows':'6', 'class':'bg-focus form-control') }}
+                <label class="col-lg-2 control-label">{{lang['mensagem']}}:</label>
+                <div class="col-lg-10">
+                    {{ text_area("dados[mensagem]", 'id':'mensagem', 'placeholder': lang['descreva_mensagem'],'value':'','rows':'6', 'class':'bg-focus form-control') }}
                 </div>
             </div>
             <div class="text-center clearfix bg-white">
-                <input type="submit" class="btn btn-facebook btn-sm squared" value="Enviar Mensagem">
-                <input type="button" class="btn btn-default btn-sm squared" id="btnCancelarNovaMensagem" value="Cancelar">
+                <input type="submit" class="btn btn-facebook btn-sm squared" value="{{lang['enviar_mensagem']}}">
+                <input type="button" class="btn btn-default btn-sm squared" id="btnCancelarNovaMensagem" value="{{lang['cancelar']}}">
             </div>
             {{endForm()}}
         </div>
     </div>
+    {{hidden_field("lang",'value':lang['lang'])}}
 </section>
 
 <!-- Fim Modal Criar Regra -->
 {{ javascript_include('js/colaborador/mensagem/nova-mensagem.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        NovaMensagem.init();
+        NovaMensagem.init($("#lang").val());
     });
 </script>

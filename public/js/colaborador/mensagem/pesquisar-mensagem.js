@@ -1,10 +1,10 @@
 var pesquisarMensagem = {
-    init: function() {
+    init: function(lang) {
+        pesquisarMensagem.lang = lang;
         $("[data-toggle=tooltip]").tooltip();
         
-        moment.locale('pt-br');
         $(".moment").each(function(){
-           $(this).html(moment($(this).html()).startOf().fromNow());
+           $(this).html(moment($(this).html()).locale(pesquisarMensagem.lang).startOf().fromNow());
         });
         
         $('.btnPaginacaoMensagem').on('click', function() {

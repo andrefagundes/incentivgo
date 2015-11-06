@@ -7,7 +7,12 @@
                         <span class="task-title-sp">{{noticia.titulo}}</span>
                     </div><br/>
                     <div class="task-title pull-left">
-                        <label>{{lang['enviada_em']}}:</label> {{date('d/m/Y',noticia.criacaoDt)}}
+                        <label>{{lang['enviada_em']}}:</label> 
+                        {% if(lang['lang'] == 'pt-BR') %}
+                            {{ date('d/m/Y', noticia.criacaoDt) }}
+                        {% else %}
+                            {{ date('m/d/Y', noticia.criacaoDt) }}
+                        {% endif %}
                     </div>
                     <div class="task-title pull-right">
                         <button type="button" id="{{noticia.id}}" class="btn btn-xs btn-facebook btnLerNoticia">{{lang['ler_noticia']}}</button>

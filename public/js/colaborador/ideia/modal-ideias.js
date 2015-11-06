@@ -1,7 +1,7 @@
 var ModalIdeias = {
     
-    init: function() {
-        
+    init: function(lang) {
+        ModalIdeias.lang = lang;
         $("#form-ideia").validate({
             rules: {
                 'txt_titulo': {
@@ -12,8 +12,8 @@ var ModalIdeias = {
                 }
             },
             messages: {
-                'txt_titulo': 'Campo obrigatório',
-                'txt_ideia': 'Campo obrigatório'
+                'txt_titulo': (ModalIdeias.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required'),
+                'txt_ideia': (ModalIdeias.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required')
             }
         });
         

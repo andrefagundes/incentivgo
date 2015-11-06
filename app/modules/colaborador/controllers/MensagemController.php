@@ -138,15 +138,19 @@ class MensagemController extends ControllerBase {
         
         MensagemDestinatario::build()->setarMensagemLida($objDadosMensagemLida);
         
+        
         $mensagens = '';
         foreach ($resultMensagem as $key => $mensagem){
+            
+            $data_envio_formatada = $this->di->get('funcoes')->formatarDataHoraSaida($mensagem->envioDt,$this->_lang['lang']);
+            
             $mensagens[$key]['id']              = $mensagem->id;
             $mensagens[$key]['titulo']          = $mensagem->titulo;
             $mensagens[$key]['mensagem']        = $mensagem->mensagem;
             $mensagens[$key]['avatar']          = $mensagem->usuarioRemetente->avatar;
             $mensagens[$key]['nomeRemetente']   = $mensagem->usuarioRemetente->nome;
             $mensagens[$key]['emailRemetente']  = $mensagem->usuarioRemetente->email;
-            $mensagens[$key]['envioDt']         = date('d/m/Y H:m:s',strtotime($mensagem->envioDt));
+            $mensagens[$key]['envioDt']         = $data_envio_formatada;
             $mensagens[$key]['envioDtBanco']    = $mensagem->envioDt;
             $mensagens[$key]['id_mensagem_pai'] = $mensagemId;
             

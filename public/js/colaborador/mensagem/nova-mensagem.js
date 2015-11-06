@@ -8,10 +8,15 @@ var NovaMensagem = {
             ColaboradorMensagem.pesquisarMensagem(1);
             $("#grupo-filtros").show();
         });
+        
+         //select está hidden, por isso ignoro o default que é não validar campos hidden
+        $.validator.setDefaults({
+            ignore: []
+        });
 
         $("#form-nova-mensagem").validate({
             rules: {
-                'dados[destinatarios-mensagem]': {
+                'dados[destinatarios-mensagem][]': {
                     validarParticipantes: true
                 },
                 'dados[titulo]': {
@@ -22,19 +27,23 @@ var NovaMensagem = {
                 } 
             },
             messages: {
-                'dados[destinatarios-mensagem]':(NovaMensagem.lang === 'en' ? 'recipient mandatory' : 'Destinatário obrigatório'),
-                'dados[titulo]': (NovaMensagem.lang === 'en' ? 'mandatory title' : 'Título obrigatório'),
-                'dados[mensagem]': (NovaMensagem.lang === 'en' ? 'mandatory message' : 'Mensagem obrigatória')
+                'dados[destinatarios-mensagem][]':{
+                    required:(NovaMensagem.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required'),
+                    minlength:(NovaMensagem.lang === 'pt-BR' ? 'Selecione um destinatário' : 'Select a recipient')
+                },
+                'dados[titulo]': (NovaMensagem.lang === 'pt-BR' ? 'Campo obrigatório' : 'required'),
+                'dados[mensagem]': (NovaMensagem.lang === 'pt-BR' ? 'Campo obrigatório' : 'required')
             }
         });
         
         jQuery.validator.addMethod("validarParticipantes", function() {
-            if($("#destinatarios-mensagem").val() === '')
+            alert($("#destinatarios-mensagem").val());
+            if($("#destinatarios-mensagem").val() === '' || $("#destinatarios-mensagem").val() === null)
             {
                 return false;
             }
             return true;
-        }, (NovaMensagem.lang === 'en' ? 'required' : 'Campo obrigatório'));
+        }, (NovaMensagem.lang === 'pt-BR' ? 'Campo obrigatório' : 'required'));
     }
 };
 
@@ -49,14 +58,16 @@ function formataSelectColaboradores() {
     $("#destinatarios-mensagem").select2({
         allowClear: true,
         theme: "bootstrap",
-        placeholder: (NovaMensagem.lang === 'en' ? 'Search collaborator...' : "Pesquise o colaborador..."),
+        language:NovaMensagem.lang,
+        placeholder: (NovaMensagem.lang === 'pt-BR' ? 'Pesquise o colaborador...' : "Search collaborator..."),
         minimumInputLength: 3,
         multiple: true,
         openOnEnter:true,
         ajax: {
             url: "desafio/pesquisar-colaborador/filter/",
             dataType: 'json',
-            quietMillis: 100,
+            delay:150,
+            quietMillis: 250,
             data: function (params) {
                 return {
                   filter: params.term, // search 
@@ -64,18 +75,14 @@ function formataSelectColaboradores() {
                   page: params.page
                 };
             },       
-            processResults: function (data, page) {
-                // parse the results into the format expected by Select2.
-                // since we are using custom formatting functions we do not need to
-                // alter the remote JSON data
-                
+            processResults: function (data, page) {        
                 return {
                   results: data
                 };
             }
         },
-        formatResult: formatoResultado,
-        formatSelection: formatoSelect,
+        templateResult: formatoResultado,
+        templateSelection: formatoSelect,
         cache:false
     });
 }

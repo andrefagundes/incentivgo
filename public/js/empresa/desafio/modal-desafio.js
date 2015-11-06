@@ -53,16 +53,16 @@ var ModalDesafio = {
                 }
             },
             messages: {
-                'dados[desafio_tipo_id]': (ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório'),
-                'dados[tipo_desafio]': (ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório'),
-                'dados[desafio]': (ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório'),
-                'dados[data_inicio]': (ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório'),
-                'dados[data_fim]': (ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório'),
+                'dados[desafio_tipo_id]': (ModalDesafio.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required'),
+                'dados[tipo_desafio]': (ModalDesafio.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required'),
+                'dados[desafio]': (ModalDesafio.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required'),
+                'dados[data_inicio]': (ModalDesafio.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required'),
+                'dados[data_fim]': (ModalDesafio.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required'),
                 'dados[colaboradores-participantes][]':{
-                    required:(ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório'),
-                    minlength:(ModalDesafio.lang === 'en' ? 'Selecione um colaborador' : 'Selecione um colaborador')
+                    required:(ModalDesafio.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required'),
+                    minlength:(ModalDesafio.lang === 'pt-BR' ? 'Selecione um colaborador' : 'Select a collaborator')
                 },
-                'dados[colaborador-responsavel]':(ModalDesafio.lang === 'en' ? 'Required' : 'Campo obrigatório')
+                'dados[colaborador-responsavel]':(ModalDesafio.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required')
             }
         });
         
@@ -123,7 +123,7 @@ function formataSelectColaboradores(quantColaboradores) {
         theme: "bootstrap",
         language:ModalDesafio.lang,
         maximumSelectionLength:quantColaboradores,
-        placeholder:(ModalDesafio.lang === 'en' ? 'Select participants employees...' : 'Selecione os colaboradores participantes...'),
+        placeholder:(ModalDesafio.lang === 'pt-BR' ? 'Selecione os colaboradores participantes...' : 'Select participants employees...'),
         minimumInputLength: 3,
         ajax: {
             url: "desafio/pesquisar-colaborador/filter/",
@@ -154,7 +154,7 @@ function formataSelectColaboradorResp() {
         theme: "bootstrap",
         allowClear: true,
         language:ModalDesafio.lang,
-        placeholder:(ModalDesafio.lang === 'en' ? 'Select the employee responsible...' : 'Selecione o colaborador responsável...'),
+        placeholder:(ModalDesafio.lang === 'pt-BR' ? 'Selecione o colaborador responsável...' : 'Select the employee responsible...'),
         minimumInputLength: 3,
         maximumSelectionLength: 1,
         ajax: {

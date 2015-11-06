@@ -13,6 +13,7 @@ use Incentiv\Models\Desafio,
 class DesafioUsuario extends Model
 {
      public static $_instance;
+     private $_lang = array();
      
      const DESAFIO_APROVADO  = 'Y';
      const DESAFIO_REPROVADO = 'N';
@@ -77,6 +78,8 @@ class DesafioUsuario extends Model
 
     public function initialize()
     {
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->belongsTo('usuarioId', 'Incentiv\Models\Usuario', 'id', array(
             'alias' => 'usuario'
         ));
@@ -86,6 +89,9 @@ class DesafioUsuario extends Model
     }
     
     public function buscarDesafiosUsuario(\stdClass $objDesafio){
+        
+        $formatDate = ($this->_lang['lang'] == 'pt-BR')?'%d/%m/%Y':'%m/%d/%Y';
+        
         $desafios = $this::query()->columns(
                          array( 'Incentiv\Models\DesafioUsuario.id',
                                 'Incentiv\Models\DesafioUsuario.usuarioResposta',
@@ -95,8 +101,8 @@ class DesafioUsuario extends Model
                                 'd.usuarioResponsavelId',
                                 'usuarioResponsavel'=>'usuarioResponsavel.nome',
                                 'DesafioPontuacao.pontuacao', 
-                                'inicioDt' => "DATE_FORMAT( d.inicioDt , '%d/%m/%Y' )",
-                                'fimDt' => "DATE_FORMAT( d.fimDt , '%d/%m/%Y' )",
+                                'inicioDt' => "DATE_FORMAT( d.inicioDt , '{$formatDate}' )",
+                                'fimDt' => "DATE_FORMAT( d.fimDt , '{$formatDate}' )",
                                 'd.premiacao'));
         
         $desafios->innerjoin('Incentiv\Models\Desafio', 'Incentiv\Models\DesafioUsuario.desafioId = d.id', 'd');
@@ -106,7 +112,6 @@ class DesafioUsuario extends Model
         $desafios->andwhere( "Incentiv\Models\DesafioUsuario.usuarioResposta != 'N' OR Incentiv\Models\DesafioUsuario.usuarioResposta IS NULL");
         $desafios->andwhere( "Incentiv\Models\DesafioUsuario.envioAprovacaoDt IS NULL");
         $desafios->andwhere( "d.ativo = 'Y'");
-        
         $desafios->orderBy('d.desafio');
         
         $desafiosUsuario = $desafios->execute()->toArray();
@@ -137,12 +142,12 @@ class DesafioUsuario extends Model
         ));
 
         if (!$desafioUsuario->save()) {
-            return array('status' => 'error', 'message'=>'Não foi possível descartar o desafio, tente mais tarde!!!');
+            return array('status' => 'error', 'message'=> $this->_lang['MSG19']);
         }else{
             if($objDesafio->resposta == 'N'){
-               return array('status' => 'ok', 'message'=>'Desafio descartado com sucesso!!!'); 
+               return array('status' => 'ok', 'message'=> $this->_lang['MSG20']); 
             }else{
-                return array('status' => 'ok', 'message'=>'Desafio aceito com sucesso!!!');
+                return array('status' => 'ok', 'message'=> $this->_lang['MSG21']);
             }  
         }
     }
@@ -156,9 +161,9 @@ class DesafioUsuario extends Model
         ));
 
         if (!$desafioUsuario->save()) {
-            return array('status' => 'error', 'message'=>'Não foi possível enviar o desafio, tente mais tarde!!!');
+            return array('status' => 'error', 'message'=> $this->_lang['MSG25']);
         }else{
-            return array('status' => 'ok', 'message'=>'Desafio enviado para aprovação com sucesso!!!');  
+            return array('status' => 'ok', 'message'=> $this->_lang['MSG22']);  
         }
     }
     
@@ -200,9 +205,9 @@ class DesafioUsuario extends Model
         $desafio->save();
         
         if($dados->resposta == 'N'){
-            return array('status' => 'ok', 'message' => 'Desafio reprovado com sucesso!!!');
+            return array('status' => 'ok', 'message' => $this->_lang['MSG23']);
         }else{
-            return array('status' => 'ok', 'message' => 'Desafio aprovado com sucesso!!!');
+            return array('status' => 'ok', 'message' => $this->_lang['MSG24']);
         }  
     }
 }

@@ -1,10 +1,10 @@
 var LerMensagem = {
-    init: function() {
+    init: function(lang) {
+        LerMensagem.lang = lang;
         $("[data-toggle=tooltip]").tooltip();
-        moment.locale('pt-br');
         
         $(".moment").each(function(){
-           $(this).html(moment($(this).html()).startOf().fromNow());
+           $(this).html(moment($(this).html()).locale(LerMensagem.lang).startOf().fromNow());
         });
         
         $("#btnResponderMensagem").click(LerMensagem.responderMensagem);
@@ -20,7 +20,7 @@ var LerMensagem = {
         });
         
         $("#btnExcluirMensagem").click(function(){
-            $("#myModalLabel").html('Confirmação');
+            $("#myModalLabel").html((LerMensagem.lang === 'pt-BR' ? 'Confirmação' : 'Confirmation'));
             $('#modalExcluirMsg').modal('show'); 
         });
         
@@ -34,8 +34,8 @@ var LerMensagem = {
                 }
             },
             messages: {
-                'resposta-titulo':'Título obrigatório',
-                'resposta-mensagem':'Resposta obrigatória'
+                'resposta-titulo':(LerMensagem.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required'),
+                'resposta-mensagem':(LerMensagem.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required')
             }
         });
     },

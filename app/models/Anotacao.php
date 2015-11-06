@@ -12,6 +12,7 @@ class Anotacao extends Model
 {
     
     public static $_instance;
+    private $_lang = array();
    
     /**
      * @var integer
@@ -59,7 +60,7 @@ class Anotacao extends Model
     {
         $this->validate(new PresenceOf(array(
           'field' => 'descricao',
-          'message' => 'A descrição do rascunho é obrigatória!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG18")
         )));
         
         return $this->validationHasFailed() != true;
@@ -67,13 +68,31 @@ class Anotacao extends Model
 
     public function initialize()
     {
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->belongsTo('usuarioId', 'Incentiv\Models\Usuario', 'id', array(
             'alias' => 'usuario',
             'reusable' => true
         ));
     }
     
-    public function salvarAnotacao(\stdClass $objAnotacao){
+    public function buscarAnotacoes($usuarioId){
+        $whereDate = ($this->_lang['lang'] == 'pt-BR')?'%d/%m/%Y':'%d/%m/%Y';
+        
+        $anotacoes = Anotacao::query()->columns(
+                         array( 'Incentiv\Models\Anotacao.id',
+                                'Incentiv\Models\Anotacao.usuarioId',
+                                'Incentiv\Models\Anotacao.descricao',
+                                'Incentiv\Models\Anotacao.criacaoDt'));
+                                
+        $anotacoes->andwhere("Incentiv\Models\Anotacao.usuarioId = {$usuarioId}");
+        
+        $anotacoes->orderBy('Incentiv\Models\Anotacao.id');
+
+        return $anotacoes->execute();
+    }
+
+        public function salvarAnotacao(\stdClass $objAnotacao){
 
         $this->assign(array(
             'usuarioId'     => $objAnotacao->usuarioId,
@@ -81,10 +100,10 @@ class Anotacao extends Model
         ));
 
         if (!$this->save()) {
-            return array('status' => 'error', 'message'=>'Não foi possível salvar a anotação!!!');
+            return array('status' => 'error', 'message'=> $this->_lang->_("MSG08", array("campo" => $this->_lang['nota'])));
         }
 
-        return array('status' => 'ok','message'=>'Anotação salva com sucesso!!!');
+        return array('status' => 'ok','message'=> $this->_lang->_("MSG09", array("campo" => $this->_lang['nota'])));
         
     }
     
@@ -93,12 +112,12 @@ class Anotacao extends Model
         $anotacao = $this::findFirst($objAnotacao->anotacaoId);
         if ($anotacao != false) {
             if ($anotacao->delete() == false) {
-                return array('status' => 'error', 'message'=>'Não foi possível excluir a anotação!!!');
+                return array('status' => 'error', 'message'=> $this->_lang->_("MSG10", array("campo" => $this->_lang['nota'])));
             } else {
-                return array('status' => 'ok','message'=>'Anotação excluída com sucesso!!!');
+                return array('status' => 'ok','message'=> $this->_lang->_("MSG11", array("campo" => $this->_lang['nota'])));
             }
         }else{
-              return array('status' => 'error', 'message'=>'Anotação não foi encontrada!!!');
+              return array('status' => 'error', 'message'=> $this->_lang->_("MSG12", array("campo" => $this->_lang['nota'])));
         }
     }
 }

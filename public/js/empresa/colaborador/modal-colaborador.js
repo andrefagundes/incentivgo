@@ -15,9 +15,9 @@ var ModalColaborador = {
                 }
             },
             messages: {
-                'nome': (ModalColaborador.lang === 'en' ? 'Required' : 'Campo obrigatório'),
-                'email':{required:(ModalColaborador.lang === 'en' ? 'Required' : 'Campo obrigatório'),email:(ModalColaborador.lang === 'en' ? 'Invalid email' : 'E-mail inválido')},
-                'perfilId': (ModalColaborador.lang === 'en' ? 'Required' : 'Campo obrigatório'),
+                'nome': (ModalColaborador.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required'),
+                'email':{required:(ModalColaborador.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required'),email:(ModalColaborador.lang === 'pt-BR' ? 'E-mail inválido' : 'Invalid email')},
+                'perfilId': (ModalColaborador.lang === 'pt-BR' ? 'Campo obrigatório' : 'Required')
             }
         });
     }

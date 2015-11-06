@@ -5,23 +5,21 @@
             <!-- PONTUAÇÃO -->
             <div class="white-panel pn white-panel-ideia">
                 <div class="white-header">
-                    <h5>Ideias</h5>
+                    <h5>{{lang['ideias']}}</h5>
                 </div>
                 <div class="row pager">
                     <div class="col-md-6">
-                        <p class="mt">Se você é criativo e possui ideias para o crescimento da empresa em que
-                            trabalha, envie, contribua e cresça junto com a empresa, gerando grandes resultados pra todos.</p>
+                        <p class="mt">{{lang['msg_ideia_enviadas']}}</p>
                         <span class="badge bg-primary">+ {{pontuacaoIdeiaEnviada}}</span> incentivs 
                     </div>
                     <div class="col-md-6">
-                        <p class="mt">Sua ideia sendo aprovada além de ganhar notoriedade e reconhecimento,
-                        poderá usufruir de vários benefícios através dos inventivs ganhos.</p>
+                        <p class="mt">{{lang['msg_ideia_aprovadas']}}</p>
                         <span class="badge bg-primary">+ {{pontuacaoIdeiaAprovada}}</span> incentivs 
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button class="btn btn-theme04 btn-facebook btn-sm" id="btnIdeias" type="button">Banco de Ideias</button>
+                        <button class="btn btn-theme04 btn-facebook btn-sm" id="btnIdeias" type="button">{{lang['banco_de_ideias']}}</button>
                     </div>
                 </div>
             </div>
@@ -34,8 +32,8 @@
         <div class="modal-content">
             <div class="modal-header modal-header-ideia">
                 <div class="pull-right">
-                    <button type="button" class="btn btn-default btn-modal-title" id="btnEnviarIdeia">Enviar Ideia</button>
-                    <button type="button" class="close close-title-btn"  data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                    <button type="button" class="btn btn-default btn-modal-title" id="btnEnviarIdeia">{{lang['enviar_ideia']}}</button>
+                    <button type="button" class="close close-title-btn"  data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{{lang['fechar']}}</span></button>
                 </div>
                 <h4 class="modal-title" id="myModalLabelIdeias"></h4>
             </div>
@@ -45,11 +43,12 @@
         </div>
     </div>
 </div>
+{{hidden_field("lang",'value':lang['lang'])}}
 <!-- Fim Modal Ideias -->
 
 {{ javascript_include('js/colaborador/ideia/ideia.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        Ideia.init();
+        Ideia.init($("#lang").val());
     });
 </script>

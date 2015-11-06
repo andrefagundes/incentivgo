@@ -3,12 +3,12 @@
         <div class="task-content">
             <ul class="task-list ui-sortable" id="sortable">
                 {% for mensagem in page.items %}
-<!--                    {% if mensagem.lida is 'Y' %}
-                        {% set list = 'info' %}
-                    {% else %}
+                    {% if mensagem.lida is 'Y' %}
                         {% set list = 'success' %}
-                    {% endif %}-->
-                    <li class="list-unstyled list-success">
+                    {% else %}
+                        {% set list = 'info' %}
+                    {% endif %}
+                    <li class="list-unstyled list-{{list}}">
                         <div class="task-title">
                             <a href="#" class="mensagem-entrada" id="{{mensagem.id}}"><small class="pull-right text-muted moment">{{ mensagem.envioDt }}</small><strong>{{mensagem.nome}}</strong><br><small>{{mensagem.titulo}}</small></a>
                         </div>
@@ -16,7 +16,7 @@
                 {% elsefor %}
                     <li class="text-center center">
                     <div class="task-title">
-                        <span class="task-title-sp">Nenhuma mensagem no momento.</span>
+                        <span class="task-title-sp">{{lang['nenhuma_mensagem']}}</span>
                     </div>
                 </li>
                 {% endfor %}
@@ -25,7 +25,7 @@
          <footer>
         <div class="row">
             <div class="col-sm-3 col-sm-offset-4 text-center">
-                <small class="text-muted inline m-t-small m-b-small">Mostrando {{ page.current }} de {{ page.total_pages }}</small>
+                <small class="text-muted inline m-t-small m-b-small">{{lang['p_mostrando']}} {{ page.current }} de {{ page.total_pages }}</small>
             </div>
             <div class="col-sm-5 text-right text-center-sm">                
                 <ul class="pagination pagination-small m-t-none m-b-none">
@@ -38,10 +38,11 @@
         </div>
         </footer>
     </div>
+    {{hidden_field("lang",'value':lang['lang'])}}
 </section>
 {{ javascript_include('js/colaborador/mensagem/pesquisar-mensagem.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        pesquisarMensagem.init();
+        pesquisarMensagem.init($("#lang").val());
     });
 </script>

@@ -8,22 +8,28 @@
                         <span class="task-title-sp">{{pedidoRecompensa.recompensa}}</span>
                     </div><br/>
                     <div class="task-title pull-left">
-                        <span class="sp-title">Enviada em: {{ pedidoRecompensa.cadastroDt }}</span>
+                        <span class="sp-title">{{lang['enviada_em']}}: 
+                            {% if(lang['lang'] == 'pt-BR') %}
+                                {{ date('d/m/Y', pedidoRecompensa.cadastroDt) }}
+                            {% else %}
+                                {{ date('m/d/Y', pedidoRecompensa.cadastroDt) }}
+                            {% endif %}
+                        </span>
                     </div>
                     <div id={{pedidoRecompensa.id}} class="task-title pull-right">
                         {%if(pedidoRecompensa.status == 1 )%}
-                            <span class="badge bg-important">Pedido enviado</span>
+                            <span class="badge bg-important">{{lang['pedido_recompensa_enviado']}}</span>
                         {%elseif(pedidoRecompensa.status == 2)%}
-                            <span class="badge bg-success">Parabéns!!! Recompensa pode ser usada</span>
+                            <span class="badge bg-success">{{lang['parabens_recompensa']}}</span>
                         {%elseif(pedidoRecompensa.status == 3)%}
-                            <span class="badge bg-theme04">Pedido Cancelado</span>
+                            <span class="badge bg-theme04">{{lang['pedido_recompensa_cancelado']}}</span>
                         {%endif%}
                     </div>
                 </li>
             {% elsefor %}
                 <li class="list-primary text-center">
                     <div class="task-title">
-                        <span class="task-title-sp">Nenhuma recompensa utilizada até o momento!!!</span>
+                        <span class="task-title-sp">{{lang['nenhuma_recompensa_momento']}}</span>
                     </div>
                 </li>
             {% endfor %}
@@ -31,7 +37,7 @@
         <div id="ul_recompensa" class="container-fluid box1" style="display: none">
             <form role="form" class="form-recompensa form-horizontal" id="form-recompensa">
                 <div class="form-group">
-                    <label for="recompensaId" class="col-lg-2 control-label">Recompensa:</label>
+                    <label for="recompensaId" class="col-lg-2 control-label">{{lang['recompensa']}}:</label>
                     <div class="col-lg-10">
                         <?php
                         echo Phalcon\Tag::select(array(
@@ -41,28 +47,29 @@
                             $recompensas,
                             "using" => array("id", "recompensa"),
                             'useEmpty' => true,
-                            'emptyText' => 'Selecione a recompensa que deseja usar...',
+                            'emptyText' => $lang['selecione_recompensa'],
                             'emptyValue' => ''
                         ));
                         ?>
-                        <label id="recompensa_id-error" class="error pull-left display-none"  for="recompensa_id">Campo obrigatório</label>
+                        <label id="recompensa_id-error" class="error pull-left display-none"  for="recompensa_id">{{lang['campo_obrigatorio']}}</label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="observacaoUsuario" class="col-lg-2 control-label">Observações:</label>
+                    <label for="observacaoUsuario" class="col-lg-2 control-label">{{lang['observacoes']}}:</label>
                     <div class="col-lg-10">
-                        <textarea id="observacaoUsuario" name="dados[txt_observacao_recompensa]" placeholder="Observações" class="form-control"></textarea>
+                        <textarea id="observacaoUsuario" name="dados[txt_observacao_recompensa]" placeholder="{{lang['observacoes']}}" class="form-control"></textarea>
                     </div>
                 </div>
             </form>
-            <button type="button" id="btnCancelarRecompensa" class="btn btn-xs btn-default pull-right ml">Cancelar</button>
-            <button type="button" id="btnSalvarRecompensa" class="btn btn-xs btn-facebook pull-right">Enviar</button>
+            <button type="button" id="btnCancelarRecompensa" class="btn btn-xs btn-default pull-right ml">{{lang['cancelar']}}</button>
+            <button type="button" id="btnSalvarRecompensa" class="btn btn-xs btn-facebook pull-right">{{lang['enviar']}}</button>
         </div>
     </div>
+    {{hidden_field("lang",'value':lang['lang'])}}
 </section>
 {{ javascript_include('js/colaborador/recompensa/modal-recompensa.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        ModalRecompensa.init();
+        ModalRecompensa.init($("#lang").val());
     });
 </script>

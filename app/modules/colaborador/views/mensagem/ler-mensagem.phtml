@@ -39,10 +39,10 @@
         <div class="compose-btn pull-left">
             {% if loop.last %}
                 {% if resposta %}
-                    <a class="btn btn-sm btn-facebook link-responder-mensagem" data-title="Responder mensagem" data-toggle="tooltip" data-placement="left" href="#"><i class="fa fa-reply"></i> Responder</a>
+                    <a class="btn btn-sm btn-facebook link-responder-mensagem" data-title="{{lang['responder_mensagem']}}" data-toggle="tooltip" data-placement="left" href="#"><i class="fa fa-reply"></i> {{lang['responder']}}</a>
                 {% endif %}
             {% endif %}
-            <button id="btnExcluirMensagem" data-title="Excluir mensagem" data-toggle="tooltip" data-placement="right" class="btn btn-sm"><i class="fa fa-trash-o"></i></button>
+            <button id="btnExcluirMensagem" data-title="{{lang['excluir_mensagem']}}" data-toggle="tooltip" data-placement="right" class="btn btn-sm"><i class="fa fa-trash-o"></i></button>
         </div>
     </div>
 </section>
@@ -53,17 +53,17 @@
                 {{hidden_field("id",'value':mensagem['id_mensagem_pai'])}} 
                 <div class="col-lg-12">
                     <p>
-                        {{ text_field("resposta-titulo", 'id':'resposta-titulo', 'placeholder': 'Informe um título', 'value':'','class': 'bg-focus form-control', 'style':'width:60%') }}
+                        {{ text_field("resposta-titulo", 'id':'resposta-titulo', 'placeholder': lang['informe_titulo'], 'value':'','class': 'bg-focus form-control', 'style':'width:60%') }}
                     </p>
                 </div>
                 <div class="col-lg-12">
                     <p>
-                        {{ text_area("resposta-mensagem", 'id':'resposta-mensagem', 'placeholder': 'Descreva a resposta da mensagem','value':'','rows':'6', 'class':'bg-focus form-control') }}
+                        {{ text_area("resposta-mensagem", 'id':'resposta-mensagem', 'placeholder': lang['descreva_resposta_mensagem'],'value':'','rows':'6', 'class':'bg-focus form-control') }}
                     </p>
                 </div>
                 <div class="text-center padder">
-                    <button type="button" class="btn btn-sm btn-default m-t squared" id="btnCancelarResposta"> Cancelar</button>
-                    <button type="submit" class="btn btn-sm btn-facebook m-t squared" id="btnResponderMensagem"> Enviar</button>
+                    <button type="button" class="btn btn-sm btn-default m-t squared" id="btnCancelarResposta"> {{lang['cancelar']}}</button>
+                    <button type="submit" class="btn btn-sm btn-facebook m-t squared" id="btnResponderMensagem"> {{lang['enviar']}}</button>
                 </div>
             {{endForm()}}
         </div><br/>
@@ -77,20 +77,21 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{{lang['fechar']}}</span></button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
-            <div class="modal-body ml" id="modal-body-exclusao"><br/><p>Deseja realmente excluir a mensagem?</p></div>
+            <div class="modal-body ml" id="modal-body-exclusao"><br/><p>{{lang['deseja_excluir_mensagem']}}</p></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-sm btn-syndicate squared" id="btnExcluirMensagemLida">Excluir</button>
+                <button type="button" class="btn btn-sm btn-default squared" data-dismiss="modal">{{lang['cancelar']}}</button>
+                <button type="button" class="btn btn-sm btn-syndicate squared" id="btnExcluirMensagemLida">{{lang['excluir']}}</button>
             </div>
         </div>
     </div>
 </div>
+{{hidden_field("lang",'value':lang['lang'])}}
 {{ javascript_include('js/colaborador/mensagem/ler-mensagem.js') }}
 <script type="text/javascript">
     $(document).ready(function() {
-        LerMensagem.init();
+        LerMensagem.init($("#lang").val());
     });
 </script>

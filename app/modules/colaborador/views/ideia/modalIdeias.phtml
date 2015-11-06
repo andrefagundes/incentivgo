@@ -8,26 +8,26 @@
                         <span class="task-title-sp">{{ideia.descricao}}</span>
                     </div><br/>
                     <div class="task-title pull-left">
-                        <span class="sp-title">Enviada em: 
-                            {% if(lang['lang'] == 'en') %}
-                                {{ date('m/d/Y', ideia.criacaoDt) }}
-                            {% else %}
+                        <span class="sp-title">{{lang['enviada_em']}}: 
+                            {% if(lang['lang'] == 'pt-BR') %}
                                 {{ date('d/m/Y', ideia.criacaoDt) }}
+                            {% else %}
+                                {{ date('m/d/Y', ideia.criacaoDt) }}
                             {% endif %}
                         </span>
                     </div>
                     <div id={{ideia.id}} class="task-title pull-right">
                         {%if(ideia.criacaoDt != '' AND ideia.resposta == '' )%}
-                            <span class="badge bg-important">Aguardando Aprovação</span>
+                            <span class="badge bg-important">{{lang['aguardando_aprovacao']}}</span>
                         {%elseif(ideia.resposta == "Y")%}
-                            <span class="badge bg-info">Parabéns!!! Ideia aprovada</span>
+                            <span class="badge bg-info">{{lang['parabens_ideia_aprovada']}}</span>
                         {%endif%}
                     </div>
                 </li>
                 {% elsefor %}
                 <li class="list-primary text-center">
                     <div class="task-title">
-                        <span class="task-title-sp">Nenhuma ideia enviada até o momento!!!</span>
+                        <span class="task-title-sp">{{lang['nenhuma_ideia_momento']}}</span>
                     </div>
                 </li>
                 {% endfor %}
@@ -35,24 +35,25 @@
             <div id="ul_ideia" class="container-fluid box1" style="display: none">
                     <form role="form" class="form-ideia" id="form-ideia">
                         <div class="form-group col-lg-12"> 
-                            <input type="text" id="txt_titulo" name="txt_titulo" placeholder="Informe um título para a ideia!!!" class="form-control"></textarea>
-                            <label id="txt_tituloId-error" class="error pull-left display-none"  for="txt_titulo">Campo obrigatório</label>
+                            <input type="text" id="txt_titulo" name="txt_titulo" placeholder="{{lang['informe_titulo_ideia']}}" class="form-control"></textarea>
+                            <label id="txt_tituloId-error" class="error pull-left display-none"  for="txt_titulo">{{lang['campo_obrigatorio']}}</label>
                         </div><br/>
                         <div class="form-group col-lg-12"> 
-                            <textarea id="txt_ideia" name="txt_ideia" placeholder="Descreva sua ideia, envie e seja reconhecido pela empresa!!!" class="form-control"></textarea>
-                            <label id="txt_ideiaId-error" class="error pull-left display-none"  for="txt_ideia">Campo obrigatório</label>
+                            <textarea id="txt_ideia" name="txt_ideia" placeholder="{{lang['descreva_sua_ideia']}}" class="form-control"></textarea>
+                            <label id="txt_ideiaId-error" class="error pull-left display-none"  for="txt_ideia">{{lang['campo_obrigatorio']}}</label>
                         </div><br/>
                     </form>
                     <div class="form-group pull-right">
-                        <button type="button" id="btnSalvarIdeia" class="btn btn-xs btn-facebook">Enviar</button>
-                        <button type="button" id="btnCancelarIdeia" class="btn btn-xs btn-default">Cancelar</button>
+                        <button type="button" id="btnSalvarIdeia" class="btn btn-xs btn-facebook">{{lang['enviar']}}</button>
+                        <button type="button" id="btnCancelarIdeia" class="btn btn-xs btn-default">{{lang['cancelar']}}</button>
                     </div>
             </div>
     </div>
+    {{hidden_field("lang",'value':lang['lang'])}}
 </section>
 {{ javascript_include('js/colaborador/ideia/modal-ideias.js') }}
 <script type="text/javascript">  
     $(document).ready(function(){
-        ModalIdeias.init();
+        ModalIdeias.init($("#lang").val());
     });   
 </script>

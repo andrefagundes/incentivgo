@@ -15,6 +15,7 @@ class Ajuda extends Model
     const NOT_DELETED           = 'Y';
     
     public static $_instance;
+    private $_lang = array();
    
     /**
      * @var integer
@@ -75,7 +76,7 @@ class Ajuda extends Model
     {
         $this->validate(new PresenceOf(array(
           'field' => 'mensagem',
-          'message' => 'A descrição do desafio é obrigatória!!!'
+          'message' => $this->getDI()->getShared('lang')->_("MSG01", array("campo" => $this->_lang['descrição']))
         )));
         
         return $this->validationHasFailed() != true;
@@ -83,6 +84,8 @@ class Ajuda extends Model
 
     public function initialize()
     {
+        $this->_lang    = $this->getDI()->getShared('lang');
+        
         $this->belongsTo('usuarioId', 'Incentiv\Models\Usuario', 'id', array(
             'alias' => 'usuario',
             'reusable' => true
@@ -110,10 +113,10 @@ class Ajuda extends Model
         ));
 
         if (!$ajuda->save()) {
-            return array('status' => 'error', 'message'=>'Não foi possível salvar a ajuda!!!');
+            return array('status' => 'error', 'message'=> $this->_lang->_("MSG08", array("campo" => $this->_lang['ajuda'])));
         }
 
-        return array('status' => 'ok','message'=>'Ajuda salva com sucesso!!!');
+        return array('status' => 'ok','message'=>$this->_lang->_("MSG09", array("campo" => $this->_lang['ajuda'])));
         
     }
     public function ajudar(\stdClass $objAjuda){
@@ -125,10 +128,10 @@ class Ajuda extends Model
         ));
 
         if (!$this->save()) {
-            return array('status' => 'error', 'message'=>'Não foi possível salvar a ajuda!!!');
+            return array('status' => 'error', 'message'=> $this->_lang['MSG16']);
         }
 
-        return array('status' => 'ok','message'=>'Ajuda enviada com sucesso!!!');
+        return array('status' => 'ok','message'=> $this->_lang['MSG17']);
         
     }
     public function excluirAjuda(\stdClass $objAjuda){
@@ -136,12 +139,12 @@ class Ajuda extends Model
         $ajuda = $this::findFirst($objAjuda->ajudaId);
         if ($ajuda != false) {
             if ($ajuda->delete() == false) {
-                return array('status' => 'error', 'message'=>'Não foi possível excluir a ajuda!!!');
+                return array('status' => 'error', 'message'=> $this->_lang->_("MSG10", array("campo" => $this->_lang['ajuda'])));
             } else {
-                return array('status' => 'ok','message'=>'Ajuda excluída com sucesso!!!');
+                return array('status' => 'ok','message'=> $this->_lang->_("MSG11", array("campo" => $this->_lang['ajuda'])));
             }
         }else{
-              return array('status' => 'error', 'message'=>'Ajuda não foi encontrada!!!');
+              return array('status' => 'error', 'message'=> $this->_lang->_("MSG12", array("campo" => $this->_lang['ajuda'])));
         }
     }
 }
