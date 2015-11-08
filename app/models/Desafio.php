@@ -287,12 +287,12 @@ class Desafio extends Model
         }else{
             //envio dos emails para os usuários que participam do desafio criado.
             foreach ($usuarios_email as $usuario){
-//                $this->getDI()
-//                    ->getMail()
-//                    ->send($usuario['email'], "Novo Desafio", 'novo_desafio', array(
-//                    'nome'      => $usuario['nome'],  
-//                    'loginUrl' => '/session/login'
-//                ));
+                $this->getDI()
+                    ->getMail()
+                    ->send($usuario['email'], "Novo Desafio", 'novo_desafio', array(
+                    'nome'      => $usuario['nome'],  
+                    'loginUrl' => '/session/login'
+                ));
             } 
         }
 
