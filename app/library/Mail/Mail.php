@@ -37,7 +37,7 @@ class Mail extends Component
         // Settings
         $mailSettings = $this->config->mail;
         $template = $this->getTemplate($nome, $params);
-        die($template);
+
         $sendgrid = new \SendGrid('amfcom','mfcom5841');
  
         $email = new \SendGrid\Email();
