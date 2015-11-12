@@ -75,7 +75,6 @@ class MensagemExcluida extends Model
         
         if (!$this->save()) {
               foreach ($this->getMessages() as $mensagem) {
-              die($mensagem);
               break;
             }
             return array('status' => 'error', 'message'=> $this->_lang['MSG56']);
