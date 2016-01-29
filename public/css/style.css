@@ -683,7 +683,7 @@ input[type="password"] {
 	margin: 20px 30px;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 	position: absolute;
-	top: 45%;
+	top: 15%;
 	left: 0;
 	right: 0;
 }
