@@ -28,8 +28,8 @@ $(document).ready(function() {
   $('.video').fitVids();
 
   //custom scrollbar
-  $('html, .modal').niceScroll({
-    scrollspeed: 60,
+  $('.modal').niceScroll({
+    scrollspeed: 20,
     mousescrollstep: 35,
     cursorwidth: 10,
     cursorborder: 0,
