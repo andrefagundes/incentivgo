@@ -26,8 +26,8 @@ return new \Phalcon\Config(array(
             'server'    => 'smtp.sendgrid.net',
             'port'      => 465,
             'security'  => 'ssl',
-            'username'  => '',
-            'password'  => ''
+            'username'  => 'amfcom',
+            'password'  => 'mfcom5841'
         )
     ),
     'amazon' => array(
