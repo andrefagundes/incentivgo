@@ -211,6 +211,7 @@ class MensagemController extends ControllerBase {
         $objUsuario->filter         = $this->request->get("filter");
         $objUsuario->colaboradores  = $this->request->get("colaboradores");
         $objUsuario->usuarioLogado  = $this->_auth['id'];
+        $objUsuario->empresaLogada  = $this->_auth['empresaId'];
         $objUsuario->ativo          = Usuario::NOT_DELETED;
 
         $resultUsuarios = Usuario::build()->fetchAllUsuariosDesafio($objUsuario);

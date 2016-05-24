@@ -312,6 +312,8 @@ class Usuario extends Model
 
         $usuario = Usuario::query()->columns(array('id','text'=>'nome'));
         
+        $usuario->where("empresaId = {$objUsuario->empresaLogada}");
+        
         if($objUsuario->filter)
         {
            $usuario->andwhere( "nome LIKE('%{$objUsuario->filter}%') OR 
@@ -327,7 +329,7 @@ class Usuario extends Model
         }
         
         $usuario->notInWhere('id', array($objUsuario->usuarioLogado));
-  
+        
         $usuario->orderBy('nome');
 
         return $usuario->execute()->toArray();
