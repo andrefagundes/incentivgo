@@ -4,8 +4,8 @@ return new \Phalcon\Config(array(
         'adapter'   => 'Mysql',
         'host'      => 'localhost',
         'port'      => '52303',
-        'username'  => 'andremfagundes',
-        'password'  => '98^L3yF `x:3IJ4i}Kj=bGhx-+,.`3lc-(uy,rMQ1Ad <&JI2>:TuWE8{jy)+y|+',
+        'username'  => '',
+        'password'  => '',
         'dbname'    => 'incentiv_amf'
     ),
     'application' => array(
@@ -26,8 +26,8 @@ return new \Phalcon\Config(array(
             'server'    => 'smtp.sendgrid.net',
             'port'      => 465,
             'security'  => 'ssl',
-            'username'  => 'amfcom',
-            'password'  => 'mfcom5841'
+            'username'  => '',
+            'password'  => ''
         )
     ),
     'amazon' => array(
